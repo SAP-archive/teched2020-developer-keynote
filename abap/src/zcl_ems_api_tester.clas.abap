@@ -22,7 +22,7 @@ CLASS zcl_ems_api_tester IMPLEMENTATION.
       out->write( lo_exp->get_text(  ) ).
     ENDTRY.
 
-* Write out subscription
+* Write out subscriptions
     out->write( lo_ems_manager->get_subscriptions( ) ).
 
 
