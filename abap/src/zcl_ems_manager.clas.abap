@@ -16,7 +16,6 @@ CLASS zcl_ems_manager DEFINITION
                                                iv_message        TYPE string
                                      RETURNING VALUE(r_response) TYPE string.
     METHODS consume_message_from_queue IMPORTING iv_queue_name     TYPE string
-                                               iv_message        TYPE string
                                      RETURNING VALUE(r_response) TYPE string.
 *    METHODS acknowledge_msg_consumption.
 *    METHODS create_subscription.
@@ -46,6 +45,8 @@ CLASS zcl_ems_manager DEFINITION
 CLASS zcl_ems_manager IMPLEMENTATION.
   METHOD factory.
     CREATE OBJECT manager.
+
+* Retrieve credentials and tokens from secure area - to be implemented, for now hardcode.
     manager->gv_url = '<insert messaging service here'.
     manager->gv_user = ''.
     manager->gv_password = ''.
@@ -78,8 +79,8 @@ CLASS zcl_ems_manager IMPLEMENTATION.
 
      r_response = execute_ems_request(
                         iv_http_action = if_web_http_client=>post
-                        iv_uri_path = |/messagingrest/v1/queues/{ iv_queue_name }/messages/consumption|
-                        iv_request_text = iv_message ).
+                        iv_uri_path = |/messagingrest/v1/queues/{ iv_queue_name }/messages/consumption| ).
+
  endmethod.
 
   METHOD get_subscription.

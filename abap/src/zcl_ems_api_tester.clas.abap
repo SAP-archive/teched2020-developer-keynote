@@ -18,8 +18,8 @@ CLASS zcl_ems_api_tester IMPLEMENTATION.
 
     TRY.
         DATA(lo_ems_manager) =  zcl_ems_manager=>factory(  ).
-      CATCH: cx_http_dest_provider_error, cx_web_http_client_error into data(lo_exp).
-      out->write( lo_exp->get_text(  ) ).
+      CATCH: cx_http_dest_provider_error, cx_web_http_client_error into data(lx_exp).
+      out->write( lx_exp->get_text(  ) ).
     ENDTRY.
 
 * Write out subscriptions
