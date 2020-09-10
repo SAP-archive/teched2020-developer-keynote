@@ -15,7 +15,9 @@ CLASS zcl_ems_manager DEFINITION
     METHODS publish_message_to_topic IMPORTING iv_topic_name     TYPE string
                                                iv_message        TYPE string
                                      RETURNING VALUE(r_response) TYPE string.
-*    METHODS consume_message_from_queue.
+    METHODS consume_message_from_queue IMPORTING iv_queue_name     TYPE string
+                                               iv_message        TYPE string
+                                     RETURNING VALUE(r_response) TYPE string.
 *    METHODS acknowledge_msg_consumption.
 *    METHODS create_subscription.
     METHODS get_subscription  IMPORTING iv_subscription_name TYPE string
@@ -71,6 +73,14 @@ CLASS zcl_ems_manager IMPLEMENTATION.
                         iv_request_text = iv_message ).
 
   ENDMETHOD.
+
+ method consume_message_from_queue.
+
+     r_response = execute_ems_request(
+                        iv_http_action = if_web_http_client=>post
+                        iv_uri_path = |/messagingrest/v1/queues/{ iv_queue_name }/messages/consumption|
+                        iv_request_text = iv_message ).
+ endmethod.
 
   METHOD get_subscription.
 
