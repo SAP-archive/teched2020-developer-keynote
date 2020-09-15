@@ -9,7 +9,7 @@ CLASS zcl_ems_manager DEFINITION
                 VALUE(manager) TYPE REF TO zcl_ems_manager
       RAISING   cx_http_dest_provider_error
                 cx_web_http_client_error.
-    methods get_token returning value(r_token) type string.
+
     METHODS publish_message_to_queue IMPORTING iv_queue_name     TYPE string
                                                iv_message        TYPE string
                                      RETURNING VALUE(r_response) TYPE string.
@@ -55,10 +55,6 @@ CLASS zcl_ems_manager IMPLEMENTATION.
 
   ENDMETHOD.
 
-  method get_token.
-
-  endmethod.
-
   METHOD publish_message_to_queue.
 
     r_response = execute_ems_request(
@@ -85,14 +81,14 @@ CLASS zcl_ems_manager IMPLEMENTATION.
 
  endmethod.
 
-  METHOD get_subscription.
+  METHOD get_subscription.  "test done
 
     r_response = execute_ems_request(
                         iv_uri_path = |/messagingrest/v1/subscriptions/{ iv_subscription_name }| ).
 
   ENDMETHOD.
 
-  METHOD get_subscriptions.
+  METHOD get_subscriptions. "test done
 
     r_response = execute_ems_request(
                         iv_uri_path = |/messagingrest/v1/subscriptions| ).
@@ -114,23 +110,24 @@ CLASS zcl_ems_manager IMPLEMENTATION.
         DATA(lo_http_client) = cl_web_http_client_manager=>create_by_http_destination(
                                  i_destination = cl_http_destination_provider=>create_by_url( gv_token_url ) ).
         DATA(lo_request) = lo_http_client->get_http_request( ).
-
         lo_request->set_authorization_basic( i_username = gv_user i_password = gv_password ).
         lo_request->set_header_field( i_name = 'Content-Type' i_value = 'application/json' ).
+
         DATA(lo_response) = lo_http_client->execute( i_method = if_web_http_client=>post ).
         /ui2/cl_json=>deserialize( EXPORTING json = lo_response->get_text( )
                                    CHANGING data = ls_token ).
         gv_access_token = ls_token-access_token.
 
-* Set access token in header
+
+* Setup primary request
+        lo_request->set_uri_path( i_uri_path = gv_em_url && iv_uri_path ).
         lo_request->set_header_field( i_name = 'Authorization' i_value = |Bearer { gv_access_token }| ).
         lo_request->set_header_field( i_name  = 'x-qos' i_value = '0' ).
-
-        lo_request->set_uri_path( i_uri_path = gv_em_url && iv_uri_path ).
         if iv_request_text is supplied.
           lo_request->set_text( iv_request_text ).
         endif.
 
+* Execute request
         data ls_status type if_web_http_response=>http_status.
         case iv_http_action.
           when if_web_http_client=>get or if_web_http_client=>post.
