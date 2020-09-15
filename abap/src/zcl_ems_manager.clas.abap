@@ -9,6 +9,7 @@ CLASS zcl_ems_manager DEFINITION
                 VALUE(manager) TYPE REF TO zcl_ems_manager
       RAISING   cx_http_dest_provider_error
                 cx_web_http_client_error.
+    methods get_token returning value(r_token) type string.
     METHODS publish_message_to_queue IMPORTING iv_queue_name     TYPE string
                                                iv_message        TYPE string
                                      RETURNING VALUE(r_response) TYPE string.
@@ -26,10 +27,11 @@ CLASS zcl_ems_manager DEFINITION
   PROTECTED SECTION.
   PRIVATE SECTION.
 
-    DATA: gv_url TYPE string.
+    DATA: gv_em_url TYPE string.
+    data: gv_token_url type string.
+    data: gv_access_token type string.
     DATA: gv_user TYPE string.
     DATA: gv_password TYPE string.
-    DATA: go_http_client TYPE REF TO  if_web_http_client.
 
     METHODS execute_ems_request
       IMPORTING iv_uri_path       TYPE string
@@ -46,16 +48,16 @@ CLASS zcl_ems_manager IMPLEMENTATION.
   METHOD factory.
     CREATE OBJECT manager.
 
-* Retrieve credentials and tokens from secure area - to be implemented, for now hardcode.
-    manager->gv_url = '<insert messaging service here'.
-    manager->gv_user = ''.
-    manager->gv_password = ''.
-
-    manager->go_http_client = cl_web_http_client_manager=>create_by_http_destination(
-             i_destination = cl_http_destination_provider=>create_by_url( manager->gv_url ) ).
+    manager->gv_em_url = zcl_ems_connection=>get_em_url(  ).
+    manager->gv_token_url = zcl_ems_connection=>get_token_url(  ).
+    manager->gv_user = zcl_ems_connection=>get_user( ).
+    manager->gv_password = zcl_ems_connection=>get_password(  ).
 
   ENDMETHOD.
 
+  method get_token.
+
+  endmethod.
 
   METHOD publish_message_to_queue.
 
@@ -93,28 +95,38 @@ CLASS zcl_ems_manager IMPLEMENTATION.
   METHOD get_subscriptions.
 
     r_response = execute_ems_request(
-                        iv_uri_path = |/messagingrest/v1/subscriptions| ). "&$format=json
+                        iv_uri_path = |/messagingrest/v1/subscriptions| ).
 
   ENDMETHOD.
 
-  method execute_ems_request.
+  METHOD execute_ems_request.
 
-    try.
+    TYPES: BEGIN OF ty_token,
+             access_token TYPE string,
+             token_type   TYPE string,
+             expires_in   TYPE string,
+           END OF ty_token.
+    DATA: ls_token TYPE ty_token.
 
-        data(lo_http_client) = cl_web_http_client_manager=>create_by_http_destination(
-                                 i_destination = cl_http_destination_provider=>create_by_url( gv_url ) ).
-        data(lo_request) = lo_http_client->get_http_request( ).
+    TRY.
+
+* First get access token
+        DATA(lo_http_client) = cl_web_http_client_manager=>create_by_http_destination(
+                                 i_destination = cl_http_destination_provider=>create_by_url( gv_token_url ) ).
+        DATA(lo_request) = lo_http_client->get_http_request( ).
 
         lo_request->set_authorization_basic( i_username = gv_user i_password = gv_password ).
+        lo_request->set_header_field( i_name = 'Content-Type' i_value = 'application/json' ).
+        DATA(lo_response) = lo_http_client->execute( i_method = if_web_http_client=>post ).
+        /ui2/cl_json=>deserialize( EXPORTING json = lo_response->get_text( )
+                                   CHANGING data = ls_token ).
+        gv_access_token = ls_token-access_token.
 
-        if iv_http_action <> if_web_http_client=>get.
-          lo_request->set_header_field( i_name = 'X-CSRF-Token' i_value = 'Fetch' ).
-          lo_request->set_header_field( i_name = 'Content-Type' i_value = 'application/json' ).
-          data(lo_response) = lo_http_client->execute( i_method = if_web_http_client=>get ).
-          lo_http_client->set_csrf_token( ).
-        endif.
+* Set access token in header
+        lo_request->set_header_field( i_name = 'Authorization' i_value = |Bearer { gv_access_token }| ).
+        lo_request->set_header_field( i_name  = 'x-qos' i_value = '0' ).
 
-        lo_request->set_uri_path( i_uri_path = gv_url && iv_uri_path ).
+        lo_request->set_uri_path( i_uri_path = gv_em_url && iv_uri_path ).
         if iv_request_text is supplied.
           lo_request->set_text( iv_request_text ).
         endif.
@@ -132,10 +144,10 @@ CLASS zcl_ems_manager IMPLEMENTATION.
         endcase.
         lo_http_client->close( ).
 
-      catch cx_http_dest_provider_error cx_web_http_client_error into data(lx_error).
+      CATCH cx_http_dest_provider_error cx_web_http_client_error INTO DATA(lx_error).
         r_response =  lx_error->get_text( ).
-    endtry.
+    ENDTRY.
 
-  endmethod.
+  ENDMETHOD.
 
 ENDCLASS.
