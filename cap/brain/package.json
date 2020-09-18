@@ -1,0 +1,26 @@
+{
+  "name": "brain",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/xb-msg-amqp-v100": "latest",
+    "@sap/cds": "^4",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "sqlite3": "^4"
+  },
+  "scripts": {
+    "start": "npx cds run"
+  },
+  "cds": {
+    "requires": {
+      "messaging": {
+        "kind": "enterprise-messaging"
+      }
+    }
+  }
+}
