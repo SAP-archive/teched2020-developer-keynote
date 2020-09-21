@@ -20,6 +20,12 @@
     "requires": {
       "messaging": {
         "kind": "enterprise-messaging"
+      },
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": "brain.db"
+        }
       }
     }
   }
