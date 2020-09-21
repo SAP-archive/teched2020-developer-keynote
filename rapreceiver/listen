@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -o errexit
+
+# Listen to given topic
+# - create temporary queue
+# - subscribe queue to the given topic
+# - consume messages received on that queue
+# - output the consumed messages to STDOUT
+
+
+# MAIN ---------------------------------------------------------------------------
+
+topic=$1
+queue=$(date "+%s")
+webhook_app="webhook"
+webhook_url="https://webhook-proud-bandicoot-rn.cfapps.eu10.hana.ondemand.com"
+webhook_subscription_name="whs-$queue"
+
+if [[ -z "$topic" ]]; then
+  echo Specify topic
+  exit 1
+fi
+
+echo Creating queue "$queue"
+./management create_update_queue "$queue"
+sleep 1
+./management create_update_queue_subscription "$queue" "$topic"
+
+./messaging create_webhook_subscription "$webhook_subscription_name" "$queue" "$webhook_url"
+
+
+cf logs "$webhook_app" | grep '💥'
+
+
+###
+
+#./messaging delete_webhook_subscription "$webhooksubscription"
+#./management delete_queue "$queue"
