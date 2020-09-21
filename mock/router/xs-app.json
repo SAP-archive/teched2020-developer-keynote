@@ -1,0 +1,12 @@
+{
+  "authenticationMethod": "none",
+  "routes": [
+    {
+      "authenticationType": "none",
+      "csrfProtection": false,
+      "source": "^(.*)$",
+      "destination": "apihub_sandbox",
+      "target": "s4hanacloud/$1"
+    }
+  ]
+}
