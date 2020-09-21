@@ -1,0 +1,19 @@
+ID: s4-mock
+_schema-version: "2.1"
+version: 1.0.0
+
+modules:
+  - name: s4-mock-router
+    type: approuter.nodejs
+    path: router
+    parameters:
+      disk-quota: 128M
+      memory: 128M
+    requires:
+      - name: s4-mock-destination
+resources:
+  - name: s4-mock-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-plan: lite
+      service: destination
