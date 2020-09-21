@@ -1,39 +1,64 @@
 #!/usr/bin/env bash
 
 set -o errexit
+source ./localutils
 
 # Listen to given topic
 # - create temporary queue
 # - subscribe queue to the given topic
-# - consume messages received on that queue
-# - output the consumed messages to STDOUT
+# - start the webhook endpoint
+# - create a webhook subscription to the queue
+# - monitor the output of the webhook endpoint
 
+# On interrupt, clean up:
+# - delete webhook subscription
+# - delete queue (which will delete the queue subscription)
+# - (leave the webhook endpoint running)
+
+
+# Functions ----------------------------------------------------------------------
+
+cleanup () {
+  echo
+  log Cleaning up - deleting webhook subscription "$webhook_subscription"
+  ./messaging delete_webhook_subscription "$webhook_subscription"
+
+  log Cleaning up - deleting queue "$queue"
+  ./management delete_queue "$queue"
+
+  exit 0
+}
 
 # MAIN ---------------------------------------------------------------------------
 
 topic=$1
-queue=$(date "+%s")
-webhook_app="webhook"
-webhook_url="https://webhook-proud-bandicoot-rn.cfapps.eu10.hana.ondemand.com"
-webhook_subscription_name="whs-$queue"
-
 if [[ -z "$topic" ]]; then
   echo Specify topic
   exit 1
 fi
 
-echo Creating queue "$queue"
+# Names for temporary queue and webhook subscription,
+# plus details of webhook app in the cloud.
+epoch=$(date "+%s")
+queue="queue-$epoch"
+webhook_app="webhook"
+webhook_url="https://$(cf app "$webhook_app" | awk '/^routes:/ { print $2 }')"
+webhook_subscription="whs-$epoch"
+
+
+log Creating queue "$queue"
 ./management create_update_queue "$queue"
-sleep 1
+
+log Subscribing queue "$queue" to topic "$topic"
 ./management create_update_queue_subscription "$queue" "$topic"
 
-./messaging create_webhook_subscription "$webhook_subscription_name" "$queue" "$webhook_url"
+log Attaching webhook subscription to app "$webhook_app" for queue "$queue"
+./messaging create_webhook_subscription "$webhook_subscription" "$queue" "$webhook_url"
 
-
+log Monitoring messages received at the webhook app "$webhook_app" ...
+trap cleanup SIGINT
 cf logs "$webhook_app" | grep '💥'
 
 
 ###
 
-#./messaging delete_webhook_subscription "$webhooksubscription"
-#./management delete_queue "$queue"
