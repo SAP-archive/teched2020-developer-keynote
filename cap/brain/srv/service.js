@@ -6,8 +6,6 @@ module.exports = async (srv) => {
   });
 
   srv.on("invoke", async (req) => {
-    let tx = messaging.tx(req);
-    tx.emit("CAP/FunctionInvoked", { customerID: "TestCustomer" });
 
     await messaging.tx(req).emit({
       event: "CAP/Function/Invoked",
