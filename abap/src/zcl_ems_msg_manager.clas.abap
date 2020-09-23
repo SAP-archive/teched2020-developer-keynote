@@ -4,6 +4,10 @@ CLASS zcl_ems_msg_manager DEFINITION
   CREATE PRIVATE .
 
   PUBLIC SECTION.
+
+    CONSTANTS c_pause TYPE string VALUE 'pause'.
+    CONSTANTS c_resume TYPE string VALUE 'resume'.
+
     CLASS-METHODS factory
       RETURNING
                 VALUE(manager) TYPE REF TO zcl_ems_msg_manager
@@ -11,21 +15,32 @@ CLASS zcl_ems_msg_manager DEFINITION
                 cx_web_http_client_error.
 
     METHODS publish_message_to_queue IMPORTING iv_queue_name     TYPE string
+                                               iv_qos            type string default '0'
                                                iv_message        TYPE string
                                      RETURNING VALUE(r_response) TYPE string.
     METHODS publish_message_to_topic IMPORTING iv_topic_name     TYPE string
+                                               iv_qos            type string default '0'
                                                iv_message        TYPE string
                                      RETURNING VALUE(r_response) TYPE string.
     METHODS consume_message_from_queue IMPORTING iv_queue_name     TYPE string
+                                                 iv_qos            type string default '0'
                                        EXPORTING ev_message_id     TYPE string
                                        RETURNING VALUE(r_response) TYPE string.
     METHODS acknowledge_msg_consumption IMPORTING iv_queue_name     TYPE string
                                                   iv_message_id     TYPE string
                                         RETURNING VALUE(r_response) TYPE string.
-*    METHODS create_subscription.
+    METHODS create_subscription IMPORTING iv_request_text   TYPE string
+                                RETURNING VALUE(r_response) TYPE string.
     METHODS get_subscription  IMPORTING iv_subscription_name TYPE string
                               RETURNING VALUE(r_response)    TYPE string.
     METHODS get_subscriptions RETURNING VALUE(r_response) TYPE string.
+    METHODS delete_subscription IMPORTING iv_subscription_name TYPE string
+                                RETURNING VALUE(r_response)    TYPE string.
+    METHODS trigger_subscription_handshake IMPORTING iv_subscription_name TYPE string
+                                           RETURNING VALUE(r_response)    TYPE string.
+    METHODS update_subscription_state IMPORTING iv_subscription_name TYPE string
+                                                iv_request_text      TYPE string
+                                      RETURNING VALUE(r_response)    TYPE string.
 
   PROTECTED SECTION.
   PRIVATE SECTION.
@@ -61,32 +76,32 @@ CLASS zcl_ems_msg_manager IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD publish_message_to_queue.   "tested, works.
+  METHOD publish_message_to_queue.   "test done
 
     r_response = execute_ems_request(
                         iv_http_action = if_web_http_client=>post
-                        iv_qos = '1'
+                        iv_qos = iv_qos
                         iv_uri_path = |/messagingrest/v1/queues/{ iv_queue_name }/messages|
                         iv_request_text = iv_message ).
 
   ENDMETHOD.
 
-  METHOD publish_message_to_topic.
+  METHOD publish_message_to_topic.  "test done
 
     r_response = execute_ems_request(
                         iv_http_action = if_web_http_client=>post
-                        iv_qos = '1'
+                        iv_qos = iv_qos
                         iv_uri_path = |/messagingrest/v1/topics/{ iv_topic_name }/messages|
                         iv_request_text = iv_message ).
 
   ENDMETHOD.
 
-  METHOD consume_message_from_queue.  "tested, works
+  METHOD consume_message_from_queue.  "test done, works for consumption of queue and topic messages
 
     execute_ems_request(
                      EXPORTING
                          iv_http_action = if_web_http_client=>post
-                         iv_qos = '1'
+                         iv_qos = iv_qos
                          iv_uri_path = |/messagingrest/v1/queues/{ iv_queue_name }/messages/consumption|
                      IMPORTING
                         et_header_fields = DATA(lt_header_fields)
@@ -99,11 +114,21 @@ CLASS zcl_ems_msg_manager IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD acknowledge_msg_consumption.
+  METHOD acknowledge_msg_consumption.  "test done, works  must consume a qos=1 message.
 
     r_response = execute_ems_request(
                        iv_http_action = if_web_http_client=>post
                        iv_uri_path = |/messagingrest/v1/queues/{ iv_queue_name }/messages/{ iv_message_id }/acknowledgement| ).
+
+  ENDMETHOD.
+
+  METHOD create_subscription. "test done
+
+    r_response = execute_ems_request(
+                   EXPORTING
+                     iv_uri_path      = |/messagingrest/v1/subscriptions|
+                     iv_http_action   = if_web_http_client=>post
+                     iv_request_text  = iv_request_text ).
 
   ENDMETHOD.
 
@@ -118,6 +143,31 @@ CLASS zcl_ems_msg_manager IMPLEMENTATION.
 
     r_response = execute_ems_request(
                         iv_uri_path = |/messagingrest/v1/subscriptions| ).
+
+  ENDMETHOD.
+
+  METHOD delete_subscription. "test done
+
+    r_response = execute_ems_request(
+                        iv_http_action   = if_web_http_client=>delete
+                        iv_uri_path = |/messagingrest/v1/subscriptions/{ iv_subscription_name }| ).
+
+  ENDMETHOD.
+
+  METHOD trigger_subscription_handshake.  "test done
+
+    r_response = execute_ems_request(
+                        iv_http_action   = if_web_http_client=>post
+                        iv_uri_path = |/messagingrest/v1/subscriptions/{ iv_subscription_name }/handshake| ).
+
+  ENDMETHOD.
+
+  METHOD update_subscription_state.  "test done
+
+    r_response = execute_ems_request(
+                        iv_http_action   = if_web_http_client=>put
+                        iv_uri_path = |/messagingrest/v1/subscriptions/{ iv_subscription_name }/state|
+                        iv_request_text  = iv_request_text ) .
 
   ENDMETHOD.
 
@@ -173,7 +223,9 @@ CLASS zcl_ems_msg_manager IMPLEMENTATION.
               es_status = lo_response->get_status( ).
             ENDIF.
 
-          WHEN if_web_http_client=>patch OR if_web_http_client=>delete.
+          WHEN if_web_http_client=>patch OR
+               if_web_http_client=>delete OR
+               if_web_http_client=>put.
             lo_response = lo_http_client->execute( i_method = iv_http_action ).
             ls_status = lo_response->get_status( ).
             r_response = |Response is: { ls_status-code } { ls_status-reason }.| .
