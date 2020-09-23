@@ -7,7 +7,10 @@
    <FOLDER_LOGIC>PREFIX</FOLDER_LOGIC>
    <IGNORE>
     <item>/.gitignore</item>
-    <item>/LICENSE</item>
+    <item>/LICENSES/</item>
+    <item>/cap/brain/</item>
+    <item>/mock/</item>
+    <item>/rapreceiver/</item>
     <item>/README.md</item>
     <item>/package.json</item>
     <item>/.travis.yml</item>
