@@ -22,20 +22,57 @@ CLASS zcl_ems_api_tester IMPLEMENTATION.
         out->write( lx_exp->get_text(  ) ).
     ENDTRY.
 
+
+* Create a subscription
+*   out->write( lo_ems_manager->create_subscription( iv_request_text =  `{` && |\r\n|  &&
+*                                                                        `   "name": "testrichsub",` && |\r\n|  &&
+*                                                                        `   "address": "queue:abaptestqueue",` && |\r\n|  &&
+*                                                                        `   "qos": 1,` && |\r\n|  &&
+*                                                                        `   "pushConfig": {` && |\r\n|  &&
+*                                                                        `       "type": "webhook",` && |\r\n|  &&
+*                                                                        `       "endpoint": "https://mywebhook.com/messages",` && |\r\n|  &&
+*                                                                        `       "exemptHandshake": true` && |\r\n|  &&
+*                                                                        `   }` && |\r\n|  &&
+*                                                                        `}`  ) ).
+
 * Write out subscriptions
 *    out->write( lo_ems_manager->get_subscriptions( ) ).
 
 * Write out a subscription
-*    out->write( lo_ems_manager->get_subscription( 'whsub_rh' ) ).
+*   out->write( lo_ems_manager->get_subscription( 'testrichsub' ) ).
 
-*    out->write( lo_ems_manager->publish_message_to_topic(
-*                  iv_topic_name = 'richtest'
-*                  iv_message    = 'This is a test message for topic richteste'
-*                ) ).
+* Trigger subscription handshake
+*  out->write( lo_ems_manager->trigger_subscription_handshake( iv_subscription_name =  'testrichsub' ) ).
 
+* Update subscription state
+*  out->write( lo_ems_manager->update_subscription_state(
+*                iv_subscription_name = 'testrichsub'
+*                iv_request_text      = '{"action": "pause"}' ) ).
+
+* delete a subscription
+*   out->write( lo_ems_manager->delete_subscription( iv_subscription_name = 'testrichsub' ) ).
+
+
+* Publish a message to a topic
+*      out->write( lo_ems_manager->publish_message_to_topic(
+*                    iv_topic_name = 'abaptopic'
+*                    iv_qos        = '1'
+*                    iv_message    = '{' && |\n|  &&
+*                                    '  "data": {' && |\n|  &&
+*                                    |    "customerid": "'{ sy-index }'",| && |\n|  &&
+*                                    '    "customername": "Customer Number",' && |\n|  &&
+*                                    '    "donationcredits": "1234"' && |\n|  &&
+*                                    '    "topic": "abaptopic"' && |\n|  &&
+*                                    '  }' && |\n|  &&
+*                                    '}'
+*                  ) ).
+
+
+* Publish message to queue
 *    DO 1 TIMES.
 *      out->write( lo_ems_manager->publish_message_to_queue(
 *                    iv_queue_name = 'abaptestqueue'
+*                    iv_qos        = '1'
 *                    iv_message    = '{' && |\n|  &&
 *                                    '  "data": {' && |\n|  &&
 *                                    |    "customerid": "'{ sy-index }'",| && |\n|  &&
@@ -46,12 +83,13 @@ CLASS zcl_ems_api_tester IMPLEMENTATION.
 *                  ) ).
 *    ENDDO.
 
-
-    DO 1 TIMES.
+* Consume the messages and acknowledge them
+*    DO 1 TIMES.
 
       data lv_message_id type string.
       out->write( lo_ems_manager->consume_message_from_queue( exporting
                                                                  iv_queue_name = 'abaptestqueue'
+                                                                 iv_qos = '1'
                                                               importing
                                                                  ev_message_id = lv_message_id ) ).
 * Once you have processed the message acknowledge it.
@@ -62,7 +100,9 @@ CLASS zcl_ems_api_tester IMPLEMENTATION.
                   ) ).
       endif.
 
-    ENDDO.
+*    ENDDO.
+
+
 
   ENDMETHOD.
 

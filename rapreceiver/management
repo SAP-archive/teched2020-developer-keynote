@@ -1,0 +1,151 @@
+#!/usr/bin/env bash
+
+set -o errexit
+
+# MANAGEMENT CLIENT
+
+basepath=hub/rest/api/v1/management/messaging
+
+output=silent # or verbose
+
+source ./settings
+source ./localutils # getservicekey getval gettoken
+
+
+# Main functions -----------------------------------------------------------------
+
+function create_update_queue () {
+  local queue=$1
+  if [[ -z "$queue" ]]; then
+    err Usage: create_update_queue queue
+    exit 1
+  fi
+  curl \
+    --$output \
+    --header "Authorization: Bearer $token" \
+    --request PUT \
+    "$uri/$basepath/queues/$queue" \
+  | jq .
+}
+
+function delete_queue () {
+  local queue=$1
+  if [[ -z "$queue" ]]; then
+    err Usage: delete_queue queue
+    exit 1
+  fi
+  curl \
+    --$output \
+    --header "Authorization: Bearer $token" \
+    --request DELETE \
+    "$uri/$basepath/queues/$queue"
+}
+
+function get_queue () {
+  local queue=$1
+  if [[ -z "$queue" ]]; then
+    err Usage: get_queue queue
+    exit 1
+  fi
+  curl \
+    --$output \
+    --header "Authorization: Bearer $token" \
+    --request GET \
+    "$uri/$basepath/queues/$queue" \
+  | jq .
+}
+
+function list_queues () {
+  curl \
+    --$output \
+    --header "Authorization: Bearer $token" \
+    --request GET \
+    "$uri/$basepath/queues" \
+  | jq .
+}
+
+function list_queue_subscriptions () {
+  local queue=$1
+  if [[ -z "$queue" ]]; then
+    err Usage: list_queue_subscriptions queue
+    exit 1
+  fi
+  curl \
+    --$output \
+    --header "Authorization: Bearer $token" \
+    --request GET \
+    "$uri/$basepath/queues/$queue/subscriptions" \
+  | jq .
+}
+
+function create_update_queue_subscription () {
+  local queue=$1
+  local topic=$2
+  if [[ -z "$queue" ]] || [[ -z "$topic" ]]; then
+    err Usage: create_update_queue_subscription queue topic
+    exit 1
+  fi
+  curl \
+    --$output \
+    --header "Authorization: Bearer $token" \
+    --request PUT \
+    "$uri/$basepath/queues/$queue/subscriptions/$topic" \
+  | jq .
+}
+
+function delete_queue_subscription () {
+  local queue=$1
+  local topic=$2
+  if [[ -z "$queue" ]] || [[ -z "$topic" ]]; then
+    err Usage: delete_queue_subscription queue topic
+    exit 1
+  fi
+  curl \
+    --$output \
+    --header "Authorization: Bearer $token" \
+    --request DELETE \
+    "$uri/$basepath/queues/$queue/subscriptions/$topic"
+}
+
+# MAIN ---------------------------------------------------------------------------
+
+# All the possible core functions
+functions=$(cat <<EO_FUNCTIONS
+create_update_queue
+delete_queue
+get_queue
+list_queues
+list_queue_subscriptions
+create_update_queue_subscription
+delete_queue_subscription
+EO_FUNCTIONS
+)
+
+command=$1
+
+# Either we're being asked to list the functions (for bash completion)
+# or a function is being invoked.
+case $command in
+  completion|"")
+    echo "$functions"
+    ;;
+  *)
+    if [[ ! "$functions" =~ $command ]]; then
+      err Command \""$command"\" is not recognised
+      exit 1
+    fi
+    shift
+
+    # Retrieve service key and parse out relevant sections
+    sk=$(getservicekey "$instance" "$servicekey")
+    management=$(getval "$sk" .management[0])
+
+    # Determine API call details for MANAGEMENT incl OAuth 2.0 token
+    uri=$(getval "$management" .uri)
+    oauth=$(getval "$management" .oa2)
+    token=$(gettoken "$oauth")
+
+    # Now we can run the requested command
+    $command "$@"
+    ;;
+esac
