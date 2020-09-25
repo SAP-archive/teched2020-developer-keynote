@@ -17,3 +17,5 @@ resources:
     parameters:
       service-plan: lite
       service: destination
+      path: ./destinations.json 
+      
