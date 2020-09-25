@@ -1,0 +1,10 @@
+#
+#Fri Sep 25 10:21:08 UTC 2020
+URL=https\://sandbox.api.sap.com
+Name=apihub_sandbox
+HTML5.DynamicDestination=true
+ProxyType=Internet
+Type=HTTP
+WebIDEEnabled=true
+WebIDEUsage=apihub_sandbox
+Authentication=NoAuthentication
