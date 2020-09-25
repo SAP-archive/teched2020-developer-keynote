@@ -14,6 +14,14 @@ This mock application redirects all incoming traffic to the SAP API Business Hub
 
 1. Create a destination in the SAP Cloud Platform cockpit with the following configuration:
     ![Destination](destination.png)
+    
+    Additional properties are:
+    
+    ```
+    HTML5.DynamicDestination: true
+    WebIDEEnabled: true
+    WebIDEUsage: apihub_sandbox
+    ```
 
 2. Get your API key from [SAP API Business Hub](https://api.sap.com) and copy the value.
 3. Insert the value in the `API_KEY` property in `default-env.json`.
