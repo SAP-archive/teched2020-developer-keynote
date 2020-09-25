@@ -40,7 +40,10 @@ If needed, you can also adjust parameters such as the timeout for all redirects.
     ```
     cf deploy mta_archives/s4-mock_1.0.0.mtar
     ```
-3. Access <https://YOUR-APP.hana.ondemand.com/sap/opu/odata/sap/API_SALES_ORDER_SRV/$metadata> to see that in action.
+3. Access <https://YOUR-APP.hana.ondemand.com/sap/opu/odata/sap/API_SALES_ORDER_SRV/$metadata> to see that in action. Useful command:
+    ```
+    open `cf app s4-mock-router | awk '/^routes/ { print "https://"$2"/sap/opu/odata/sap/API_SALES_ORDER_SRV/" }'`
+    ```
 
 ## Local run
 
