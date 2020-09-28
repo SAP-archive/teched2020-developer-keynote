@@ -25,7 +25,7 @@ id: $(uuidgen)
 time: $(date '+%Y-%m-%dT%H:%M:%SZ')
 datacontenttype: application/json
 data:
-  SalesOrder: $salesorder
+  SalesOrder: "$salesorder"
 EO_SALES_ORDER_CREATED
 }
 
@@ -39,7 +39,7 @@ _publish_message () {
     --header "x-qos: $qos" \
     --header 'Content-Type: application/json' \
     --request POST \
-    --data '{"message":"'"$message"'"}' \
+    --data "$message" \
     "$uri/$basepath/$targettype/$target/messages"
 }
 
@@ -69,44 +69,28 @@ publish_message_to_topic () {
 
 # MAIN ----------------------------------------------------------------------
 
-# All the possible core functions
+# We require a sales order number to be specified, and a fixed topic
+# to publish the message.
+topic="salesorder%2Fcreated"
+salesordernumber=$1
 
-functions=$(cat <<EO_FUNCTIONS
-publish_message_to_topic
-publish_message_to_queue
-EO_FUNCTIONS
-)
+if [[ -z "$salesordernumber" ]]; then
+  err "Sales order number must be specified"
+  exit 1
+fi
 
-_build_payload_sales_order_created 123
-exit 0
-command=$1
+# Retrieve service key and parse out relevant sections.
+sk=$(getservicekey "$instance" "$servicekey")
+messaging=$(getval "$sk" .messaging)
+httprest=$(getval "$messaging" '.[] | select(.broker.type == "saprestmgw")')
 
-# Either we're being asked to list the functions (for bash completion)
-# or a function is being invoked.
-case $command in
-  completion|"")
-    echo "$functions"
-    ;;
-  *)
-    # TODO make this check more accurate
-    if [[ ! "$functions" =~ $command ]]; then
-      err Command \""$command"\" is not recognised
-      exit 1
-    fi
-    shift
+# Determine API call details for MESSAGING-HTTPREST incl OAuth 2.0 token
+uri=$(getval "$httprest" .uri)
+oauth=$(getval "$httprest" .oa2)
+token=$(gettoken "$oauth")
 
-    # Retrieve service key and parse out relevant sections.
-    sk=$(getservicekey "$instance" "$servicekey")
-    messaging=$(getval "$sk" .messaging)
-    httprest=$(getval "$messaging" '.[] | select(.broker.type == "saprestmgw")')
+message=$(_build_payload_sales_order_created "$salesordernumber")
+log Publishing sales order created event for "$salesordernumber"
+publish_message_to_topic "$topic" "$message"
 
-    # Determine API call details for MESSAGING-HTTPREST incl OAuth 2.0 token
-    uri=$(getval "$httprest" .uri)
-    oauth=$(getval "$httprest" .oa2)
-    token=$(gettoken "$oauth")
-
-    # Now we can run the requested command
-    $command "$@"
-    ;;
-esac
 
