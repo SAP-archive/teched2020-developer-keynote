@@ -1,0 +1,1326 @@
+{
+  "definitions": {
+    "API_SALES_ORDER_SRV": {
+      "kind": "service"
+    },
+    "API_SALES_ORDER_SRV.FunctionResult": {
+      "kind": "type",
+      "elements": {
+        "Boolean": {
+          "type": "cds.Boolean"
+        }
+      }
+    },
+    "API_SALES_ORDER_SRV.A_SalesOrder": {
+      "kind": "entity",
+      "@cds.persistence.skip": true,
+      "elements": {
+        "SalesOrder": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "SalesOrderType": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "SalesOrganization": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "DistributionChannel": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "OrganizationDivision": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "SalesGroup": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "SalesOffice": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "SalesDistrict": {
+          "type": "cds.String",
+          "length": 6
+        },
+        "SoldToParty": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "CreationDate": {
+          "type": "cds.Date"
+        },
+        "CreatedByUser": {
+          "type": "cds.String",
+          "length": 12
+        },
+        "LastChangeDate": {
+          "type": "cds.Date"
+        },
+        "SenderBusinessSystemName": {
+          "type": "cds.String",
+          "length": 60
+        },
+        "ExternalDocumentID": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "LastChangeDateTime": {
+          "type": "cds.Timestamp"
+        },
+        "PurchaseOrderByCustomer": {
+          "type": "cds.String",
+          "length": 35
+        },
+        "PurchaseOrderByShipToParty": {
+          "type": "cds.String",
+          "length": 35
+        },
+        "CustomerPurchaseOrderType": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "CustomerPurchaseOrderDate": {
+          "type": "cds.Date"
+        },
+        "SalesOrderDate": {
+          "type": "cds.Date"
+        },
+        "TotalNetAmount": {
+          "type": "cds.Decimal",
+          "precision": 16,
+          "scale": 3
+        },
+        "TransactionCurrency": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "SDDocumentReason": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "PricingDate": {
+          "type": "cds.Date"
+        },
+        "RequestedDeliveryDate": {
+          "type": "cds.Date"
+        },
+        "ShippingCondition": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "CompleteDeliveryIsDefined": {
+          "type": "cds.Boolean"
+        },
+        "ShippingType": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "HeaderBillingBlockReason": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "DeliveryBlockReason": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "DeliveryDateTypeRule": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "IncotermsClassification": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "IncotermsTransferLocation": {
+          "type": "cds.String",
+          "length": 28
+        },
+        "IncotermsLocation1": {
+          "type": "cds.String",
+          "length": 70
+        },
+        "IncotermsLocation2": {
+          "type": "cds.String",
+          "length": 70
+        },
+        "IncotermsVersion": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "CustomerPriceGroup": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "PriceListType": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "CustomerPaymentTerms": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "PaymentMethod": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "AssignmentReference": {
+          "type": "cds.String",
+          "length": 18
+        },
+        "ReferenceSDDocument": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "ReferenceSDDocumentCategory": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "AccountingDocExternalReference": {
+          "type": "cds.String",
+          "length": 16
+        },
+        "CustomerAccountAssignmentGroup": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "AccountingExchangeRate": {
+          "type": "cds.Decimal",
+          "precision": 9,
+          "scale": 5
+        },
+        "CustomerGroup": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "AdditionalCustomerGroup1": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "AdditionalCustomerGroup2": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "AdditionalCustomerGroup3": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "AdditionalCustomerGroup4": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "AdditionalCustomerGroup5": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "SlsDocIsRlvtForProofOfDeliv": {
+          "type": "cds.Boolean"
+        },
+        "CustomerTaxClassification1": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "CustomerTaxClassification2": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "CustomerTaxClassification3": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "CustomerTaxClassification4": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "CustomerTaxClassification5": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "CustomerTaxClassification6": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "CustomerTaxClassification7": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "CustomerTaxClassification8": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "CustomerTaxClassification9": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "TaxDepartureCountry": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "VATRegistrationCountry": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "SalesOrderApprovalReason": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "SalesDocApprovalStatus": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "OverallSDProcessStatus": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "TotalCreditCheckStatus": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "OverallTotalDeliveryStatus": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "OverallSDDocumentRejectionSts": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "to_Item": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrderItem",
+          "cardinality": {
+            "max": "*"
+          }
+        },
+        "to_Partner": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrderHeaderPartner",
+          "cardinality": {
+            "max": "*"
+          }
+        },
+        "to_PaymentPlanItemDetails": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SlsOrdPaymentPlanItemDetails",
+          "cardinality": {
+            "max": "*"
+          }
+        },
+        "to_PricingElement": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrderHeaderPrElement",
+          "cardinality": {
+            "max": "*"
+          }
+        },
+        "to_Text": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrderText",
+          "cardinality": {
+            "max": "*"
+          }
+        }
+      }
+    },
+    "API_SALES_ORDER_SRV.A_SalesOrderHeaderPartner": {
+      "kind": "entity",
+      "@cds.persistence.skip": true,
+      "elements": {
+        "SalesOrder": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "PartnerFunction": {
+          "key": true,
+          "type": "cds.String",
+          "length": 2
+        },
+        "Customer": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "Supplier": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "Personnel": {
+          "type": "cds.String",
+          "length": 8
+        },
+        "ContactPerson": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "to_SalesOrder": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrder"
+        }
+      }
+    },
+    "API_SALES_ORDER_SRV.A_SalesOrderHeaderPrElement": {
+      "kind": "entity",
+      "@cds.persistence.skip": true,
+      "elements": {
+        "SalesOrder": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "PricingProcedureStep": {
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "PricingProcedureCounter": {
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "ConditionType": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "PricingDateTime": {
+          "type": "cds.String",
+          "length": 14
+        },
+        "ConditionCalculationType": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ConditionBaseValue": {
+          "type": "cds.Decimal",
+          "precision": 24,
+          "scale": 9
+        },
+        "ConditionRateValue": {
+          "type": "cds.Decimal",
+          "precision": 24,
+          "scale": 9
+        },
+        "ConditionCurrency": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "ConditionQuantity": {
+          "type": "cds.Decimal",
+          "precision": 5,
+          "scale": 0
+        },
+        "ConditionQuantityUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ConditionQuantitySAPUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ConditionQuantityISOUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ConditionCategory": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ConditionIsForStatistics": {
+          "type": "cds.Boolean"
+        },
+        "PricingScaleType": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ConditionOrigin": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "IsGroupCondition": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ConditionRecord": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "ConditionSequentialNumber": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "TaxCode": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "WithholdingTaxCode": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "CndnRoundingOffDiffAmount": {
+          "type": "cds.Decimal",
+          "precision": 6,
+          "scale": 3
+        },
+        "ConditionAmount": {
+          "type": "cds.Decimal",
+          "precision": 16,
+          "scale": 3
+        },
+        "TransactionCurrency": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "ConditionControl": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ConditionInactiveReason": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ConditionClass": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "PrcgProcedureCounterForHeader": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "FactorForConditionBasisValue": {
+          "type": "cds.Double"
+        },
+        "StructureCondition": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "PeriodFactorForCndnBasisValue": {
+          "type": "cds.Double"
+        },
+        "PricingScaleBasis": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ConditionScaleBasisValue": {
+          "type": "cds.Decimal",
+          "precision": 24,
+          "scale": 9
+        },
+        "ConditionScaleBasisUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ConditionScaleBasisCurrency": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "CndnIsRelevantForIntcoBilling": {
+          "type": "cds.Boolean"
+        },
+        "ConditionIsManuallyChanged": {
+          "type": "cds.Boolean"
+        },
+        "ConditionIsForConfiguration": {
+          "type": "cds.Boolean"
+        },
+        "VariantCondition": {
+          "type": "cds.String",
+          "length": 26
+        },
+        "to_SalesOrder": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrder"
+        }
+      }
+    },
+    "API_SALES_ORDER_SRV.A_SalesOrderItem": {
+      "kind": "entity",
+      "@cds.persistence.skip": true,
+      "elements": {
+        "SalesOrder": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "SalesOrderItem": {
+          "key": true,
+          "type": "cds.String",
+          "length": 6
+        },
+        "HigherLevelItem": {
+          "type": "cds.String",
+          "length": 6
+        },
+        "SalesOrderItemCategory": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "SalesOrderItemText": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "PurchaseOrderByCustomer": {
+          "type": "cds.String",
+          "length": 35
+        },
+        "PurchaseOrderByShipToParty": {
+          "type": "cds.String",
+          "length": 35
+        },
+        "Material": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "MaterialByCustomer": {
+          "type": "cds.String",
+          "length": 35
+        },
+        "PricingDate": {
+          "type": "cds.Date"
+        },
+        "PricingReferenceMaterial": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "RequestedQuantity": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 3
+        },
+        "RequestedQuantityUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "RequestedQuantitySAPUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "RequestedQuantityISOUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ItemGrossWeight": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 3
+        },
+        "ItemNetWeight": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 3
+        },
+        "ItemWeightUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ItemWeightSAPUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ItemWeightISOUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ItemVolume": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 3
+        },
+        "ItemVolumeUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ItemVolumeSAPUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ItemVolumeISOUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "TransactionCurrency": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "NetAmount": {
+          "type": "cds.Decimal",
+          "precision": 16,
+          "scale": 3
+        },
+        "MaterialGroup": {
+          "type": "cds.String",
+          "length": 9
+        },
+        "MaterialPricingGroup": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "Batch": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "ProductionPlant": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "StorageLocation": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "DeliveryGroup": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ShippingPoint": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "ShippingType": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "DeliveryPriority": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "DeliveryDateTypeRule": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "IncotermsClassification": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "IncotermsTransferLocation": {
+          "type": "cds.String",
+          "length": 28
+        },
+        "IncotermsLocation1": {
+          "type": "cds.String",
+          "length": 70
+        },
+        "IncotermsLocation2": {
+          "type": "cds.String",
+          "length": 70
+        },
+        "ProductTaxClassification1": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ProductTaxClassification2": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ProductTaxClassification3": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ProductTaxClassification4": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ProductTaxClassification5": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ProductTaxClassification6": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ProductTaxClassification7": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ProductTaxClassification8": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ProductTaxClassification9": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "MatlAccountAssignmentGroup": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "CustomerPaymentTerms": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "CustomerGroup": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "SalesDocumentRjcnReason": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "ItemBillingBlockReason": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "SlsDocIsRlvtForProofOfDeliv": {
+          "type": "cds.Boolean"
+        },
+        "WBSElement": {
+          "type": "cds.String",
+          "length": 24
+        },
+        "ProfitCenter": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "AccountingExchangeRate": {
+          "type": "cds.Decimal",
+          "precision": 9,
+          "scale": 5
+        },
+        "ReferenceSDDocument": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "ReferenceSDDocumentItem": {
+          "type": "cds.String",
+          "length": 6
+        },
+        "SDProcessStatus": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "DeliveryStatus": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "OrderRelatedBillingStatus": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "to_Partner": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrderItemPartner",
+          "cardinality": {
+            "max": "*"
+          }
+        },
+        "to_PricingElement": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrderItemPrElement",
+          "cardinality": {
+            "max": "*"
+          }
+        },
+        "to_SalesOrder": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrder"
+        },
+        "to_ScheduleLine": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrderScheduleLine",
+          "cardinality": {
+            "max": "*"
+          }
+        },
+        "to_Text": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrderItemText",
+          "cardinality": {
+            "max": "*"
+          }
+        }
+      }
+    },
+    "API_SALES_ORDER_SRV.A_SalesOrderItemPartner": {
+      "kind": "entity",
+      "@cds.persistence.skip": true,
+      "elements": {
+        "SalesOrder": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "SalesOrderItem": {
+          "key": true,
+          "type": "cds.String",
+          "length": 6
+        },
+        "PartnerFunction": {
+          "key": true,
+          "type": "cds.String",
+          "length": 2
+        },
+        "Customer": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "Supplier": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "Personnel": {
+          "type": "cds.String",
+          "length": 8
+        },
+        "ContactPerson": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "to_SalesOrder": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrder"
+        },
+        "to_SalesOrderItem": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrderItem"
+        }
+      }
+    },
+    "API_SALES_ORDER_SRV.A_SalesOrderItemPrElement": {
+      "kind": "entity",
+      "@cds.persistence.skip": true,
+      "elements": {
+        "SalesOrder": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "SalesOrderItem": {
+          "key": true,
+          "type": "cds.String",
+          "length": 6
+        },
+        "PricingProcedureStep": {
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "PricingProcedureCounter": {
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "ConditionType": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "PricingDateTime": {
+          "type": "cds.String",
+          "length": 14
+        },
+        "ConditionCalculationType": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ConditionBaseValue": {
+          "type": "cds.Decimal",
+          "precision": 24,
+          "scale": 9
+        },
+        "ConditionRateValue": {
+          "type": "cds.Decimal",
+          "precision": 24,
+          "scale": 9
+        },
+        "ConditionCurrency": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "ConditionQuantity": {
+          "type": "cds.Decimal",
+          "precision": 5,
+          "scale": 0
+        },
+        "ConditionQuantityUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ConditionQuantitySAPUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ConditionQuantityISOUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ConditionCategory": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ConditionIsForStatistics": {
+          "type": "cds.Boolean"
+        },
+        "PricingScaleType": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "IsRelevantForAccrual": {
+          "type": "cds.Boolean"
+        },
+        "CndnIsRelevantForInvoiceList": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ConditionOrigin": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "IsGroupCondition": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ConditionRecord": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "ConditionSequentialNumber": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "TaxCode": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "WithholdingTaxCode": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "CndnRoundingOffDiffAmount": {
+          "type": "cds.Decimal",
+          "precision": 6,
+          "scale": 3
+        },
+        "ConditionAmount": {
+          "type": "cds.Decimal",
+          "precision": 16,
+          "scale": 3
+        },
+        "TransactionCurrency": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "ConditionControl": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ConditionInactiveReason": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "ConditionClass": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "PrcgProcedureCounterForHeader": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "FactorForConditionBasisValue": {
+          "type": "cds.Double"
+        },
+        "StructureCondition": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "PeriodFactorForCndnBasisValue": {
+          "type": "cds.Double"
+        },
+        "PricingScaleBasis": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ConditionScaleBasisValue": {
+          "type": "cds.Decimal",
+          "precision": 24,
+          "scale": 9
+        },
+        "ConditionScaleBasisUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ConditionScaleBasisCurrency": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "CndnIsRelevantForIntcoBilling": {
+          "type": "cds.Boolean"
+        },
+        "ConditionIsManuallyChanged": {
+          "type": "cds.Boolean"
+        },
+        "ConditionIsForConfiguration": {
+          "type": "cds.Boolean"
+        },
+        "VariantCondition": {
+          "type": "cds.String",
+          "length": 26
+        },
+        "to_SalesOrder": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrder"
+        },
+        "to_SalesOrderItem": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrderItem"
+        }
+      }
+    },
+    "API_SALES_ORDER_SRV.A_SalesOrderItemText": {
+      "kind": "entity",
+      "@cds.persistence.skip": true,
+      "elements": {
+        "SalesOrder": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "SalesOrderItem": {
+          "key": true,
+          "type": "cds.String",
+          "length": 6
+        },
+        "Language": {
+          "key": true,
+          "type": "cds.String",
+          "length": 2
+        },
+        "LongTextID": {
+          "key": true,
+          "type": "cds.String",
+          "length": 4
+        },
+        "LongText": {
+          "type": "cds.LargeString"
+        },
+        "to_SalesOrder": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrder"
+        },
+        "to_SalesOrderItem": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrderItem"
+        }
+      }
+    },
+    "API_SALES_ORDER_SRV.A_SalesOrderScheduleLine": {
+      "kind": "entity",
+      "@cds.persistence.skip": true,
+      "elements": {
+        "SalesOrder": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "SalesOrderItem": {
+          "key": true,
+          "type": "cds.String",
+          "length": 6
+        },
+        "ScheduleLine": {
+          "key": true,
+          "type": "cds.String",
+          "length": 4
+        },
+        "RequestedDeliveryDate": {
+          "type": "cds.Date"
+        },
+        "ConfirmedDeliveryDate": {
+          "type": "cds.Date"
+        },
+        "OrderQuantityUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "OrderQuantitySAPUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "OrderQuantityISOUnit": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "ScheduleLineOrderQuantity": {
+          "type": "cds.Decimal",
+          "precision": 13,
+          "scale": 3
+        },
+        "ConfdOrderQtyByMatlAvailCheck": {
+          "type": "cds.Decimal",
+          "precision": 13,
+          "scale": 3
+        },
+        "DeliveredQtyInOrderQtyUnit": {
+          "type": "cds.Decimal",
+          "precision": 13,
+          "scale": 3
+        },
+        "OpenConfdDelivQtyInOrdQtyUnit": {
+          "type": "cds.Decimal",
+          "precision": 13,
+          "scale": 3
+        },
+        "CorrectedQtyInOrderQtyUnit": {
+          "type": "cds.Decimal",
+          "precision": 13,
+          "scale": 3
+        },
+        "DelivBlockReasonForSchedLine": {
+          "type": "cds.String",
+          "length": 2
+        }
+      }
+    },
+    "API_SALES_ORDER_SRV.A_SalesOrderText": {
+      "kind": "entity",
+      "@cds.persistence.skip": true,
+      "elements": {
+        "SalesOrder": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "Language": {
+          "key": true,
+          "type": "cds.String",
+          "length": 2
+        },
+        "LongTextID": {
+          "key": true,
+          "type": "cds.String",
+          "length": 4
+        },
+        "LongText": {
+          "type": "cds.LargeString"
+        },
+        "to_SalesOrder": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrder"
+        }
+      }
+    },
+    "API_SALES_ORDER_SRV.A_SlsOrdPaymentPlanItemDetails": {
+      "kind": "entity",
+      "@cds.persistence.skip": true,
+      "elements": {
+        "SalesOrder": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10
+        },
+        "PaymentPlanItem": {
+          "key": true,
+          "type": "cds.String",
+          "length": 6
+        },
+        "PaymentPlan": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "ElectronicPaymentType": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "ElectronicPayment": {
+          "type": "cds.String",
+          "length": 25
+        },
+        "EPaytValidityStartDate": {
+          "type": "cds.Date"
+        },
+        "EPaytValidityEndDate": {
+          "type": "cds.Date"
+        },
+        "ElectronicPaymentHolderName": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "AuthorizedAmountInAuthznCrcy": {
+          "type": "cds.Decimal",
+          "precision": 16,
+          "scale": 3
+        },
+        "AuthorizationCurrency": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "AuthorizationByDigitalPaytSrvc": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "AuthorizationByAcquirer": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "AuthorizationDate": {
+          "type": "cds.Date"
+        },
+        "AuthorizationTime": {
+          "type": "cds.Time"
+        },
+        "AuthorizationStatusName": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "EPaytByDigitalPaymentSrvc": {
+          "type": "cds.String",
+          "length": 25
+        },
+        "ElectronicPaymentCallStatus": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "EPaytAuthorizationResult": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "EPaytToBeAuthorizedAmount": {
+          "type": "cds.Decimal",
+          "precision": 16,
+          "scale": 3
+        },
+        "EPaytAuthorizationIsExpired": {
+          "type": "cds.Boolean"
+        },
+        "EPaytAmountIsChanged": {
+          "type": "cds.Boolean"
+        },
+        "PreauthorizationIsRequested": {
+          "type": "cds.Boolean"
+        },
+        "PaymentServiceProvider": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "PaymentByPaymentServicePrvdr": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "TransactionByPaytSrvcPrvdr": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "MerchantByClearingHouse": {
+          "type": "cds.String",
+          "length": 15
+        },
+        "MaximumToBeAuthorizedAmount": {
+          "type": "cds.Decimal",
+          "precision": 16,
+          "scale": 3
+        },
+        "PaytPlnForAuthorizationItem": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "PaytPlnItmForAuthorizationItem": {
+          "type": "cds.String",
+          "length": 6
+        },
+        "to_SalesOrder": {
+          "type": "cds.Association",
+          "target": "API_SALES_ORDER_SRV.A_SalesOrder"
+        }
+      }
+    }
+  }
+}

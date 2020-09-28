@@ -26,6 +26,13 @@
         "credentials": {
           "database": "brain.db"
         }
+      },
+      "API_SALES_ORDER_SRV": {
+        "kind": "odata",
+        "model": "srv/external/API_SALES_ORDER_SRV",
+        "credentials": {
+          "destination": "apihub_mock_salesorders"
+        }
       }
     }
   }
