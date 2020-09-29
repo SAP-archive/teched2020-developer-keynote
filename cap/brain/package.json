@@ -27,7 +27,7 @@
           "database": "brain.db"
         }
       },
-      "API_SALES_ORDER_SRV": {
+      "S4RemoteService": {
         "kind": "odata",
         "model": "srv/external/API_SALES_ORDER_SRV",
         "credentials": {
