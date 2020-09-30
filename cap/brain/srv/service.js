@@ -1,4 +1,7 @@
 module.exports = async (srv) => {
+
+
+  const { v4: uuidv4 } = require('uuid')
   const { setGlobalLogLevel } = require('@sap-cloud-sdk/util')
   setGlobalLogLevel('error')
 
@@ -25,12 +28,24 @@ module.exports = async (srv) => {
     }
   });
 
-  /* srv.on("invoke", async (req) => {
+  srv.on("invoke", async (req) => {
     await messaging.tx(req).emit({
-      event: "CAP/Function/Invoked",
-      data: { test: "banana" },
+      event: "Internal/Charityfund/Increased",
+      data: {
+        specversion: "1.0",
+        type: "z.internal.charityfund.increased.v1",
+        source: "/default/cap.brain/1",
+        id: uuidv4(),
+        time: new Date(),
+        datacontenttype: "application/json",
+        data: {
+          custid: 1,
+          custname: 'name1',
+          credits: '4711'
+        }
+      }
     });
 
     return "OK";
-  });*/
+  });
 };
