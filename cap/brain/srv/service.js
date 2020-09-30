@@ -1,9 +1,12 @@
 module.exports = async (srv) => {
+  const { setGlobalLogLevel } = require('@sap-cloud-sdk/util')
+  setGlobalLogLevel('error')
+
   const messaging = await cds.connect.to("messaging");
 
   messaging.on("salesorder/created", async (msg) => {
     console.log("SALESORDER", JSON.stringify(msg));
-    let extsrv = await cds.connect.to("S4RemoteService");
+    let extsrv = await cds.connect.to("S4SalesOrders");
 
     let salesOrder = msg.data.SalesOrder;
 
