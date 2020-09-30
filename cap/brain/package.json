@@ -35,6 +35,13 @@
           "destination": "apihub_mock_salesorders",
           "path": "/sap/opu/odata/sap/API_SALES_ORDER_SRV"
         }
+      },
+      "converter": {
+        "kind": "rest",
+        "model": "srv/cds/ext-service",
+        "credentials": {
+          "url": "http://localhost:5000"
+        }
       }
     }
   }
