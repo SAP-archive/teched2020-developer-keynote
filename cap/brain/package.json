@@ -26,6 +26,14 @@
         "credentials": {
           "database": "brain.db"
         }
+      },
+      "S4SalesOrders": {
+        "kind": "odata",
+        "model": "srv/external/API_SALES_ORDER_SRV",
+        "credentials": {
+          "destination": "apihub_mock_salesorders",
+          "path": "/sap/opu/odata/sap/API_SALES_ORDER_SRV"
+        }
       }
     }
   }
