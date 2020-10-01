@@ -23,9 +23,10 @@ module.exports = async srv => {
 
   // CONNECTIONS
 
-  // Connect to the messaging and S/4HANA components (see package.json)
+  // Connect to the various components (see package.json)
   const messaging = await cds.connect.to('messaging')
   const s4salesorders = await cds.connect.to('S4SalesOrders')
+  const converter = await cds.connect.to('converter')
 
   // EVENTS
 
@@ -69,11 +70,16 @@ module.exports = async srv => {
       return
     }
 
-    log.debug(`SalesOrder details retrieved ${JSON.stringify(results)}`)
+    // Results retrieved, collapse from array to single object
+    const result = results[0]
 
+    log.debug(`SalesOrder details retrieved ${JSON.stringify(result)}`)
 
     // Request charity fund equivalent credits for sales order amount
     // --------------------------------------------------------------
+    debugger
+    const converted = await converter.get(result.TotalNetAmount)
+    log.debug(`Conversion result is ${JSON.stringify(converted)}`)
 
 
 
@@ -84,10 +90,10 @@ module.exports = async srv => {
     const eventData = charityfund.increased({
       source: eventSource,
       payload: {
-        custid: results[0].SoldToParty,
+        custid: result.SoldToParty,
         custname: '',
         credits: 0,
-        salesorg: results[0].SalesOrganization
+        salesorg: result.SalesOrganization
       }
     })
     log.debug(`Payload for ${topicOutgoing} topic created ${JSON.stringify(eventData)}`)
