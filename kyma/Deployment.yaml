@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: application
-        image: test
+        image: kbmuessig/calculationservice:latest
         imagePullPolicy: Always # change to pull after testing
         ports:
           - containerPort: 3000
