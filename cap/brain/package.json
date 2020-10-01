@@ -6,8 +6,9 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@sap/xb-msg-amqp-v100": "latest",
     "@sap/cds": "^4",
+    "@sap/xb-msg-amqp-v100": "latest",
+    "console-log-level": "^1.4.1",
     "express": "^4"
   },
   "devDependencies": {
@@ -33,6 +34,13 @@
         "credentials": {
           "destination": "apihub_mock_salesorders",
           "path": "/sap/opu/odata/sap/API_SALES_ORDER_SRV"
+        }
+      },
+      "conversionservice": {
+        "kind": "rest",
+        "model": "srv/cds/ext-service",
+        "credentials": {
+          "url": "https://mock-converter-chatty-gorilla-ve.cfapps.eu10.hana.ondemand.com/conversion"
         }
       }
     }
