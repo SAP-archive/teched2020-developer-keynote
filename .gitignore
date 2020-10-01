@@ -2,3 +2,4 @@ node_modules/
 *.swp
 sk*.json
 default-env.json
+.DS_Store
