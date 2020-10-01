@@ -40,7 +40,7 @@
         "kind": "rest",
         "model": "srv/cds/ext-service",
         "credentials": {
-          "url": "http://localhost:5000/conversion"
+          "url": "https://mock-converter-chatty-gorilla-ve.cfapps.eu10.hana.ondemand.com/conversion"
         }
       }
     }

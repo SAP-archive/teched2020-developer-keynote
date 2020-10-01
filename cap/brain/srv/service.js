@@ -78,7 +78,6 @@ module.exports = async srv => {
 
     // Request charity fund equivalent credits for sales order amount
     // --------------------------------------------------------------
-    //const converted = await converter.get(`/conversion/${total}`)
     const converted = await converter.get(`/${result.TotalNetAmount}`)
     log.debug(`Conversion result is ${JSON.stringify(converted)}`)
 
