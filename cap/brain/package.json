@@ -36,11 +36,11 @@
           "path": "/sap/opu/odata/sap/API_SALES_ORDER_SRV"
         }
       },
-      "converter": {
+      "conversionservice": {
         "kind": "rest",
         "model": "srv/cds/ext-service",
         "credentials": {
-          "url": "https://converter-unexpected-chipmunk-je.cfapps.eu10.hana.ondemand.com/conversion/"
+          "url": "http://localhost:5000/conversion"
         }
       }
     }

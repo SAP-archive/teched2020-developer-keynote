@@ -26,14 +26,14 @@ module.exports = async srv => {
   // Connect to the various components (see package.json)
   const messaging = await cds.connect.to('messaging')
   const s4salesorders = await cds.connect.to('S4SalesOrders')
-  const converter = await cds.connect.to('converter')
+  const converter = await cds.connect.to('conversionservice')
 
   // EVENTS
 
   // Handle incoming salesorder/created event:
-  // ✅ Retrieve sales order details from S/4HANA system
-  // ❌ Request charity fund equivalent credits for sales order amount
-  // ✅ Publish an event to the 'Internal/Charityfund/Increased' topic
+  // - Retrieve sales order details from S/4HANA system
+  // - Request charity fund equivalent credits for sales order amount
+  // - Publish an event to the 'Internal/Charityfund/Increased' topic
   messaging.on(topicIncoming, async msg => {
 
     // Properties to retrieve for the given sales order
@@ -75,12 +75,12 @@ module.exports = async srv => {
 
     log.debug(`SalesOrder details retrieved ${JSON.stringify(result)}`)
 
+
     // Request charity fund equivalent credits for sales order amount
     // --------------------------------------------------------------
-    debugger
-    const converted = await converter.get(result.TotalNetAmount)
+    //const converted = await converter.get(`/conversion/${total}`)
+    const converted = await converter.get(`/${result.TotalNetAmount}`)
     log.debug(`Conversion result is ${JSON.stringify(converted)}`)
-
 
 
     // Publish an event to the 'Internal/Charityfund/Increased' topic
@@ -92,7 +92,7 @@ module.exports = async srv => {
       payload: {
         custid: result.SoldToParty,
         custname: '',
-        credits: 0,
+        credits: converted.value,
         salesorg: result.SalesOrganization
       }
     })
