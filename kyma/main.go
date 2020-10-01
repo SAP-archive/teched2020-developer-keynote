@@ -15,7 +15,7 @@ type CalculationError struct {
 	Result string
 }
 
-func caculateDonationCredit(usd float64) float64 {
+func calculateDonationCredit(usd float64) float64 {
 	if usd == 0 {
 		return 0
 	}
@@ -40,7 +40,7 @@ func Calculate(w http.ResponseWriter, r *http.Request) {
 	if salesAmount, err := strconv.ParseFloat(salesAmountString, 64); err == nil {
 		fmt.Println("Debug:")
 		fmt.Println("input variable is:", salesAmount)
-		donCredits := caculateDonationCredit(salesAmount)
+		donCredits := calculateDonationCredit(salesAmount)
 
 		calculationResult := CalculationResult{Result: donCredits}
 		w.Header().Set("Content-Type", "application/json") // this
