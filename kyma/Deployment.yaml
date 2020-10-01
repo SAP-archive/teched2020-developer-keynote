@@ -15,8 +15,8 @@ spec:
     spec:
       containers:
       - name: application
-        image: kbmuessig/calculationservice:latest
-        imagePullPolicy: Always # change after testing
+        image: test
+        imagePullPolicy: Always # change to pull after testing
         ports:
           - containerPort: 3000
 ---
@@ -31,4 +31,3 @@ spec:
     targetPort: 3000
   selector:
     name: go-web-app
----

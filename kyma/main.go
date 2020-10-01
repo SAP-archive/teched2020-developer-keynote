@@ -20,15 +20,15 @@ func caculateDonationCredit(usd float64) float64 {
 		return 0
 	}
 	if usd < 10 {
-		return 0.1
+		return 0.1 * usd
 	} else if usd < 100 {
-		return 0.15
+		return 0.15 * usd
 	} else if usd < 1000 {
-		return 0.2
+		return 0.2 * usd
 	} else if usd < 10000 {
-		return 0.5
+		return 0.5 * usd
 	} else {
-		return 2
+		return 2 * usd
 	}
 }
 
