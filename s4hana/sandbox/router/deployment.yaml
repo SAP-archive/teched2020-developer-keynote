@@ -1,0 +1,57 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: appconfig
+data:
+  API_KEY: <Your Value Here>
+  destinations: |
+    [{"name": "apihub_sandbox","url": "https://sandbox.api.sap.com"}]
+
+---  
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s4mock
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: s4mock
+  template:
+    metadata:
+      labels:
+        app: s4mock
+        version: v1
+    spec:
+      containers:
+      # replace the repository URL with your own repository (e.g. {DockerID}/http-db-service:0.0.x for Docker Hub).
+      - image: docker.pkg.github.com/sap-samples/teched2020-developer-keynote/s4mock:latest
+        imagePullPolicy: Always
+        name: s4mock        
+        ports:
+        - name: http
+          containerPort: 5000
+        resources:
+          limits:
+            memory: 1000Mi
+          requests:
+            memory: 32Mi
+        envFrom:
+          - configMapRef:
+              name: appconfig            
+
+---              
+apiVersion: v1
+kind: Service
+metadata:
+  name: s4mock
+  labels:
+    app: s4mock
+spec:
+  ports:
+  - port: 5000
+    name: http
+    targetPort: 5000
+  selector:
+    app: s4mock  
+
