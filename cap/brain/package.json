@@ -6,8 +6,9 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@sap/xb-msg-amqp-v100": "latest",
     "@sap/cds": "^4",
+    "@sap/xb-msg-amqp-v100": "latest",
+    "console-log-level": "^1.4.1",
     "express": "^4"
   },
   "devDependencies": {
@@ -25,6 +26,20 @@
         "kind": "sqlite",
         "credentials": {
           "database": "brain.db"
+        }
+      },
+      "S4SalesOrders": {
+        "kind": "odata",
+        "model": "srv/external/API_SALES_ORDER_SRV",
+        "credentials": {
+          "destination": "apihub_mock_salesorders",
+          "path": "/sap/opu/odata/sap/API_SALES_ORDER_SRV"
+        }
+      },
+      "ConversionService": {
+        "kind": "rest",
+        "credentials": {
+          "url": "https://calc.c-66a4ede.kyma.shoot.live.k8s-hana.ondemand.com"
         }
       }
     }

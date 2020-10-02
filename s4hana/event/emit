@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+
+set -o errexit
+
+# Emit Sales Order Created event
+
+basepath=messagingrest/v1
+
+qos=0
+
+output=silent # silent or verbose
+
+source ./settings
+source ./localutils # getservicekey getval gettoken
+
+# Functions ------------------------------------------------------
+
+_build_payload_sales_order_created () {
+  local salesorder=$1
+  yq r -j - <<EO_SALES_ORDER_CREATED
+type: sap.s4.beh.salesorder.v1.SalesOrder.Created.v1
+specversion: "1.0"
+source: /default/sap.s4.beh/DEVCLNT001
+id: $(uuidgen)
+time: $(date '+%Y-%m-%dT%H:%M:%SZ')
+datacontenttype: application/json
+data:
+  SalesOrder: "$salesorder"
+EO_SALES_ORDER_CREATED
+}
+
+_publish_message () {
+  local targettype=$1
+  local target=$2
+  local message=$3
+  curl \
+    --"$output" \
+    --header "Authorization: Bearer $token" \
+    --header "x-qos: $qos" \
+    --header 'Content-Type: application/json' \
+    --request POST \
+    --data "$message" \
+    "$uri/$basepath/$targettype/$target/messages"
+}
+
+publish_message_to_queue () {
+  local queue=$1
+  local message=$2
+  if [[ -z "$queue" ]] || [[ -z "$message" ]]; then
+    err Usage: publish_message_to_queue name message
+    exit 1
+  fi
+  log "Publish message to queue $queue"
+  _publish_message queues "$queue" "$message"
+}
+
+publish_message_to_topic () {
+  local topic=$1
+  local message=$2
+  if [[ -z "$topic" ]] || [[ -z "$message" ]]; then
+    err Usage: publish_message_to_topic name message
+    exit 1
+  fi
+  log "Publish message to topic $topic"
+  _publish_message topics "$topic" "$message"
+}
+
+
+
+# MAIN ----------------------------------------------------------------------
+
+# We require a sales order number to be specified, and a fixed topic
+# to publish the message.
+topic="salesorder%2Fcreated"
+salesordernumber=$1
+
+if [[ -z "$salesordernumber" ]]; then
+  err "Sales order number must be specified"
+  exit 1
+fi
+
+# Retrieve service key and parse out relevant sections.
+sk=$(getservicekey "$instance" "$servicekey")
+messaging=$(getval "$sk" .messaging)
+httprest=$(getval "$messaging" '.[] | select(.broker.type == "saprestmgw")')
+
+# Determine API call details for MESSAGING-HTTPREST incl OAuth 2.0 token
+uri=$(getval "$httprest" .uri)
+oauth=$(getval "$httprest" .oa2)
+token=$(gettoken "$oauth")
+
+message=$(_build_payload_sales_order_created "$salesordernumber")
+log Publishing sales order created event for "$salesordernumber"
+publish_message_to_topic "$topic" "$message"
+
+
