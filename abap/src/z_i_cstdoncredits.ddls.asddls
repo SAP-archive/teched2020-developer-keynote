@@ -7,5 +7,6 @@ define view Z_I_CSTDONCREDITS
     as select from zcstdoncredits {
     key custid,
     custname,
-    credits
+    credits,
+    salesorg
 }
