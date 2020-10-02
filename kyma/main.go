@@ -8,11 +8,11 @@ import (
 )
 
 type CalculationResult struct {
-	Result float64
+	credits float64
 }
 
 type CalculationError struct {
-	Result string
+	error string
 }
 
 func calculateDonationCredit(usd float64) float64 {
@@ -42,7 +42,7 @@ func Calculate(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("input variable is:", salesAmount)
 		donCredits := calculateDonationCredit(salesAmount)
 
-		calculationResult := CalculationResult{Result: donCredits}
+		calculationResult := CalculationResult{credits: donCredits}
 		w.Header().Set("Content-Type", "application/json") // this
 		json.NewEncoder(w).Encode(calculationResult)
 	}
@@ -54,7 +54,7 @@ func calculationHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func setupRoutes() {
-	http.HandleFunc("/", calculationHandler)
+	http.HandleFunc("/conversion", calculationHandler)
 }
 
 func main() {

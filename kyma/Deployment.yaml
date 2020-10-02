@@ -2,16 +2,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: go-web-app
+  name: calc-service
 spec:
   replicas: 5
   selector:
     matchLabels:
-      name: go-web-app
+      name: calc-service
   template:
     metadata:
       labels:
-        name: go-web-app
+        name: calc-service
     spec:
       containers:
       - name: application
@@ -23,11 +23,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: go-web-service
+  name: calc-service
 spec:
   ports:
   - name: http
     port: 80
     targetPort: 3000
   selector:
-    name: go-web-app
+    name: calc-service
