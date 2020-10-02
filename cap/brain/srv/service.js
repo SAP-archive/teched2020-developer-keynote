@@ -24,7 +24,7 @@ module.exports = async (srv) => {
   // Connect to the various components (see package.json)
   const messaging = await cds.connect.to("messaging");
   const s4salesorders = await cds.connect.to("S4SalesOrders");
-  const converter = await cds.connect.to("conversionservice");
+  const converter = await cds.connect.to("ConversionService");
 
   // EVENTS
 
@@ -65,13 +65,8 @@ module.exports = async (srv) => {
 
     log.debug(`SalesOrder details retrieved ${JSON.stringify(result)}`);
 
-    /*
-      1) Read from the charityEntry 
-      2) check if counter < 10 
-        yes: carry on
-        no: do nothing
-      3) update charityEntry (counter +1)
-    */
+    // Was the SoldToParty already cached or processed 10 times?
+    if (!(await continueProcessing(result.SoldToParty, msg))) return;
 
     // Request charity fund equivalent credits for sales order amount
     // --------------------------------------------------------------
@@ -134,13 +129,13 @@ module.exports = async (srv) => {
 
   // Also convert  on the function invocation (test only)
   srv.on("readEntry", async (req) => {
-    await plausibilityCheck(req.data.party, req);
-    // Function invocation is expecting a string as a return value
-    return "OK";
+    if (!(await continueProcessing(req.data.party, req)))
+      // Function invocation is expecting a string as a return value
+      return "OK";
   });
 };
 
-async function plausibilityCheck(party, req) {
+async function continueProcessing(party, req) {
   const db = await cds.connect.to("db");
   const { CharityEntry } = db.entities; // get reflected definitions
   let count;
@@ -163,7 +158,7 @@ async function plausibilityCheck(party, req) {
     count = data.count;
     if (count == 10) {
       console.info("SoldToParty was already processed 10 times");
-      return;
+      return false;
     }
   }
 
@@ -178,4 +173,6 @@ async function plausibilityCheck(party, req) {
   } catch (error) {
     console.error(error);
   }
+
+  return true;
 }
