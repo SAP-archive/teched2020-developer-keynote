@@ -1,0 +1,13 @@
+{
+  "name": "developer-keynote-analytics",
+  "version": "1.0.0",
+  "engines": {
+    "node": "12.x"
+  },
+  "scripts": {
+    "start": "destinations='[{\"name\": \"backend\",\"url\": \"https://test.com\"}]' node node_modules/@sap/approuter/approuter.js"
+  },
+  "dependencies": {
+    "@sap/approuter": "^8.5.0"
+  }
+}
