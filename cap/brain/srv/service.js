@@ -25,6 +25,8 @@ module.exports = async (srv) => {
   const messaging = await cds.connect.to("messaging");
   const s4salesorders = await cds.connect.to("S4SalesOrders");
   const converter = await cds.connect.to("conversionservice");
+  const db = await cds.connect.to("db");
+  const { CharityEntry } = db.entities; // get reflected definitions
 
   // EVENTS
 
@@ -127,6 +129,49 @@ module.exports = async (srv) => {
   srv.on("convert", async (req) => {
     const converted = await converter.get(`/?salesAmount=48.5`);
     log.debug(`Conversion result is ${JSON.stringify(converted)}`);
+
+    // Function invocation is expecting a string as a return value
+    return "OK";
+  });
+
+  // Also convert  on the function invocation (test only)
+  srv.on("readEntry", async (req) => {
+    const party = req.data.party;
+    let count;
+
+    const data = await cds.transaction(req).run(
+      SELECT.one(CharityEntry).where({
+        SoldToParty: party,
+      })
+    );
+
+    if (data == undefined) {
+      count = 0;
+      await cds.transaction(req).run(
+        INSERT.into(CharityEntry).entries({
+          SoldToParty: party,
+          count: count,
+        })
+      );
+    } else {
+      count = data.count;
+      if (count == 10) {
+        console.info("SoldToParty was already processed 10 times");
+        return;
+      }
+    }
+
+    try {
+      await cds.transaction(req).run(
+        UPDATE(CharityEntry)
+          .set({
+            count: count + 1,
+          })
+          .where({ SoldToParty: party })
+      );
+    } catch (error) {
+      console.error(error);
+    }
 
     // Function invocation is expecting a string as a return value
     return "OK";
