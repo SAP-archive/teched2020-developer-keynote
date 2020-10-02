@@ -25,8 +25,6 @@ module.exports = async (srv) => {
   const messaging = await cds.connect.to("messaging");
   const s4salesorders = await cds.connect.to("S4SalesOrders");
   const converter = await cds.connect.to("conversionservice");
-  const db = await cds.connect.to("db");
-  const { CharityEntry } = db.entities; // get reflected definitions
 
   // EVENTS
 
@@ -136,44 +134,48 @@ module.exports = async (srv) => {
 
   // Also convert  on the function invocation (test only)
   srv.on("readEntry", async (req) => {
-    const party = req.data.party;
-    let count;
-
-    const data = await cds.transaction(req).run(
-      SELECT.one(CharityEntry).where({
-        SoldToParty: party,
-      })
-    );
-
-    if (data == undefined) {
-      count = 0;
-      await cds.transaction(req).run(
-        INSERT.into(CharityEntry).entries({
-          SoldToParty: party,
-          count: count,
-        })
-      );
-    } else {
-      count = data.count;
-      if (count == 10) {
-        console.info("SoldToParty was already processed 10 times");
-        return;
-      }
-    }
-
-    try {
-      await cds.transaction(req).run(
-        UPDATE(CharityEntry)
-          .set({
-            count: count + 1,
-          })
-          .where({ SoldToParty: party })
-      );
-    } catch (error) {
-      console.error(error);
-    }
-
+    await plausibilityCheck(req.data.party, req);
     // Function invocation is expecting a string as a return value
     return "OK";
   });
 };
+
+async function plausibilityCheck(party, req) {
+  const db = await cds.connect.to("db");
+  const { CharityEntry } = db.entities; // get reflected definitions
+  let count;
+
+  const data = await cds.transaction(req).run(
+    SELECT.one(CharityEntry).where({
+      SoldToParty: party,
+    })
+  );
+
+  if (data == undefined) {
+    count = 0;
+    await cds.transaction(req).run(
+      INSERT.into(CharityEntry).entries({
+        SoldToParty: party,
+        count: count,
+      })
+    );
+  } else {
+    count = data.count;
+    if (count == 10) {
+      console.info("SoldToParty was already processed 10 times");
+      return;
+    }
+  }
+
+  try {
+    await cds.transaction(req).run(
+      UPDATE(CharityEntry)
+        .set({
+          count: count + 1,
+        })
+        .where({ SoldToParty: party })
+    );
+  } catch (error) {
+    console.error(error);
+  }
+}
