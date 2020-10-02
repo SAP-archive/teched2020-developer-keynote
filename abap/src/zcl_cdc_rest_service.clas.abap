@@ -74,8 +74,8 @@ CLASS zcl_cdc_rest_service IMPLEMENTATION.
                                  data = lt_zcstdoncredits
                                  pretty_name = /ui2/cl_json=>pretty_mode-low_case ) ).
 
-
       WHEN 'OPTIONS'.
+
         response->set_header_field(
           EXPORTING
             i_name  = 'WebHook-Allowed-Origin'
@@ -85,15 +85,19 @@ CLASS zcl_cdc_rest_service IMPLEMENTATION.
 
       WHEN 'POST'.
 
+* Convert payload json to abap structures
         /ui2/cl_json=>deserialize( EXPORTING json = request->get_text(  )
                                              pretty_name = /ui2/cl_json=>pretty_mode-low_case
                                     CHANGING data = ls_data ).
+* Update table with data
        ls_zcstdoncredits = ls_data-data-data.
-
        MODIFY zcstdoncredits FROM @ls_zcstdoncredits.
         IF sy-subrc = 0.
           response->set_status( i_code = 200 i_reason = 'Ok').
-          response->set_text( 'DB Updated Successfully' ).
+          response->set_text( 'Database table updated successfully' ).
+        else.
+          response->set_status( i_code = 500 i_reason = 'Error').
+          response->set_text( 'Error occured when updating database table' ).
         ENDIF.
 
     ENDCASE.
