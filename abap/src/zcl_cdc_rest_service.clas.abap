@@ -50,9 +50,9 @@ CLASS zcl_cdc_rest_service IMPLEMENTATION.
              data TYPE ts_data_node,
            END OF ts_payload.
 
-    DATA: ls_data TYPE ts_payload.
+    DATA: ls_payload TYPE ts_payload.
     DATA: lt_zcstdoncredits TYPE TABLE OF zcstdoncredits.
-    DATA: ls_zcstdoncredits TYPE zcstdoncredits.
+
     DATA(lv_method) =  request->get_method( ) .
 
     CASE lv_method.
@@ -88,13 +88,12 @@ CLASS zcl_cdc_rest_service IMPLEMENTATION.
 * Convert payload json to abap structures
         /ui2/cl_json=>deserialize( EXPORTING json = request->get_text(  )
                                              pretty_name = /ui2/cl_json=>pretty_mode-low_case
-                                    CHANGING data = ls_data ).
+                                    CHANGING data = ls_payload ).
 * Update table with data
-       ls_zcstdoncredits = ls_data-data-data.
-       MODIFY zcstdoncredits FROM @ls_zcstdoncredits.
+       MODIFY zcstdoncredits FROM @ls_payload-data-data.
         IF sy-subrc = 0.
           response->set_status( i_code = 200 i_reason = 'Ok').
-          response->set_text( 'Database table updated successfully' ).
+          response->set_text( | Database table updated successfully for customer number { ls_payload-data-data-custid } | ).
         else.
           response->set_status( i_code = 500 i_reason = 'Error').
           response->set_text( 'Error occured when updating database table' ).
