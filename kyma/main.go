@@ -60,9 +60,6 @@ func setupRoutes() {
 
 func main() {
 	fmt.Println("Go Web App Started on Port 3000")
-	fmt.Println(calculateDonationCredit(666.66))
-	fmt.Println(calculateDonationCredit(12345.88))
-	fmt.Println(calculateDonationCredit(1000004335.9888))
 	setupRoutes()
 	http.ListenAndServe(":3000", nil)
 }
