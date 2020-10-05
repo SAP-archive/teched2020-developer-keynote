@@ -17,20 +17,23 @@ CLASS zcl_cdc_rest_service IMPLEMENTATION.
 
 * Expected payload
 *
-*{"data":{
-*      "specversion":"1.0",
-*      "type":"z.internal.charityfund.increased.v1",
-*      "datacontenttype":"application/json",
-*      "id":"4c8f6699-f08f-4a3b-8fd6-0b4f26687091",
-*      "time":"2020-10-02T13:51:30.888Z",
-*      "source":"/default/cap.brain/1",
-*      "data":{
-*         "custid":"USCU-CUS02",
-*         "custname":"Customer Name",
-*         "credits":7.2749999999999995,
-*         "salesorg":"1710"
-*      }
-*   }
+*{
+*    "data": {
+*        "data": {
+*            "specversion": "1.0",
+*            "type": "z.internal.charityfund.increased.v1",
+*            "datacontenttype": "application/json",
+*            "id": "4c8f6699-f08f-4a3b-8fd6-0b4f26687091",
+*            "time": "2020-10-02T13:51:30.888Z",
+*            "source": "/default/cap.brain/1",
+*            "data": {
+*                "custid": "USCU-CUS10",
+*                "custname": "Customer Name",
+*                "credits": 2.2749999999999995,
+*                "salesorg": "1720"
+*            }
+*        }
+*    }
 *}
 
     types: ts_custdata type zcstdoncredits.
@@ -46,8 +49,11 @@ CLASS zcl_cdc_rest_service IMPLEMENTATION.
              source          TYPE string,
              data            TYPE ts_custdata,
            END OF ts_data_node.
-    TYPES: BEGIN OF ts_payload,
+    TYPES: BEGIN OF ts_payload_data,
              data TYPE ts_data_node,
+           END OF ts_payload_data.
+    TYPES: BEGIN OF ts_payload,
+             data TYPE ts_payload_data,
            END OF ts_payload.
 
     DATA: ls_payload TYPE ts_payload.
@@ -90,10 +96,10 @@ CLASS zcl_cdc_rest_service IMPLEMENTATION.
                                              pretty_name = /ui2/cl_json=>pretty_mode-low_case
                                     CHANGING data = ls_payload ).
 * Update table with data
-       MODIFY zcstdoncredits FROM @ls_payload-data-data.
+       MODIFY zcstdoncredits FROM @ls_payload-data-data-data.
         IF sy-subrc = 0.
           response->set_status( i_code = 200 i_reason = 'Ok').
-          response->set_text( | Database table updated successfully for customer number { ls_payload-data-data-custid } | ).
+          response->set_text( | Database table updated successfully for customer number { ls_payload-data-data-data-custid } | ).
         else.
           response->set_status( i_code = 500 i_reason = 'Error').
           response->set_text( 'Error occured when updating database table' ).
