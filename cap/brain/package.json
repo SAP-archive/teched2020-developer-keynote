@@ -36,11 +36,10 @@
           "path": "/sap/opu/odata/sap/API_SALES_ORDER_SRV"
         }
       },
-      "conversionservice": {
+      "ConversionService": {
         "kind": "rest",
-        "model": "srv/cds/ext-service",
         "credentials": {
-          "url": "https://mock-converter-chatty-gorilla-ve.cfapps.eu10.hana.ondemand.com/conversion"
+          "url": "https://calc.c-66a4ede.kyma.shoot.live.k8s-hana.ondemand.com"
         }
       }
     }

@@ -9,7 +9,10 @@
     <item>/.reuse/</item>
     <item>/LICENSES/</item>
     <item>/cap/brain/</item>
-    <item>/mock/</item>
+    <item>/converter/mock</item>
+    <item>/kyma/</item>
+    <item>/s4hana/</item>
+    <item>/ui/</item>
     <item>/rapreceiver/</item>
     <item>/.gitignore</item>
     <item>/README.md</item>

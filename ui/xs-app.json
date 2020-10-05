@@ -1,0 +1,16 @@
+{
+	"welcomeFile": "/index.html",
+	"authenticationMethod": "none",
+	"routes": [
+		{
+			"source": "^/sap/(.*)$",
+			"target": "$1",
+			"localDir": "sample"
+		},
+			{
+			"source": "^/(.*)$",
+			"target": "$1",
+			"localDir": "integrationCards"
+		}
+	]
+}

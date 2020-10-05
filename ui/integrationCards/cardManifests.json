@@ -1,0 +1,239 @@
+{
+	"stackedColumnCard": {
+		"sap.app": {
+			"id": "sap.developerkeynote.stacksCard",
+			"type": "card"
+		},
+		"sap.card": {
+			"type": "Analytical",
+			"extension": "./extension",
+			"data": {
+				"extension": {
+					"method": "getDerivedData"
+				}
+			},
+			"header": {
+				"icon": {},
+				"type": "Numeric",
+				"title": "Collected Credits - Q4, 2020",
+				"mainIndicator": {
+					"number": "{growth}",
+					"unit": "%",
+					"trend": "Up",
+					"state": "Good"
+				}
+			},
+			"content": {
+				"chartType": "StackedColumn",
+				"data": {
+					"path": "/months"
+				},
+				"legend": {
+					"visible": true,
+					"position": "Bottom",
+					"alignment": "Center"
+				},
+				"plotArea": {
+					"dataLabel": {
+						"visible": false,
+						"showTotal": true
+					},
+					"categoryAxisText": {
+						"visible": false
+					},
+					"valueAxisText": {
+						"visible": false
+					}
+				},
+				"title": {
+					"visible": false
+				},
+				"measureAxis": "valueAxis",
+				"dimensionAxis": "categoryAxis",
+				"dimensions": [
+					{
+						"label": "Month",
+						"value": "{Month}"
+					}
+				],
+				"measures": [
+					{
+						"label": "Customer A",
+						"value": "{A}"
+					},
+					{
+						"label": "Customer B",
+						"value": "{B}"
+					},
+					{
+						"label": "Customer C",
+						"value": "{C}"
+					},
+					{
+						"label": "Customer D",
+						"value": "{D}"
+					}
+				]
+			}
+		}
+	},
+	"linesCard": {
+		"sap.app": {
+			"id": "sap.developerkeynote.linesCard",
+			"type": "card"
+		},
+		"sap.card": {
+			"type": "Analytical",
+			"extension": "./extension",
+			"data": {
+				"extension": {
+					"method": "getDerivedData"
+				}
+			},
+			"header": {
+				"type": "Numeric",
+				"title": "Earned Credits",
+				"mainIndicator": {
+					"number": "{growth}",
+					"unit": "%",
+					"trend": "Up",
+					"state": "Good"
+				},
+				"details": "Q4, 2020",
+				"sideIndicators": [
+					{
+						"title": "Target",
+						"number": "{target}"
+					},
+					{
+						"title": "Total",
+						"number": "{total}"
+					}
+				]
+			},
+			"content": {
+				"chartType": "Line",
+				"data": {
+					"path": "/months"
+				},
+				"legend": {
+					"visible": true,
+					"position": "Bottom",
+					"alignment": "Center"
+				},
+				"plotArea": {
+					"dataLabel": {
+						"visible": false,
+						"showTotal": true
+					},
+					"categoryAxisText": {
+						"visible": false
+					},
+					"valueAxisText": {
+						"visible": false
+					}
+				},
+				"title": {
+					"visible": true,
+					"text": "Credits per Month",
+					"alignment": "Left"
+				},
+				"measureAxis": "valueAxis",
+				"dimensionAxis": "categoryAxis",
+				"dimensions": [
+					{
+						"label": "Month",
+						"value": "{Month}"
+					}
+				],
+				"measures": [
+					{
+						"label": "Customer A",
+						"value": "{A}"
+					},
+					{
+						"label": "Customer B",
+						"value": "{B}"
+					},
+					{
+						"label": "Customer C",
+						"value": "{C}"
+					},
+					{
+						"label": "Customer D",
+						"value": "{D}"
+					}
+				]
+			}
+		}
+	},
+	"donutCard": {
+		"sap.app": {
+			"id": "sap.developerkeynote.donutCard",
+			"type": "card"
+		},
+		"sap.card": {
+			"type": "Analytical",
+			"extension": "./extension",
+			"data": {
+				"extension": {
+					"method": "getDerivedData"
+				}
+			},
+			"header": {
+				"type": "Numeric",
+				"title": "Credits Breakdown",
+				"mainIndicator": {
+					"number": "{customers/length}",
+					"unit": "Customers"
+				},
+				"sideIndicators": [
+					{
+						"title": "Target",
+						"number": "{target}"
+					},
+					{
+						"title": "Total",
+						"number": "{total}"
+					}
+				]
+			},
+			"content": {
+				"chartType": "Donut",
+				"legend": {
+					"visible": true,
+					"position": "Bottom",
+					"alignment": "Center"
+				},
+				"plotArea": {
+					"dataLabel": {
+						"visible": true,
+						"showTotal": true
+					}
+				},
+				"title": {
+					"visible": true,
+					"text": "Credits per Customers",
+					"alignment": "Left"
+				},
+				"measureAxis": "size",
+				"dimensionAxis": "color",
+				"data": {
+					"path": "/customers"
+				},
+				"dimensions": [
+					{
+						"label": "Customer",
+						"value": "Customer {customer}"
+					}
+				],
+				"measures": [
+					{
+						"label": "Credits",
+						"value": "{total}"
+					}
+				]
+			}
+		}
+	}
+}
