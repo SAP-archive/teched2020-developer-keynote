@@ -36,6 +36,7 @@ module.exports = async (srv) => {
     // Properties to retrieve for the given sales order
     const salesOrderProperties = [
       "SalesOrder",
+      "CreationDate",
       "SoldToParty",
       "TotalNetAmount",
       "SalesOrganization",
@@ -78,11 +79,18 @@ module.exports = async (srv) => {
     // Publish an event to the 'Internal/Charityfund/Increased' topic
     // --------------------------------------------------------------
 
+    // Convert creation date from OData v2 wrapped epoch to yyyy-mm-dd
+    const creationYyyyMmDd =
+      new Date(Number(result.CreationDate.replace(/[^\d]/g, '')))
+        .toISOString()
+        .slice(0,10)
+
     // Create event payload
     const eventData = charityfund.increased({
       source: eventSource,
       payload: {
         custid: result.SoldToParty,
+        creationdate: creationYyyyMmDd,
         credits: converted.Credits.toString(),
         salesorg: result.SalesOrganization,
       },
