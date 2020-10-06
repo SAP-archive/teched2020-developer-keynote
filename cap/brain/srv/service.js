@@ -83,7 +83,6 @@ module.exports = async (srv) => {
       source: eventSource,
       payload: {
         custid: result.SoldToParty,
-        custname: "",
         credits: converted.Credits.toString(),
         salesorg: result.SalesOrganization,
       },
