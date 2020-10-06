@@ -39,7 +39,7 @@
       "ConversionService": {
         "kind": "rest",
         "credentials": {
-          "url": "https://calc.c-66a4ede.kyma.shoot.live.k8s-hana.ondemand.com"
+          "destination": "charityfund_converter"
         }
       }
     }

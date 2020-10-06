@@ -71,7 +71,7 @@ module.exports = async (srv) => {
     // Request charity fund equivalent credits for sales order amount
     // --------------------------------------------------------------
     const converted = await converter.get(
-      `/?salesAmount=${result.TotalNetAmount}`
+      `/conversion?salesAmount=${result.TotalNetAmount}`
     );
     log.debug(`Conversion result is ${JSON.stringify(converted)}`);
 
@@ -84,7 +84,7 @@ module.exports = async (srv) => {
       payload: {
         custid: result.SoldToParty,
         custname: "",
-        credits: converted.Result,
+        credits: converted.Credits.toString(),
         salesorg: result.SalesOrganization,
       },
     });
