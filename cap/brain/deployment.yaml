@@ -28,7 +28,7 @@ spec:
             memory: 32Mi
         envFrom:
           - configMapRef:
-              name: appconfig
+              name: appconfigcap
       imagePullSecrets:
       - name: regcred                          
 
