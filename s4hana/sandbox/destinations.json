@@ -15,10 +15,6 @@
                "WebIDEUsage": "apihub_sandbox"
             }
          ]
-      },
-      "instance": {
-         "existing_destinations_policy": "update",
-         "destinations": []
       }
    }
 }
