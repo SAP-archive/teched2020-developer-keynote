@@ -1,0 +1,1 @@
+docker run -d -p 5000:5000 docker.pkg.github.com/sap-samples/teched2020-developer-keynote/s4mock:latest
