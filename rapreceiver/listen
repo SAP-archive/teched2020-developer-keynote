@@ -30,11 +30,7 @@ cleanup() {
 
 # MAIN ---------------------------------------------------------------------------
 
-topic=$1
-if [[ -z "$topic" ]]; then
-  echo Specify topic
-  exit 1
-fi
+topic="${1:-salesorder%2Fcreated}"
 
 # Names for temporary queue and webhook subscription,
 # plus details of webhook app in the cloud.
