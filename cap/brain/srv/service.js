@@ -89,6 +89,7 @@ module.exports = async (srv) => {
     const eventData = charityfund.increased({
       source: eventSource,
       payload: {
+        salesorder: result.SalesOrder,
         custid: result.SoldToParty,
         creationdate: creationYyyyMmDd,
         credits: converted.Credits.toString(),
