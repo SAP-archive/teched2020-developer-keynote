@@ -4,19 +4,19 @@
 
 output=${output:-silent}
 
-log () {
+log() {
   echo "$(date '+%Y-%m-%d %H:%M:%S')" "$@"
 }
 
-err () {
+err() {
   echo "$@" 1>&2
 }
 
-getval () {
+getval() {
   echo "${1}" | jq -r "${2}"
 }
 
-gettoken () {
+gettoken() {
   # Produces an OAuth 2.0 access token from a JSON OAuth 2.0 info stanza
   # that looks like this:
   # {
@@ -41,7 +41,7 @@ gettoken () {
       --user "${clientid}:${clientsecret}" \
       --data "grant_type=${granttype}" \
       "${tokenendpoint}" \
-    | jq -r '.access_token'
+      | jq -r '.access_token'
   )
   echo "${token}"
 }
@@ -50,7 +50,7 @@ gettoken () {
 # in a service key, specified by name. Basic cacheing
 # in that key data is regenerated from the cloud platform
 # and cached for N mins in a local file.
-getservicekey () {
+getservicekey() {
   local instance=${1}
   local servicekey=${2}
   local cachetime="+5" # mins
@@ -64,8 +64,3 @@ getservicekey () {
 
   cat "$file"
 }
-
-
-
-
-

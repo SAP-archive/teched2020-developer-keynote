@@ -15,10 +15,9 @@ source ./localutils
 # - delete queue (which will delete the queue subscription)
 # - (leave the webhook endpoint running)
 
-
 # Functions ----------------------------------------------------------------------
 
-cleanup () {
+cleanup() {
   echo
   log Cleaning up - deleting webhook subscription "$webhook_subscription"
   ./messaging delete_webhook_subscription "$webhook_subscription"
@@ -44,7 +43,6 @@ queue="queue-$epoch"
 webhook_app="webhook"
 webhook_url="https://$(cf app "$webhook_app" | awk '/^routes:/ { print $2 }')"
 webhook_subscription="whs-$epoch"
-
 
 log Creating queue "$queue"
 ./management create_update_queue "$queue"

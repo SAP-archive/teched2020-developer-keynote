@@ -13,14 +13,13 @@ output=silent # silent or verbose
 source ./settings
 source ./localutils # getservicekey getval gettoken
 
-
 # Payload builders ----------------------------------------------------------
 
-build_payload_webhook_subscription () {
+build_payload_webhook_subscription() {
   local name=$1
   local queue=$2
   local endpoint=$3
-  yq r -j - <<EO_WEBHOOK_SUBSCRIPTION
+  yq r -j - << EO_WEBHOOK_SUBSCRIPTION
 name: "$name"
 address: "queue:$queue"
 qos: $qos
@@ -31,16 +30,16 @@ pushConfig:
 EO_WEBHOOK_SUBSCRIPTION
 }
 
-build_payload_webhook_subscription_state () {
+build_payload_webhook_subscription_state() {
   local state=$1
-  yq r -j - <<EO_WEBHOOK_SUBSCRIPTION_STATE
+  yq r -j - << EO_WEBHOOK_SUBSCRIPTION_STATE
 action: "$state"
 EO_WEBHOOK_SUBSCRIPTION_STATE
 }
 
 # Main functions ------------------------------------------------------------
 
-list_webhook_subscriptions () {
+list_webhook_subscriptions() {
   curl \
     --"$output" \
     --header "Authorization: Bearer $token" \
@@ -48,7 +47,7 @@ list_webhook_subscriptions () {
     "$uri/$basepath/subscriptions" | jq .
 }
 
-get_webhook_subscription () {
+get_webhook_subscription() {
   local name=$1
   if [[ -z "$name" ]]; then
     err Usage: get_webhook_subscription name
@@ -61,7 +60,7 @@ get_webhook_subscription () {
     "$uri/$basepath/subscriptions/$name"
 }
 
-create_webhook_subscription () {
+create_webhook_subscription() {
   local name=$1
   local queue=$2
   local endpoint=$3
@@ -82,10 +81,10 @@ create_webhook_subscription () {
     --request POST \
     --data "$payload" \
     "$uri/$basepath/subscriptions" \
-  | jq .
+    | jq .
 }
 
-delete_webhook_subscription () {
+delete_webhook_subscription() {
   local name=$1
   if [[ -z "$name" ]]; then
     err Usage: delete_webhook_subscription name
@@ -98,7 +97,7 @@ delete_webhook_subscription () {
     "$uri/$basepath/subscriptions/$name"
 }
 
-_publish_message () {
+_publish_message() {
   local targettype=$1
   local target=$2
   local message=$3
@@ -112,7 +111,7 @@ _publish_message () {
     "$uri/$basepath/$targettype/$target/messages"
 }
 
-publish_message_to_queue () {
+publish_message_to_queue() {
   local queue=$1
   local message=$2
   if [[ -z "$queue" ]] || [[ -z "$message" ]]; then
@@ -123,7 +122,7 @@ publish_message_to_queue () {
   _publish_message queues "$queue" "$message"
 }
 
-publish_message_to_topic () {
+publish_message_to_topic() {
   local topic=$1
   local message=$2
   if [[ -z "$topic" ]] || [[ -z "$message" ]]; then
@@ -134,7 +133,7 @@ publish_message_to_topic () {
   _publish_message topics "$topic" "$message"
 }
 
-trigger_handshake_request () {
+trigger_handshake_request() {
   local name=$1
   if [[ -z "$name" ]]; then
     err Usage: trigger_handshake_request name
@@ -148,7 +147,7 @@ trigger_handshake_request () {
     "$uri/$basepath/subscriptions/$name/handshake"
 }
 
-_set_subscription_state () {
+_set_subscription_state() {
   local name=$1
   local state=$2
   if [[ -z "$name" ]] || [[ -z "$state" ]]; then
@@ -162,10 +161,10 @@ _set_subscription_state () {
     --request PUT \
     --data "$payload" \
     "$uri/$basepath/subscriptions/$name/state" \
-  | jq .
+    | jq .
 }
 
-pause_webhook_subscription () {
+pause_webhook_subscription() {
   local name=$1
   if [[ -z "$name" ]]; then
     err Usage: pause_webhook_subscription name
@@ -175,7 +174,7 @@ pause_webhook_subscription () {
   _set_subscription_state "$name" pause
 }
 
-resume_webhook_subscription () {
+resume_webhook_subscription() {
   local name=$1
   if [[ -z "$name" ]]; then
     err Usage: resume_webhook_subscription name
@@ -185,7 +184,7 @@ resume_webhook_subscription () {
   _set_subscription_state "$name" resume
 }
 
-consume_message_from_queue () {
+consume_message_from_queue() {
   local name=$1
   if [[ -z "$name" ]]; then
     err Usage: consume_message_from_queue name
@@ -200,7 +199,7 @@ consume_message_from_queue () {
     "$uri/$basepath/queues/$name/messages/consumption"
 }
 
-acknowledge_message_consumption () {
+acknowledge_message_consumption() {
   local name=$1
   local messageid=$2
   if [[ -z "$name" ]] || [[ -z "$messageid" ]]; then
@@ -215,14 +214,12 @@ acknowledge_message_consumption () {
     "$uri/$basepath/queues/$name/messages/$messageid/acknowledgement"
 }
 
-
-
-
 # MAIN ----------------------------------------------------------------------
 
 # All the possible core functions
 
-functions=$(cat <<EO_FUNCTIONS
+functions=$(
+  cat << EO_FUNCTIONS
 publish_message_to_topic
 publish_message_to_queue
 list_webhook_subscriptions
@@ -242,7 +239,7 @@ command=$1
 # Either we're being asked to list the functions (for bash completion)
 # or a function is being invoked.
 case $command in
-  completion|"")
+  completion | "")
     echo "$functions"
     ;;
   *)
@@ -267,4 +264,3 @@ case $command in
     $command "$@"
     ;;
 esac
-

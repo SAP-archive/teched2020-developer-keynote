@@ -11,10 +11,9 @@ output=silent # or verbose
 source ./settings
 source ./localutils # getservicekey getval gettoken
 
-
 # Main functions -----------------------------------------------------------------
 
-function create_update_queue () {
+function create_update_queue() {
   local queue=$1
   if [[ -z "$queue" ]]; then
     err Usage: create_update_queue queue
@@ -25,10 +24,10 @@ function create_update_queue () {
     --header "Authorization: Bearer $token" \
     --request PUT \
     "$uri/$basepath/queues/$queue" \
-  | jq .
+    | jq .
 }
 
-function delete_queue () {
+function delete_queue() {
   local queue=$1
   if [[ -z "$queue" ]]; then
     err Usage: delete_queue queue
@@ -41,7 +40,7 @@ function delete_queue () {
     "$uri/$basepath/queues/$queue"
 }
 
-function get_queue () {
+function get_queue() {
   local queue=$1
   if [[ -z "$queue" ]]; then
     err Usage: get_queue queue
@@ -52,19 +51,19 @@ function get_queue () {
     --header "Authorization: Bearer $token" \
     --request GET \
     "$uri/$basepath/queues/$queue" \
-  | jq .
+    | jq .
 }
 
-function list_queues () {
+function list_queues() {
   curl \
     --$output \
     --header "Authorization: Bearer $token" \
     --request GET \
     "$uri/$basepath/queues" \
-  | jq .
+    | jq .
 }
 
-function list_queue_subscriptions () {
+function list_queue_subscriptions() {
   local queue=$1
   if [[ -z "$queue" ]]; then
     err Usage: list_queue_subscriptions queue
@@ -75,10 +74,10 @@ function list_queue_subscriptions () {
     --header "Authorization: Bearer $token" \
     --request GET \
     "$uri/$basepath/queues/$queue/subscriptions" \
-  | jq .
+    | jq .
 }
 
-function create_update_queue_subscription () {
+function create_update_queue_subscription() {
   local queue=$1
   local topic=$2
   if [[ -z "$queue" ]] || [[ -z "$topic" ]]; then
@@ -90,10 +89,10 @@ function create_update_queue_subscription () {
     --header "Authorization: Bearer $token" \
     --request PUT \
     "$uri/$basepath/queues/$queue/subscriptions/$topic" \
-  | jq .
+    | jq .
 }
 
-function delete_queue_subscription () {
+function delete_queue_subscription() {
   local queue=$1
   local topic=$2
   if [[ -z "$queue" ]] || [[ -z "$topic" ]]; then
@@ -110,7 +109,8 @@ function delete_queue_subscription () {
 # MAIN ---------------------------------------------------------------------------
 
 # All the possible core functions
-functions=$(cat <<EO_FUNCTIONS
+functions=$(
+  cat << EO_FUNCTIONS
 create_update_queue
 delete_queue
 get_queue
@@ -126,7 +126,7 @@ command=$1
 # Either we're being asked to list the functions (for bash completion)
 # or a function is being invoked.
 case $command in
-  completion|"")
+  completion | "")
     echo "$functions"
     ;;
   *)
