@@ -15,9 +15,9 @@ source ./localutils # getservicekey getval gettoken
 
 # Functions ------------------------------------------------------
 
-_build_payload_sales_order_created () {
+_build_payload_sales_order_created() {
   local salesorder=$1
-  yq r -j - <<EO_SALES_ORDER_CREATED
+  yq r -j - << EO_SALES_ORDER_CREATED
 type: sap.s4.beh.salesorder.v1.SalesOrder.Created.v1
 specversion: "1.0"
 source: /default/sap.s4.beh/DEVCLNT001
@@ -29,7 +29,7 @@ data:
 EO_SALES_ORDER_CREATED
 }
 
-_publish_message () {
+_publish_message() {
   local targettype=$1
   local target=$2
   local message=$3
@@ -43,7 +43,7 @@ _publish_message () {
     "$uri/$basepath/$targettype/$target/messages"
 }
 
-publish_message_to_queue () {
+publish_message_to_queue() {
   local queue=$1
   local message=$2
   if [[ -z "$queue" ]] || [[ -z "$message" ]]; then
@@ -54,7 +54,7 @@ publish_message_to_queue () {
   _publish_message queues "$queue" "$message"
 }
 
-publish_message_to_topic () {
+publish_message_to_topic() {
   local topic=$1
   local message=$2
   if [[ -z "$topic" ]] || [[ -z "$message" ]]; then
@@ -64,8 +64,6 @@ publish_message_to_topic () {
   log "Publish message to topic $topic"
   _publish_message topics "$topic" "$message"
 }
-
-
 
 # MAIN ----------------------------------------------------------------------
 
@@ -92,5 +90,3 @@ token=$(gettoken "$oauth")
 message=$(_build_payload_sales_order_created "$salesordernumber")
 log Publishing sales order created event for "$salesordernumber"
 publish_message_to_topic "$topic" "$message"
-
-
