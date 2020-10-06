@@ -30,7 +30,7 @@ cleanup() {
 
 # MAIN ---------------------------------------------------------------------------
 
-topic="${1:-salesorder%2Fcreated}"
+topic="${1:-Internal%2FCharityfund%2FIncreased}"
 
 # Names for temporary queue and webhook subscription,
 # plus details of webhook app in the cloud.
