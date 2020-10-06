@@ -8,6 +8,7 @@
   "dependencies": {
     "@sap/cds": "^4",
     "@sap/xb-msg-amqp-v100": "latest",
+    "@sap/hana-client": "^2.5",
     "console-log-level": "^1.4.1",
     "express": "^4"
   },
@@ -15,9 +16,14 @@
     "sqlite3": "^4"
   },
   "scripts": {
-    "start": "npx cds run"
+    "start": "npx cds run",
+    "hana": "cds deploy --to hana:brain --auto-undeploy",
+    "build": "cds build/all --clean"
   },
   "cds": {
+    "hana": {
+      "deploy-format": "hdbtable"
+    },
     "requires": {
       "messaging": {
         "kind": "enterprise-messaging"
