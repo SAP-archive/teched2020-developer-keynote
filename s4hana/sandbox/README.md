@@ -17,7 +17,7 @@ This mock application redirects all incoming traffic to the SAP API Business Hub
 
 If needed, you can also adjust parameters such as the timeout for all redirects.
 
-## Deployment
+## Deployment to Cloud Foundry
 
 1. Build the project
     ```
@@ -31,6 +31,21 @@ If needed, you can also adjust parameters such as the timeout for all redirects.
     ```
     open `cf app s4-mock-router | awk '/^routes/ { print "https://"$2"/sap/opu/odata/sap/API_SALES_ORDER_SRV/" }'`
     ```
+
+## Deployment to Kyma
+
+1. Create a secret for docker deployment from Github
+
+``` shell
+kubectl create secret docker-registry regcred --docker-server=https://docker.pkg.github.com --docker-username=<Github.com User> --docker-password=<Github password or token> --docker-email=<github email>
+```
+
+2. Add your SAP API Hub API Key to the deployment.yaml file on line 6
+
+3. Run k8s_deploy.sh
+
+4. Return to the Kyma Console and the API Rules. You should see a new API Rule named s4mock and the URL for this endpoint. Add **/sap/opu/odata/sap/API_SALES_ORDER_SRV/$metadata** to this URL to test. 
+![API Rules](api.png)
 
 ## Local run
 

@@ -38,7 +38,9 @@ spec:
             memory: 32Mi
         envFrom:
           - configMapRef:
-              name: appconfig            
+              name: appconfig
+      imagePullSecrets:
+      - name: regcred                          
 
 ---              
 apiVersion: v1
@@ -55,3 +57,21 @@ spec:
   selector:
     app: s4mock  
 
+
+---
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: s4mock
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  service:
+    name: s4mock
+    port: 5000
+    host: s4mock
+  rules:
+    - path: /.*
+      methods: ["GET","POST","PUT","DELETE","PATCH","HEAD"]
+      accessStrategies:
+        - handler: noop
+          config: {}
