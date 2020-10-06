@@ -1,0 +1,7 @@
+node_modules
+npm-debug.log
+default-*.json
+deployment.yaml
+secret.yaml
+secret.json
+*.sh
