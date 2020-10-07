@@ -32,7 +32,7 @@ CLASS zcl_cdc_customer_master IMPLEMENTATION.
 
     TRY.
 
-        DATA: lv_url TYPE string VALUE 'https://9e079cc4trial-dev-s4-mock-router.cfapps.eu10.hana.ondemand.com'.
+        DATA: lv_url TYPE string VALUE 'https://s4mock.c-48fc3d5.kyma.shoot.live.k8s-hana.ondemand.com'. "'https://9e079cc4trial-dev-s4-mock-router.cfapps.eu10.hana.ondemand.com'.
         lo_http_client = cl_web_http_client_manager=>create_by_http_destination(
                         i_destination = cl_http_destination_provider=>create_by_url( lv_url ) ).
 
