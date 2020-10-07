@@ -1,0 +1,5 @@
+@EndUserText.label: 'ZCDC_BUPA'
+@OData.schema.name: 'API_BUSINESS_PARTNER'
+define service ZCDC_BUPA {
+ expose ZCDC_A_CUSTOMER594F54AD59; 
+ } 
