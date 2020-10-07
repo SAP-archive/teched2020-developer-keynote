@@ -54,6 +54,38 @@ The CAP service has been deployed to the collab CF org/space 9e079cc4trial/dev a
 
 Deployment was done using `cf push` (rather than an MTA based deployment) followed by manual binding (`cf bind-service`) to these existing services.
 
+## On Kyma
+
+The CAP service has been deployed to the default namesapce as app [`brain`](brain.c210ab1.kyma.shoot.live.k8s-hana.ondemand.com) and has bindings to the following service instances in that same space:
+
+|Name|Service|
+|-|-|
+|`destination-lite`|Destination service instance with 'lite' plan, to enable the CAP service to access destinations|
+|`emdev`|Enterprise Messaging service instance with 'dev' plan (note this is a deprecated plan but the only one available in trial)|
+|`xsuaa-application`|Auth & Trust Management service instance with 'application' plan, to enable the CAP service to access the other instances|
+
+Deployment was done using the following steps:
+1. Create a secret for docker deployment from Github
+
+``` shell
+kubectl create secret docker-registry regcred --docker-server=https://docker.pkg.github.com --docker-username=<Github.com User> --docker-password=<Github password or token> --docker-email=<github email>
+```
+
+2. Create a file named secret.yaml and supply the VCAP_SERVICES for service bindings as such
+``` yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: appconfigcap
+data:
+  VCAP_SERVICES: |
+  { "content_here" }
+```
+
+3. Run [k8s_deploy.sh](./k8s_deploy.sh)
+
+4. Return to the Kyma Console and the API Rules. You should see a new API Rule named brain and the URL for this endpoint. 
+
 ## Local execution
 
 A `default-env.json` file is available (not in the repo) for local execution. Run from the CAP service directory with `cds run`.
