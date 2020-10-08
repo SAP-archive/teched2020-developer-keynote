@@ -15,7 +15,6 @@ CLASS zcl_cdc_customer_master IMPLEMENTATION.
 
   METHOD if_sadl_exit_calc_element_read~calculate.
 
-
     DATA: lt_business_data TYPE TABLE OF zcdc_a_customer594f54ad59,
           lo_http_client   TYPE REF TO if_web_http_client,
           lo_client_proxy  TYPE REF TO /iwbep/if_cp_client_proxy,
@@ -28,7 +27,6 @@ CLASS zcl_cdc_customer_master IMPLEMENTATION.
     "      lo_filter_node_root TYPE REF TO /iwbep/if_cp_filter_node,
     "      lt_range_customer TYPE RANGE OF <element_name>,
     "      lt_range_authorizationgroup TYPE RANGE OF <element_name>.
-
 
     TRY.
 
@@ -64,12 +62,13 @@ CLASS zcl_cdc_customer_master IMPLEMENTATION.
 
         DATA lt_original_data TYPE STANDARD TABLE OF z_c_cstdoncredits WITH DEFAULT KEY.
         lt_original_data = CORRESPONDING #( it_original_data ).
-        LOOP AT lt_original_data ASSIGNING FIELD-SYMBOL(<fs_original_data>).
-* read the data table from API call to get customer name by customer ID
-          READ TABLE lt_business_data REFERENCE INTO DATA(lr_data)
-                                 WITH KEY customer = <fs_original_data>-custid.
+
+        LOOP AT lt_original_data REFERENCE INTO DATA(lr_original_data).
+          "read the data table from API call to get customer name by customer ID
+          READ TABLE lt_business_data REFERENCE INTO DATA(lr_business_data)
+                                 WITH KEY customer = lr_original_data->custid.
           IF sy-subrc = 0.
-            <fs_original_data>-customername = lr_data->customername.
+            lr_original_data->customername = lr_business_data->customername.
           ENDIF.
 
         ENDLOOP.
@@ -82,9 +81,14 @@ CLASS zcl_cdc_customer_master IMPLEMENTATION.
       CATCH /iwbep/cx_gateway INTO DATA(lx_gateway).
         " Handle Exception
 
+     CATCH: cx_web_http_client_error, cx_http_dest_provider_error.
+        " Handle Exception
+
     ENDTRY.
 
 
+* Example calling straightaway without Service Consumption Model
+*
 *    TYPES: BEGIN OF ts_metadata,
 *             id   TYPE string,
 *             uri  TYPE string,
@@ -111,7 +115,7 @@ CLASS zcl_cdc_customer_master IMPLEMENTATION.
 *        lo_request->set_header_fields( VALUE #(
 *           (  name = 'Content-Type' value = 'application/json' )
 *           (  name = 'Accept' value = 'application/json' )
-*           (  name = 'APIKey' value = '') ) ).  "<- REMOVE THIS KEY!!!
+*           (  name = 'APIKey' value = '') ) ).  "<- NEED API KEY!!!
 *        lo_request->set_uri_path(
 *           i_uri_path = lv_url && |API_BUSINESS_PARTNER/A_Customer?select=Customer,CustomerName |  ).
 *
@@ -125,15 +129,13 @@ CLASS zcl_cdc_customer_master IMPLEMENTATION.
 
 *    DATA lt_original_data TYPE STANDARD TABLE OF z_c_cstdoncredits WITH DEFAULT KEY.
 *    lt_original_data = CORRESPONDING #( it_original_data ).
-*    LOOP AT lt_original_data ASSIGNING FIELD-SYMBOL(<fs_original_data>).
-*
-** read the data table from API call to get customer name by customer ID
-*      READ TABLE ls_customerdata-d-results REFERENCE INTO DATA(lr_data)
-*                             WITH KEY customer = <fs_original_data>-custid.
-*      IF sy-subrc = 0.
-*        <fs_original_data>-customername = lr_data->customername.
-*      ENDIF.
-*
+*    LOOP AT lt_original_data REFERENCE INTO DATA(lr_original_data).
+*      "read the data table from API call to get customer name by customer ID
+*       READ TABLE lt_business_data REFERENCE INTO DATA(lr_business_data)
+*                              WITH KEY customer = lr_original_data->custid.
+*       IF sy-subrc = 0.
+*         lr_original_data->customername = lr_business_data->customername.
+*       ENDIF.
 *    ENDLOOP.
 *    ct_calculated_data = CORRESPONDING #( lt_original_data ).
 
@@ -141,19 +143,16 @@ CLASS zcl_cdc_customer_master IMPLEMENTATION.
 
   METHOD if_sadl_exit_calc_element_read~get_calculation_info.
 
-
     IF iv_entity <> 'Z_C_CSTDONCREDITS'.
-* do something
+    " raise exception
     ENDIF.
     LOOP AT it_requested_calc_elements ASSIGNING FIELD-SYMBOL(<fs_calc_element>).
       CASE <fs_calc_element>.
         WHEN 'CUSTOMERNAME'.
           APPEND 'CUSTID' TO et_requested_orig_elements.
         WHEN OTHERS.
-
       ENDCASE.
     ENDLOOP.
-
 
   ENDMETHOD.
 
