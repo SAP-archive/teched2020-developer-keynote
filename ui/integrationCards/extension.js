@@ -36,7 +36,7 @@ sap.ui.define(["sap/ui/integration/Extension"], function (Extension) {
 				const months = aData.reduce(function (akku, item) {
 					if (!akku[item.creationdateyyyymm]) {
 						akku[item.creationdateyyyymm] = {
-							date: new Date(item.creationdateyyyymm.slice(0, 4) + "-" + item.creationdateyyyymm.slice(4, 6))
+							date: new Date(item.creationdateyyyymm.slice(0, 4) + "-" + item.creationdateyyyymm.slice(4, 6) + "-02") // set to the 2nd to avoid time zone issues
 						}
 					}
 					akku[item.creationdateyyyymm][item.custid] = parseFloat(item.totalcredits);
@@ -51,8 +51,8 @@ sap.ui.define(["sap/ui/integration/Extension"], function (Extension) {
 	};
 
 	oExtension.getData = function () {
-		return new Promise(function (resolve, reject) {
-			if (!!cache) {
+		return new Promise(function (resolve) {
+			if (cache) {
 				resolve(cache);
 				return;
 			}
@@ -60,7 +60,7 @@ sap.ui.define(["sap/ui/integration/Extension"], function (Extension) {
 				.then(response => response.json())
 				.then(data => {
 					cache = data.d.results;
-					resolve(cache)
+					resolve(cache);
 				});
 		});
 	};
