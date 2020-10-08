@@ -3,9 +3,9 @@
 	"authenticationMethod": "none",
 	"routes": [
 		{
-			"source": "^/sap/(.*)$",
-			"target": "$1",
-			"localDir": "sample"
+			"source": "^/sap/credits",
+			"target": "/creditsbymonth?$format=json",
+			"destination": "rap"
 		},
 			{
 			"source": "^/(.*)$",

@@ -8,31 +8,42 @@ sap.ui.define(["sap/ui/integration/Extension"], function (Extension) {
 	oExtension.getDerivedData = function () {
 		return new Promise(function (resolve) {
 			this.getData().then(function (aData) {
+				const total = aData.reduce((counter, month) => counter + parseFloat(month.totalcredits), 0);
+
 				let oResponse = {
-					months: aData.items,
-					target: 11000 //TODO hard-coded assumption
-				}
+					total: total,
+					growth: (total / 2250 * 100 - 100).toFixed(1), //TODO hard-coded assumption
+					target: 2400 //TODO hard-coded assumption
+				};
 
 
-				const customers = aData.items.reduce(function (akku, creditsReport) {
-					Object.keys(aData.items[1]).forEach((key) => {
-						if (key === "Month") {
-							return;
+				//Preaggregation, shouldn't be needed once the flattened datastrucutre is available
+				const customers = aData.reduce(function (akku, item) {
+					if (!akku[item.custid]) {
+						akku[item.custid] = {
+							total: 0,
+							custid: item.custid,
+							customername: item.customername,
 						}
-						if (!akku[key]) {
-							akku[key] = { total: 0, customer: key }
-						}
-						akku[key][creditsReport.Month] = creditsReport[key];
-						akku[key].total += creditsReport[key];
-					});
+					}
+					akku[item.custid][item.creationdateyyyymm] = parseFloat(item.totalcredits);
+					akku[item.custid].total += parseFloat(item.totalcredits);
 
 					return akku;
 				}, {});
-
 				oResponse.customers = Object.values(customers);
-				oResponse.total = oResponse.customers.reduce((subtotal, customer) => subtotal + customer.total, 0);
-				oResponse.growth = (oResponse.total / 860).toFixed(1); //TODO hard-coded assumption
 
+				const months = aData.reduce(function (akku, item) {
+					if (!akku[item.creationdateyyyymm]) {
+						akku[item.creationdateyyyymm] = {
+							date: new Date(item.creationdateyyyymm.slice(0, 4) + "-" + item.creationdateyyyymm.slice(4, 6))
+						}
+					}
+					akku[item.creationdateyyyymm][item.custid] = parseFloat(item.totalcredits);
+
+					return akku;
+				}, {});
+				oResponse.months = Object.values(months);
 
 				resolve(oResponse);
 			});
@@ -45,9 +56,12 @@ sap.ui.define(["sap/ui/integration/Extension"], function (Extension) {
 				resolve(cache);
 				return;
 			}
-			fetch('sap/credits.json')
+			fetch('sap/credits')
 				.then(response => response.json())
-				.then(data => resolve(data));
+				.then(data => {
+					cache = data.d.results;
+					resolve(cache)
+				});
 		});
 	};
 

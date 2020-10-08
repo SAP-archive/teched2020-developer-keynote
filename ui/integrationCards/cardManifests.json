@@ -53,25 +53,61 @@
 				"dimensions": [
 					{
 						"label": "Month",
-						"value": "{Month}"
+						"value": "{= format.dateTime(${date}, {format: 'yMMM'})}"
 					}
 				],
 				"measures": [
 					{
-						"label": "Customer A",
-						"value": "{A}"
+						"value": "{17100001}",
+						"label": "Domestic US Customer 1"
 					},
 					{
-						"label": "Customer B",
-						"value": "{B}"
+						"value": "{17100002}",
+						"label": "Domestic US Customer 2"
 					},
 					{
-						"label": "Customer C",
-						"value": "{C}"
+						"value": "{17100003}",
+						"label": "Domestic Customer US 3"
 					},
 					{
-						"label": "Customer D",
-						"value": "{D}"
+						"value": "{USCU-CU04}",
+						"label": "Unbeatable Sport Corp."
+					},
+					{
+						"value": "{USCU-CUS01}",
+						"label": "World of Sports Inc."
+					},
+					{
+						"value": "{USCU-CUS02}",
+						"label": "Roadkings Sports Inc."
+					},
+					{
+						"value": "{USCU-CUS03}",
+						"label": "Miller & Son Corp"
+					},
+					{
+						"value": "{USCU-CUS04}",
+						"label": "Unbeatable Sports"
+					},
+					{
+						"value": "{USCU-CUS05}",
+						"label": "Spirit2Ride Inc."
+					},
+					{
+						"value": "{USCU-CUS06}",
+						"label": "FiveStarSport Inc."
+					},
+					{
+						"value": "{USCU-CUS07}",
+						"label": "Fast Sports Inc."
+					},
+					{
+						"value": "{USCU-CUS21}",
+						"label": "Ameo Corp"
+					},
+					{
+						"value": "{USCU-CUS24}",
+						"label": "Power Bikes Inc"
 					}
 				]
 			}
@@ -143,25 +179,61 @@
 				"dimensions": [
 					{
 						"label": "Month",
-						"value": "{Month}"
+						"value": "{= format.dateTime(${date}, {format: 'yMMM'})}"
 					}
 				],
 				"measures": [
 					{
-						"label": "Customer A",
-						"value": "{A}"
+						"value": "{17100001}",
+						"label": "Domestic US Customer 1"
 					},
 					{
-						"label": "Customer B",
-						"value": "{B}"
+						"value": "{17100002}",
+						"label": "Domestic US Customer 2"
 					},
 					{
-						"label": "Customer C",
-						"value": "{C}"
+						"value": "{17100003}",
+						"label": "Domestic Customer US 3"
 					},
 					{
-						"label": "Customer D",
-						"value": "{D}"
+						"value": "{USCU-CU04}",
+						"label": "Unbeatable Sport Corp."
+					},
+					{
+						"value": "{USCU-CUS01}",
+						"label": "World of Sports Inc."
+					},
+					{
+						"value": "{USCU-CUS02}",
+						"label": "Roadkings Sports Inc."
+					},
+					{
+						"value": "{USCU-CUS03}",
+						"label": "Miller & Son Corp"
+					},
+					{
+						"value": "{USCU-CUS04}",
+						"label": "Unbeatable Sports"
+					},
+					{
+						"value": "{USCU-CUS05}",
+						"label": "Spirit2Ride Inc."
+					},
+					{
+						"value": "{USCU-CUS06}",
+						"label": "FiveStarSport Inc."
+					},
+					{
+						"value": "{USCU-CUS07}",
+						"label": "Fast Sports Inc."
+					},
+					{
+						"value": "{USCU-CUS21}",
+						"label": "Ameo Corp"
+					},
+					{
+						"value": "{USCU-CUS24}",
+						"label": "Power Bikes Inc"
 					}
 				]
 			}
@@ -224,7 +296,7 @@
 				"dimensions": [
 					{
 						"label": "Customer",
-						"value": "Customer {customer}"
+						"value": "{customername}"
 					}
 				],
 				"measures": [
