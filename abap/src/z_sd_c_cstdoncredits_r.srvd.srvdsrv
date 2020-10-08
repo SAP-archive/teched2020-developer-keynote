@@ -1,0 +1,4 @@
+@EndUserText.label: 'Customer Donation Credits Reporting - Service Definition'
+define service Z_sd_c_cstdoncredits_r {
+  expose Z_C_CSTDONCREDITS_R as creditsbymonth;
+}

@@ -1,0 +1,5 @@
+ implementation abstract;
+ define behavior for ZCDC_A_CUSTOMER594F54AD59
+  {
+  update;
+ }
