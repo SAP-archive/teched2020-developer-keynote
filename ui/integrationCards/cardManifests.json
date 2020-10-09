@@ -15,13 +15,24 @@
 			"header": {
 				"icon": {},
 				"type": "Numeric",
-				"title": "Collected Credits - Q4, 2020",
+				"title": "Accumulated Credits",
 				"mainIndicator": {
-					"number": "{growth}",
+					"number": "{achievement}",
 					"unit": "%",
 					"trend": "Up",
 					"state": "Good"
-				}
+				},
+				"details": "Over target",
+				"sideIndicators": [
+					{
+						"title": "Target",
+						"number": "{target}"
+					},
+					{
+						"title": "Total",
+						"number": "{total}"
+					}
+				]
 			},
 			"content": {
 				"chartType": "StackedColumn",
@@ -58,22 +69,6 @@
 				],
 				"measures": [
 					{
-						"value": "{17100001}",
-						"label": "Domestic US Customer 1"
-					},
-					{
-						"value": "{17100002}",
-						"label": "Domestic US Customer 2"
-					},
-					{
-						"value": "{17100003}",
-						"label": "Domestic Customer US 3"
-					},
-					{
-						"value": "{USCU-CU04}",
-						"label": "Unbeatable Sport Corp."
-					},
-					{
 						"value": "{USCU-CUS01}",
 						"label": "World of Sports Inc."
 					},
@@ -82,32 +77,8 @@
 						"label": "Roadkings Sports Inc."
 					},
 					{
-						"value": "{USCU-CUS03}",
-						"label": "Miller & Son Corp"
-					},
-					{
 						"value": "{USCU-CUS04}",
 						"label": "Unbeatable Sports"
-					},
-					{
-						"value": "{USCU-CUS05}",
-						"label": "Spirit2Ride Inc."
-					},
-					{
-						"value": "{USCU-CUS06}",
-						"label": "FiveStarSport Inc."
-					},
-					{
-						"value": "{USCU-CUS07}",
-						"label": "Fast Sports Inc."
-					},
-					{
-						"value": "{USCU-CUS21}",
-						"label": "Ameo Corp"
-					},
-					{
-						"value": "{USCU-CUS24}",
-						"label": "Power Bikes Inc"
 					}
 				]
 			}
@@ -128,22 +99,22 @@
 			},
 			"header": {
 				"type": "Numeric",
-				"title": "Earned Credits",
+				"title": "Collected Credits",
 				"mainIndicator": {
-					"number": "{growth}",
+					"number": "{avgGrowth}",
 					"unit": "%",
 					"trend": "Up",
 					"state": "Good"
 				},
-				"details": "Q4, 2020",
+				"details": "Avergage Growth",
 				"sideIndicators": [
 					{
-						"title": "Target",
-						"number": "{target}"
+						"title": "Smallest Growth",
+						"number": "{smallestG} %"
 					},
 					{
-						"title": "Total",
-						"number": "{total}"
+						"title": "Largest Growth",
+						"number": "{largestG} %"
 					}
 				]
 			},
@@ -170,9 +141,7 @@
 					}
 				},
 				"title": {
-					"visible": true,
-					"text": "Credits per Month",
-					"alignment": "Left"
+					"visible": false
 				},
 				"measureAxis": "valueAxis",
 				"dimensionAxis": "categoryAxis",
@@ -184,22 +153,6 @@
 				],
 				"measures": [
 					{
-						"value": "{17100001}",
-						"label": "Domestic US Customer 1"
-					},
-					{
-						"value": "{17100002}",
-						"label": "Domestic US Customer 2"
-					},
-					{
-						"value": "{17100003}",
-						"label": "Domestic Customer US 3"
-					},
-					{
-						"value": "{USCU-CU04}",
-						"label": "Unbeatable Sport Corp."
-					},
-					{
 						"value": "{USCU-CUS01}",
 						"label": "World of Sports Inc."
 					},
@@ -208,32 +161,8 @@
 						"label": "Roadkings Sports Inc."
 					},
 					{
-						"value": "{USCU-CUS03}",
-						"label": "Miller & Son Corp"
-					},
-					{
 						"value": "{USCU-CUS04}",
 						"label": "Unbeatable Sports"
-					},
-					{
-						"value": "{USCU-CUS05}",
-						"label": "Spirit2Ride Inc."
-					},
-					{
-						"value": "{USCU-CUS06}",
-						"label": "FiveStarSport Inc."
-					},
-					{
-						"value": "{USCU-CUS07}",
-						"label": "Fast Sports Inc."
-					},
-					{
-						"value": "{USCU-CUS21}",
-						"label": "Ameo Corp"
-					},
-					{
-						"value": "{USCU-CUS24}",
-						"label": "Power Bikes Inc"
 					}
 				]
 			}
@@ -259,16 +188,7 @@
 					"number": "{customers/length}",
 					"unit": "Customers"
 				},
-				"sideIndicators": [
-					{
-						"title": "Target",
-						"number": "{target}"
-					},
-					{
-						"title": "Total",
-						"number": "{total}"
-					}
-				]
+				"details": "Q4, 2020"
 			},
 			"content": {
 				"chartType": "Donut",
@@ -284,9 +204,7 @@
 					}
 				},
 				"title": {
-					"visible": true,
-					"text": "Credits per Customers",
-					"alignment": "Left"
+					"visible": false
 				},
 				"measureAxis": "size",
 				"dimensionAxis": "color",

@@ -3,6 +3,10 @@ sap.ui.define(["sap/ui/integration/Extension"], function (Extension) {
 
 	let cache;
 
+	function asc(a, b) {
+		return a - b;
+	}
+
 	var oExtension = new Extension();
 
 	oExtension.getDerivedData = function () {
@@ -10,15 +14,11 @@ sap.ui.define(["sap/ui/integration/Extension"], function (Extension) {
 			this.getData().then(function (aData) {
 				const total = aData.reduce((counter, month) => counter + parseFloat(month.totalcredits), 0);
 
-				let oResponse = {
-					total: total,
-					growth: (total / 2250 * 100 - 100).toFixed(1), //TODO hard-coded assumption
-					target: 2400 //TODO hard-coded assumption
-				};
+
 
 
 				//Preaggregation, shouldn't be needed once the flattened datastrucutre is available
-				const customers = aData.reduce(function (akku, item) {
+				const oCustomerMap = aData.reduce(function (akku, item) {
 					if (!akku[item.custid]) {
 						akku[item.custid] = {
 							total: 0,
@@ -31,9 +31,8 @@ sap.ui.define(["sap/ui/integration/Extension"], function (Extension) {
 
 					return akku;
 				}, {});
-				oResponse.customers = Object.values(customers);
 
-				const months = aData.reduce(function (akku, item) {
+				const oMonthMap = aData.reduce(function (akku, item) {
 					if (!akku[item.creationdateyyyymm]) {
 						akku[item.creationdateyyyymm] = {
 							date: new Date(item.creationdateyyyymm.slice(0, 4) + "-" + item.creationdateyyyymm.slice(4, 6) + "-02") // set to the 2nd to avoid time zone issues
@@ -43,7 +42,30 @@ sap.ui.define(["sap/ui/integration/Extension"], function (Extension) {
 
 					return akku;
 				}, {});
-				oResponse.months = Object.values(months);
+
+				const aMonths = Object.keys(oMonthMap).sort();
+				const aCustomers = Object.keys(oCustomerMap);
+
+				let avgGrowth = 0;
+				const aGrowth = aCustomers.map((customer) => {
+					let firstMonth = oCustomerMap[customer][aMonths[0]],
+						lastMonth = oCustomerMap[customer][aMonths[aMonths.length - 1]]
+					let growth = (lastMonth / firstMonth * 100 - 100);
+					avgGrowth += growth / aCustomers.length;
+					return +growth.toFixed(1);
+				}).sort(asc);
+
+
+				let oResponse = {
+					total: total,
+					months: Object.values(oMonthMap),
+					customers: Object.values(oCustomerMap),
+					avgGrowth: avgGrowth.toFixed(1),
+					smallestG: aGrowth[0],
+					largestG: aGrowth[aGrowth.length - 1],
+					achievement: (total / 800000 * 100 - 100).toFixed(1), //TODO hard-coded assumption
+					target: 800000 //TODO hard-coded assumption
+				};
 
 				resolve(oResponse);
 			});
