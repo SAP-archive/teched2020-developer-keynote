@@ -6,6 +6,8 @@
 
 # Deployment
 
+Prior to any deployment, create a destination named `rap` in the SAP Cloud Platform cockpit.
+
 ## Serverless deployment
 
 0. Enable the Launchpad subscription
@@ -17,6 +19,7 @@
 ## Standalone approuter deployment
 
 1. `cf push keynote-cards -m 256M -k 512M --random-route` 
+2. Bind the app to a destination service instance (don't forget to `cf restage <appname>`)
 2. Access the URL of the app
 
 
