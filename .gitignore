@@ -6,3 +6,4 @@ default-env.json
 dashboard.zip
 mta_archives/
 ui/resources
+*.db-journal
