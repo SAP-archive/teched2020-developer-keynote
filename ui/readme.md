@@ -16,7 +16,7 @@
 
 ## Standalone approuter deployment
 
-1. `cf push keynote-cards  --random-route ` 
+1. `cf push keynote-cards -m 256M -k 512M --random-route` 
 2. Access the URL of the app
 
 
