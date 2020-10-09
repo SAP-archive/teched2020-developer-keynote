@@ -9,7 +9,7 @@
 ## Serverless deployment
 
 0. Enable the Launchpad subscription
-1. `mbt install`
+1. `mbt build`
 2. `cf deploy mta_archives/developer-keynote-dashboard_1.0.0.mtar`
 3.  Access <https://your-id.launchpad.cfapps.eu10.hana.ondemand.com/developerkeynote.dashboard>
 
