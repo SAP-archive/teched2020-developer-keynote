@@ -15,7 +15,7 @@ CLASS zcl_cdc_rest_service IMPLEMENTATION.
 
   METHOD if_http_service_extension~handle_request.
 
-* Expected payload
+* Expected payload example
 *
 *{
 *    "data": {
