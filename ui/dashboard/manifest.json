@@ -1,7 +1,10 @@
 {
 	"_version": "1.12.0",
+  "sap.cloud": {
+    "service": "developer.keynote"
+  },
 	"sap.app": {
-		"id": "com.sap.developerkeynote",
+		"id": "dashboard",
 		"type": "application",
 		"title": "Developer Keynote",
 		"applicationVersion": {
@@ -30,7 +33,7 @@
 			}
 		},
 		"rootView": {
-			"viewName": "com.sap.developerkeynote.Main",
+			"viewName": "dashboard.Main",
 			"type": "XML",
 			"async": true
 		},

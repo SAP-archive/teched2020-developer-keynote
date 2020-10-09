@@ -3,3 +3,6 @@ node_modules/
 sk*.json
 default-env.json
 .DS_Store
+dashboard.zip
+mta_archives/
+ui/resources

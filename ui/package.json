@@ -5,7 +5,8 @@
     "node": "12.x"
   },
   "scripts": {
-    "start": "node node_modules/@sap/approuter/approuter.js"
+    "start": "node node_modules/@sap/approuter/approuter.js",
+    "build": "npx rimraf dashboard.zip && cd dashboard/ && npx bestzip ../dashboard.zip *"
   },
   "dependencies": {
     "@sap/approuter": "^8.5.0"

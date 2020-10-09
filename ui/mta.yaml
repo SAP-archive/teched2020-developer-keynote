@@ -1,0 +1,80 @@
+_schema-version: "3.2"
+ID: developer-keynote-dashboard
+version: 1.0.0
+
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm install
+
+modules:
+  - name: developer-keynote-dashboard-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: developer-keynote-dashboard_uaa
+        parameters:
+          service-key:
+            name: developer-keynote-dashboard_uaa-key
+      - name: developer-keynote-dashboard_html_repo_host
+        parameters:
+          service-key:
+            name: developer-keynote-dashboard_html_repo_host-key
+      - name: developer-keynote-dashboard-destination-service
+        parameters:
+          content:
+            subaccount:
+              destinations:
+                - Name: developer-keynote-html_destination
+                  ServiceInstanceName: developer-keynote-dashboard_html_repo_host
+                  ServiceKeyName: developer-keynote-dashboard_html_repo_host-key
+                  sap.cloud.service: developer.keynote
+                - Authentication: OAuth2UserTokenExchange
+                  Name: developer-keynote-uaa_destination
+                  ServiceInstanceName: developer-keynote-dashboard_uaa
+                  ServiceKeyName: developer-keynote-dashboard_uaa-key
+                  sap.cloud.service: developer.keynote
+              existing_destinations_policy: update
+          content-target: true
+    build-parameters:
+      no-source: true
+  - name: developer-keynote-dashboard_ui_deployer
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: developer-keynote-dashboard_html_repo_host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - dashboard.zip
+          name: HTML5Module
+          target-path: resources/
+  - name: HTML5Module
+    type: html5
+    path: .
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+resources:
+  - name: developer-keynote-dashboard-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-name: developer-keynote-dashboard-destination-service
+      service-plan: lite
+  - name: developer-keynote-dashboard_html_repo_host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+  - name: developer-keynote-dashboard_uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-plan: application

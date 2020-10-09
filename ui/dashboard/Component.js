@@ -3,7 +3,7 @@ sap.ui.define([
 ], function (UIComponent) {
 	"use strict";
 
-	return UIComponent.extend("com.sap.developerkeynote.Component", {
+	return UIComponent.extend("dashboard.Component", {
 
 		metadata: {
 			manifest: "json"

@@ -10,7 +10,7 @@
 			{
 			"source": "^/(.*)$",
 			"target": "$1",
-			"localDir": "integrationCards"
+			"localDir": "dashboard"
 		}
 	]
 }
