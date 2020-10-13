@@ -16,7 +16,7 @@
 * Tell event story
 * Show Sales Order API in API Hub
 * Talk about On Prem vs. Cloud API
-* App Router to Sanbox on the API Hub 
+* App Router to Sandbox on the API Hub 
   * Mock the Event by running the script
   * Show Enterprise Messaging Dashboard
 * Why use the App Router - talk about injecting the API key into all service calls automatically
