@@ -84,9 +84,9 @@ module.exports = async (srv) => {
       new Date(Number(result.CreationDate.replace(/[^\d]/g, '')))
         .toISOString()
         .slice(0,10)*/
-    
+
     //keynote Date simulation
-    const creationYyyyMmDd = new Date("2020-12-08").toISOString.slice(0,10);
+    const creationYyyyMmDd = new Date("2020-12-08").toISOString().slice(0,10);
 
     // Create event payload
     const eventData = charityfund.increased({
