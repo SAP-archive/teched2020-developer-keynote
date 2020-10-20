@@ -15,6 +15,16 @@ The Emitter uses the [Messaging API](https://help.sap.com/doc/3dfdf81b17b744ea92
 
 The API call is authenticated with OAuth 2.0, whereby an access token is retrieved using details in the `emdev` service instance's service key `sk1` - the specifics which are from the `settings` helper library.
 
+## Requirements
+
+The `emit` Bash script uses some external commands, none of which are obscure, but some of which you may need to explicitly install:
+
+- `uuidgen` (often found in the `uuid-runtime` Linux package)
+- `curl` (see [the `curl` home page](https://curl.haxx.se/))
+- `cf` (see the [Install Guide](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html))
+- `yq` (see [the `yq` home page](https://github.com/mikefarah/yq))
+- `jq` (see [the `jq` home page](https://stedolan.github.io/jq/))
+
 ## Usage
 
 The Emitter (the `emit` script) is designed to be used from the command line, and expects a single parameter that is mandatory - the sales order number. This must be a sales order that exists in the Sandbox (S/4HANA mock system). See the [`A_SalesOrder` entityset](https://9e079cc4trial-dev-s4-mock-router.cfapps.eu10.hana.ondemand.com/sap/opu/odata/sap/API_SALES_ORDER_SRV/A_SalesOrder?$top=10) data to look for valid sales order numbers.
