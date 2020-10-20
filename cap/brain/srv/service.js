@@ -111,39 +111,6 @@ module.exports = async (srv) => {
     log.debug(`Published event to ${topicOutgoing}`);
   });
 
-  // Also send an event on the function invocation (test only)
-  srv.on("invoke", async (req) => {
-    await messaging.tx(req).emit({
-      event: topicOutgoing,
-      data: charityfund.increased({
-        source: `${eventSource}-test`,
-        payload: {
-          custid: 4711,
-          custname: "Echt Kölnisch Wasser",
-          credits: "4711",
-        },
-      }),
-    });
-
-    // Function invocation is expecting a string as a return value
-    return "OK";
-  });
-
-  // Also convert  on the function invocation (test only)
-  srv.on("convert", async (req) => {
-    const converted = await converter.get(`/?salesAmount=48.5`);
-    log.debug(`Conversion result is ${JSON.stringify(converted)}`);
-
-    // Function invocation is expecting a string as a return value
-    return "OK";
-  });
-
-  // Also convert  on the function invocation (test only)
-  srv.on("readEntry", async (req) => {
-    if (!(await continueProcessing(req.data.party, req)))
-      // Function invocation is expecting a string as a return value
-      return "OK";
-  });
 };
 
 async function continueProcessing(party, req) {
