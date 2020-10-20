@@ -7,3 +7,4 @@ dashboard.zip
 mta_archives/
 ui/resources
 *.db-journal
+*.token
