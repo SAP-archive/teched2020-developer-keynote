@@ -1,3 +1,5 @@
+const os = require("os");
+
 // Service implementation for CAP "brain"
 
 // Basic events module - get the 'charityfund' collection
@@ -16,7 +18,7 @@ const log = require("console-log-level")({
 // Event detail
 const topicIncoming = "salesorder/created";
 const topicOutgoing = "Internal/Charityfund/Increased";
-const eventSource = "/default/cap.brain/1";
+const eventSource = `/default/cap.brain/${os.hostname() || "unknown"}`;
 
 module.exports = async (srv) => {
   // CONNECTIONS
