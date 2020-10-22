@@ -1,6 +1,6 @@
 # Mock Router
 
-This mock application redirects all incoming traffic to the SAP API Business Hub sandbox system. The application router will attach the required API key to all requests during transit.
+This mock application redirects all incoming traffic to the SAP API Business Hub sandbox system. The application router will attach the required API key to all requests during transit. The API in question is the S/4HANA Cloud API [Sales Order (A2X)](https://api.sap.com/api/API_SALES_ORDER_SRV/resource). 
 
 ## Prerequisites
 

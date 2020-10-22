@@ -8,14 +8,17 @@ import (
 	"math"
 )
 
+// CalculationResult represents the data structure for the API response containing the calculated credits.
 type CalculationResult struct {
 	Credits float64
 }
 
+// CalculationError represents the error case if something goes wrong while calculating the credit amount.
 type CalculationError struct {
 	error string
 }
 
+// The calculateDonationCredit method is used to calculate the credit amount for each incoming sales order.
 func calculateDonationCredit(usd float64) float64 {
 
 	switch {
@@ -29,10 +32,12 @@ func calculateDonationCredit(usd float64) float64 {
 	return 0
 }
 
+// A simple rounding method to round to two digits after comma.
 func round(value float64) float64 {
 	return math.Round(value*100)/100
 }
 
+// Calculate will trigger the credit calculation and builds the response payload for the incoming request.
 func Calculate(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("GET params were:", r.URL.Query())
@@ -50,14 +55,17 @@ func Calculate(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// The calculationHandler abstracts the calculate method from the public API.
 func calculationHandler(w http.ResponseWriter, r *http.Request) {
 	Calculate(w, r)
 }
 
+// Setting up the routes for incoming requests.
 func setupRoutes() {
 	http.HandleFunc("/conversion", calculationHandler)
 }
 
+// The main method of the GO application setting up the routes and starting the http server.
 func main() {
 	fmt.Println("Go Web App Started on Port 3000")
 	setupRoutes()

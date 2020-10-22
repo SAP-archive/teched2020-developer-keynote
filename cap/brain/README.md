@@ -1,4 +1,4 @@
-The CAP service is indicated by the "Brain (CAP service)" block in the [schematic](https://sap.sharepoint.com/:p:/r/sites/100499/_layouts/15/Doc.aspx?sourcedoc=%7B02231566-2A17-412E-8E59-5D0A34317F12%7D&file=Scratch.pptx&action=edit&mobileredirect=true) diagram. 
+The CAP service is indicated by the "Brain (CAP service)" block in the [schematic](https://sap.sharepoint.com/:p:/r/sites/100499/_layouts/15/Doc.aspx?sourcedoc=%7B02231566-2A17-412E-8E59-5D0A34317F12%7D&file=Scratch.pptx&action=edit&mobileredirect=true) diagram.
 
 It can be found in the [`cap/brain/`](https://github.com/SAP-samples/teched2020-developer-keynote/tree/master/cap/brain) directory in this repository.
 
@@ -82,9 +82,9 @@ data:
   { "content_here" }
 ```
 
-3. Run [k8s_deploy.sh](./k8s_deploy.sh)
+3. Run [k8s_deploy](./k8s_deploy)
 
-4. Return to the Kyma Console and the API Rules. You should see a new API Rule named brain and the URL for this endpoint. 
+4. Return to the Kyma Console and the API Rules. You should see a new API Rule named brain and the URL for this endpoint.
 
 ## Local execution
 
