@@ -14,9 +14,6 @@ sap.ui.define(["sap/ui/integration/Extension"], function (Extension) {
 			this.getData().then(function (aData) {
 				const total = aData.reduce((counter, month) => counter + parseFloat(month.totalcredits), 0);
 
-
-
-
 				//Preaggregation, shouldn't be needed once the flattened datastrucutre is available
 				const oCustomerMap = aData.reduce(function (akku, item) {
 					if (!akku[item.custid]) {
@@ -55,7 +52,6 @@ sap.ui.define(["sap/ui/integration/Extension"], function (Extension) {
 					return +growth.toFixed(1);
 				}).sort(asc);
 
-
 				let oResponse = {
 					total: total,
 					months: Object.values(oMonthMap),
@@ -63,8 +59,8 @@ sap.ui.define(["sap/ui/integration/Extension"], function (Extension) {
 					avgGrowth: avgGrowth.toFixed(1),
 					smallestG: aGrowth[0],
 					largestG: aGrowth[aGrowth.length - 1],
-					achievement: (total / 800000 * 100 - 100).toFixed(1), //TODO hard-coded assumption
-					target: 800000 //TODO hard-coded assumption
+					achievement: (total / 800000 * 100 - 100).toFixed(1), // hard-coded assumption
+					target: 800000 // hard-coded assumption
 				};
 
 				resolve(oResponse);

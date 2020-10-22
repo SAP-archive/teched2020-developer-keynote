@@ -1,8 +1,8 @@
 {
 	"_version": "1.12.0",
-  "sap.cloud": {
-    "service": "developer.keynote"
-  },
+	"sap.cloud": {
+		"service": "developer.keynote"
+	},
 	"sap.app": {
 		"id": "dashboard",
 		"type": "application",
@@ -11,10 +11,10 @@
 			"version": "1.0.0"
 		},
 		"dataSources": {
-				"cardsModel": {
-					"uri": "cardManifests.json",
-					"type": "JSON"
-				}
+			"cardsModel": {
+				"uri": "cardManifests.json",
+				"type": "JSON"
+			}
 		}
 	},
 	"sap.ui": {
