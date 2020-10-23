@@ -11,7 +11,7 @@
 * Trigger event in S/4, show the data impacting the dashboard
 * Now lets see how the event flows through all the services 
 
-# S/4 Mock
+# S/4 Mock & Event emit
 
 * Tell event story
 * Show Sales Order API in API Hub
@@ -21,7 +21,7 @@
   * Show Enterprise Messaging Dashboard
 * Why use the App Router - talk about injecting the API key into all service calls automatically
 
-# CAP 
+# CAP brain - react
 
 * How is the CAP service configured to use Enterprise Messaging and other services (package.json)
 * Eventing Configuration  in package.json
@@ -40,10 +40,10 @@
   * Auto Scaling 
   * Auto restart
 
-# Back to CAP (Briefly)
+# CAP brain - transmit
 
-* Enrich the original Business Object from S/4 with custom logic and then pass that along to ABAP
-* But not a direct call to ABAP but instead raising custom message on Enterprise Messaging - loosely couple these two services
+* Publish new event "Internal/Charityfund/Increased" containing enriched sales order summary info, for ABAP stack
+* But not a direct call to ABAP but instead raising custom message on Enterprise Messaging - loose coupling
 
 # ABAP
 
