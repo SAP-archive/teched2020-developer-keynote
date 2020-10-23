@@ -2,8 +2,11 @@ const os = require("os");
 
 // Service implementation for CAP "brain"
 
+// How many sales orders we should process for a given sold-to party
+const ORDERLIMIT = 10;
+
 // Basic events module - get the 'charityfund' collection
-const charityfund = require("./events").charityfund;
+const { charityfund } = require("./events")
 
 // Cloud SDK logging (reduce it overall).
 const { setGlobalLogLevel } = require("@sap-cloud-sdk/util");
@@ -21,6 +24,7 @@ const topicOutgoing = "Internal/Charityfund/Increased";
 const eventSource = `/default/cap.brain/${os.hostname() || "unknown"}`;
 
 module.exports = async (srv) => {
+
   // CONNECTIONS
 
   // Connect to the various components (see package.json)
@@ -34,7 +38,9 @@ module.exports = async (srv) => {
   // - Retrieve sales order details from S/4HANA system
   // - Request charity fund equivalent credits for sales order amount
   // - Publish an event to the 'Internal/Charityfund/Increased' topic
+
   messaging.on(topicIncoming, async (msg) => {
+
     // Properties to retrieve for the given sales order
     const salesOrderProperties = [
       "SalesOrder",
@@ -46,6 +52,7 @@ module.exports = async (srv) => {
 
     log.debug(`Message received ${JSON.stringify(msg)}`);
 
+    // ------------------------------------------------
     // Retrieve sales order details from S/4HANA system
     // ------------------------------------------------
 
@@ -71,6 +78,8 @@ module.exports = async (srv) => {
     // Was the SoldToParty already cached or processed 10 times?
     if (!(await continueProcessing(result.SoldToParty, msg))) return;
 
+
+    // --------------------------------------------------------------
     // Request charity fund equivalent credits for sales order amount
     // --------------------------------------------------------------
     const converted = await converter.get(
@@ -78,17 +87,16 @@ module.exports = async (srv) => {
     );
     log.debug(`Conversion result is ${JSON.stringify(converted)}`);
 
+
+    // --------------------------------------------------------------
     // Publish an event to the 'Internal/Charityfund/Increased' topic
     // --------------------------------------------------------------
 
     // Convert creation date from OData v2 wrapped epoch to yyyy-mm-dd
-    /*const creationYyyyMmDd =
+    const creationYyyyMmDd =
       new Date(Number(result.CreationDate.replace(/[^\d]/g, '')))
         .toISOString()
-        .slice(0,10)*/
-
-    //keynote Date simulation
-    const creationYyyyMmDd = new Date("2020-12-08").toISOString().slice(0,10);
+        .slice(0,10);
 
     // Create event payload
     const eventData = charityfund.increased({
@@ -101,9 +109,7 @@ module.exports = async (srv) => {
         salesorg: result.SalesOrganization,
       },
     });
-    log.debug(
-      `Payload for ${topicOutgoing} topic created ${JSON.stringify(eventData)}`
-    );
+    log.debug(`Payload for ${topicOutgoing} topic created ${JSON.stringify(eventData)}`);
 
     // Emit the event
     await messaging.tx(msg).emit({
@@ -111,9 +117,17 @@ module.exports = async (srv) => {
       data: eventData,
     });
     log.debug(`Published event to ${topicOutgoing}`);
+
   });
 
 };
+
+
+// ===========================================================
+// continueProcessing: Use the CharityEntry entity
+// to determine whether we're OK to continue processing
+// the particular sales order we've just received.
+// ===========================================================
 
 async function continueProcessing(party, req) {
   const db = await cds.connect.to("db");
@@ -136,8 +150,8 @@ async function continueProcessing(party, req) {
     );
   } else {
     count = data.count;
-    if (count == 10) {
-      console.info("SoldToParty was already processed 10 times");
+    if (count == ORDERLIMIT) {
+      console.info(`SoldToParty was already processed ${ORDERLIMIT} times`);
       return false;
     }
   }

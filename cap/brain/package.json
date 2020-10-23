@@ -1,9 +1,9 @@
 {
   "name": "brain",
   "version": "1.0.0",
-  "description": "A simple CAP project.",
-  "repository": "<Add your repository here>",
-  "license": "UNLICENSED",
+  "description": "Sales Charity Fund - Brain",
+  "repository": "git@github.com:SAP-samples/teched2020-developer-keynote.git",
+  "license": "Apache 2.0",
   "private": true,
   "dependencies": {
     "@sap/cds": "^4",
