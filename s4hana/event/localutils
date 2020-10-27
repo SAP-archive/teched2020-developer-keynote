@@ -2,8 +2,6 @@
 
 # Local utilities for use in various other scripts
 
-output=${output:-silent}
-
 log () {
   echo "$(date '+%Y-%m-%d %H:%M:%S')" "$@"
 }
@@ -37,7 +35,7 @@ gettoken () {
   # Client Credentials grant type.
   token=$(
     curl \
-      --"${output}" \
+      --"${output:-silent}" \
       --user "${clientid}:${clientsecret}" \
       --data "grant_type=${granttype}" \
       "${tokenendpoint}" \

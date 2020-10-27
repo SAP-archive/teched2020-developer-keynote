@@ -7,3 +7,5 @@ service=enterprise-messaging
 plan=dev
 instance=emdev
 servicekey=sk1
+
+output=silent
