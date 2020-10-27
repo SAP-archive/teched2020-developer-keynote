@@ -60,6 +60,7 @@ CLASS zcl_cdc_rest_service IMPLEMENTATION.
     DATA: ls_payload TYPE ts_payload.
     DATA: lt_zcstdoncredits TYPE TABLE OF zcstdoncredits.
 
+
     DATA(lv_method) =  request->get_method( ) .
 
     CASE lv_method.

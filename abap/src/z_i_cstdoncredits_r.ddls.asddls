@@ -1,4 +1,4 @@
-@EndUserText.label: 'Customer Donation Credits View - Reporting View'
+@EndUserText.label: 'Customer Donation Credits - Reporting'
 @AccessControl.authorizationCheck: #CHECK
 define root view entity Z_I_CSTDONCREDITS_R 
    as select from Z_I_CSTDONCREDITS
