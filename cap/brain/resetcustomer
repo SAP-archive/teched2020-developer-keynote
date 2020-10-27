@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Reset (remove) a customer from the brain persistence layer.
+# Will either remove the customer specified, otherwise ALL of them.
+
 usage() {
   declare scriptname=$1
   echo "Usage: $scriptname <customerid>"
@@ -16,4 +19,7 @@ main() {
 }
 
 declare rooturl="https://brain.c210ab1.kyma.shoot.live.k8s-hana.ondemand.com"
-main "$@"
+declare customer="${1:-11111111 22222222 4711 USCU-CUS01 USCU-CUS02 USCU-CUS03 USCU-CUS04}"
+for i in $customer; do
+  main "$i"
+done
