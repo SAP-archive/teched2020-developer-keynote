@@ -30,6 +30,23 @@ spec:
 
 For further information review the [`main.go`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/kyma/main.go) file and it's code documentation.
 
+## The Dockerfile and building a Docker Image
+The Dockerfile as is doesn't need to be changed in order to dockerize the GoLang service for deployment. The Dockerfile can be simply build with the following command:
+
+```cli
+docker build --tag calcservice:1.0 .
+
+```
+
+The dockerized service can then be deployed locally through the command line by executing:
+
+```cli
+docker run --publish 3000:3000 --detach --name calcservie calcservice:1.0
+
+```
+
+Detached mode `--detach` will tell Docker to run this container in the background.
+
 ## Deployment to Kyma
 
 1. Create a secret for docker deployment from Github
