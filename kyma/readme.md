@@ -60,7 +60,7 @@ To publish the Docker Image to the GitHub Container Registry run the [`docker_pu
 
 The SAP Cloud Platform, Kyma runtime is a Kubernetes based runtime which can be enabled through the SAP Cloud Platform and is available for trial. With the SAP Cloud Platform, Kyma runtime (following Kyma) you can deploy containerized applications and services to the runtime itself and manage these through the [Kubernetes-CLI](https://kubernetes.io/docs/reference/kubectl/) or the Kyma Console UI.
 
-!![kyma-getting-started-12](https://user-images.githubusercontent.com/9074514/99500857-37deda00-297b-11eb-9da3-0fdf90b125c7.png)
+![Kyma_Console_UI](https://user-images.githubusercontent.com/9074514/99507827-2c43e100-2984-11eb-9036-2483243a3278.png)
 
 In order to successfully deploy a containerized application or service to Kyma you need to create a [`deployment.yaml`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/kyma/Deployment.yaml) file where you specify the runtime variables for the container to run in. These variables range from:
 
@@ -87,22 +87,59 @@ The secret is needed for Kyma to be able to authenticate against the GitHub Cont
 
 In order to use your local CLI, you need to generate and download the `kubeconfig` file that allows you to access the cluster. For more information [kubectl](https://kyma-project.io/docs/master/components/security#details-access-kyma-kubectl) section in the Kyma documentation.
 
-2.1 Run the k8s_deploy.sh
+   * Run the k8s_deploy.sh
 
-The easiest way for you to deploy to Kyma would be to run the `k8s_deploy.sh` shell script. The script uses `kubectl replace` which will initially deploy the ressource and if re-deployed just replace the current deployment.
+   The easiest way for you to deploy to Kyma would be to run the `k8s_deploy.sh` shell script. The script uses `kubectl replace` which will initially deploy the  ressource and if re-deployed just replace the current deployment.
 
-2.2 Use kubectl
+   * Use kubectl
 
-Instead of executing the `k8s_deploy.sh`, you can just execute the command youself:
+   Instead of executing the `k8s_deploy.sh`, you can just execute the command youself:
 
-```cli
-kubectl replace --force -f deployment.yaml -n default
-```
+  ```cli
+  kubectl replace --force -f deployment.yaml -n default
+  ```
 
-2.3 Use the Kyma Console UI
+   * Use the Kyma Console UI
 
-If you want to use the User Interface in order to deploy the service you can do this via the Kyma Console UI.
+   If you want to use the User Interface in order to deploy the service you can do this via the Kyma Console UI.
 
+   |         |            |
+   | ------------- |:-------------:|
+   | ![Kyma_Console_UI_Deploy](https://user-images.githubusercontent.com/9074514/99509893-ac6b4600-2986-11eb-9389-feca1b21ada5.png) | ![Kyma_Console_UI_Deploy_2](https://user-images.githubusercontent.com/9074514/99509888-ab3a1900-2986-11eb-95b5-f4807bb4e612.png) |
 
+3. Return to the Kyma Console UI
 
-3. Return to the Kyma Console and the API Rules. You should see a new API Rule named calc-service and the URL for this endpoint.
+In the Kyma Console UI you can now see your new deployments, pods, the defined API Rule from the `deployment.yaml` and more.
+
+**Deployment**
+
+![Kyma_Console_UI_Deployment](https://user-images.githubusercontent.com/9074514/99512003-46cc8900-2989-11eb-840e-f836cf818e5f.png)
+
+**Replica Set**
+
+![Kyma_Console_UI_Replica_Set](https://user-images.githubusercontent.com/9074514/99512078-5b108600-2989-11eb-808c-97ae8e72254e.png)
+
+**Changing the amount of Replicas**
+
+In order to change the amount of replicas you can simply do this over the Kyma Console UI via the `Deployment` detail page. In there look for the service you want to change the replica amount for and click on the `...` and `Edit`. A popup with the service definition pops up where you can change the number from 1 to, for example 5.
+
+![Kyma_Console_UI_Change_ReplicaSet](https://user-images.githubusercontent.com/9074514/99512339-a034b800-2989-11eb-8cfe-e1228acccedb.png)
+
+You will see that Kyma recognizes the change and shows you `1/5` pods being started.
+
+![Kyma_Console_UI_Change_ReplicaSet_2](https://user-images.githubusercontent.com/9074514/99512436-bd698680-2989-11eb-9afd-15617db3032d.png)
+
+Navigate to the Pods and you will see that Kyma started up 4 new pods for the `calc-service` to run in.
+
+![Kyma_Console_UI_Change_ReplicaSet_3](https://user-images.githubusercontent.com/9074514/99512513-d7a36480-2989-11eb-9df8-43fe9e4a5a4b.png)
+
+Going to the Replica Set section you can see that in the meantime 5 of 5 replica sets should be running in your cluster.
+
+![Kyma_Console_UI_Change_ReplicaSet_4](https://user-images.githubusercontent.com/9074514/99512591-f0ac1580-2989-11eb-8ecd-1a6d169fe54d.png)
+
+If you navigate out of your namespace and into the `Diagnostics/Logs` you can see that Kyma took the changes and started up more replicas of the service on `Port 3000`. With this you can simply scale your application or service at anytime.
+
+![Kyma_Console_UI_Change_ReplicaSet_5](https://user-images.githubusercontent.com/9074514/99512756-205b1d80-298a-11eb-9c30-230ab52528be.png)
+
+Even if you want to reduce the amount of replica sets you can do this at any time the same way as you would increase the amount. Kyma will make sure to reduce the amount of replica sets and so the amount of running pods to the specified amount with zero downtime of your service. In order for Kyma to do that it utilizes the Service Mesh provided by Istio. With Istio it allows Kyma to enable you to define certain rules to enforce secure pod injection at any time. To read more about Kyma's Service Mesh and Istio visit the [Service Mesh - Overview](https://kyma-project.io/docs/components/service-mesh) documentation.
+
