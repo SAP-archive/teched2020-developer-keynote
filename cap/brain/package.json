@@ -13,6 +13,7 @@
     "express": "^4"
   },
   "devDependencies": {
+    "prettier": "2.1.2",
     "sqlite3": "^4"
   },
   "scripts": {
