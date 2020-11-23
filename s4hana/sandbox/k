@@ -8,6 +8,7 @@ declare namespace dockerserver
 self=$(basename "$0")
 namespace=default
 dockerserver=https://docker.pkg.github.com
+secretname=regcred
 
 usage() {
   cat <<EOF
@@ -28,12 +29,16 @@ deploy() {
 
 secret() {
   local email user pass
-  echo Creating secret for registry access at $dockerserver
+  echo Setting up docker-registry secret $secretname for access to $dockerserver
+  if kubectl get secret $secretname >/dev/null 2>&1; then
+    read -rp "Secret $secretname exists - will remove first (hit enter to continue)"
+    kubectl delete secret $secretname
+  fi
   read -r -p "Enter email: " email
   read -r -p "Enter username: " user
   read -r -s -p "Enter password / token: " pass
   echo
-  kubectl create secret docker-registry regcred \
+  kubectl create secret docker-registry $secretname \
     --docker-server=$dockerserver \
     --docker-email="$email" \
     --docker-username="$user" \
