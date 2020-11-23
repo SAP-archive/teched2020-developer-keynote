@@ -1,1 +1,0 @@
-kubectl replace --force -f deployment.yaml -n default

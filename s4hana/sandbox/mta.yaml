@@ -9,14 +9,3 @@ modules:
     parameters:
       disk-quota: 256M
       memory: 128M
-    requires:
-      - name: s4-mock-destination
-resources:
-  - name: s4-mock-destination
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service-name: destination-lite
-      service-plan: lite
-      service: destination
-      path: ./destinations.json
-

@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+# Kubernetes/Kyma utilities - k
+
+set -o errexit
+
+declare namespace dockerserver
+self=$(basename "$0")
+namespace=default
+dockerserver=https://docker.pkg.github.com
+
+usage() {
+  cat <<EOF
+Usage: $self <action>
+
+where <action> is one of:
+- deploy: make deployment
+- secret: create secret for GitHub Package registry access
+EOF
+}
+
+deploy() {
+  echo Deploying to k8s
+  kubectl apply \
+    -f deployment.yaml \
+    -n $namespace
+}
+
+secret() {
+  local email user pass
+  echo Creating secret for registry access at $dockerserver
+  read -r -p "Enter email: " email
+  read -r -p "Enter username: " user
+  read -r -s -p "Enter password / token: " pass
+  echo
+  kubectl create secret docker-registry regcred \
+    --docker-server=$dockerserver \
+    --docker-email="$email" \
+    --docker-username="$user" \
+    --docker-password="$pass"
+}
+
+main() {
+  local action=$1
+  case $action in
+    deploy|secret)
+      $action
+      ;;
+    *)
+      usage
+      exit 1
+  esac
+
+}
+
+main "$@"

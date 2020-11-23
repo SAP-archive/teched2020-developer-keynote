@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+# Docker utilities - d
+
+set -o errexit
+
+declare self applocation dockerreg tag
+self=$(basename "$0")
+applocation=router
+dockerreg=https://docker.pkg.github.com
+tag=docker.pkg.github.com/sap-samples/teched2020-developer-keynote/s4mock:latest
+
+usage() {
+  cat <<EOF
+Usage: $self <action>
+
+where <action> is one of:
+- login: login to GitHub Packages
+- build: create the Docker image
+- run: run a container locally based on the image
+- publish: publish the image to GitHub
+EOF
+}
+
+login() {
+  local user pass
+  echo Authenticating with GitHub Packages
+  read -r -p "Enter username: " user
+  read -r -s -p "Enter password / token: " pass
+  echo
+  echo -n "$pass" \
+    | docker login $dockerreg \
+      --username "$user" \
+      --password-stdin
+}
+
+
+build() {
+  echo Building image for "$applocation"
+  docker build \
+    -t $tag \
+    -f ./Dockerfile \
+    $applocation
+}
+
+run() {
+  echo Running detached instance of image locally
+  docker run \
+    -d \
+    -p 5000:5000 \
+    $tag
+}
+
+publish() {
+  echo Publishing image to GitHub Packages
+  docker push \
+    $tag
+}
+
+main() {
+  local action=$1
+  case $action in
+    login|build|run|publish)
+      $action
+      ;;
+    *)
+      usage
+      exit 1
+  esac
+}
+
+main "$@"

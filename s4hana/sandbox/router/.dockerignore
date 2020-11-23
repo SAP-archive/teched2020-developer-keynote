@@ -1,7 +1,0 @@
-node_modules
-npm-debug.log
-default-env*.json
-deployment.yaml
-secret.yaml
-secret.json
-*.sh
