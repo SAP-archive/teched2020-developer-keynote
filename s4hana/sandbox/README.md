@@ -210,7 +210,11 @@ start command:   npm start
 #0   running   2020-11-24T10:18:36Z   0.0%   0 of 1G   0 of 1G
 ```
 
-In the output, the route is shown, and you can check that you can access the `API_SALES_ORDER_SRV`'s service document again, at the URL relating to the route URL. In this case, it is `http://proxyapp-wise-gnu-hc.cfapps.eu10.hana.ondemand.com/sap/opu/odata/sap/API_SALES_ORDER_SRV/` - yours will be different (mostly because of the use of the `--random-route` switch). You should see the service document served to you again, but this time, via the proxy app running in the Cloud Foundry environment on SAP Cloud Platform.
+In the output, the route is shown, and you can check that you can access the `API_SALES_ORDER_SRV`'s service document again, at the URL relating to the route URL. In this case, it is:
+
+`http://proxyapp-wise-gnu-hc.cfapps.eu10.hana.ondemand.com/sap/opu/odata/sap/API_SALES_ORDER_SRV/`
+
+Your URL will be different, mostly because of the use of the `--random-route` switch. You should see the service document served to you again, but this time, via the proxy app running in the Cloud Foundry environment on SAP Cloud Platform.
 
 > In case you prefer the Multi Target Application (MTA) approach, there's an `mta.yaml` file in this directory too, so you can use the build-and-deploy approach if you really want to, like this (a reduced sample output is also shown):
 
