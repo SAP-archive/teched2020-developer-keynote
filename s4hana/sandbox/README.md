@@ -8,7 +8,7 @@ The context in which it runs is shown as the highlighted section of the whiteboa
 
 ![whiteboard, with SANDBOX highlighted](whiteboard-sandbox.png)
 
-Access to the API Hub sandbox system is protected; each and every call to it needs to have an API key specified in the HTTP header. That is what this app does - attach the API key to all requests during transit.
+Access to the API Hub sandbox system is protected; each and every call to it needs to have an API key specified in an HTTP header. That is what this app does - attach the API key to all requests during transit.
 
 There are two APIs that are used on the sandbox system that the API Hub makes available. Both are SAP S/4HANA Cloud APIs: [Sales Order (A2X)](https://api.sap.com/api/API_SALES_ORDER_SRV/resource) and [Business Partner (A2X)](https://api.sap.com/api/API_BUSINESS_PARTNER/resource).
 
@@ -29,15 +29,19 @@ The API key is unique to you and is available in the [preferences section](https
 
 1. Log on to the API Hub and grab your API key from the [preferences section](https://api.sap.com/preferences).
 
-2. Replace "YOUR-API-KEY" in [`deployment.yaml`](deployment.yaml) with your API key - this is for the Kyma deployment
+2. Replace `YOUR-API-KEY` in [`deployment.yaml`](deployment.yaml) with your API key - this is for the Kyma deployment
 
-3. Replace "YOUR-API-KEY" in [`router/default-env.json`](router/default-env.json) with your API key - this is for the other environments
+3. Replace `YOUR-API-KEY` in [`router/default-env.json`](router/default-env.json) with your API key - this is for the other environments
 
-Note that you will see another environment variable `destinations` defined in both places - this is a quick way of defining simple destinations instead of defining them at the subaccount or service instance level on SAP Cloud Platform.
+Note that you will see another environment variable `destinations` specified in both places - this is a quick way of defining simple destinations instead of setting them up at the subaccount or service instance level on SAP Cloud Platform. (The `destinations.json` file is an unused configuration file used when having a destination automatically defined on SAP Cloud Platform, and has been kept in this repo for reference.)
 
-## Running locally
+## Running the app
 
-You can run the app locally. Try this first. After moving to the app's directory, install the module dependencies, and then start the app up:
+As mentioned earlier, you can run this app in a number of different contexts. It's useful to go through each of these contexts to gain some familiarity and also to understand what's similar and what's different.
+
+### Locally
+
+You can run the app locally. Try this first. After moving to the app's directory (`router/`), install the module dependencies, and then start the app up:
 
 ```
 $ cd router/
@@ -45,10 +49,12 @@ $ npm install
 $ npm start
 ```
 
+> Here, and elsewhere - the shell prompt is indicated with a `$` symbol.
+
 You should see log output similar to this:
 
 ```
-pprouter@ start /Users/i347491/Projects/teched2020-developer-keynote/s4hana/sandbox/router
+approuter@ start /Users/username/Projects/teched2020-developer-keynote/s4hana/sandbox/router
 > node index.js
 
 #2.0#2020 11 23 16:38:43:371#+00:00#WARNING#/LoggingLibrary################PLAIN##Dynamic log level switching not available#
@@ -60,8 +66,73 @@ pprouter@ start /Users/i347491/Projects/teched2020-developer-keynote/s4hana/sand
 #2.0#2020 11 23 16:38:43:606#+00:00#INFO#/approuter#####khuryg01##########khuryg01#PLAIN##Application router is listening on port: 5000#
 ```
 
-At this point, the app is running and listening for requests on port 5000. To test it, try to access the `API_SALES_ORDER_SRV`'s service document at this address: http://localhost:5000/sap/opu/odata/sap/API_SALES_ORDER_SRV/. You should see the service document served to you.
+At this point, the app is running and listening for requests on the local loopback interface (`localhost`, or 127.0.0.1) on port 5000. To test it, try to access the `API_SALES_ORDER_SRV`'s service document at this address: http://localhost:5000/sap/opu/odata/sap/API_SALES_ORDER_SRV/. You should see the service document served to you.
 
+
+### Locally in a Docker container
+
+If you have Docker installed on your machine, you can also run this in a Docker container. You'll need to create a Docker image of this app if you want to deploy it to the Kyma runtime anyway, so now's a good time to set that image up and fire up a container based on that image to test it.
+
+There is already a [`Dockerfile`](Dockerfile) contained in this directory that will inform the Docker image build process, and you can build the image with an invocation similar to this:
+
+```
+$ docker build -t <TAG> -f <DOCKERFILE> router/
+```
+
+This has been wrapped into a script along with other Docker related actions that you'll need. The script, also in this directory, is called `d` and you can see the actions that it supports by invoking it with no arguments:
+
+```
+$ ./d
+Usage: d <action>
+where <action> is one of:
+- login: login to GitHub Packages
+- build: create the Docker image
+- run: run a container locally based on the image
+- publish: publish the image to GitHub
+```
+
+The container you are going to run is based on an image defined in the `Dockerfile` file, and the image must be built first. So invoke the `d` script with the "build" action. Here's the invocation, and the sort of output that you should see:
+
+```
+$ ./d build
+Building image for router
+[+] Building 4.0s (10/10) FINISHED
+=> [internal] load .dockerignore
+=> transferring context: 2B
+=> [internal] load build definition from Dockerfile
+=> transferring dockerfile: 37B
+=> [internal] load metadata for docker.io/library/node:12.18.1
+=> [1/5] FROM docker.io/library/node:12.18.1@sha256:2b85f4981f92ee034b51a3c8bb22dbb451d650d5c12b6439a169f8adc750e4b6
+=> [internal] load build context
+=> transferring context: 1.04MB
+=> CACHED [2/5] WORKDIR /usr/src/app
+=> CACHED [3/5] COPY /package*.json ./
+=> CACHED [4/5] RUN npm install
+=> [5/5] COPY /. .
+=> exporting to image
+=> exporting layers
+=> writing image sha256:2a53e4da22f1fda40a69db1e1c7a46caa1b22ac960beddc811e29fdec2785499
+=> naming to docker.pkg.github.com/sap-samples/teched2020-developer-keynote/s4mock:latest
+```
+
+You can check the image that has just been created, like this:
+
+```
+$ docker image ls
+REPOSITORY                                                              TAG                 IMAGE ID            CREATED             SIZE
+docker.pkg.github.com/sap-samples/teched2020-developer-keynote/s4mock   latest              2a53e4da22f1        9 minutes ago       994MB
+...
+```
+
+Now the image exists, you can instantiate a container from it. Do this by using the "run" action with the `d` script.
+
+```
+$ ./d run
+Running detached instance of image locally
+61538774a32d66eaa5e28ad721389ca1378cb1d485ca6f4d19cdf33a07d423a2
+```
+
+Note that the invocation includes the `-d` switch to tell Docker to run the image in "detached" (i.e. background) mode - in which case just the container ID is printed. But the container is running, and inside it, the same Node process as before is running. The `-p` switch (inspect the source code of the [`d`](d) script to check) exposes the port 5000 to the host (i.e. your machine) so you can connect to the service as if it was running directly locally, as before. Check that you can access the `API_SALES_ORDER_SRV`'s service document again, at this same address: http://localhost:5000/sap/opu/odata/sap/API_SALES_ORDER_SRV/. You should see the service document served to you again, but this time, via the proxy app running inside the container.
 
 ## Deployment to Cloud Foundry
 
