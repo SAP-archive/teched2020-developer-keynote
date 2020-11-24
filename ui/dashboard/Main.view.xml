@@ -6,9 +6,9 @@
 
 	<GridContainer>
 		<html:style>
-      .sapFGridContainer {
-         margin-top: 2rem;
-      }
+			.sapFGridContainer {
+				margin-top: 2rem;
+			}
 		</html:style>
 		<layout>
 			<GridContainerSettings rowSize="5rem" columnSize="5rem" gap="1rem" />

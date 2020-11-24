@@ -74,7 +74,7 @@ sap.ui.define(["sap/ui/integration/Extension"], function (Extension) {
 				resolve(cache);
 				return;
 			}
-			fetch('sap/credits')
+			fetch("sap/credits")
 				.then(response => response.json())
 				.then(data => {
 					cache = data.d.results;
