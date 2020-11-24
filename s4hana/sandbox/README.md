@@ -39,6 +39,8 @@ Note that you will see another environment variable `destinations` specified in 
 
 As mentioned earlier, you can run this app in a number of different contexts. It's useful to go through each of these contexts to gain some familiarity and also to understand what's similar and what's different.
 
+> For everything that follows, the assumption is that you're in this directory (i.e. where this `README.md` file is) when invoking commands, unless otherwise explicitly stated.
+
 ### Locally
 
 You can run the app locally. Try this first. After moving to the app's directory (`router/`), install the module dependencies, and then start the app up:
@@ -132,22 +134,88 @@ Running detached instance of image locally
 61538774a32d66eaa5e28ad721389ca1378cb1d485ca6f4d19cdf33a07d423a2
 ```
 
-Note that the invocation includes the `-d` switch to tell Docker to run the image in "detached" (i.e. background) mode - in which case just the container ID is printed. But the container is running, and inside it, the same Node process as before is running. The `-p` switch (inspect the source code of the [`d`](d) script to check) exposes the port 5000 to the host (i.e. your machine) so you can connect to the service as if it was running directly locally, as before. Check that you can access the `API_SALES_ORDER_SRV`'s service document again, at this same address: http://localhost:5000/sap/opu/odata/sap/API_SALES_ORDER_SRV/. You should see the service document served to you again, but this time, via the proxy app running inside the container.
+Note that the invocation includes the `-d` switch to tell Docker to run the image in "detached" (i.e. background) mode - in which case just the container ID is printed. But the container is running, and inside it, the same Node process as before is running. The `-p` switch (inspect the source code of the [`d`](d) script to check) exposes the port 5000 to the host (i.e. your machine) so you can connect to the service as if it was running directly locally, as before.
 
-## Deployment to Cloud Foundry
+Check that you can access the `API_SALES_ORDER_SRV`'s service document again, at this same address: http://localhost:5000/sap/opu/odata/sap/API_SALES_ORDER_SRV/. You should see the service document served to you again, but this time, via the proxy app running inside the container.
 
-1. Build the project
-    ```
-    mbt build
-    ```
-2. Deploy
-    ```
-    cf deploy mta_archives/s4-mock_1.0.0.mtar
-    ```
-3. Access <https://YOUR-APP.hana.ondemand.com/sap/opu/odata/sap/API_SALES_ORDER_SRV/$metadata> to see that in action. Useful command:
-    ```
-    open `cf app s4-mock-router | awk '/^routes/ { print "https://"$2"/sap/opu/odata/sap/API_SALES_ORDER_SRV/" }'`
-    ```
+## On SAP Cloud Platform - Cloud Foundry runtime
+
+During the DK100 Developer Keynote demo itself, this app is run in the cloud, on SAP Cloud Platform, and specifically in the Kyma runtime. But you can also run it in the Cloud Foundry runtime, and this section is in case you want to do that.
+
+Because of the simplicity of the app and the fact that it doesn't depend on anything else, we can use the simple `cf push` approach. Here's what the invocation looks like, and the sort of thing you should see (lots of output removed for readability):
+
+```
+$ cf push --random-route -p router proxyapp
+Pushing app proxyapp to org 58f45caftrial / space dev as dj.adams@sap.com...
+Getting app info...
+Creating app with these attributes...
++ name:       proxyapp
+  path:       /Users/username/Projects/teched2020-developer-keynote/s4hana/sandbox/router
+  routes:
++   proxyapp-wise-gnu-hc.cfapps.eu10.hana.ondemand.com
+
+Creating app proxyapp...
+Mapping routes...
+Comparing local files to remote cache...
+Packaging files to upload...
+Uploading files...
+...
+Staging app and tracing logs...
+   Downloading uas_dataflow_server_buildpack...
+   Downloading ruby_buildpack...
+   ...
+   Exit status 0
+   Uploading droplet, build artifacts cache...
+   ...
+   Uploading complete
+   Cell f0e91f7f-390f-4ac0-9c81-28a3ae3c58cb stopping instance 4a89654f-6605-437c-bc76-c6d1f9bf63a4
+   Cell f0e91f7f-390f-4ac0-9c81-28a3ae3c58cb destroying container for instance 4a89654f-6605-437c-bc76-c6d1f9bf63a4
+   Cell f0e91f7f-390f-4ac0-9c81-28a3ae3c58cb successfully destroyed container for instance 4a89654f-6605-437c-bc76-c6d1f9bf63a4
+
+Waiting for app to start...
+
+name:                proxyapp
+requested state:     started
+isolation segment:   trial
+routes:              proxyapp-wise-gnu-hc.cfapps.eu10.hana.ondemand.com
+last uploaded:       Tue 24 Nov 10:18:22 GMT 2020
+stack:               cflinuxfs3
+buildpacks:          nodejs
+
+type:            web
+instances:       1/1
+memory usage:    1024M
+start command:   npm start
+     state     since                  cpu    memory    disk      details
+#0   running   2020-11-24T10:18:36Z   0.0%   0 of 1G   0 of 1G
+```
+
+In the output, the route is shown, and you can check that you can access the `API_SALES_ORDER_SRV`'s service document again, at the URL relating to the route URL. In this case, it is `http://proxyapp-wise-gnu-hc.cfapps.eu10.hana.ondemand.com/sap/opu/odata/sap/API_SALES_ORDER_SRV/` - yours will be different (mostly because of the use of the `--random-route` switch). You should see the service document served to you again, but this time, via the proxy app running in the Cloud Foundry environment on SAP Cloud Platform.
+
+> In case you prefer the Multi Target Application (MTA) approach, there's an `mta.yaml` file in this directory too, so you can use the build-and-deploy approach if you really want to, like this (a reduced sample output is also shown):
+
+```
+$ mbt build && cf deploy mta_archives/s4-mock_1.0.0.mtar
+[2020-11-24 11:03:38]  INFO Cloud MTA Build Tool version 1.0.16
+[2020-11-24 11:03:38]  INFO generating the "Makefile_20201124110338.mta" file...
+[2020-11-24 11:03:38]  INFO done
+[2020-11-24 11:03:38]  INFO executing the "make -f Makefile_20201124110338.mta p=cf mtar= strict=true mode=" command...
+[2020-11-24 11:03:38]  INFO validating the MTA project
+[2020-11-24 11:03:38]  INFO validating the MTA project
+[2020-11-24 11:03:38]  INFO building the "proxyapp" module...
+[2020-11-24 11:03:38]  INFO executing the "npm install --production" command...
+...
+[2020-11-24 11:03:41]  INFO finished building the "proxyapp" module
+[2020-11-24 11:03:41]  INFO generating the metadata...
+[2020-11-24 11:03:41]  INFO generating the "/Users/username/Projects/teched2020-developer-keynote/s4hana/sandbox/.sandbox_mta_build_tmp/META-INF/mtad.yaml" file...
+[2020-11-24 11:03:41]  INFO generating the MTA archive...
+[2020-11-24 11:03:41]  INFO the MTA archive generated at: /Users/username/Projects/teched2020-developer-keynote/s4hana/sandbox/mta_archives/s4-mock_1.0.0.mtar
+[2020-11-24 11:03:41]  INFO cleaning temporary files...
+...
+Application "proxyapp" started and available at "z8f45caftrial-dev-proxyapp.cfapps.eu10.hana.ondemand.com"
+Process finished.
+```
+
 
 ## Deployment to Kyma
 
