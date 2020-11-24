@@ -30,7 +30,7 @@ We'll refer to the use of these scripts throughout the steps. You can of course 
 
 2. Clone this repository
     ```
-    git clone https://github.com/SAP-samples/teched2020-developer-keynote
+    $ git clone https://github.com/SAP-samples/teched2020-developer-keynote
     ```
 
 3. Modify the `d` script in this directory and change the OWNER and REPOSITORY values in the `tag` variable (towards the top of the file) to reflect your own GitHub org or username and repository name. This is what the line looks like *before* modification, so you know what you're looking for:
