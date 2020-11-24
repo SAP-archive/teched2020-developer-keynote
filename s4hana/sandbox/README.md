@@ -35,9 +35,9 @@ We'll refer to the use of these scripts throughout the steps. You can of course 
 
 3. Modify the `d` script in this directory and change the OWNER and REPOSITORY values in the `tag` variable (towards the top of the file) to reflect your own GitHub org or username and repository name. This is what the line looks like *before* modification, so you know what you're looking for:
 
-```
-tag=docker.pkg.github.com/OWNER/REPOSITORY/s4mock:latest
-```
+    ```
+    tag=docker.pkg.github.com/OWNER/REPOSITORY/s4mock:latest
+    ```
 
 
 ## Configuration
