@@ -3,7 +3,7 @@ _schema-version: "2.1"
 version: 1.0.0
 
 modules:
-  - name: s4-mock-router
+  - name: proxyapp
     type: approuter.nodejs
     path: router
     parameters:

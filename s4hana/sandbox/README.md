@@ -14,6 +14,16 @@ There are two APIs that are used on the sandbox system that the API Hub makes av
 
 In the developer keynote, this app is running in the Kyma runtime, but you can run it locally, locally in a Docker container, and also in Cloud Foundry. This README will show you how to get this app running in all four environments so you can compare and contrast them.
 
+> This entire procedure assumes you have cloned this repository to your own space on GitHub, and that you are therefore aware of the values for OWNER (your GitHub org or username) and REPOSITORY (where you've cloned this) throughout the rest of this document. All the examples (of output, and so on) will be given based on the home org and repository for this content, i.e. `sap-samples/teched2020-developer-keynote`.
+
+There are two helper scripts in this directory that have been written to help you through the steps, they are:
+
+- `d` for Docker related activities
+- `k` for Kyma / Kubernetes (k8s) related activities
+
+We'll refer to the use of these scripts throughout the steps. You can of course run the actual commands directly if you wish, instead.
+
+
 ## Prerequisites
 
 1. [Configure Essential Local Development Tools](https://developers.sap.com/group.scp-local-tools.html)
@@ -22,6 +32,13 @@ In the developer keynote, this app is running in the Kyma runtime, but you can r
     ```
     git clone https://github.com/SAP-samples/teched2020-developer-keynote
     ```
+
+3. Modify the `d` script in this directory and change the OWNER and REPOSITORY values in the `tag` variable (towards the top of the file) to reflect your own GitHub org or username and repository name. This is what the line looks like *before* modification, so you know what you're looking for:
+
+```
+tag=docker.pkg.github.com/OWNER/REPOSITORY/s4mock:latest
+```
+
 
 ## Configuration
 
@@ -93,7 +110,10 @@ where <action> is one of:
 - publish: publish the image to GitHub
 ```
 
-The container you are going to run is based on an image defined in the `Dockerfile` file, and the image must be built first. So invoke the `d` script with the "build" action. Here's the invocation, and the sort of output that you should see:
+The container you are going to run is based on an image defined in the `Dockerfile` file, and the image must be built first. So you can invoke the `d` script with the "build" action.
+
+
+Here's the invocation, and the sort of output that you should see:
 
 ```
 $ ./d build
@@ -217,31 +237,124 @@ Process finished.
 ```
 
 
-## Deployment to Kyma
+### On SAP Cloud Platform - Kyma runtime
 
-1. Create a secret for docker deployment from Github
+There are a number of steps to get the app running in Kyma, i.e. on k8s:
 
-``` shell
-kubectl create secret docker-registry regcred --docker-server=https://docker.pkg.github.com --docker-username=<Github.com User> --docker-password=<Github password or token> --docker-email=<github email>
+- build a Docker image for the app
+- publish the image to a container registry
+- create a k8s secret for registry access
+- make a deployment to Kyma
+
+If you've gone through the process of running the app locally in a Docker container, as described earlier, you're already part way there.
+
+#### Build a Docker image
+
+ In case you haven't, the first thing you need to do is to create a Docker image of this app and its environment. Do this by invoking the `d` script with the "build" action, as described in the "Locally in a Docker container" section earlier (essentially, like this: `$ ./d build`). This then is the "package" that is then published and gets run in k8s once the deployment process is complete.
+
+
+#### Publish the image to a container registry
+
+The reason this step is required is because we want to get Kyma to pull the image from a container registry. We use the GitHub Packages Docker container registry in our session, and you can too. In the GitHub documentation article [Configuring Docker for use with GitHub Packages](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages) there's a section on [Authenticating to GitHub Packages](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages#authenticating-to-github-packages) which describes how you need to create a personal access token to use as a password in authentication flows. Do this now.
+
+Once you have a person access token (with the appropriate scopes) you can publish your Docker image to your GitHub account.
+
+First, authenticate yourself with the registry, using the "login" action of the `d` script:
+
+```
+$ ./d login
+Authenticating with GitHub Packages
+Enter username: <YOUR GITHUB ORG/USERNAME>
+Enter password / token: <ACCESS TOKEN>
+Login Succeeded
 ```
 
-2. Add your SAP API Hub API Key to the deployment.yaml file on line 6
+Now you can publish the image, using the "publish" action of the `d` script, and you should see something similar to what's shown here:
 
-3. Run k8s_deploy.sh
-
-4. Return to the Kyma Console and the API Rules. You should see a new API Rule named s4mock and the URL for this endpoint. Add **/sap/opu/odata/sap/API_SALES_ORDER_SRV/$metadata** to this URL to test.
-![API Rules](api.png)
-
-## Local run
-
-You can also run the application router locally for testing purposes. To do this, change
-
-Change in `default-env.json`:
 ```
-  "destinations": [
-    {
-      "name": "apihub_sandbox",
-      "url": "https://sandbox.api.sap.com"
-    }
-  ]
+$ ./d publish
+Publishing image to GitHub Packages
+The push refers to repository [docker.pkg.github.com/sap-samples/teched2020-developer-keynote/s4mock]
+...
+latest: digest: sha256:58870f6f89546548d6ee290cab89850a763c7c66faa93a2373bf1cf9385ec954 size: 3054
 ```
+
+You can check in your own GitHub repository that this has been successful - check in your repository's Packages section; you should see the `s4mock` package listed, as it is in [this repository's Packages section](https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote):
+
+![The s4mock package listed](s4mock-package-listing.png)
+
+
+#### Create a k8s secret for registry access
+
+You had to authenticate to the container registry before publishing the image there; so too must the runtime (k8s) authenticate to be able to retrieve it. So in this step you need to store the container registry credentials so that they can be used by the runtime platform.
+
+> You must be first authenticated with your Kyma runtime on SAP Cloud Platform for this step.
+
+A typical incantation to create such a secret looks like this:
+
+```
+kubectl create secret docker-registry regcred --docker-server=https://docker.pkg.github.com --docker-username=<YOUR GITHUB ORG/USERNAME> --docker-password=<ACCESS TOKEN> --docker-email=<YOUR GITHUB EMAIL>
+```
+
+This has been also made available as an action in another script: [`k`](k):
+
+```shell
+$ ./k
+Usage: k <action>
+where <action> is one of:
+- deploy: make deployment
+- secret: create secret for GitHub Package registry access
+```
+
+Create the secret like this:
+
+```shell
+$ ./k secret
+Setting up docker-registry secret regcred for access to https://docker.pkg.github.com
+Secret regcred exists - will remove first (hit enter to continue)
+secret "regcred" deleted
+Enter email: <YOUR GITHUB EMAIL>
+Enter username: <YOUR GITHUB ORG/USERNAME>
+Enter password / token: <ACCESS TOKEN>
+secret/regcred created
+```
+
+> If there already is a secret of the same name you'll be prompted to have it deleted first, as shown in this example output.
+
+You can check that the secret has been created, thus:
+
+```shell
+$ kubectl get secrets
+NAME                              TYPE                                  DATA   AGE
+regcred                           kubernetes.io/dockerconfigjson        1      109s
+...
+```
+
+#### Make a deployment to Kyma
+
+Now everything is ready to make a deployment to the Kyma runtime. The deployment is described in the `deployment.yaml` file, which includes a reference to the Docker image you've just published to the container registry. It will be retrieved using the secret you just created.
+
+The deployment is quite simple at this stage (as you can see from the `deploy` function in the [`k`](k) script). Invoke it with the "deploy" action thus:
+
+```shell
+ ./k deploy
+Deploying to k8s
+configmap/appconfig created
+deployment.apps/s4mock created
+service/s4mock created
+apirule.gateway.kyma-project.io/s4mock created
+```
+
+The app is now deployed to the Kyma runtime in your SAP Cloud Platform subaccount.
+
+Just like before, you can check that it's working by requesting the API's service document. You'll need first to find out what the first part of the URL is.
+
+Visiting the Kyma console - get there from your trial subaccount overview page and following the "Link to dashboard" link, as shown in the screenshot:
+
+![Link to dashboard](dashboard-link.png)
+
+In the API Rules section, you'll see the relevant URL:
+
+![API Rules](api-rules.png)
+
+Open up that URL and then append `/sap/opu/odata/sap/API_SALES_ORDER_SRV/` to it - you should see your old friend the API's service document.
