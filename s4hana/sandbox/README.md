@@ -252,7 +252,7 @@ There are a number of steps to get the app running in Kyma, i.e. on k8s:
 
 If you've gone through the process of running the app locally in a Docker container, as described earlier, you're already part way there.
 
-#### Build a Docker image
+#### Build a Docker image
 
  In case you haven't, the first thing you need to do is to create a Docker image of this app and its environment. Do this by invoking the `d` script with the "build" action, as described in the "Locally in a Docker container" section earlier (essentially, like this: `$ ./d build`). This then is the "package" that is then published and gets run in k8s once the deployment process is complete.
 
