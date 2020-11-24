@@ -2,94 +2,103 @@
 	"d": {
 		"results": [
 			{
-				"creationdateyyyymm": "201608",
-				"custid": "17100001",
-				"customername": "Domestic US Customer 1",
-				"totalcredits": "50.00"
-			},
-			{
-				"creationdateyyyymm": "201609",
-				"custid": "17100001",
-				"customername": "Domestic US Customer 1",
-				"totalcredits": "650.00"
-			},
-			{
-				"creationdateyyyymm": "202010",
-				"custid": "17100001",
-				"customername": "Domestic US Customer 1",
-				"totalcredits": "30.00"
-			},
-			{
-				"creationdateyyyymm": "202010",
-				"custid": "17100002",
-				"customername": "Domestic US Customer 2",
-				"totalcredits": "40.00"
-			},
-			{
-				"creationdateyyyymm": "201609",
-				"custid": "17100003",
-				"customername": "Domestic Customer US 3",
-				"totalcredits": "50.00"
-			},
-			{
-				"creationdateyyyymm": "201609",
-				"custid": "USCU-CU04",
-				"customername": "Unbeatable Sport Corp.",
-				"totalcredits": "50.00"
-			},
-			{
-				"creationdateyyyymm": "201609",
+				"__metadata": {
+					"id": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS01',creationdateyyyymm='202010')",
+					"uri": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS01',creationdateyyyymm='202010')",
+					"type": "cds_z_sd_c_cstdoncredits_r.creditsbymonthType"
+				},
 				"custid": "USCU-CUS01",
+				"creationdateyyyymm": "202010",
 				"customername": "World of Sports Inc.",
-				"totalcredits": "200.00"
+				"totalcredits": "120555.00"
 			},
 			{
-				"creationdateyyyymm": "201609",
+				"__metadata": {
+					"id": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS01',creationdateyyyymm='202011')",
+					"uri": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS01',creationdateyyyymm='202011')",
+					"type": "cds_z_sd_c_cstdoncredits_r.creditsbymonthType"
+				},
+				"custid": "USCU-CUS01",
+				"creationdateyyyymm": "202011",
+				"customername": "World of Sports Inc.",
+				"totalcredits": "63620.00"
+			},
+			{
+				"__metadata": {
+					"id": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS01',creationdateyyyymm='202012')",
+					"uri": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS01',creationdateyyyymm='202012')",
+					"type": "cds_z_sd_c_cstdoncredits_r.creditsbymonthType"
+				},
+				"custid": "USCU-CUS01",
+				"creationdateyyyymm": "202012",
+				"customername": "World of Sports Inc.",
+				"totalcredits": "260329.00"
+			},
+			{
+				"__metadata": {
+					"id": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS02',creationdateyyyymm='202010')",
+					"uri": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS02',creationdateyyyymm='202010')",
+					"type": "cds_z_sd_c_cstdoncredits_r.creditsbymonthType"
+				},
 				"custid": "USCU-CUS02",
+				"creationdateyyyymm": "202010",
 				"customername": "Roadkings Sports Inc.",
-				"totalcredits": "200.00"
+				"totalcredits": "101704.00"
 			},
 			{
-				"creationdateyyyymm": "201609",
-				"custid": "USCU-CUS03",
-				"customername": "Miller & Son Corp",
-				"totalcredits": "150.00"
+				"__metadata": {
+					"id": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS02',creationdateyyyymm='202011')",
+					"uri": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS02',creationdateyyyymm='202011')",
+					"type": "cds_z_sd_c_cstdoncredits_r.creditsbymonthType"
+				},
+				"custid": "USCU-CUS02",
+				"creationdateyyyymm": "202011",
+				"customername": "Roadkings Sports Inc.",
+				"totalcredits": "109183.00"
 			},
 			{
-				"creationdateyyyymm": "201609",
+				"__metadata": {
+					"id": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS02',creationdateyyyymm='202012')",
+					"uri": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS02',creationdateyyyymm='202012')",
+					"type": "cds_z_sd_c_cstdoncredits_r.creditsbymonthType"
+				},
+				"custid": "USCU-CUS02",
+				"creationdateyyyymm": "202012",
+				"customername": "Roadkings Sports Inc.",
+				"totalcredits": "238324.00"
+			},
+			{
+				"__metadata": {
+					"id": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS04',creationdateyyyymm='202010')",
+					"uri": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS04',creationdateyyyymm='202010')",
+					"type": "cds_z_sd_c_cstdoncredits_r.creditsbymonthType"
+				},
 				"custid": "USCU-CUS04",
+				"creationdateyyyymm": "202010",
 				"customername": "Unbeatable Sports",
-				"totalcredits": "150.00"
+				"totalcredits": "101438.00"
 			},
 			{
-				"creationdateyyyymm": "201609",
-				"custid": "USCU-CUS05",
-				"customername": "Spirit2Ride Inc.",
-				"totalcredits": "150.00"
+				"__metadata": {
+					"id": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS04',creationdateyyyymm='202011')",
+					"uri": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS04',creationdateyyyymm='202011')",
+					"type": "cds_z_sd_c_cstdoncredits_r.creditsbymonthType"
+				},
+				"custid": "USCU-CUS04",
+				"creationdateyyyymm": "202011",
+				"customername": "Unbeatable Sports",
+				"totalcredits": "79815.00"
 			},
 			{
-				"creationdateyyyymm": "201609",
-				"custid": "USCU-CUS06",
-				"customername": "FiveStarSport Inc.",
-				"totalcredits": "150.00"
-			},
-			{
-				"creationdateyyyymm": "201609",
-				"custid": "USCU-CUS07",
-				"customername": "Fast Sports Inc.",
-				"totalcredits": "50.00"
-			},
-			{
-				"creationdateyyyymm": "201609",
-				"custid": "USCU-CUS21",
-				"customername": "Ameo Corp",
-				"totalcredits": "400.00"
-			},
-			{
-				"creationdateyyyymm": "201609",
-				"custid": "USCU-CUS24",
-				"customername": "Power Bikes Inc",
-				"totalcredits": "250.00"
+				"__metadata": {
+					"id": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS04',creationdateyyyymm='202012')",
+					"uri": "https://468acd6a-0f6d-41e4-bf35-b97089b95676.abap.eu10.hana.ondemand.com/sap/opu/odata/sap/Z_UI_C_CSTDONCREDITS_R/creditsbymonth(custid='USCU-CUS04',creationdateyyyymm='202012')",
+					"type": "cds_z_sd_c_cstdoncredits_r.creditsbymonthType"
+				},
+				"custid": "USCU-CUS04",
+				"creationdateyyyymm": "202012",
+				"customername": "Unbeatable Sports",
+				"totalcredits": "170499.00"
 			}
 		]
 	}
