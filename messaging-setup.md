@@ -1,6 +1,6 @@
 # SAP Enterprise Messaging - Setup
 
-To get a a message bus component of your own, as shown in the whiteboard diagram, follow these instructions.
+To get a a message bus component of your own, as shown in the whiteboard diagram, follow these instructions to set up an instance of the SAP Enterprise Messaging service in your trial account.
 
 ![Whiteboard diagram](images/whiteboard.jpg)
 
@@ -12,16 +12,19 @@ You can set up an instance of the SAP Enterprise Messaging service (specifically
 Whatever way you choose, the name of the instance should be the same - please use "emdev", and you should ensure that specific instance parameters are specified during creation. These instance parameters are in JSON format and are as follows:
 
 ```json
-emname: "emdev"
-options:
-  management: true
-  messagingrest: true
+{
+  "emname": "emdev",
+  "options": {
+    "management": true,
+    "messagingrest": true
+  }
+}
 ```
 
 For consistency throughout this repository, please also use "emdev" as the name of the instance you create.
 
 
-## Using the cockpit
+## Using the cockpit
 
 You can set up an instance of the SAP Enterprise Messaging service (a 'dev' plan instance) in your trial account using the SAP Cloud Platform Cockpit using the Create Instance button shown in this screenshot.
 
@@ -29,7 +32,7 @@ You can set up an instance of the SAP Enterprise Messaging service (a 'dev' plan
 
 Be sure to specify the name "emdev" as the name of the instance, and use the JSON above for the instance parameters when asked - you can see where in this screenshot:
 
-![specifying instance parameters](instance-parameters.png)
+![specifying instance parameters](images/instance-parameters.png)
 
 ## Using a script
 
