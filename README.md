@@ -40,11 +40,11 @@ You'll need your own GitHub account. Not only for the normal reasons of communit
 
 ### SAP Cloud Platform
 
-- Trial account: You'll need a trial account on SAP Cloud Platform, if you haven't got one already.
+- Trial account: You'll need a trial account on SAP Cloud Platform, if you haven't got one already. Follow [this tutorial](https://developers.sap.com/tutorials/hcp-create-trial-account.html) for detailed instructions.
 
 - Cloud Foundry environment: When you set up a trial account, a Cloud Foundry environment is set up automatically for you, with an organization and single 'dev' space.
 
-- Kyma environment: While a Kyma environment is not set up automatically, you can (and should) enable one with the "Enable Kyma" button on the main account overview page in the Cockpit, as shown in this screenshot.
+- Kyma environment: While a Kyma environment is not set up automatically, you can (and should) enable one with the "Enable Kyma" button on the main account overview page in the Cockpit, as shown in this screenshot. Follow [this tutorial](https://developers.sap.com/tutorials/cp-kyma-getting-started.html) for detailed instructions.
 
 ![Enable Kyma button](images/enable-kyma.png)
 
