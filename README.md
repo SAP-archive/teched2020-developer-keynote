@@ -28,8 +28,38 @@ We recommend you take the components one at a time. Specific instructions are gi
 
 - [CHARITY](abap/src/) - the charity backend service that receives event messages published to the "Internal/Charityfund/Increased" topic, stores the data, retrieves business partner info, and makes an OData service available for the FRONTEND component (a Steampunk ABAP stack RAP based service)
 
-
 ## Requirements
+
+Component-specific requirements are to be found in the respective READMEs, but there are general requirements too which are listed here.
+
+### SAP Cloud Platform
+
+- Trial account: You'll need a trial account on SAP Cloud Platform, if you haven't got one already.
+
+- Cloud Foundry environment: When you set up a trial account, a Cloud Foundry environment is set up automatically for you, with an organization and single 'dev' space.
+
+- Kyma environment: While a Kyma environment is not set up automatically, you can (and should) enable one with the "Enable Kyma" button on the main account overview page in the Cockpit.
+
+### SAP Business API Hub
+
+- Access: Make sure you can log in to the SAP Business API Hub
+
+- API information: Check that you can access the API information (e.g. for the [Sales Order (A2X) API](https://api.sap.com/api/API_SALES_ORDER_SRV/resource)
+
+- API specifications: Check also that you have the ability to download API specifications (e.g. to that same [API_SALES_ORDER_SRV API](https://api.sap.com/api/API_SALES_ORDER_SRV/overview))
+
+- API key: Check that you have an API key available to you in your [preferences](https://api.sap.com/preferences), for access to the sandbox system
+
+
+### Message Bus
+
+The one component on the whiteboard diagram that wasn't listed earlier is of course the MESSAGE BUS. This is an instance of the SAP Enterprise Messaging service. You'll need one of these. There is a 'dev' plan available for trial account users, it is marked as deprecated but perfectly serviceable for our needs.
+
+![SAP Enterprise Messaging dev plan](dev-plan.png)
+
+> If you want to learn more about the SAP Enterprise Messaging service and everything you can do with the 'dev' plan, check out this series from the Hands-on SAP Dev show on the SAP Developers YouTube channel: [Diving into messaging on SAP Cloud Platform](https://www.youtube.com/playlist?list=PL6RpkC85SLQCf--P9o7DtfjEcucimapUf). Also, see the blog post [An overview of SAP Developers video content](https://blogs.sap.com/2020/11/09/an-overview-of-sap-developers-video-content/) for more information on SAP Developers video content in general.
+
+
 
 ## Download and Installation
 
