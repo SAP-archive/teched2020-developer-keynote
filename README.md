@@ -34,6 +34,10 @@ If you're wondering about the MESSAGE BUS component, see the appropriate section
 
 Component-specific requirements are to be found in the respective READMEs, but there are general requirements too which are listed here.
 
+### A GitHub account
+
+You'll need your own GitHub account. Not only for the normal reasons of community and collaboration (you may want to send contributions to this repository via pull requests, for example) but also because some of the components are run in the Kyma environment on SAP Cloud Platform, and the individual component instructions (such as the ones for the [SANDBOX](s4hana/sandbox/) will direct you to build Docker images and publish them to your own GitHub Packages container registry. See the [GitHub Packages Documentation](https://docs.github.com/en/free-pro-team@latest/packages) for more information.
+
 ### SAP Cloud Platform
 
 - Trial account: You'll need a trial account on SAP Cloud Platform, if you haven't got one already.
