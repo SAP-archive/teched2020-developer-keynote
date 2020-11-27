@@ -40,7 +40,7 @@ Component-specific requirements are to be found in the respective READMEs, but t
 
 - Kyma environment: While a Kyma environment is not set up automatically, you can (and should) enable one with the "Enable Kyma" button on the main account overview page in the Cockpit.
 
-### SAP Business API Hub
+### SAP Business API Hub
 
 - Access: Make sure you can log in to the SAP Business API Hub
 
@@ -51,7 +51,7 @@ Component-specific requirements are to be found in the respective READMEs, but t
 - API key: Check that you have an API key available to you in your [preferences](https://api.sap.com/preferences), for access to the sandbox system
 
 
-### Message Bus
+### Message Bus
 
 The one component on the whiteboard diagram that wasn't listed earlier is of course the MESSAGE BUS. This is an instance of the SAP Enterprise Messaging service. You'll need one of these. There is a 'dev' plan available for trial account users, it is marked as deprecated but perfectly serviceable for our needs.
 
