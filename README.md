@@ -28,6 +28,8 @@ We recommend you take the components one at a time. Specific instructions are gi
 
 - [CHARITY](abap/src/) - the charity backend service that receives event messages published to the "Internal/Charityfund/Increased" topic, stores the data, retrieves business partner info, and makes an OData service available for the FRONTEND component (a Steampunk ABAP stack RAP based service)
 
+If you're wondering about the MESSAGE BUS component, see the appropriate section a bit further down.
+
 ## Requirements
 
 Component-specific requirements are to be found in the respective READMEs, but there are general requirements too which are listed here.
