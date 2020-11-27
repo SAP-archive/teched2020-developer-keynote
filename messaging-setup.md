@@ -1,6 +1,8 @@
 # SAP Enterprise Messaging - Setup
 
-To get a a message bus component of your own (see the whiteboard diagram in the main [README](../README.md)), follow these instructions.
+To get a a message bus component of your own, as shown in the whiteboard diagram, follow these instructions.
+
+![Whiteboard diagram](images/whiteboard.jpg)
 
 You can set up an instance of the SAP Enterprise Messaging service (specifically a 'dev' plan instance) in one of two ways:
 
