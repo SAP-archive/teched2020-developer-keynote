@@ -10,7 +10,7 @@ You can find out more about the back story for this keynote in the blog post [SA
 
 The layout of this repository generally reflects the different components shown on the whiteboard diagram and demonstrated throughout the session.
 
-![Whiteboard diagram](whiteboard.jpg)
+![Whiteboard diagram](images/whiteboard.jpg)
 
 You can study and experiment with each component individually, and they are of course all designed to work together as shown in the developer keynote itself. Each component has its own directory within this repository.
 
@@ -38,13 +38,15 @@ Component-specific requirements are to be found in the respective READMEs, but t
 
 - Cloud Foundry environment: When you set up a trial account, a Cloud Foundry environment is set up automatically for you, with an organization and single 'dev' space.
 
-- Kyma environment: While a Kyma environment is not set up automatically, you can (and should) enable one with the "Enable Kyma" button on the main account overview page in the Cockpit.
+- Kyma environment: While a Kyma environment is not set up automatically, you can (and should) enable one with the "Enable Kyma" button on the main account overview page in the Cockpit, as shown in this screenshot.
+
+![Enable Kyma button](images/enable-kyma.png)
 
 ### SAP Business API Hub
 
-- Access: Make sure you can log in to the SAP Business API Hub
+- Access: Make sure you can log in to the [SAP Business API Hub](https://api.sap.com)
 
-- API information: Check that you can access the API information (e.g. for the [Sales Order (A2X) API](https://api.sap.com/api/API_SALES_ORDER_SRV/resource)
+- API information: Check that you can access the API information (e.g. for the [Sales Order (A2X) API](https://api.sap.com/api/API_SALES_ORDER_SRV/resource))
 
 - API specifications: Check also that you have the ability to download API specifications (e.g. to that same [API_SALES_ORDER_SRV API](https://api.sap.com/api/API_SALES_ORDER_SRV/overview))
 
@@ -55,7 +57,7 @@ Component-specific requirements are to be found in the respective READMEs, but t
 
 The one component on the whiteboard diagram that wasn't listed earlier is of course the MESSAGE BUS. This is an instance of the SAP Enterprise Messaging service. You'll need one of these. There is a 'dev' plan available for trial account users, it is marked as deprecated but perfectly serviceable for our needs.
 
-![SAP Enterprise Messaging dev plan](dev-plan.png)
+![SAP Enterprise Messaging dev plan](images/messaging-dev-plan.png)
 
 > If you want to learn more about the SAP Enterprise Messaging service and everything you can do with the 'dev' plan, check out this series from the Hands-on SAP Dev show on the SAP Developers YouTube channel: [Diving into messaging on SAP Cloud Platform](https://www.youtube.com/playlist?list=PL6RpkC85SLQCf--P9o7DtfjEcucimapUf). Also, see the blog post [An overview of SAP Developers video content](https://blogs.sap.com/2020/11/09/an-overview-of-sap-developers-video-content/) for more information on SAP Developers video content in general.
 
