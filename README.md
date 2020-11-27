@@ -61,15 +61,23 @@ The one component on the whiteboard diagram that wasn't listed earlier is of cou
 
 > If you want to learn more about the SAP Enterprise Messaging service and everything you can do with the 'dev' plan, check out this series from the Hands-on SAP Dev show on the SAP Developers YouTube channel: [Diving into messaging on SAP Cloud Platform](https://www.youtube.com/playlist?list=PL6RpkC85SLQCf--P9o7DtfjEcucimapUf). Also, see the blog post [An overview of SAP Developers video content](https://blogs.sap.com/2020/11/09/an-overview-of-sap-developers-video-content/) for more information on SAP Developers video content in general.
 
-
+Please set up an instance of the SAP Enterprise Messaging service according to [these instructions](messaging-setup.md).
 
 ## Download and Installation
 
+To use this repository, clone it and follow the component instructions, as well as this main README.
+
 ## Known Issues
+
+None at the time of writing.
 
 ## How to obtain support
 
+Support for this repository is limited to the SAP TechEd 2020 Developer Keynote event and a limited number of weeks following that. Please raise an issue in this repository with as much detail as you can.
+
 ## Contributing
+
+This is a community project and contributions will be welcome in the form of pull requests (PRs) - please submit in the normal way. Thank you!
 
 ## License
 
