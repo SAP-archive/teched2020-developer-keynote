@@ -10,7 +10,7 @@ You can find out more about the back story for this keynote in the blog post [SA
 
 The layout of this repository generally reflects the different components shown on the whiteboard diagram and demonstrated throughout the session.
 
-![Whiteboard diagram](whiteboard.png)
+![Whiteboard diagram](whiteboard.jpg)
 
 You can study and experiment with each component individually, and they are of course all designed to work together as shown in the developer keynote itself. Each component has its own directory within this repository.
 
