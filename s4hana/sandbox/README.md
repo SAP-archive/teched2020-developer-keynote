@@ -28,7 +28,7 @@ We'll refer to the use of these scripts throughout the steps. You can of course 
 
 1. [Configure Essential Local Development Tools](https://developers.sap.com/group.scp-local-tools.html)
 
-2. If you haven't done so already (see the "Download and Installation" instructions in the repository's [main README](../README.md), clone your fork of this this repository
+2. If you haven't done so already (see the "Download and Installation" instructions in the repository's [main README](../README.md)), clone *your fork* of this this repository, like this:
     ```
     $ git clone https://github.com/OWNER/REPOSITORY
     ```
