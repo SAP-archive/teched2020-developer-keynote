@@ -28,9 +28,9 @@ We'll refer to the use of these scripts throughout the steps. You can of course 
 
 1. [Configure Essential Local Development Tools](https://developers.sap.com/group.scp-local-tools.html)
 
-2. Clone this repository
+2. If you haven't done so already (see the "Download and Installation" instructions in the repository's [main README](../README.md), clone your fork of this this repository
     ```
-    $ git clone https://github.com/SAP-samples/teched2020-developer-keynote
+    $ git clone https://github.com/OWNER/REPOSITORY
     ```
 
 3. Modify the `d` script in this directory and change the OWNER and REPOSITORY values in the `tag` variable (towards the top of the file) to reflect your own GitHub org or username and repository name. This is what the line looks like *before* modification, so you know what you're looking for:
@@ -38,7 +38,6 @@ We'll refer to the use of these scripts throughout the steps. You can of course 
     ```
     tag=docker.pkg.github.com/OWNER/REPOSITORY/s4mock:latest
     ```
-
 
 ## Configuration
 
