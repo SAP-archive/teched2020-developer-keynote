@@ -77,13 +77,17 @@ define root view entity Z_C_CSTDONCREDITS_R as projection on Z_I_CSTDONCREDITS_R
 }
 ```
 
-The virtual element for "Customer Name" is implemented in class ZCL_CDC_CUSTOMER_MASTER.  In this class, we leverage a code snippet from the Service Consumption Model for reading all entites.
+The virtual element for "Customer Name" is implemented in class ZCL_CDC_CUSTOMER_MASTER.  In this class, leveraging a code snippet from the Service Consumption Model for reading all entites, all customer names are pulled in and incorporated with the rest of the data in the Z table.
 
 ![Service Consumption Model](./images/serviceconsumptionmodel.jpg)
 
-
+Next, the service definitions and service bindings.  Z_SD_C_CSTDONCREDITS_R is the reporting service definition which is used in the application. Z_UI_C_CSTDONCREDITS_R is the service binding.
 
 ![Services](./images/services.jpg)
+
+From the service binding, it is possible to lauch a Fiori preview application to test the service.
+
+![Service Binding](./images/bindingpreview.jpg)
 
 
 ## Prerequisites
