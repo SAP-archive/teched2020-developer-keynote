@@ -35,7 +35,7 @@ The first task of the Charity componet is to handle the incoming message from th
 
 The handler class then updates the custom table with the data coming from Enterprise Messaging.
 
-
+![Data Preview](./images/datapreview.jpg)
 
 ## Prerequisites
 
