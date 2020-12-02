@@ -325,6 +325,7 @@ You can check in your own GitHub repository that this has been successful - chec
 
 ![The s4mock package listed](s4mock-package-listing.png)
 
+> Other packages are shown in this screenshot too - they're from other components in this repository.
 
 #### Create a k8s secret for registry access
 
