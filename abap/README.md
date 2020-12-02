@@ -85,10 +85,11 @@ Next, the service definitions and service bindings.  Z_SD_C_CSTDONCREDITS_R is t
 
 ![Services](./images/services.jpg)
 
-From the service binding, it is possible to lauch a Fiori preview application to test the service.
+From the service binding, it is possible to launch a Fiori preview application to test the service.
 
 ![Service Binding](./images/bindingpreview.jpg)
 
+![Fiori Preview](./images/fioripreview.jpg)
 
 ## Prerequisites
 
