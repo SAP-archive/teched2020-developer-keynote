@@ -8,7 +8,7 @@ The context in which it runs is shown as the highlighted section of the whiteboa
 
 ![whiteboard, with CHARITY highlighted](./images/whiteboard-charity.jpg)
 
-The first task of the Charity componet is to handle the incoming message from the webhook subscription in Enterprise Messaging. The webhook subscription is configured to trigger a POST method of our HTTP Service endpoint URL in Steampunk.
+The first task of the Charity componet is to handle the incoming message from the webhook subscription in Enterprise Messaging. The webhook subscription is configured to trigger a POST method of our HTTP Service(ZCDC_REST_SERVICE) endpoint URL in Steampunk.  The ABAP handler class called ZCL_CDC_REST_SERVICE is the class which implements the methods for the endpoint.  
 
 ![HTTP Service](./images/httpservice.jpg)
 
@@ -36,8 +36,27 @@ The ABAP HTTP handler class which is tied to this endpoint URL expects a certain
 }
 
 ```
+A Post method is trigger by Enterprise Messaging for this webhook subscription which contains this payload. The ABAP handler class then deseralizes this json payload into ABAP structures and updates the custom table accordingly.
 
-The handler class then updates the custom table with the data coming from Enterprise Messaging.
+![Post](./images/post.jpg)
+
+```abap
+* Convert payload json to abap structures
+        /ui2/cl_json=>deserialize( EXPORTING json = request->get_text(  )
+                                             pretty_name = /ui2/cl_json=>pretty_mode-low_case
+                                    CHANGING data = ls_payload ).
+
+* Update table with data
+        MODIFY zcstdoncredits FROM @ls_payload-data-data-data.
+        IF sy-subrc = 0.
+          response->set_status( i_code = 200 i_reason = 'Ok').
+          response->set_text( | Database table updated successfully for customer number { ls_payload-data-data-data-custid } | ).
+        ELSE.
+          response->set_status( i_code = 500 i_reason = 'Error').
+          response->set_text( 'Error occured when updating database table' ).
+        ENDIF.
+```
+
 
 ![Data Preview](./images/datapreview.jpg)
 
