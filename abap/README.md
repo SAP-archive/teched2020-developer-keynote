@@ -10,8 +10,7 @@ The context in which it runs is shown as the highlighted section of the whiteboa
 
 The first task of the Charity componet is to handle the incoming message from the webhook subscription in Enterprise Messaging. The webhook subscription is configured to trigger a POST method of our HTTP Service endpoint URL in Steampunk. The ABAP HTTP handler class which is tied to this endpoint URL expects a certain payload containing the relevant data. 
 
-'''abap
- Expected payload example
+'''json
 {
     "data": {
         "data": {
