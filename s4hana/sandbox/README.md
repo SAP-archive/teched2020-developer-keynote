@@ -1,6 +1,6 @@
 # Mock Router
 
-This is a small app that acts as a proxy in front of the SAP API Business Hub (API Hub) sandbox system. Because the app itself is small, we'll take the opportunity to explore different ways of running it, without having to worry too much about _what_ we're running. So here we'll explore running locally, in Docker, on CF and on Kubernetes with Kyma.
+This is a small app that acts as a proxy in front of the SAP API Business Hub (API Hub) sandbox system. Because the app itself is small, we'll take the opportunity to explore different ways of running it, without having to worry too much about _what_ we're running. So here we'll explore running locally, in Docker, on Cloud Foundry (CF) and on Kubernetes (k8s) with Kyma.
 
 ## Overview
 
@@ -12,7 +12,7 @@ Access to the API Hub sandbox system is protected; each and every call to it nee
 
 There are two APIs that are used on the sandbox system that the API Hub makes available. Both are SAP S/4HANA Cloud APIs: [Sales Order (A2X)](https://api.sap.com/api/API_SALES_ORDER_SRV/resource) and [Business Partner (A2X)](https://api.sap.com/api/API_BUSINESS_PARTNER/resource).
 
-In the developer keynote, this app is running in the Kyma runtime, but you can run it locally, locally in a Docker container, and also in Cloud Foundry. This README will show you how to get this app running in all four environments so you can compare and contrast them.
+In the developer keynote, this app is running in the Kyma runtime, but you can run it locally, locally in a Docker container, and also in CF. This README will show you how to get this app running in all four environments so you can compare and contrast them.
 
 > This entire procedure assumes you have cloned this repository to your own space on GitHub, and that you are therefore aware of the values for OWNER (your GitHub org or username) and REPOSITORY (where you've cloned this) throughout the rest of this document. All the examples (of output, and so on) will be given based on the home org and repository for this content, i.e. `sap-samples/teched2020-developer-keynote`.
 
@@ -162,9 +162,9 @@ Note that the invocation includes the `-d` switch to tell Docker to run the imag
 
 Check that you can access the `API_SALES_ORDER_SRV`'s service document again, at this same address: http://localhost:5000/sap/opu/odata/sap/API_SALES_ORDER_SRV/. You should see the service document served to you again, but this time, via the proxy app running inside the container.
 
-## On SAP Cloud Platform - Cloud Foundry runtime
+## On SAP Cloud Platform - CF runtime
 
-During the DK100 Developer Keynote demo itself, this app is run in the cloud, on SAP Cloud Platform, and specifically in the Kyma runtime. But you can also run it in the Cloud Foundry (CF) runtime, and this section is in case you want to do that.
+During the DK100 Developer Keynote demo itself, this app is run in the cloud, on SAP Cloud Platform, and specifically in the Kyma runtime. But you can also run it in the CF runtime, and this section is in case you want to do that.
 
 Because of the simplicity of the app and the fact that it doesn't depend on anything else, we can use the simple `cf push` approach. 
 
@@ -248,7 +248,7 @@ In the output, the route is shown, and you can check that you can access the `AP
 
 `http://proxyapp-wise-gnu-hc.cfapps.eu10.hana.ondemand.com/sap/opu/odata/sap/API_SALES_ORDER_SRV/`
 
-Your URL will be different, mostly because of the use of the `--random-route` switch. You should see the service document served to you again, but this time, via the proxy app running in the Cloud Foundry environment on SAP Cloud Platform.
+Your URL will be different, mostly because of the use of the `--random-route` switch. You should see the service document served to you again, but this time, via the proxy app running in the CF environment on SAP Cloud Platform.
 
 > In case you prefer the Multi Target Application (MTA) approach, there's an `mta.yaml` file in this directory too, so you can use the build-and-deploy approach if you really want to, like this (a reduced sample output is also shown):
 
