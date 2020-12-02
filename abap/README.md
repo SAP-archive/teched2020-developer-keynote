@@ -6,11 +6,11 @@ The Charity component is the ABAP layer of the application and it has two respon
 
 The context in which it runs is shown as the highlighted section of the whiteboard:
 
-![whiteboard, with CHARITY highlighted](./whiteboard-charity.jpg)
+![whiteboard, with CHARITY highlighted](./images/whiteboard-charity.jpg)
 
 The first task of the Charity componet is to handle the incoming message from the webhook subscription in Enterprise Messaging. The webhook subscription is configured to trigger a POST method of our HTTP Service endpoint URL in Steampunk. The ABAP HTTP handler class which is tied to this endpoint URL expects a certain payload containing the relevant data. 
 
-'''json
+```json
 {
     "data": {
         "data": {
@@ -31,7 +31,7 @@ The first task of the Charity componet is to handle the incoming message from th
     }
 }
 
-'''
+```
 
 The handler class then updates the custom table with the data coming from Enterprise Messaging.
 
