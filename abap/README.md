@@ -8,7 +8,7 @@ The context in which it runs is shown as the highlighted section of the whiteboa
 
 ![whiteboard, with CHARITY highlighted](./images/whiteboard-charity.jpg)
 
-The first task of the Charity componet is to handle the incoming message from the webhook subscription in Enterprise Messaging. The webhook subscription is configured to trigger a POST method of our HTTP Service(ZCDC_REST_SERVICE) endpoint URL in Steampunk.  The ABAP handler class called ZCL_CDC_REST_SERVICE is the class which implements the methods for the endpoint.  
+The first task of the Charity componet is to handle the incoming message from the webhook subscription in Enterprise Messaging. The webhook subscription is configured to trigger a request to the HTTP Service(ZCDC_REST_SERVICE) endpoint URL in the Steampunk system.  The ABAP handler class called ZCL_CDC_REST_SERVICE is the class which implements the methods for the endpoint.  
 
 ![HTTP Service](./images/httpservice.jpg)
 
@@ -57,6 +57,25 @@ A Post method to the http service endpoint is triggered by Enterprise Messaging 
 
 
 ![Data Preview](./images/datapreview.jpg)
+
+The data has now flowed to the custom table, it can now be exposed to the user interface via an OData service provided by the ABAP RESTful Application Programming model framework. For this we hav several views, a lowest level business object interface view, Z_I_CSTDONCREDITS and a reporting view on top of it called Z_I_CSTDONCREDITS_R.  On top of the interface views are the consumption views, Z_C_CSTDONCREDITS and Z_C_CSTDONCREDITS_R.  
+
+![Views](./images/views.jpg)
+
+The Z_C_CSTDONCREDITS_R view is the view which will be exposed. It contains the relevant data for the  user interface, including the virtual ele3ment "Customer Name" which is being pulled in from the source S/4HANA system at runtime via the Service Consumption Model.
+
+```@EndUserText.label: 'Customer Donation Credits - Reporting'
+@AccessControl.authorizationCheck: #CHECK
+@Metadata.allowExtensions: true
+define root view entity Z_C_CSTDONCREDITS_R as projection on Z_I_CSTDONCREDITS_R {
+    //Z_I_CSTDONCREDITS_R
+    key custid,
+    key creationdateyyyymm,
+    @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_CDC_CUSTOMER_MASTER'
+    @EndUserText.label : 'Customer Name'    virtual customername : abap.char(40),
+    totalcredits
+}
+```
 
 
 
