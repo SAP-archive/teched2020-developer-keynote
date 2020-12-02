@@ -159,13 +159,43 @@ Check that you can access the `API_SALES_ORDER_SRV`'s service document again, at
 
 ## On SAP Cloud Platform - Cloud Foundry runtime
 
-During the DK100 Developer Keynote demo itself, this app is run in the cloud, on SAP Cloud Platform, and specifically in the Kyma runtime. But you can also run it in the Cloud Foundry runtime, and this section is in case you want to do that.
+During the DK100 Developer Keynote demo itself, this app is run in the cloud, on SAP Cloud Platform, and specifically in the Kyma runtime. But you can also run it in the Cloud Foundry (CF) runtime, and this section is in case you want to do that.
 
-Because of the simplicity of the app and the fact that it doesn't depend on anything else, we can use the simple `cf push` approach. Here's what the invocation looks like, and the sort of thing you should see (lots of output removed for readability):
+Because of the simplicity of the app and the fact that it doesn't depend on anything else, we can use the simple `cf push` approach. 
+
+Before running the `cf push` command, make sure you're logged in and connected to your CF organization and space. Check what your CF API endpoint is from your SAP Cloud Platform Cockpit and issue the `cf login` command. The flow will look something like this (your API endpoint may be different):
+
+```sh
+$ cf login
+API endpoint: https://api.cf.eu10.hana.ondemand.com
+
+Email: sapdeveloper@example.com
+
+Password: 
+Authenticating...
+OK
+
+Select an org:
+1. 4dc50e9btrial
+2. p123456789trial
+
+Org (enter to skip): 1
+Targeted org 4dc50e9btrial
+
+Targeted space dev
+
+API endpoint:   https://api.cf.eu10.hana.ondemand.com (API version: 3.88.0)
+User:           sapdeveloper@example.com
+Org:            4dc50e9btrial
+Space:          dev
+$
+```
+
+Here's what the `cf push` invocation looks like, and the sort of thing you should see (lots of output removed for readability):
 
 ```
 $ cf push --random-route -p router proxyapp
-Pushing app proxyapp to org 58f45caftrial / space dev as dj.adams@sap.com...
+Pushing app proxyapp to org 58f45caftrial / space dev as sapdeveloper@example.com...
 Getting app info...
 Creating app with these attributes...
 + name:       proxyapp
