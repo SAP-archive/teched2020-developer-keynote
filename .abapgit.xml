@@ -6,6 +6,8 @@
    <STARTING_FOLDER>/abap/src/</STARTING_FOLDER>
    <FOLDER_LOGIC>PREFIX</FOLDER_LOGIC>
    <IGNORE>
+    <item>/abap/images/</item>
+    <item>/abap/README.md</item>
     <item>/.reuse/</item>
     <item>/LICENSES/</item>
     <item>/cap/brain/</item>
