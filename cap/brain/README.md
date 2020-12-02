@@ -1,15 +1,17 @@
-The CAP service is indicated by the "Brain (CAP service)" block in the [schematic](https://sap.sharepoint.com/:p:/r/sites/100499/_layouts/15/Doc.aspx?sourcedoc=%7B02231566-2A17-412E-8E59-5D0A34317F12%7D&file=Scratch.pptx&action=edit&mobileredirect=true) diagram.
+# BRAIN
 
-It can be found in the [`cap/brain/`](https://github.com/SAP-samples/teched2020-developer-keynote/tree/master/cap/brain) directory in this repository.
+This section relates to BRAIN component, the service that coordinates the event messages, subscribes to the "salesorder/created" topic, and publishes event messages to the "Internal/Charityfund/Increased" topic, and is represented by the "BRAIN" block in the whiteboard diagram.
+
+![The Brain in context](brain.png)
 
 ## Overview
 
-It is a basic CAP application with two of the three layers in use:
+The brain is a basic CAP application with two of the three layers in use. In effect, a "service" more than an application:
 
 |Layer|Description|
 |-|-|
 |`app`|Unused|
-|`srv`|A single service `teched` is defined exposing an entity `CharityEntry`, and three related helper / test functions `invoke()`, `convert()` and `readEntry(party)`. None of these artifacts are directly needed for day-to-day Brain operation|
+|`srv`|A single service `teched` is defined exposing an entity `CharityEntry`. Custom JavaScript code for managing the Brain's operations and activities|
 |`db`|An entity `CharityEntry` is defined with a `SoldToParty` property as key, and a counter property. This entity is defined within the namespace `charity`|
 
 The service, once deployed, does not require any human intervention to function. It performs the following activities, each time an event published to the "salesorder/created" topic on the messaging bus is received:
@@ -36,9 +38,9 @@ The CAP service consumes the following services which are defined in `package.js
 
 |Name|Kind|Details|
 |-|-|-|
-|`messaging`|`enterprise-messaging`|Connection to the EM service instance|
+|`messaging`|`enterprise-messaging`|Connection to the message bus|
 |`db`|`sqlite`|Local persistence|
-|`S4SalesOrders`|`odata`|Connection to the Sandbox (S/4HANA mock system) OData service. Destination `apihub_mock_salesorders`|
+|`S4SalesOrders`|`odata`|Connection to the API Hub sandbox (SAP S/4HANA Cloud mock system) OData service. Destination `apihub_mock_salesorders`|
 |`ConversionService`|`rest`|Connection to the Converter (Go microservice) conversion service. Destination `charityfund_converter`|
 
 
