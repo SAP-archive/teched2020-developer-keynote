@@ -62,7 +62,7 @@ The data has now flowed to the custom table, it can now be exposed to the user i
 
 ![Views](./images/views.jpg)
 
-The Z_C_CSTDONCREDITS_R view is the view which will be exposed. It contains the relevant data for the  user interface, including the virtual ele3ment "Customer Name" which is being pulled in from the source S/4HANA system at runtime via the Service Consumption Model.
+The Z_C_CSTDONCREDITS_R view is the view which is exposed and consumed by the user interface. It contains the relevant data, including the virtual ele3ment "Customer Name" which is being pulled in from the source S/4HANA system at runtime via the Service Consumption Model object called ZCDC_BUPA.
 
 ```@EndUserText.label: 'Customer Donation Credits - Reporting'
 @AccessControl.authorizationCheck: #CHECK
@@ -77,6 +77,9 @@ define root view entity Z_C_CSTDONCREDITS_R as projection on Z_I_CSTDONCREDITS_R
 }
 ```
 
+The virtual element for "Customer Name" is implemented in class ZCL_CDC_CUSTOMER_MASTER.  In this class, we leverage a code snippet from the Service Consumption Model for reading all entites.
+
+![Service Consumption Model](./images/serviceconsumptionmodel.jpg)
 
 
 
