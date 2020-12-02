@@ -36,7 +36,7 @@ The ABAP HTTP handler class which is tied to this endpoint URL expects a certain
 }
 
 ```
-A Post method to the http service endpoint is triggered by Enterprise Messaging for this webhook subscription which contains this payload. The ABAP handler class then deseralizes this json payload into ABAP structures and updates the custom table accordingly.
+A #POST method to the http service endpoint is triggered by Enterprise Messaging for this webhook subscription which contains this payload. The ABAP handler class then deseralizes this json payload into ABAP structures and updates the custom table accordingly.
 
 ```abap
 * Convert payload json to abap structures
@@ -58,11 +58,11 @@ A Post method to the http service endpoint is triggered by Enterprise Messaging 
 
 ![Data Preview](./images/datapreview.jpg)
 
-The data has now flowed to the custom table, it can now be exposed to the user interface via an OData service provided by the ABAP RESTful Application Programming model framework. For this we hav several views, a lowest level business object interface view, Z_I_CSTDONCREDITS and a reporting view on top of it called Z_I_CSTDONCREDITS_R.  On top of the interface views are the consumption views, Z_C_CSTDONCREDITS and Z_C_CSTDONCREDITS_R.  
+The data has now flowed to the custom table. The second task of this component is to expose the data to the user interface via an OData service provided by the ABAP RESTful Application Programming model framework. For this there are several views, a lowest level business object interface view, Z_I_CSTDONCREDITS and a reporting view on top of it called Z_I_CSTDONCREDITS_R.  On top of the interface views are the consumption views, Z_C_CSTDONCREDITS and Z_C_CSTDONCREDITS_R.  
 
 ![Views](./images/views.jpg)
 
-The Z_C_CSTDONCREDITS_R view is the view which is exposed and consumed by the user interface. It contains the relevant data, including the virtual ele3ment "Customer Name" which is being pulled in from the source S/4HANA system at runtime via the Service Consumption Model object called ZCDC_BUPA.
+The Z_C_CSTDONCREDITS_R view is the view which is exposed and consumed by the user interface. It contains the relevant data, including the virtual ele3ment "Customer Name" which is pulled in from the source S/4HANA system at runtime via the Service Consumption Model object called ZCDC_BUPA.
 
 ```@EndUserText.label: 'Customer Donation Credits - Reporting'
 @AccessControl.authorizationCheck: #CHECK
@@ -77,7 +77,7 @@ define root view entity Z_C_CSTDONCREDITS_R as projection on Z_I_CSTDONCREDITS_R
 }
 ```
 
-The virtual element for "Customer Name" is implemented in class ZCL_CDC_CUSTOMER_MASTER.  In this class, leveraging a code snippet from the Service Consumption Model for reading all entites, all customer names are pulled in and incorporated with the rest of the data in the Z table.
+The virtual element for "Customer Name" is implemented in ABAP class ZCL_CDC_CUSTOMER_MASTER.  In this class, leveraging a code snippet from the Service Consumption Model for reading all entites, all customer names are pulled in and incorporated with the rest of the data in the Z table.
 
 ![Service Consumption Model](./images/serviceconsumptionmodel.jpg)
 
