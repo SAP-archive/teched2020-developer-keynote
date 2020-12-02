@@ -200,7 +200,7 @@ Here's what the `cf push` invocation looks like, and the sort of thing you shoul
 
 ```
 $ cf push --random-route -p router proxyapp
-Pushing app proxyapp to org 58f45caftrial / space dev as sapdeveloper@example.com...
+Pushing app proxyapp to org 4dc50e9btrial / space dev as sapdeveloper@example.com...
 Getting app info...
 Creating app with these attributes...
 + name:       proxyapp
@@ -270,9 +270,13 @@ $ mbt build && cf deploy mta_archives/s4-mock_1.0.0.mtar
 [2020-11-24 11:03:41]  INFO the MTA archive generated at: /Users/username/Projects/teched2020-developer-keynote/s4hana/sandbox/mta_archives/s4-mock_1.0.0.mtar
 [2020-11-24 11:03:41]  INFO cleaning temporary files...
 ...
-Application "proxyapp" started and available at "z8f45caftrial-dev-proxyapp.cfapps.eu10.hana.ondemand.com"
+Application "proxyapp" started and available at "4dc50e9btrial-dev-proxyapp.cfapps.eu10.hana.ondemand.com"
 Process finished.
 ```
+
+In this example, the `API_SALES_ORDER_SRV`'s service document would be available at:
+
+`https://4dc50e9btrial-dev-proxyapp.cfapps.eu10.hana.ondemand.com/sap/opu/odata/sap/API_SALES_ORDER_SRV/`
 
 
 ### On SAP Cloud Platform - Kyma runtime
