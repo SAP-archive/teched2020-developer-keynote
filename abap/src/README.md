@@ -14,7 +14,9 @@ Access to the API Hub sandbox system is protected; each and every call to it nee
 
 ## Prerequisites
 
-1. You will need to install ABAP Development Tools for Eclipse. For more information on this topic, please go [here](https://tools.hana.ondemand.com/#abap). If you already have ABAP Development Tools installed, please make sure that you have the latest version.   Also, we will leverage the SAP Cloud Platorm, ABAP Environment Trial system. Follow the directions outlined in this [tutorial](https://developers.sap.com/tutorials/abap-environment-trial-onboarding.html).
+* You have downloaded and installed ABAP Development Tools (ADT). Make sure to use the most recent version as indicated on the installation page.
+* You have created an ABAP Cloud Project in ADT that allows you to access your SAP Cloud Platform ABAP Environment instance (see here for additional information). Your log-on language is English.
+* You have installed the abapGit plug-in for ADT from the update site http://eclipse.abapgit.org/updatesite/.
 
 
 
