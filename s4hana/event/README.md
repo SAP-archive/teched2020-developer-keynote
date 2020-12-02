@@ -1,3 +1,5 @@
+# EMITTER
+
 This section relates to the SAP S/4HANA Cloud event that is used to kick off the whole process, and is represented by the "EMITTER" block in the whiteboard diagram.
 
 ![The Emitter in context](emitter.png)
