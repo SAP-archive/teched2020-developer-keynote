@@ -45,7 +45,7 @@ If you want to use this in your App Studio dev space, first follow the instructi
 You can also invoke the `cf create-service` command directly, but be sure to specify the appropriate values - the same ones that the [`service-setup`](https://github.com/SAP-samples/cloud-messaging-handsonsapdev/blob/main/service-setup) script uses. Here's what you'd need to do:
 
 ```sh
-cf create-service enterprise-messaging \
+$ cf create-service enterprise-messaging \
   dev \
   emdev \
   -c '{ "emname": "emdev", "options": { "management": true, "messagingrest": true } }'
