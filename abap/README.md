@@ -83,6 +83,9 @@ The virtual element for "Customer Name" is implemented in class ZCL_CDC_CUSTOMER
 
 
 
+![Services](./images/services.jpg)
+
+
 ## Prerequisites
 
 * You have downloaded and installed ABAP Development Tools (ADT). Make sure to use the most recent version as indicated on the installation page.
