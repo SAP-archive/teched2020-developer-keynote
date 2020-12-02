@@ -6,7 +6,7 @@ This component of the application has two responsibilities....
 
 The context in which it runs is shown as the highlighted section of the whiteboard:
 
-![whiteboard, with CHARITY highlighted](../abap/whiteboard-charity.png)
+![whiteboard, with CHARITY highlighted](./abap/whiteboard-charity.png)
 
 Cover the HTTP handler, and the RAP object here
 
