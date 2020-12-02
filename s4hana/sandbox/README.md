@@ -392,7 +392,7 @@ The app is now deployed to the Kyma runtime in your SAP Cloud Platform subaccoun
 
 Just like before, you can check that it's working by requesting the API's service document. You'll need first to find out what the first part of the URL is.
 
-Visit the Kyma console (get there from your trial subaccount overview page and use the "Link to dashboard" link) and in the API Rules section, you'll see the relevant URL:
+Visit the Kyma console (get there from your trial subaccount overview page and use the "Link to dashboard" link), select the "default" namespace, and in the "Configuration > API Rules" section, you'll see the relevant URL:
 
 ![API Rules](api-rules.png)
 
