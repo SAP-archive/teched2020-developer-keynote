@@ -44,7 +44,7 @@ To use this Emitter:
 
 Invoking the emitter should look like this - there will be a couple of log messages produced:
 
-```sh
+```
 $ ./emit 1
 2020-10-07 12:50:56 Publishing sales order created event for 1
 2020-10-07 12:50:56 Publish message to topic salesorder%2Fcreated
