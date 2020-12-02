@@ -25,6 +25,6 @@ Currently abapGit does not handle the creation of the HTTP service, so you will 
 
 ## Running the app
 
-Now that all objects are activated, you can rest the RAP application by going to the service binding selecting the entity, and clicking the "Preview" button. 
+Now that all objects are activated, you can test the RAP application by going to the service binding selecting the entity, and clicking the "Preview" button. 
 
 
