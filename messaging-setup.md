@@ -6,8 +6,8 @@ To get a a message bus component of your own, as shown in the whiteboard diagram
 
 You can set up an instance of the SAP Enterprise Messaging service (specifically a 'dev' plan instance) in one of two ways:
 
-- using the SAP Cloud Platform Cockpit
-- using a script
+- [Using the SAP Cloud Platform Cockpit](#using-the-cockpit)
+- [Using a script](#using-a-script)
 
 Whatever way you choose, the name of the instance should be the same - please use "emdev", and you should ensure that specific instance parameters are specified during creation. These instance parameters are in JSON format and are as follows:
 
@@ -41,4 +41,8 @@ If you prefer to set things up from the command line, you can do so. An environm
 Once you've set up a dev space in the App Studio, check out the [Cloud - Messaging - Hands-on SAP Dev](https://github.com/SAP-samples/cloud-messaging-handsonsapdev) repository. This repository has all sorts of scripts for interacting with the Management and Messaging APIs of SAP Enterprise Messaging, and also contains a simple [`service-setup`](https://github.com/SAP-samples/cloud-messaging-handsonsapdev/blob/main/service-setup) script.
 
 If you want to use this in your App Studio dev space, first follow the instructions in the repository's README section titled [Using the SAP Business Application Studio](https://github.com/SAP-samples/cloud-messaging-handsonsapdev#using-the-sap-business-application-studio), then you'll be ready to run that script from there.
+
+```
+cf create-service enterprise-messaging dev myEnterpriseMessagingInstance -c '{ "emname": "emdev", "options": { "management": true, "messagingrest": true } }'
+```
 
