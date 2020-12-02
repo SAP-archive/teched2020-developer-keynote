@@ -42,7 +42,12 @@ Once you've set up a dev space in the App Studio, check out the [Cloud - Messagi
 
 If you want to use this in your App Studio dev space, first follow the instructions in the repository's README section titled [Using the SAP Business Application Studio](https://github.com/SAP-samples/cloud-messaging-handsonsapdev#using-the-sap-business-application-studio), then you'll be ready to run that script from there.
 
-```
-cf create-service enterprise-messaging dev myEnterpriseMessagingInstance -c '{ "emname": "emdev", "options": { "management": true, "messagingrest": true } }'
+You can also invoke the `cf create-service` command directly, but be sure to specify the appropriate values - the same ones that the [`service-setup`](https://github.com/SAP-samples/cloud-messaging-handsonsapdev/blob/main/service-setup) script uses. Here's what you'd need to do:
+
+```sh
+cf create-service enterprise-messaging \
+  dev \
+  emdev \
+  -c '{ "emname": "emdev", "options": { "management": true, "messagingrest": true } }'
 ```
 
