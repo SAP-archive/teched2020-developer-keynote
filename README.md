@@ -75,6 +75,8 @@ Please set up an instance of the SAP Enterprise Messaging service according to [
 
 To use this repository, fork it into your own user or org space on GitHub, and then clone that. You can now follow the component instructions, as well as this main README.
 
+For more information about forking in general, see [Fork a repo](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo) in the GitHub documentation.
+
 Throughout the instructions in this repository, the place where you forked this repository too will be referred to in the form "OWNER/REPOSITORY", and you should replace these placeholders with values that are appropriate for you. For example, if you are on GitHub as 'qmacro', and you fork this repository to that space, your values for "OWNER/REPOSITORY" would be "qmacro/teched2020-developer-keynote".
 
 ## Known Issues
