@@ -36,9 +36,7 @@ The ABAP HTTP handler class which is tied to this endpoint URL expects a certain
 }
 
 ```
-A Post method is trigger by Enterprise Messaging for this webhook subscription which contains this payload. The ABAP handler class then deseralizes this json payload into ABAP structures and updates the custom table accordingly.
-
-![Post](./images/post.jpg)
+A Post method to the http service endpoint is triggered by Enterprise Messaging for this webhook subscription which contains this payload. The ABAP handler class then deseralizes this json payload into ABAP structures and updates the custom table accordingly.
 
 ```abap
 * Convert payload json to abap structures
@@ -60,6 +58,9 @@ A Post method is trigger by Enterprise Messaging for this webhook subscription w
 
 ![Data Preview](./images/datapreview.jpg)
 
+
+
+
 ## Prerequisites
 
 * You have downloaded and installed ABAP Development Tools (ADT). Make sure to use the most recent version as indicated on the installation page.
@@ -72,8 +73,6 @@ Once you have installed the abapGit plug-in for ADT, you can now clone this repo
 
 Currently abapGit does not handle the creation of the HTTP service, so you will need to create that manually and configure that service to point to the handler class ZCL_CDC_REST_SERVICE.
 
-## Running the app
 
-Now that all objects are activated, you can test the RAP application by going to the service binding selecting the entity, and clicking the "Preview" button. 
 
 
