@@ -321,7 +321,7 @@ The push refers to repository [docker.pkg.github.com/sap-samples/teched2020-deve
 latest: digest: sha256:58870f6f89546548d6ee290cab89850a763c7c66faa93a2373bf1cf9385ec954 size: 3054
 ```
 
-You can check in your own GitHub repository that this has been successful - check in your repository's Packages section; you should see the `s4mock` package listed, as it is in [this repository's Packages section](https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote):
+You can check in your own GitHub repository that this has been successful - check in your repository's Packages section (look on the right of your repository's home page on GitHub). You should see the `s4mock` package listed, as it is in [this repository's Packages section](https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote):
 
 ![The s4mock package listed](s4mock-package-listing.png)
 
