@@ -22,7 +22,7 @@ We recommend you take the components one at a time. Specific instructions are gi
 
 - [CONVERTER](kyma/) - the converter service that translates net amounts into charity credit amounts (Go language service listening for incoming HTTP requests)
 
-- [BRAIN](cap/brain/) - the service that coordinates the event messages, subscriber to the "salesorder/created" topic, and publisher of event messages to the "Internal/Charityfund/Increased" topic (a Node.js CAP based service connected to various endpoints)
+- [BRAIN](cap/brain/) - the service that coordinates the event messages, subscribes to the "salesorder/created" topic, and publishes event messages to the "Internal/Charityfund/Increased" topic (a Node.js CAP based service connected to various endpoints)
 
 - [FRONTEND](ui/) - the web dashboard that visualizes the data from the CHARITY component (an SAPUI5 / Fiori app using UI Integration Cards)
 
