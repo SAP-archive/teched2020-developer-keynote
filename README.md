@@ -75,6 +75,8 @@ Please set up an instance of the SAP Enterprise Messaging service according to [
 
 If you want to try out the local Docker and Kyma runtime based aspects, you'll need Docker on your machine. Install it by following the [Get Docker](https://docs.docker.com/get-docker/) instructions for your platform.
 
+> The use of Docker as a container runtime may be deprecated in future versions of k8s, but for the purposes of this repository, we're happy to use it for now.
+
 
 ## Download and Installation
 
