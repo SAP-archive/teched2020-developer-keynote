@@ -29,21 +29,23 @@ The `emit` Bash script uses some external commands, none of which are obscure, b
 
 You'll also need your SAP Enterprise Messaging service instance, as mentioned in the [Message Bus section of the main repository README](../../README.md#message-bus) - follow the [instructions](../../messaging-setup.md) to get it set up if you haven't already.
 
+These instructions assume you've forked this repository (see the [Download and Installation](../../README.md#download-and-installation) instructions) and cloned it locally.
+
 ## Usage
 
-The Emitter (the `emit` script) is designed to be used from the command line, and expects a single parameter that is mandatory - the sales order number. This must be a sales order that exists in the Sandbox (S/4HANA mock system). See the [`A_SalesOrder` entityset](https://9e079cc4trial-dev-s4-mock-router.cfapps.eu10.hana.ondemand.com/sap/opu/odata/sap/API_SALES_ORDER_SRV/A_SalesOrder?$top=10) data to look for valid sales order numbers.
+The Emitter (the `emit` script) is designed to be used from the command line, and expects a single parameter that is mandatory - the sales order number. This must be a sales order that exists in the Sandbox (S/4HANA mock system). Use your [SANDBOX component](../sandbox) to get a proxy running in front of the API Hub's mock service, and pick a valid sales order from the entityset. Assuming you go for a version of the proxy that you run [locally](../sandbox#locally), use the Sales Orders entityset at http://localhost:5000/sap/opu/odata/sap/API_SALES_ORDER_SRV/A_SalesOrder?$top=10 look for and pick a valid sales order number. 
 
 To use this Emitter:
 
-1. Clone this repository locally
-1. Move into the `s4hana/event/` directory
-1. Log into CF and connect to the `9e079cc4trial/dev` org/space
+1. Move into this `s4hana/event/` directory
+1. Make sure you're logged into CF and connected to your organization and space where you have your message bus
 1. Choose a sales order number (e.g. 1)
 1. Call the Emitter: `./emit <salesordernumber>` (e.g. `./emit 1`)
 
-This should result in a couple of log messages like this:
+Invoking the emitter should look like this - there will be a couple of log messages produced:
 
-```
+```sh
+$ ./emit 1
 2020-10-07 12:50:56 Publishing sales order created event for 1
 2020-10-07 12:50:56 Publish message to topic salesorder%2Fcreated
 ```
