@@ -71,6 +71,11 @@ The one component on the whiteboard diagram that wasn't listed earlier is of cou
 
 Please set up an instance of the SAP Enterprise Messaging service according to [these instructions](messaging-setup.md).
 
+### Docker
+
+If you want to try out the local Docker and Kyma runtime based aspects, you'll need Docker on your machine. Install it by following the [Get Docker](https://docs.docker.com/get-docker/) instructions for your platform.
+
+
 ## Download and Installation
 
 To use this repository, fork it into your own user or org space on GitHub, and then clone that. You can now follow the component instructions, as well as this main README.
