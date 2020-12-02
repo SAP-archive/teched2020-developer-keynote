@@ -86,6 +86,11 @@ approuter@ start /Users/username/Projects/teched2020-developer-keynote/s4hana/sa
 
 At this point, the app is running and listening for requests on the local loopback interface (`localhost`, or 127.0.0.1) on port 5000. To test it, try to access the `API_SALES_ORDER_SRV`'s service document at this address: http://localhost:5000/sap/opu/odata/sap/API_SALES_ORDER_SRV/. You should see the service document served to you.
 
+When you've finished trying out the app locally, make sure you move back up a directory to where this `README.md` file is:
+
+```sh
+$ cd ..
+```
 
 ### Locally in a Docker container
 
