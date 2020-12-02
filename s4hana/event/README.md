@@ -1,10 +1,12 @@
-The Emitter is indicated by the "Emitter (Shell script") block in the [schematic](https://sap.sharepoint.com/:p:/r/sites/100499/_layouts/15/Doc.aspx?sourcedoc=%7B02231566-2A17-412E-8E59-5D0A34317F12%7D&file=Scratch.pptx&action=edit&mobileredirect=true) diagram.
+This section relates to the SAP S/4HANA Cloud event that is used to kick off the whole process, and is represented by the "EMITTER" block in the whiteboard diagram.
+
+![The Emitter in context](emitter.png)
 
 It can be found in the [`s4hana/event/`](https://github.com/SAP-samples/teched2020-developer-keynote/tree/master/s4hana/event) directory of this repository.
 
 ## Overview
 
-The Emitter represents the kick-off of the whole flow, by emitting an event message to the "salesorder/created" topic on the instance of the Enterprise Messaging service. 
+This component starts off the whole flow by emitting an event message to the "salesorder/created" topic on the instance of the Enterprise Messaging service. 
 
 It is a single Bash shell script `emit`, supported by two helper libraries:
 
@@ -24,6 +26,8 @@ The `emit` Bash script uses some external commands, none of which are obscure, b
 - `cf` (see the [Install Guide](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html))
 - `yq` (see [the `yq` home page](https://github.com/mikefarah/yq))
 - `jq` (see [the `jq` home page](https://stedolan.github.io/jq/))
+
+You'll also need your SAP Enterprise Messaging service instance, as mentioned in the [Message Bus section of the main repository README](../../README.md#message-bus) - follow the [instructions](../../messaging-setup.md) to get it set up if you haven't already.
 
 ## Usage
 
