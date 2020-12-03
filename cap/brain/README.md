@@ -23,7 +23,7 @@ The service, once deployed, does not require any human intervention to function.
 
 _\*This is as long as sold-to party is one that hasn't already been processed 10 times before_
 
-## Controlling the processing
+## Controlling the processing
 
 To aid testing and gradual component deployment (getting all components up and running and connected), an enhancement has been made since the Developer Keynote presentation to allow the control of these activities using an environment variable `BRAIN_LEVEL`.
 
