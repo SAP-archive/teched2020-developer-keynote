@@ -32,6 +32,8 @@ We'll refer to the use of these scripts throughout the steps. You can of course 
     ```
     $ git clone https://github.com/OWNER/REPOSITORY
     ```
+    
+    > Note that only lowercase characters are allowed here - even when your user name or the repo contain upper-case chars.
 
 3. Modify the `d` script in this directory and change the OWNER and REPOSITORY values in the `tag` variable (towards the top of the file) to reflect your own GitHub org or username and repository name. This is what the line looks like *before* modification, so you know what you're looking for:
 
@@ -299,7 +301,7 @@ If you've gone through the process of running the app locally in a Docker contai
 
 The reason this step is required is because we want to get Kyma to pull the image from a container registry. We use the GitHub Packages Docker container registry in our session, and you can too. In the GitHub documentation article [Configuring Docker for use with GitHub Packages](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages) there's a section on [Authenticating to GitHub Packages](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages#authenticating-to-github-packages) which describes how you need to create a personal access token to use as a password in authentication flows. Do this now.
 
-Once you have a person access token (with the appropriate scopes) you can publish your Docker image to your GitHub account.
+> Once you have a person access token (with the appropriate scopes) you can publish your Docker image to your GitHub account.
 
 First, authenticate yourself with the registry, using the "login" action of the `d` script:
 
@@ -396,4 +398,4 @@ Visit the Kyma console (get there from your trial subaccount overview page and u
 
 ![API Rules](api-rules.png)
 
-Open up that URL and then append `/sap/opu/odata/sap/API_SALES_ORDER_SRV/` to it - you should see your old friend the API's service document.
+Open up that URL. You'll noticed that you get redirected to `/sap/opu/odata/sap/API_SALES_ORDER_SRV/` - you should now see your old friend the API's service document.
