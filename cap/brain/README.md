@@ -49,7 +49,8 @@ Like for example the [SANDBOX](../../s4hana/sandbox), you can get this component
 
 ### Locally
 
-It's straightforward to run CAP applications and services locally, but when they have connections to cloud-based services, connection and credential information is required, and traditionally stored in a file called `default-env.json`. Because of what this contains, it is not normally included in any repository for security reasons, so you should create this yourself now.
+It's straightforward to run CAP applications and services locally, but when they have connections to cloud-based services, connection and credential information is required, and traditionally stored in a file called `default-env.json`. Because of what this contains, it is not normally included in any repository for security reasons, so you should [create this yourself now](default-env.md).
+
 
 
 
