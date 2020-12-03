@@ -1,4 +1,5 @@
 {
+  "welcomeFile": "/sap/opu/odata/sap/API_SALES_ORDER_SRV/",
   "authenticationMethod": "none",
   "routes": [
     {
