@@ -14,27 +14,25 @@ The brain is a basic CAP application with two of the three layers in use. In eff
 |`srv`|A single service `teched` is defined exposing an entity `CharityEntry`. Custom JavaScript code for managing the Brain's operations and activities|
 |`db`|An entity `CharityEntry` is defined with a `SoldToParty` property as key, and a counter property. This entity is defined within the namespace `charity`|
 
-The service, once deployed, does not require any human intervention to function. It performs the following activities, each time an event published to the "salesorder/created" topic on the messaging bus is received:
+The service, once deployed, does not require any human intervention to function. Processing follows a sequence of the following activities, each time an event published to the "salesorder/created" topic on the messaging bus is received; each activity is denoted by a "level" number (1 through 4):
 
-1. Unpacks the event data to get the sales order number
-1. Retrieves sales order header details from the Sandbox (S/4HANA mock system) OData service `API_SALES_ORDER_SRV`
-1. Checks to make sure that the sold-to party is one that hasn't already been processed 10 times before (aborting if so)
-1. Requests a conversion of the total net amount of the sales order to the equivalent in charity fund credits, by calling the Converter (Go microservice) conversion service
-1. Publishes a new event to the "Internal/Charityfund/Increased" topic, with the properties listed below
+1. Log the message details
+1. Retrieve sales order header details from the OData service `API_SALES_ORDER_SRV` proxied by the SANDBOX component
+1. Request a conversion of the total net amount of the sales order to the equivalent in charity fund credits, by calling the CONVERTER component\*
+1. Publish a new event to the "Internal/Charityfund/Increased" topic
 
-The properties in the event published by this CAP service are:
+_\*This is as long as sold-to party is one that hasn't already been processed 10 times before_
 
-|Property|Description|
-|-|-|
-|`salesorder`|The sales order number|
-|`custid`|The sold-to party ID (not the name)|
-|`creationdate`|The date that the sales order was created|
-|`credits`|The charity fund credits equivalent of the sales order total net amount|
-|`salesorg`|The sales organisation that the sales order belongs to|
+## Controlling the processing
+
+To aid testing and gradual component deployment (getting all components up and running and connected), an enhancement has been made since the Developer Keynote presentation to allow the control of these activities using an environment variable `BRAIN_LEVEL`.
+
+Setting this to 0 will mean that none of the above activities are carried out. Setting this to a value equivalent to one of the activity numbers (i.e. 1, 2, 3 or 4) will mean that activities up to and including that number will be carried out. The default value (if none is set explicitly) is 1, meaning the received event message will be logged, and that's all.
+
 
 ## Remote services defined and used
 
-The CAP service consumes the following services which are defined in `package.json`. Some of these employ destinations defined in the cloud (on CF - see below):
+In carrying out the activities listed above, the CAP service consumes the following services which are defined in `package.json`. Some of these employ destinations defined in the cloud (on CF - see below):
 
 |Name|Kind|Details|
 |-|-|-|
@@ -44,7 +42,16 @@ The CAP service consumes the following services which are defined in `package.js
 |`ConversionService`|`rest`|Connection to the Converter (Go microservice) conversion service. Destination `charityfund_converter`|
 
 
-## On CF
+## Running it
+
+Like for example the [SANDBOX](../../s4hana/sandbox), you can get this component up and running at different levels - locally, on CF and on Kyma.
+
+
+### Locally
+
+It's straightforward to run CAP applications and services locally, but when they have connections to cloud-based services, connection and credential information is required, and traditionally stored in a file called `default-env.json`. Because of what this contains, it is not normally included in any repository for security reasons, so you should create this yourself now.
+
+
 
 The CAP service has been deployed to the collab CF org/space 9e079cc4trial/dev as app [`brain`](brain.cfapps.eu10.hana.ondemand.com) and has bindings to the following service instances in that same space:
 
