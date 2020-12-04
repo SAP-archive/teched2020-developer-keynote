@@ -14,7 +14,7 @@ Following that, we can then use the standard `cf env` command to request the env
 
 So the approach is to deploy a very simple app, bind the service instance to it, request the environment variables, and then delete the app.
 
-## Following the approach
+## Following the approach
 
 There are two ways to follow this approach available here - you can do it manually, [step by step](#step-by-step), to understand what's happening. But there's also a small experimental [script](#using-a-script) that will perform all the steps for you, even the editing of the output from `cf env`, thanks to the venerable stream editor [`sed`](https://www.gnu.org/software/sed/manual/sed.html).
 
