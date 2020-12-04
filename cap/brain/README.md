@@ -14,7 +14,7 @@ The brain is a basic CAP application with two of the three layers in use. In eff
 |`srv`|A single service `teched` is defined exposing an entity `CharityEntry`. Custom JavaScript code for managing the Brain's operations and activities|
 |`db`|An entity `CharityEntry` is defined with a `SoldToParty` property as key, and a counter property. This entity is defined within the namespace `charity`|
 
-The service, once deployed, does not require any human intervention to function. Processing follows a sequence of the following activities, each time an event published to the "salesorder/created" topic on the messaging bus is received; each activity is denoted by a "level" number (1 through 4):
+The service, once deployed, does not require any human intervention to function. Processing follows a sequence of the following activities, each time an event published to the "salesorder/created" topic on the message bus is received; each activity is denoted by a "level" number (1 through 4):
 
 1. Log the message details
 1. Retrieve sales order header details from the OData service `API_SALES_ORDER_SRV` proxied by the SANDBOX component
@@ -44,12 +44,12 @@ In carrying out the activities listed above, the CAP service consumes the follow
 
 ## Running it
 
-Like for example the [SANDBOX](../../s4hana/sandbox), you can get this component up and running at different levels - locally, on CF and on Kyma.
+In a similar way to the [SANDBOX](../../s4hana/sandbox) component, you can get this component up and running at different levels - locally, on CF and on Kyma.
 
 
 ### Locally
 
-It's straightforward to run CAP applications and services locally, but when they have connections to cloud-based services, connection and credential information is required, and traditionally stored in a file called `default-env.json`. Because of what this contains, it is not normally included in any repository for security reasons, so you should [create this yourself now](default-env.md).
+It's straightforward to run CAP applications and services locally, but when they consume to cloud-based services, connection and credential information is required, and for local execution, this information is traditionally stored in a file called `default-env.json`. Because of what this contains, it is not normally included in any repository for security reasons, so you should [generate this yourself now](default-env-gen.md).
 
 
 

@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# Generate a default-env.json file - default-env-gen
+
+# Expects a single mandatory argument - a temporary app name
+# Produces a default-env.json file containing the VCAP_SERVICES
+# JSON data.
+
+declare defaultinstancename=emdev
+declare targetfilename=default-env.json
+declare sedcommandfile=default-env-gen.sed
+
+main() {
+  local appname=$1
+  local instance=${2:-$defaultinstancename}
+
+  # Remove any existing dir and app
+  rmdir "$appname" 2>/dev/null
+  cf d -f "$appname" 2>/dev/null
+
+  # Create new temp dir and deploy
+  mkdir "$appname"
+  cf push -c null --no-route --no-start "$appname" "$appname"
+
+  # Bind the service instance to the app
+  cf bind-service "$appname" "$instance"
+
+  # Request environment info
+  cf env "$appname" | sed -n -f "$sedcommandfile" > "$targetfilename"
+
+}
+
+if [[ $# -eq 0 ]]; then
+  echo Usage: "$(basename "$0") <temporary-app-name>"
+  exit 1
+fi
+
+main "$@"
