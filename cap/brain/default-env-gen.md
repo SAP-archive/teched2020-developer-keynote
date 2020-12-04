@@ -102,7 +102,7 @@ No staging env variables have been set
 
 Finally, now you have pure JSON in the file, rename it to `default-env.json` and you're done!
 
-### Using a script
+### Using a script
 
 We've written a small script that will perform the steps above. The script is [`default-env-gen`](default-env-gen) and there's also the stream edit commands in [`default-env-gen.sed`](default-env-gen.sed).
 
