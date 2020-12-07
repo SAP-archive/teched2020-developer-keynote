@@ -241,11 +241,43 @@ Depending on how far you've got with the setup of the other components in this r
 
 For example, if you've got the [SANDBOX](../../s4hana/sandbox) component set up (including a [destination](destinations.md) for it), you can increase the `BRAIN_LEVEL` to 2, to have the sales order header details retrieved from the OData service API_SALES_ORDER_SRV proxied by the that component.
 
-This is how you'd do that - basically you can specify the value for `BRAIN_LEVEL`, while starting the service up:
+This is how you'd do that - basically you can specify the value for `BRAIN_LEVEL`, while restarting the service, this time giving an explicit value for the variable, like this:
 
 ```sh
 $ BRAIN_LEVEL=2 cds run
 ```
+
+In the other terminal window, emitting another event message in the same way (`./emit 1`) should result in not only the logging of the event message received, but also the results of the sales order information retrieval described (in the [overview](#overview)) as what happens at BRAIN_LEVEL 2.
+
+This is the sort of thing you should see (note the log output shown here starts with `BRAIN_LEVEL set to 2`):
+
+```
+BRAIN_LEVEL set to 2
+[cds] - Put queue { queue: 'CAP/0000' }
+[cds] - serving API_SALES_ORDER_SRV { at: '/api-sales-order-srv' }
+[cds] - serving teched { at: '/teched', impl: 'srv/service.js' }
+
+[cds] - launched in: 1419.140ms
+[cds] - server listening on { url: 'http://localhost:4004' }
+[ terminate with ^C ]
+
+[cds] - Add subscription { topic: 'salesorder/created', queue: 'CAP/0000' }
+Message received {"_events":{},"_eventsCount":0,"_":{"event":"salesorder/created","data":{"SalesOrder":"1"},"headers":{"type":"sap.s4.beh.salesorder.v1.SalesOrder.Created.v1","specversion":"1.0","source":"/default/sap.s4.beh/DEVCLNT001","id":"016BD60E-63A7-4FE4-BEC6-9C2D6D5CCD3C","time":"2020-12-07T13:58:40Z","datacontenttype":"application/json"},"inbound":true},"event":"salesorder/created","data":{"SalesOrder":"1"},"headers":{"type":"sap.s4.beh.salesorder.v1.SalesOrder.Created.v1","specversion":"1.0","source":"/default/sap.s4.beh/DEVCLNT001","id":"016BD60E-63A7-4FE4-BEC6-9C2D6D5CCD3C","time":"2020-12-07T13:58:40Z","datacontenttype":"application/json"},"inbound":true}
+SalesOrder number is 1
+[cds] - connect to S4SalesOrders > odata {
+  destination: 'apihub_mock_salesorders',
+  path: '/sap/opu/odata/sap/API_SALES_ORDER_SRV'
+}
+SalesOrder details retrieved {"SalesOrder":"1","SalesOrganization":"1710","SoldToParty":"17100001","CreationDate":"/Date(1471392000000)/","TotalNetAmount":"52.65"}
+```
+
+Observe that this time, not only is the event message logged ("Message received { ... }") but also a connection is made to the `S4SalesOrders` endpoint and header data is retrieved for the sales order number sent in the event message (1).
+
+
+
+
+
+
 
 
 
