@@ -12,9 +12,9 @@ In your subaccount, go to the "Connectivity" -> "Destinations" section and for e
 
 ||`S4SalesOrders`|`ConversionService`|
 |-|-|-|
-|Name|`apihub_mock_salesorders`||
+|Name|`apihub_mock_salesorders`|`charityfund_converter`|
 |Type|HTTP|HTTP|
-|URL|<the Kyma runtime endpoint for your [CONVERTER](../../kyma) component>||
+|URL|<the Kyma runtime endpoint for your [SANDBOX](../../s4hana/sandbox) component>|<the Kyma runtime endpoint for your [CONVERTER](../../kyma) component>|
 |Proxy Type|Internet|Internet|
 |Authentication|None|None|
 
