@@ -61,7 +61,7 @@ You'll need your GitHub account when starting out - the [Download and Installati
 - API key: Check that you have an API key available to you in your [preferences](https://api.sap.com/preferences), for access to the sandbox system
 
 
-### Message Bus
+### Message bus
 
 The one component on the whiteboard diagram that wasn't listed earlier is of course the MESSAGE BUS. This is an instance of the SAP Enterprise Messaging service. You'll need one of these. There is a 'dev' plan available for trial account users, it is marked as deprecated but perfectly serviceable for our needs.
 
@@ -78,7 +78,7 @@ If you want to try out the local Docker and Kyma runtime based aspects, you'll n
 > The use of Docker as a container runtime may be deprecated in future versions of k8s, but for the purposes of this repository, we're happy to use it for now.
 
 
-## Download and Installation
+## Download and installation
 
 To use this repository, fork it into your own user or org space on GitHub, and then clone that. You can now follow the component instructions, as well as this main README.
 
@@ -86,7 +86,7 @@ For more information about forking in general, see [Fork a repo](https://docs.gi
 
 Throughout the instructions in this repository, the place where you forked this repository too will be referred to in the form "OWNER/REPOSITORY", and you should replace these placeholders with values that are appropriate for you. For example, if you are on GitHub as 'qmacro', and you fork this repository to that space, your values for "OWNER/REPOSITORY" would be "qmacro/teched2020-developer-keynote".
 
-## Known Issues
+## Known issues
 
 None at the time of writing.
 
