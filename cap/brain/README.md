@@ -100,7 +100,7 @@ It's straightforward to run CAP applications and services locally, but when they
 
 Because of what this contains, it is not normally included in any repository for security reasons, so you should [generate this yourself now](default-env-gen.md).
 
-At this point, you can start the service running locally with `cds run`, shown here with typical output:
+At this point, you can start the service running locally with `cds run`, shown here with typical output (with some lines removed for readability):
 
 ```
 $ cds run
@@ -162,7 +162,7 @@ BRAIN_LEVEL set to 1
 [cds] - Add subscription { topic: 'salesorder/created', queue: 'CAP/0000' }
 ```
 
-In that output, observe how the CAP messaging support automatically connects to the message bus (the instance of the SAP Enterprise Messaging service) and, in order to subscribe to the "salesorder/created" topic, creates a queue "CAP/0000" and adds a queue subscription, connecting that "CAP/0000" queue to the "salesorder/created" topic:
+In that output, observe how the CAP messaging support automatically connects to the message bus (the instance of the SAP Enterprise Messaging service) and, in order to subscribe to the "salesorder/created" topic, creates a queue "CAP/0000" and a queue subscription, connecting that "CAP/0000" queue to the "salesorder/created" topic:
 
 ```
 [cds] - Put queue { queue: 'CAP/0000' }
@@ -180,9 +180,62 @@ BRAIN_LEVEL set to 1
 
 This is directly related to the activity level described earlier in the [Controlling the process](#controlling-the-process) section, and the value of 1 (for logging the message details only) is the default value.
 
-At this point, you should jump over to your [EMITTER](../../s4hana/event) component, set that up (if you haven't got it set up already, and emit a "salesorder/created" message.
+**Testing BRAIN_LEVEL 1**
 
-...
+At this point, you should leave this CAP service running, and (say, in a new terminal window) jump over to your [EMITTER](../../s4hana/event) component, set that up (if you haven't got it set up already) and emit a "salesorder/created" event message. Look in particular at the [Usage](../../s4hana/event/README.md#usage) section for hints on how to do this. Emit an event message for a sales order (e.g. 1) - the invocation and output should look something like this:
+
+```
+$ ./emit 1
+2020-12-07 13:48:59 Publishing sales order created event for 1
+2020-12-07 13:48:59 Publish message to topic salesorder%2Fcreated
+```
+
+More importantly, if you look back at the log output of your BRAIN component, you should see some extra log output, similar to this:
+
+```
+Message received {"_events":{},"_eventsCount":0,"_":{"event":"salesorder/created","data":{"SalesOrder":"1"},"headers":{"type":"sap.s4.beh.salesorder.v1.SalesOrder.Created.v1","specversion":"1.0","source":"/default/sap.s4.beh/DEVCLNT001","id":"ABFAF2F3-931F-49A8-86E8-876C295D9FAD","time":"2020-12-07T13:48:59Z","datacontenttype":"application/json"},"inbound":true},"event":"salesorder/created","data":{"SalesOrder":"1"},"headers":{"type":"sap.s4.beh.salesorder.v1.SalesOrder.Created.v1","specversion":"1.0","source":"/default/sap.s4.beh/DEVCLNT001","id":"ABFAF2F3-931F-49A8-86E8-876C295D9FAD","time":"2020-12-07T13:48:59Z","datacontenttype":"application/json"},"inbound":true}
+```
+
+This is the event message that the CAP service received from the message bus, because of its subscription to the "salesorder/created" topic. If we strip away the "Message received" text, it's JSON, and neatly formatted, we have:
+
+```json
+{
+  "_events": {},
+  "_eventsCount": 0,
+  "_": {
+    "event": "salesorder/created",
+    "data": {
+      "SalesOrder": "1"
+    },
+    "headers": {
+      "type": "sap.s4.beh.salesorder.v1.SalesOrder.Created.v1",
+      "specversion": "1.0",
+      "source": "/default/sap.s4.beh/DEVCLNT001",
+      "id": "ABFAF2F3-931F-49A8-86E8-876C295D9FAD",
+      "time": "2020-12-07T13:48:59Z",
+      "datacontenttype": "application/json"
+    },
+    "inbound": true
+  },
+  "event": "salesorder/created",
+  "data": {
+    "SalesOrder": "1"
+  },
+  "headers": {
+    "type": "sap.s4.beh.salesorder.v1.SalesOrder.Created.v1",
+    "specversion": "1.0",
+    "source": "/default/sap.s4.beh/DEVCLNT001",
+    "id": "ABFAF2F3-931F-49A8-86E8-876C295D9FAD",
+    "time": "2020-12-07T13:48:59Z",
+    "datacontenttype": "application/json"
+  },
+  "inbound": true
+}
+```
+
+Nice!
+
+**Testing BRAIN_LEVEL 2**
 
 Depending on how far you've got with the setup of the other components in this repository, specifically those two that this component interact with - the [SANDBOX](../../s4hana/sandbox) and the [CONVERTER](../../kyma) components - you may want to set the value for the `BRAIN_LEVEL` accordingly.
 
