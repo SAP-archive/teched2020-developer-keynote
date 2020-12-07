@@ -235,9 +235,9 @@ This is the event message that the CAP service received from the message bus, be
 
 Nice!
 
-**Testing BRAIN_LEVEL 2**
-
 Depending on how far you've got with the setup of the other components in this repository, specifically those two that this component interact with - the [SANDBOX](../../s4hana/sandbox) and the [CONVERTER](../../kyma) components - you may want to set the value for the `BRAIN_LEVEL` accordingly.
+
+**Testing BRAIN_LEVEL 2**
 
 For example, if you've got the [SANDBOX](../../s4hana/sandbox) component set up (including a [destination](destinations.md) for it), you can increase the `BRAIN_LEVEL` to 2, to have the sales order header details retrieved from the OData service API_SALES_ORDER_SRV proxied by the that component.
 
@@ -247,22 +247,13 @@ This is how you'd do that - basically you can specify the value for `BRAIN_LEVEL
 $ BRAIN_LEVEL=2 cds run
 ```
 
-In the other terminal window, emitting another event message in the same way (`./emit 1`) should result in not only the logging of the event message received, but also the results of the sales order information retrieval described (in the [overview](#overview)) as what happens at BRAIN_LEVEL 2.
+In the other terminal window, emitting another event message in the same way (`./emit 1`) should result in not only the logging of the event message received, but also the results of the sales order information retrieval described (in the [overview](#overview)) as what happens at `BRAIN_LEVEL` 2.
 
-This is the sort of thing you should see (note the log output shown here starts with `BRAIN_LEVEL set to 2`):
+This is the sort of thing you should see (note the log output shown here starts with `BRAIN_LEVEL set to 2`, but omits the message logging output from `BRAIN_LEVEL` 1):
 
 ```
 BRAIN_LEVEL set to 2
-[cds] - Put queue { queue: 'CAP/0000' }
-[cds] - serving API_SALES_ORDER_SRV { at: '/api-sales-order-srv' }
-[cds] - serving teched { at: '/teched', impl: 'srv/service.js' }
-
-[cds] - launched in: 1419.140ms
-[cds] - server listening on { url: 'http://localhost:4004' }
-[ terminate with ^C ]
-
-[cds] - Add subscription { topic: 'salesorder/created', queue: 'CAP/0000' }
-Message received {"_events":{},"_eventsCount":0,"_":{"event":"salesorder/created","data":{"SalesOrder":"1"},"headers":{"type":"sap.s4.beh.salesorder.v1.SalesOrder.Created.v1","specversion":"1.0","source":"/default/sap.s4.beh/DEVCLNT001","id":"016BD60E-63A7-4FE4-BEC6-9C2D6D5CCD3C","time":"2020-12-07T13:58:40Z","datacontenttype":"application/json"},"inbound":true},"event":"salesorder/created","data":{"SalesOrder":"1"},"headers":{"type":"sap.s4.beh.salesorder.v1.SalesOrder.Created.v1","specversion":"1.0","source":"/default/sap.s4.beh/DEVCLNT001","id":"016BD60E-63A7-4FE4-BEC6-9C2D6D5CCD3C","time":"2020-12-07T13:58:40Z","datacontenttype":"application/json"},"inbound":true}
+...
 SalesOrder number is 1
 [cds] - connect to S4SalesOrders > odata {
   destination: 'apihub_mock_salesorders',
@@ -273,10 +264,48 @@ SalesOrder details retrieved {"SalesOrder":"1","SalesOrganization":"1710","SoldT
 
 Observe that this time, not only is the event message logged ("Message received { ... }") but also a connection is made to the `S4SalesOrders` endpoint and header data is retrieved for the sales order number sent in the event message (1).
 
+**Testing BRAIN_LEVEL 3**
+
+Once you also have the [CONVERTER](../../kyma) component up and active in the Kyma runtime in your trial subaccount (along with the corresponding [destination](destinations.md) for it), you can move up to `BRAIN_LEVEL` 3 to include the conversion from the total net amount of the sales order to the credit amount for the charity fund.
+
+Restart the service, this time specifying 3 as the `BRAIN_LEVEL` value:
+
+```sh
+$ BRAIN_LEVEL=3 cds run
+```
+
+As before, emit another event message in the other terminal window, and check the log output from this CAP service. In addition to the messages we've already seen for `BRAIN_LEVEL` 1 and 2, you should now also see something like this:
+
+```
+BRAIN_LEVEL set to 3
+...
+[cds] - connect to ConversionService > rest { destination: 'charityfund_converter' }
+Conversion result is {"Credits":7.9}
+```
+
+This shows that the CAP service successfully connected to the RESTful endpoint of the [CONVERTER](../../kyma) component and retrieved the charity fund credit amount equivalent for the sales order's total net amount.
+
+**Testing BRAIN_LEVEL 4**
+
+Finally you can test `BRAIN_LEVEL` 4, which causes an event message to be created and published to the message bus, specifically on the topic "Internal/Charityfund/Increased". Because there's no further service upon which the CAP service relies for this, you can go ahead straight away after `BRAIN_LEVEL` 3 and test it:
+
+```sh
+$ BRAIN_LEVEL=4 cds run
+```
+
+After emitting one more event message in the other terminal window, you should see extra log messages for this new `BRAIN_LEVEL` 4, something like this:
+
+```
+BRAIN_LEVEL set to 4
+...
+Payload for Internal/Charityfund/Increased topic created {"data":{"specversion":"1.0","type":"z.internal.charityfund.increased.v1","datacontenttype":"application/json","id":"9d25d3ed-76de-4d68-9bf9-f333710206d4","time":"2020-12-07T18:55:14.904Z","source":"/default/cap.brain/C02CH7L4MD6T","data":{"salesorder":"1","custid":"17100001","creationdate":"2020-12-08","credits":"7.9","salesorg":"1710"}}}
+Published event to Internal/Charityfund/Increased
+```
+
+This represents the publishing of an event message that the [CHARITY](../../abap) component is subscribed to, and the success of getting to this level in the CAP service testing marks the end of local execution testing.
 
 
-
-
+...
 
 
 
