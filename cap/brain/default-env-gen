@@ -30,7 +30,12 @@ main() {
 
   # Create new temp dir and deploy
   mkdir "$appname"
-  cf push -c null --no-route --no-start "$appname" "$appname"
+  cf push -c null \
+    -k 64M \
+    -m 32M \
+    --no-route \
+    --no-start \
+    "$appname" "$appname"
 
   # Remove dir
   rmdir "$appname" 2>/dev/null
