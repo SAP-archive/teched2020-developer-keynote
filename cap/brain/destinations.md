@@ -11,6 +11,7 @@ The most straightforward way to set these up is manually, in the SAP Cloud Platf
 In your subaccount, go to the "Connectivity" -> "Destinations" section and for each of the destination columns in this table, create a new entry.
 
 ||`S4SalesOrders`|`ConversionService`|
+|-|-|-|
 |Name|`apihub_mock_salesorders`||
 |Type|HTTP|HTTP|
 |URL|<the Kyma runtime endpoint for your [CONVERTER](../../kyma) component>||
