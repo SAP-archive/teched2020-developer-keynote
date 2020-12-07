@@ -57,6 +57,7 @@ Next, bind the service instances to the app:
 $ cf bind-service $appname emdev
 $ cf bind-service $appname destination-lite
 $ cf bind-service $appname xsuaa-application
+```
 
 > This assumes that you not only already have an instance of the SAP Enterprise Messaging service, with the name `emdev`, but you also have instances of the Destination and XSUAA services too, with specific plans `lite` and `application` respectively. If not, create them with `cf create-service destination lite destination-lite` and `cf create-service xsuaa application xsuaa-application`. Note that the naming convention used here for the instances is `<servicename>-<planname>`.
 
