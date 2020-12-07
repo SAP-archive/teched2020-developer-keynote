@@ -4,7 +4,7 @@ Sometimes you want to run a CAP application locally for testing purposes. If tha
 
 There are various ways to generate the contents needed for such a file, here's one.
 
-## Scenario
+## Scenario
 
 The scenario here is where a CAP application running locally must connect to an instance of an SAP Enterprise Messaging service instance running in the CF runtime of an SAP Cloud Platform trial account. The instance name is `emdev`, as described in the [messaging setup document](../../messaging-setup.md).
 
