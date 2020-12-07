@@ -49,6 +49,45 @@ You'll need to set a few things up in preparation for getting this component up 
 
 As mentioned above, there are some destinations at play here, destinations that point to the `S4SalesOrders` and `ConversionService` endpoints. Set those up now, following the [Destinations setup](destinations.md) instructions.
 
+### Local service setup
+
+The best way to get this component up and running is to start locally. So now is a good point to set things up for local execution. This is a CAP based service, which relies on certain NPM modules (see the `dependencies` and `devDependencies` nodes in [`package.json`](package.json) and a local SQLite-powered persistence layer (see the `cds -> requires -> db` node in the same file).
+
+In this (`cap/brain/`) directory, first get the modules installed by running `npm install`. This is the sort of thing you should see:
+
+```
+$ npm install
+
+> @sap/hana-client@2.6.54 install /private/tmp/teched2020-developer-keynote/cap/brain/node_modules/@sap/hana-client
+> node checkbuild.js
+
+> sqlite3@4.2.0 install /private/tmp/teched2020-developer-keynote/cap/brain/node_modules/sqlite3
+> node-pre-gyp install --fallback-to-build
+
+node-pre-gyp WARN Using needle for node-pre-gyp https download
+[sqlite3] Success: "/private/tmp/teched2020-developer-keynote/cap/brain/node_modules/sqlite3/lib/binding/node-v72-darwin-x64/node_sqlite3.node" is installed via remote
+
+> @sap-cloud-sdk/core@1.28.1 postinstall /private/tmp/teched2020-developer-keynote/cap/brain/node_modules/@sap-cloud-sdk/core
+> node usage-analytics.js
+
+added 224 packages from 153 contributors and audited 224 packages in 6.956s
+
+4 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+```
+
+Now run `cds deploy` to cause the persistence layer artifact (the SQLite database file) to be summoned into existence (note that there are a few test records in the CSV file):
+
+```
+$ cds deploy
+ > filling charity.CharityEntry from db/csv/charity-CharityEntry.csv
+/> successfully deployed to ./brain.db
+```
+
+At this stage you're ready to embark upon running this component locally.
+
 
 ## Running it
 
@@ -60,17 +99,6 @@ In a similar way to the [SANDBOX](../../s4hana/sandbox) component, you can get t
 It's straightforward to run CAP applications and services locally, but when they consume to cloud-based services, connection and credential information is required, and for local execution, this information is traditionally stored in a file called `default-env.json`. Because of what this contains, it is not normally included in any repository for security reasons, so you should [generate this yourself now](default-env-gen.md).
 
 
-
-
-The CAP service has been deployed to the collab CF org/space 9e079cc4trial/dev as app [`brain`](brain.cfapps.eu10.hana.ondemand.com) and has bindings to the following service instances in that same space:
-
-|Name|Service|
-|-|-|
-|`destination-lite`|Destination service instance with 'lite' plan, to enable the CAP service to access destinations|
-|`emdev`|Enterprise Messaging service instance with 'dev' plan (note this is a deprecated plan but the only one available in trial)|
-|`xsuaa-application`|Auth & Trust Management service instance with 'application' plan, to enable the CAP service to access the other instances|
-
-Deployment was done using `cf push` (rather than an MTA based deployment) followed by manual binding (`cf bind-service`) to these existing services.
 
 ## On Kyma
 
