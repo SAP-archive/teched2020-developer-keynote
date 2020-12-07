@@ -96,7 +96,103 @@ In a similar way to the [SANDBOX](../../s4hana/sandbox) component, you can get t
 
 ### Locally
 
-It's straightforward to run CAP applications and services locally, but when they consume to cloud-based services, connection and credential information is required, and for local execution, this information is traditionally stored in a file called `default-env.json`. Because of what this contains, it is not normally included in any repository for security reasons, so you should [generate this yourself now](default-env-gen.md).
+It's straightforward to run CAP applications and services locally, but when they consume to cloud-based services, connection and credential information is required, and for local execution, this information is traditionally stored in a file called `default-env.json`.
+
+Because of what this contains, it is not normally included in any repository for security reasons, so you should [generate this yourself now](default-env-gen.md).
+
+At this point, you can start the service running locally with `cds run`, shown here with typical output:
+
+```
+$ cds run
+
+[cds] - model loaded from 3 file(s):
+
+  db/schema.cds
+  srv/service.cds
+  srv/external/API_SALES_ORDER_SRV.csn
+
+[cds] - connect to db > sqlite { database: 'brain.db' }
+[cds] - connect to messaging > enterprise-messaging {
+  management: [
+    {
+      oa2: {
+        clientid: 'sb-clone-xbem-service-broker-aec3bfac91f84d61841ef28efb7fa235-clone!b68527|xbem-service-broker-!b2436'
+      },
+      uri: 'https://enterprise-messaging-hub-backend.cfapps.eu10.hana.ondemand.com'
+    }
+  ],
+  messaging: [
+    {
+      broker: { type: 'sapmgw' },
+      oa2: {
+        client: 'sb-clone-xbem-service-broker-aec3bfac91f84d61841ef28efb7fa235-clone!b68527|xbem-service-broker-!b2436'
+      },
+      protocol: [ 'amqp10ws' ],
+      uri: 'wss://enterprise-messaging-messaging-gateway.cfapps.eu10.hana.ondemand.com/protocols/amqp10ws'
+    },
+    {
+      broker: { type: 'sapmgw' },
+      oa2: {
+        clientid: 'sb-clone-xbem-service-broker-aec3bfac91f84d61841ef28efb7fa235-clone!b68527|xbem-service-broker-!b2436'
+      },
+      protocol: [ 'mqtt311ws' ],
+      uri: 'wss://enterprise-messaging-messaging-gateway.cfapps.eu10.hana.ondemand.com/protocols/mqtt311ws'
+    },
+    {
+      broker: { type: 'saprestmgw' },
+      oa2: {
+        clientid: 'sb-clone-xbem-service-broker-aec3bfac91f84d61841ef28efb7fa235-clone!b68527|xbem-service-broker-!b2436'
+      },
+      protocol: [ 'httprest' ],
+      uri: 'https://enterprise-messaging-pubsub.cfapps.eu10.hana.ondemand.com'
+    }
+  ],
+  serviceinstanceid: 'aec3bfac-91f8-4d61-841e-f28efb7fa235',
+  xsappname: 'clone-xbem-service-broker-aec3bfac91f84d61841ef28efb7fa235-clone!b68527|xbem-service-broker-!b2436'
+}
+BRAIN_LEVEL set to 1
+[cds] - Put queue { queue: 'CAP/0000' }
+[cds] - serving API_SALES_ORDER_SRV { at: '/api-sales-order-srv' }
+[cds] - serving teched { at: '/teched', impl: 'srv/service.js' }
+
+[cds] - launched in: 1258.575ms
+[cds] - server listening on { url: 'http://localhost:4004' }
+[ terminate with ^C ]
+
+[cds] - Add subscription { topic: 'salesorder/created', queue: 'CAP/0000' }
+```
+
+In that output, observe how the CAP messaging support automatically connects to the message bus (the instance of the SAP Enterprise Messaging service) and, in order to subscribe to the "salesorder/created" topic, creates a queue "CAP/0000" and adds a queue subscription, connecting that "CAP/0000" queue to the "salesorder/created" topic:
+
+```
+[cds] - Put queue { queue: 'CAP/0000' }
+...
+[cds] - Add subscription { topic: 'salesorder/created', queue: 'CAP/0000' }
+```
+
+> See the [Diving into messaging on SAP Cloud Platform](https://www.youtube.com/playlist?list=PL6RpkC85SLQCf--P9o7DtfjEcucimapUf) series on the SAP Developers YouTube channel for explainations of how queues, topics and queue subscriptions work, and plenty more besides.
+
+Observe also this message:
+
+```
+BRAIN_LEVEL set to 1
+```
+
+This is directly related to the activity level described earlier in the [Controlling the process](#controlling-the-process) section, and the value of 1 (for logging the message details only) is the default value.
+
+At this point, you should jump over to your [EMITTER](../../s4hana/event) component, set that up (if you haven't got it set up already, and emit a "salesorder/created" message.
+
+...
+
+Depending on how far you've got with the setup of the other components in this repository, specifically those two that this component interact with - the [SANDBOX](../../s4hana/sandbox) and the [CONVERTER](../../kyma) components - you may want to set the value for the `BRAIN_LEVEL` accordingly.
+
+For example, if you've got the [SANDBOX](../../s4hana/sandbox) component set up (including a [destination](destinations.md) for it), you can increase the `BRAIN_LEVEL` to 2, to have the sales order header details retrieved from the OData service API_SALES_ORDER_SRV proxied by the that component.
+
+This is how you'd do that - basically you can specify the value for `BRAIN_LEVEL`, while starting the service up:
+
+```sh
+$ BRAIN_LEVEL=2 cds run
+```
 
 
 
