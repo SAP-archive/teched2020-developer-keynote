@@ -110,7 +110,7 @@ At this stage you're ready to embark upon running this component locally.
 
 ## Running it
 
-In a similar way to the [SANDBOX](../../s4hana/sandbox) component, you can get this component up and running at different levels - locally, on CF and on Kyma.
+In a similar way to the [SANDBOX](../../s4hana/sandbox) component, you can get this component up and running at different levels - in this case we'll get it running locally and on Kyma.
 
 
 ### Locally
