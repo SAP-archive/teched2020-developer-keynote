@@ -43,7 +43,7 @@ In carrying out the activities listed above, the CAP service consumes the follow
 
 ## Setup required
 
-You'll need to set a few things up in preparation for getting this component up and running. These instructions assume you've cloned your forked copy of this repository, as described in the [Download and installation section](../../README.md#download-and-installation) of the main repository README.
+You'll need to set a few things up in preparation for getting this component up and running. These instructions assume you've cloned your forked copy of this repository, as described in the [Download and installation section](../../README.md#download-and-installation) of the main repository README. The GitHub username in the examples in this README is 'qmacro' - you should replace this with your own GitHub username.
 
 ### Destinations
 
@@ -322,40 +322,121 @@ Once you've reached this stage, you should set the `BRAIN_LEVEL` value permanent
 ```
 
 
+### On SAP Cloud Platform - Kyma runtime
 
+Well done to making it this far in the README :-) Now we've successfully got the service running locally, we'll go directly to a deployment to the Kyma runtime. (If you're interested in how you might also run a service locally in Docker, and also on CF, see how we do it for the [SANDBOX](../../s4hana/sandbox) component.)
 
-## On Kyma
+There are a number of steps to get the app running in Kyma, i.e. on k8s:
 
-The CAP service has been deployed to the default namesapce as app [`brain`](brain.c210ab1.kyma.shoot.live.k8s-hana.ondemand.com) and has bindings to the following service instances in that same space:
+- build a Docker image for the app
+- publish the image to a container registry
+- create a k8s secret for registry access
+- make a deployment to Kyma
 
-|Name|Service|
-|-|-|
-|`destination-lite`|Destination service instance with 'lite' plan, to enable the CAP service to access destinations|
-|`emdev`|Enterprise Messaging service instance with 'dev' plan (note this is a deprecated plan but the only one available in trial)|
-|`xsuaa-application`|Auth & Trust Management service instance with 'application' plan, to enable the CAP service to access the other instances|
+These are the same steps required for the [SANDBOX](../../s4hana/sandbox#on-sap-cloud-platform-kyma-runtime) component.
 
-Deployment was done using the following steps:
-1. Create a secret for docker deployment from Github
+There's one more step for this component, too:
 
-``` shell
-kubectl create secret docker-registry regcred --docker-server=https://docker.pkg.github.com --docker-username=<Github.com User> --docker-password=<Github password or token> --docker-email=<github email>
+- create and deploy a secrets file containing the access credentials for the services that the brain connects to
+
+Unlike the SANDBOX component, this component connects to and consumes various services, as you know. The credentials to make this possible have been in the `default-env.json` file, but we shouldn't include those credentials in any app image that is to be deployed. There are a couple of reasons that come to mind immediately: we should always avoid exposing such information in images especially when publishing them to a public registry, and also, we want to be able to manage the lifecycle of credentials independent of the app or service that uses them - otherwise we'd end up having to rebuild the app image each time.
+
+The first four steps, being similar to those for the [SANDBOX](../../s4hana/sandbox) component, will be described briefly and can be performed using the [`d`](d) script in this directory.
+
+This is an enhanced version of the `d` script in the SANDBOX component directory, and the two versions will eventually be merged. Check the options and actions out before you start, like this:
+
+```
+$ ./d
+
+Usage: d <options> <action>
+
+with options:
+-a | --app <app location>
+-p | --package <package name>
+-u | --user <GitHub username>
+-r | --repository <GitHub repository>
+
+with actions:
+login: login to GitHub Packages
+build: create the Docker image (needs -a, -p, -u and -r)
+run: run a container locally based on the image (needs -p, -u and -r)
+publish: publish the image to GitHub (needs -p, -u and -r)
 ```
 
-2. Create a file named secret.yaml and supply the VCAP_SERVICES for service bindings as such
-``` yaml
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: appconfigcap
-data:
-  VCAP_SERVICES: |
-  { "content_here" }
+#### Build a Docker image
+
+First, build the image containing the CAP brain service, using the `d` script like this (typical output shown here too):
+
+```
+$ ./d -a . -p brain -u qmacro -r teched2020-developer-keynote build
+Building image for .
+[+] Building 1.3s (10/10) FINISHED
+ => [internal] load build definition from Dockerfile
+ => => transferring dockerfile: 35B
+ => [internal] load .dockerignore
+ => => transferring context: 153B
+ => [internal] load metadata for docker.io/library/node:12.18.1
+ => [1/5] FROM docker.io/library/node:12.18.1@sha256:2b85f4981f92ee034b51a3
+ => [internal] load build context
+ => => transferring context: 1.15kB
+ => CACHED [2/5] WORKDIR /usr/src/app
+ => CACHED [3/5] COPY /package*.json ./
+ => CACHED [4/5] RUN npm install
+ => CACHED [5/5] COPY /. .
+ => exporting to image
+ => => exporting layers
+ => => writing image sha256:1a97caa868ef28bba069df2ffe447a6bbe99495265cc
+ => => naming to docker.pkg.github.com/qmacro/teched2020-developer-keynote/brain:latest
 ```
 
-3. Run [k8s_deploy](./k8s_deploy)
+#### Publish the image to a container registry
 
-4. Return to the Kyma Console and the API Rules. You should see a new API Rule named brain and the URL for this endpoint.
+Next, publish this newly built image to the GitHub container registry. Again, you can use the `d` script, first to authenticate with the registry, then to actually publish the image there.
 
-## Local execution
+Authenticate:
 
-A `default-env.json` file is available (not in the repo) for local execution. Run from the CAP service directory with `cds run`.
+```
+$ ./d login
+Authenticating with GitHub Packages
+Enter username: <YOUR GITHUB ORG/USERNAME>
+Enter password / token: <ACCESS TOKEN>
+Login Succeeded
+```
+
+> See the [equivalent section for the SANDBOX component](../../s4hana/sandbox#publish-the-image-to-a-container-registry) for information on how to obtain and use a token.
+
+Publish:
+
+```
+$ ./d -p brain -u qmacro -r teched2020-developer-keynote publish
+Publishing image to GitHub Packages
+The push refers to repository [docker.pkg.github.com/qmacro/teched2020-developer-keynote/brain]
+fd3bf7c5138e: Pushed
+...
+23bca356262f: Layer already exists
+8354d5896557: Layer already exists
+latest: digest: sha256:36949f0cdd5ee9503684152ebc0c1c851ca
+```
+
+#### Create a k8s secret for registry access
+
+You need to give the Kyma runtime the credentials to be able to pull the image from the registry you published the image to. You can do this with the [`k`](k) script.
+
+> If you've already completed the setup and deployment of other components such as the [SANDBOX](../../s4hana/sandbox) then this is probably already set up - check with `kubectl get secrets` and have a quick look at the [section equivalent to this one over there](s4hana/sandbox#create-a-k8s-secret-for-registry-access).
+
+Create the secret:
+
+```
+$ ./k secret
+Setting up docker-registry secret regcred for access to https://docker.pkg.github.com
+Secret regcred exists - will remove first (hit enter to continue)
+secret "regcred" deleted
+Enter email: <YOUR GITHUB EMAIL>
+Enter username: <YOUR GITHUB ORG/USERNAME>
+Enter password / token: <ACCESS TOKEN>
+secret/regcred created
+```
+
+
+
+
