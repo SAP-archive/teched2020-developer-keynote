@@ -1,0 +1,145 @@
+#!/usr/bin/env bash
+
+# Docker utilities - d
+
+set -o errexit
+
+declare self dockerreg app package user repository
+self=$(basename "$0")
+dockerreg=https://docker.pkg.github.com
+
+# Helper functions -----------------------------------------------------
+
+check_cf_version() {
+  if ! cf --version | grep -q "version 6"; then
+    echo cf version 6 is required
+    exit 1
+  fi
+}
+
+usage() {
+  cat <<EOF
+Usage: $self <options> <action>
+
+with options:
+-a | --app <app location>
+-p | --package <package name>
+-u | --user <GitHub user>
+-r | --repository <GitHub repository>
+
+with actions:
+login: login to GitHub Packages
+build: create the Docker image (needs -a, -p, -u and -r)
+run: run a container locally based on the image (needs -p, -u and -r)
+publish: publish the image to GitHub (needs -p, -u and -r)
+EOF
+}
+
+tagname() {
+  echo "docker.pkg.github.com/$user/$repository/$package:latest"
+}
+
+checkval() {
+  while (( $# )); do
+    if [[ -z "$1" ]]; then
+      usage
+      exit 1
+    fi
+    shift
+  done
+}
+
+# Action functions -----------------------------------------------------
+
+login() {
+  local user pass
+  echo Authenticating with GitHub Packages
+  read -r -p "Enter username: " user
+  read -r -s -p "Enter password / token: " pass
+  echo
+  echo -n "$pass" \
+    | docker login $dockerreg \
+      --username "$user" \
+      --password-stdin
+}
+
+build() {
+  checkval "$app" "$package" "$user" "$repository"
+  echo Building image for "$app"
+  docker build \
+    -t "$(tagname)" \
+    -f ./Dockerfile \
+    "$app"
+}
+
+run() {
+  checkval "$package" "$user" "$repository"
+  local port=${PORT:-5000}
+  echo Running detached instance of image locally
+  docker run \
+    -d \
+    -p "$port:$port" \
+    "$(tagname)"
+}
+
+publish() {
+  checkval "$package" "$user" "$repository"
+  echo Publishing image to GitHub Packages
+  docker push \
+    "$(tagname)"
+}
+
+# Main function --------------------------------------------------------
+
+main() {
+  local action
+  local arg
+  if [[ $# -eq 0 ]]; then
+    usage
+    exit 1
+  fi
+  while (( $# )); do
+    arg=$1
+    case $arg in
+      -a|--app)
+        shift
+        app=$1
+        ;;
+      -p|--package)
+        shift
+        package=$1
+        ;;
+      -u|--user)
+        shift
+        user=$1
+        ;;
+      -r|--repository)
+        shift
+        repository=$1
+        ;;
+      login|build|run|publish)
+        action=$arg
+        shift $(( $# - 1 ))
+        ;;
+      *)
+        usage
+        exit 1
+        ;;
+    esac
+    shift
+  done
+
+  if [[ -z "$action" ]]; then
+    usage
+    exit 1
+  fi
+
+  $action
+
+}
+
+# Execution start ------------------------------------------------------
+
+check_cf_version
+main "$@"
+

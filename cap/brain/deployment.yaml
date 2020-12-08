@@ -14,10 +14,10 @@ spec:
         version: v1
     spec:
       containers:
-      # replace the repository URL with your own repository (e.g. {DockerID}/http-db-service:0.0.x for Docker Hub).
-      - image: docker.pkg.github.com/sap-samples/teched2020-developer-keynote/brain:latest
+      # The OWNER and REPOSITORY placeholders should be replaced with your own values
+      - image: docker.pkg.github.com/OWNER/REPOSITORY/brain:latest
         imagePullPolicy: Always
-        name: brain        
+        name: brain
         ports:
         - name: http
           containerPort: 4004
@@ -30,9 +30,9 @@ spec:
           - configMapRef:
               name: appconfigcap
       imagePullSecrets:
-      - name: regcred                          
+      - name: regcred
 
----              
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -45,7 +45,7 @@ spec:
     name: http
     targetPort: 4004
   selector:
-    app: brain  
+    app: brain
 
 
 ---

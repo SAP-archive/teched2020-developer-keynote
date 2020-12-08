@@ -1,0 +1,143 @@
+#!/usr/bin/env bash
+
+# Kubernetes/Kyma utilities - k
+
+set -o errexit
+
+declare namespace dockerserver user repository
+self=$(basename "$0")
+namespace=default
+dockerserver=https://docker.pkg.github.com
+secretname=regcred
+
+# Helper functions -----------------------------------------------------
+
+usage() {
+  cat <<EOF
+Usage: $self <options> <action>
+
+with options:
+-u | --user <GitHub user>
+-r | --repository <GitHub repository>
+
+with actions:
+
+- deploy: make deployment (needs -u and -r)
+- configmap: create and deploy config map
+- secret: create secret for GitHub Package registry access
+EOF
+}
+
+checkval() {
+  while (( $# )); do
+    if [[ -z "$1" ]]; then
+      usage
+      exit 1
+    fi
+    shift
+  done
+}
+
+# Action functions -----------------------------------------------------
+
+deploy() {
+  checkval "$user" "$repository"
+  echo Deploying to k8s
+  sed -e "s/OWNER/$user/; s/REPOSITORY/$repository/" deployment.yaml \
+    | kubectl apply -n $namespace -f -
+}
+
+configmap() {
+  local json
+  if [ ! -f default-env.json ]; then
+    echo No default-env.json file
+    exit 1
+  fi
+  echo Creating and deploying config map to k8s
+  json=$(jq -r .VCAP_SERVICES default-env.json | tr '\n' ' ')
+  cat <<EOF | kubectl apply -f -
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: appconfigcap
+data:
+  VCAP_SERVICES: |
+    $json
+EOF
+}
+
+secret() {
+  local email user pass
+  echo Setting up docker-registry secret $secretname for access to $dockerserver
+  if kubectl get secret $secretname >/dev/null 2>&1; then
+    read -rp "Secret $secretname exists - will remove first (hit enter to continue)"
+    kubectl delete secret $secretname
+  fi
+  read -r -p "Enter email: " email
+  read -r -p "Enter username: " user
+  read -r -s -p "Enter password / token: " pass
+  echo
+  kubectl create secret docker-registry $secretname \
+    --docker-server=$dockerserver \
+    --docker-email="$email" \
+    --docker-username="$user" \
+    --docker-password="$pass"
+}
+
+#main() {
+#  local action=$1
+#  case $action in
+#    deploy|secret|configmap)
+#      $action
+#      ;;
+#    *)
+#      usage
+#      exit 1
+#  esac
+#
+#}
+
+# Main function --------------------------------------------------------
+
+main() {
+  local action
+  local arg
+  if [[ $# -eq 0 ]]; then
+    usage
+    exit 1
+  fi
+  while (( $# )); do
+    arg=$1
+    case $arg in
+      -u|--user)
+        shift
+        user=$1
+        ;;
+      -r|--repository)
+        shift
+        repository=$1
+        ;;
+      deploy|secret|configmap)
+        action=$arg
+        shift $(( $# - 1 ))
+        ;;
+      *)
+        usage
+        exit 1
+        ;;
+    esac
+    shift
+  done
+
+  if [[ -z "$action" ]]; then
+    usage
+    exit 1
+  fi
+
+  $action
+
+}
+
+# Execution start ------------------------------------------------------
+
+main "$@"
