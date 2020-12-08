@@ -460,7 +460,7 @@ service/brain created
 apirule.gateway.kyma-project.io/brain created
 ```
 
+Well done! At this stage, you should have the CAP brain service deployed to and running in the Kyma runtime in your SAP Cloud Platform trial account. If you check the Deployments in the Kyma console you might see something similar to this, where this `brain` component is deployed, along with others (`s4mock` and `calc-service` in this example):
 
-
-
+![The CAP brain service deployed to the Kyma runtime](brain-deployed.png)
 
