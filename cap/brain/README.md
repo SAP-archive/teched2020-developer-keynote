@@ -337,7 +337,7 @@ These are the same steps required for the [SANDBOX](../../s4hana/sandbox#on-sap-
 
 There's one more step for this component, too:
 
-- create and deploy a secrets file containing the access credentials for the services that the brain connects to
+- create and deploy a credentials config map containing the access credentials for the services that the brain connects to
 
 Unlike the SANDBOX component, this component connects to and consumes various services, as you know. The credentials to make this possible have been in the `default-env.json` file, but we shouldn't include those credentials in any app image that is to be deployed. There are a couple of reasons that come to mind immediately: we should always avoid exposing such information in images especially when publishing them to a public registry, and also, we want to be able to manage the lifecycle of credentials independent of the app or service that uses them - otherwise we'd end up having to rebuild the app image each time.
 
@@ -436,6 +436,30 @@ Enter username: <YOUR GITHUB ORG/USERNAME>
 Enter password / token: <ACCESS TOKEN>
 secret/regcred created
 ```
+
+
+#### Create and deploy a credentials config map
+
+This is where the deployment to Kyma differs from that of the [SANDBOX](../../s4hana/sandbox) component; this is the extra step mentioned above. If you take a look in the [`deployment.yaml`](deployment.yaml) file in this directory, you'll see a section like this:
+
+```yaml
+envFrom:
+  - configMapRef:
+      name: appconfigcap
+```
+
+This refers to the config map that we're about to create in this step, containing the same `VCAP_SERVICES` environment variable based access credentials as earlier.
+
+Providing you already have the `default-env.json` file (if you've already run the CAP brain service locally, you will have), you can create the config map and deploy it in a single step, again using the `k` script. Here's an example invocation:
+
+```
+$ ./k -u qmacro -r teched2020-developer-keynote deploy
+Deploying to k8s
+deployment.apps/brain created
+service/brain created
+apirule.gateway.kyma-project.io/brain created
+```
+
 
 
 
