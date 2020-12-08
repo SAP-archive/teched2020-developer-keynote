@@ -4,6 +4,25 @@ This section relates to BRAIN component, the service that coordinates the event 
 
 ![The Brain in context](brain.png)
 
+This README is quite long, but hopefully useful and interesting. Here's a small table of contents to help you navigate.
+
+- [Overview](#overview)
+- [Controlling the processing](#controlling-the-processing)
+- [Remote services defined and used](#remote-services-defined-and-used)
+- [Setup required](#setup-required)
+  - [Destinations](#destinations)
+  - [Local service setup](#local-service-setup)
+- [Running it](#running-it)
+  - [Locally](#locally)
+  - [On SAP Cloud Platform - Kyma runtime](#on-sap-cloud-platform---kyma-runtime)
+    - [Build a Docker image](#build-a-docker-image)
+    - [Publish the image to a container registry](#publish-the-image-to-a-container-registry)
+    - [Create a k8s secret for registry access](#create-a-k8s-secret-for-registry-access)
+    - [Create and deploy a credentials config map](#create-and-deploy-a-credentials-config-map)
+  
+  
+  
+
 ## Overview
 
 The brain is a basic CAP application with two of the three layers in use. In effect, a "service" more than an application:
@@ -333,7 +352,7 @@ There are a number of steps to get the app running in Kyma, i.e. on k8s:
 - create a k8s secret for registry access
 - make a deployment to Kyma
 
-These are the same steps required for the [SANDBOX](../../s4hana/sandbox#on-sap-cloud-platform-kyma-runtime) component.
+These are the same steps required for the [SANDBOX](../../s4hana/sandbox#on-sap-cloud-platform---kyma-runtime) component.
 
 There's one more step for this component, too:
 
