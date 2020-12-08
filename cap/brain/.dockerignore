@@ -1,7 +1,12 @@
 node_modules
+default-env*
 npm-debug.log
-default-*.json
 deployment.yaml
 secret.yaml
 secret.json
+d
+k
+*.md
 *.sh
+resetcustomer
+test

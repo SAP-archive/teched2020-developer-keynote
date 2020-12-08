@@ -84,19 +84,6 @@ secret() {
     --docker-password="$pass"
 }
 
-#main() {
-#  local action=$1
-#  case $action in
-#    deploy|secret|configmap)
-#      $action
-#      ;;
-#    *)
-#      usage
-#      exit 1
-#  esac
-#
-#}
-
 # Main function --------------------------------------------------------
 
 main() {
