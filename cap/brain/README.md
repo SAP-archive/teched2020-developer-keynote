@@ -305,7 +305,20 @@ Published event to Internal/Charityfund/Increased
 This represents the publishing of an event message that the [CHARITY](../../abap) component is subscribed to, and the success of getting to this level in the CAP service testing marks the end of local execution testing.
 
 
-...
+**Setting BRAIN_LEVEL permanently**
+
+Once you've reached this stage, you should set the `BRAIN_LEVEL` value permanently in the `package.json`-based start script definition. Edit `package.json` and add `BRAIN_LEVEL=4` before the `cds run` for the "start" script, like this (just like you've been doing during testing):
+
+```json
+{
+
+  "scripts": {
+    "start": "BRAIN_LEVEL=4 cds run",
+    "hana": "cds deploy --to hana:brain --auto-undeploy",
+    "build": "cds build/all --clean"
+  },
+
+}
 
 
 
