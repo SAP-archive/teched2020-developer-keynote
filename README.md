@@ -46,6 +46,8 @@ You'll need your GitHub account when starting out - the [Download and Installati
 
 - Cloud Foundry environment: When you set up a trial account, a Cloud Foundry environment is set up automatically for you, with an organization and single 'dev' space.
 
+  > The version of the CF command line interface (CLI) -- cf -- used here is version 6. There is a newer version 7 but version 6 it still likely the most common version installed, so we have gone with this for now. Moreover, there is [an issue with version 7 with respect to the use of the `cf env` command](https://github.com/cloudfoundry/cli/issues/2116), which we need to work correctly here.
+
 - Kyma environment: While a Kyma environment is not set up automatically, you can (and should) enable one with the "Enable Kyma" button on the main account overview page in the Cockpit, as shown in this screenshot. Follow [this tutorial](https://developers.sap.com/tutorials/cp-kyma-getting-started.html) for detailed instructions, and make sure you also install the k8s command line tool (`kubectl`) and download and set your "kubeconfig" appropriately, as explained in the [Install the Kubernetes Command Line Tool](https://developers.sap.com/tutorials/cp-kyma-download-cli.html) tutorial.
 
 ![Enable Kyma button](images/enable-kyma.png)
