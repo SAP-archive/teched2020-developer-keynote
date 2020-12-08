@@ -19,9 +19,9 @@ This README is quite long, but hopefully useful and interesting. Here's a small 
     - [Publish the image to a container registry](#publish-the-image-to-a-container-registry)
     - [Create a k8s secret for registry access](#create-a-k8s-secret-for-registry-access)
     - [Create and deploy a credentials config map](#create-and-deploy-a-credentials-config-map)
-  
-  
-  
+
+
+
 
 ## Overview
 
@@ -470,6 +470,16 @@ envFrom:
 This refers to the config map that we're about to create in this step, containing the same `VCAP_SERVICES` environment variable based access credentials as earlier.
 
 Providing you already have the `default-env.json` file (if you've already run the CAP brain service locally, you will have), you can create the config map and deploy it in a single step, again using the `k` script. Here's an example invocation:
+
+```
+$ ./k configmap
+Creating and deploying config map to k8s
+configmap/appconfigcap configured
+```
+
+#### Make a deployment to Kyma
+
+Now everything is ready for the deployment to Kyma. The credentials are stored there now in a config map, there are registry credentials (for the GitHub container registry) stored as a secret, and the image is there in GitHub ready to be pulled into k8s. The deployment is described in the [`deployment.yaml`](deployment.yaml) file, and can be invoked with the `k` script like this:
 
 ```
 $ ./k -u qmacro -r teched2020-developer-keynote deploy
