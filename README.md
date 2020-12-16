@@ -6,7 +6,7 @@ This is the repository containing all the source (code, configuration and more) 
 
 The Developer Keynote session is designed to show how developers of different backgrounds, using different tools, technologies and languages can come together and contribute collectively towards an extension to an SAP S/4HANA Cloud system, using SAP Cloud Platform and services & runtimes upon it.
 
-You can find out more about the back story for this keynote in the blog post [SAP TechEd Developer Keynote DK100 - The Story](https://blogs.sap.com/2020/11/19/sap-teched-developer-keynote-dk100-the-story/).
+Watch the [Developer Keynote replay](https://events.sapteched.com/widget/sap/sapteched2020/Catalog/session/1603314875989001AsWU), and read more about the back story for this keynote in the blog post [SAP TechEd Developer Keynote DK100 - The Story](https://blogs.sap.com/2020/11/19/sap-teched-developer-keynote-dk100-the-story/).
 
 The layout of this repository generally reflects the different components shown on the whiteboard diagram and demonstrated throughout the session.
 
