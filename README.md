@@ -1,5 +1,7 @@
 # SAP TechEd 2020 Developer Keynote
 
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/teched2020-developer-kyenote)](https://api.reuse.software/info/github.com/SAP-samples/teched2020-developer-keynote)
+
 This is the repository containing all the source (code, configuration and more) that was put together by the SAP Developer Advocates team for the Developer Keynote (DK100) at SAP TechEd 2020.
 
 ## Description
