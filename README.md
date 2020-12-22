@@ -36,7 +36,7 @@ If you're wondering about the MESSAGE BUS component, see the appropriate section
 
 Component-specific requirements are to be found in the respective READMEs, but there are general requirements too which are listed here.
 
-### A development environment
+### A development environment
 
 You'll need a development environment with tools that are detailed below and in the component-specific READMEs. We all have our own preferences which is awesome, but if you want to follow along and can't decide, or are unsure of which direction to take, or are unable to install tools locally, we are building instructions to help you out, centred around the [SAP Business Application Studio](https://help.sap.com/viewer/product/SAP%20Business%20Application%20Studio/Cloud/en-US) (App Studio).
 
