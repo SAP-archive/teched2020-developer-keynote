@@ -36,6 +36,12 @@ If you're wondering about the MESSAGE BUS component, see the appropriate section
 
 Component-specific requirements are to be found in the respective READMEs, but there are general requirements too which are listed here.
 
+### A development environment
+
+You'll need a development environment with tools that are detailed below and in the component-specific READMEs. We all have our own preferences which is awesome, but if you want to follow along and can't decide, or are unsure of which direction to take, or are unable to install tools locally, we are building instructions to help you out, centred around the [SAP Business Application Studio](https://help.sap.com/viewer/product/SAP%20Business%20Application%20Studio/Cloud/en-US) (App Studio).
+
+If you want to take that approach, make sure you read and follow the [App Studio setup instructions](usingappstudio.md).
+
 ### A GitHub account
 
 You'll need your own GitHub account. Not only for the normal reasons of community and collaboration (you may want to send contributions to this repository via pull requests, for example) but also because some of the components are run in the Kyma environment on SAP Cloud Platform, and the individual component instructions (such as the ones for the [SANDBOX](s4hana/sandbox/)) will direct you to build Docker images and publish them to your own GitHub Packages container registry. See the [GitHub Packages Documentation](https://docs.github.com/en/free-pro-team@latest/packages) for more information.
