@@ -24,7 +24,7 @@ In the context of the App Studio as your development environment, while you can 
 
 ## Notes
 
-Note that everything in this README is relative to, and based upon you being in this README's location in the repository, i.e. the `s4hana/sandbox/` directory:
+Note that everything in this README is relative to -- and based upon you being in -- this README's location in the repository, i.e. the `s4hana/sandbox/` directory:
 
 ![relative location - the `s4hana/sandbox` directory](relative-location.png)
 
