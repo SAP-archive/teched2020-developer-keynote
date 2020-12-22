@@ -94,7 +94,7 @@ At this point, the app is running and listening for requests on port 5000. This 
 
 Once you opt for the "Expose and Open" feature, a new browser tab should open and you should see the `API_SALES_ORDER_SRV`'s service document. This is, then, the Sales Order (A2X) API on the API Hub's sandbox system, reversed proxied by the app you're now running.
 
-When you've finished trying out the app locally, **make sure you move back up a directory** to where this `README.md` file is:
+When you've finished trying out the app locally (end it with Ctrl-C), **make sure you move back up a directory** to where this `README.md` file is:
 
 ```
 user: router $ cd ..
