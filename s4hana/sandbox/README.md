@@ -4,7 +4,7 @@ This is a small app that acts as a proxy in front of the SAP API Business Hub (A
 
 ## Assumptions
 
-These instructions assume that you've opted to use the SAP Business Application Studio (App Studio) as your development environment](../../README.md#a-development-environment) and have followed the [App Studio setup instructions](../../usingappstudio.md).
+These instructions assume that you've opted to use the SAP Business Application Studio (App Studio) as your [development environment](../../README.md#a-development-environment) and have followed the [App Studio setup instructions](../../usingappstudio.md).
 
 ## Overview
 
