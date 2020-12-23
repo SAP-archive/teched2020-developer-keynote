@@ -31,7 +31,6 @@ main() {
     # Only run in App Studio - check by looking for the string 'sap' in
     # the env var 'externalEntrypoint' which will be set in the context
     # of a shell in the App Studio.
-    local externalEntrypoint
     if ! grep -i sap <<< "$externalEntrypoint" >/dev/null; then
       echo Only for use in SAP Business Application Studio
       exit 1
