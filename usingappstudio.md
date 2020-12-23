@@ -1,5 +1,14 @@
 # Using the SAP Business Application Studio
 
+**Contents**
+- [Overview](#overview)
+- [Perform initial setup](#perform-initial-setup)
+- [Create a Dev Space](#create-a-dev-space)
+- [Clone your fork of this repository](#clone-your-fork-of-this-repository)
+- [Open up a Termina](#open-up-a-terminal)
+
+## Overview
+
 We don't want to dictate which tools or environments to use, but also don't want to leave you stranded if you can't decide or are unable to install tools locally.
 
 The aim here is to make sure you can dig into and get your hands dirty with all of the components in this Developer Keynote repository using the SAP Business Application Studio (App Studio), if that's what you want to do.
@@ -56,6 +65,9 @@ Now use the "Open Workspace" facility to open up a workspace pointing to the new
 
 The Dev Space will restart and you should see the contents of your cloned repository in the Explorer view.
 
+## Open up a Terminal
+
+You'll be using commands in the shell when setting up some components in this repository, so you might as well open up a Terminal in your Dev Space right now. You can do this by using the menu path "Terminal -> New Terminal", or using the "Terminal: Open New Terminal" via the Command Palette, or simply with the keyboard shortcut Ctrl-`.
 
 
 
