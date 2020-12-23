@@ -1,4 +1,4 @@
-# Message Bus Setup
+# Message bus setup
 
 **Contents**
 - [Overview](#Overview)
