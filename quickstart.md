@@ -1,4 +1,4 @@
-# Quick Start
+# Quick start
 
 This is a deliberately brief [TL;DR](https://www.urbandictionary.com/define.php?term=tl%3Bdr) style overview of the steps you might want to take to explore the contents of this repository. 
 
