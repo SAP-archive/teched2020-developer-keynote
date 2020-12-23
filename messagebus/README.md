@@ -2,6 +2,14 @@
 
 This section will help you set things up for the message bus part of the whiteboard diagram.
 
+**Contents**
+- [Setup in the Cockpit](#setup-in-the-cockpit)
+  - [Creating the service instance](#creating-the-service-instance)
+  - [Creating the service key](#creating-the-service-key)
+- [Setup on the command line](#setup-on-the-command-line)
+  - [Using a script](#using-a-script)
+  - [Manually](#manually)
+
 ![Message Bus](images/messagebus.png)
 
 There are two things to set up, which should have specific names, too (as other components will rely upon those names):
