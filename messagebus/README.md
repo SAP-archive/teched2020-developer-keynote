@@ -1,14 +1,17 @@
 # Message Bus Setup
 
-This section will help you set things up for the message bus part of the whiteboard diagram.
-
 **Contents**
+- [Overview](#Overview)
 - [Setup in the Cockpit](#setup-in-the-cockpit)
   - [Creating the service instance](#creating-the-service-instance)
   - [Creating the service key](#creating-the-service-key)
 - [Setup on the command line](#setup-on-the-command-line)
   - [Using a script](#using-a-script)
   - [Manually](#manually)
+
+## Overview
+
+This README will help you set things up for the message bus part of the whiteboard diagram.
 
 ![Message Bus](images/messagebus.png)
 
