@@ -254,34 +254,52 @@ In this example, the `API_SALES_ORDER_SRV`'s service document would be available
 
 ### On SAP Cloud Platform - Kyma runtime
 
-There are a number of steps to get the app running in Kyma, i.e. on k8s.
+In the Developer Keynote, this is where the app was running.
 
 #### Docker images, containers, package registries and Kyma
 
-Having a look at the steps, they are, approximately:
+There are a number of steps to get the app running in Kyma, i.e. on k8s.
 
 1. build a Docker image for the app
 1. publish the image to a container registry
 1. create a k8s secret for registry access
 1. make a deployment to Kyma
 
-In other words, in a Kyma context, the app exists as a container and we'll be using Docker to create the container image from which our app container can be created. Moreover, we need to make that container image available somewhere for the Kyma runtime to retrieve it and start up one or more instances of it. 
+In other words, in a Kyma context, the app exists as a container and we'll be using Docker to create the image from which our app container can be created. Moreover, we need to make that container image available somewhere for the Kyma runtime to retrieve it and start up one or more instances of it. 
 
 That place where we'll make the container image available is a container registry provided by GitHub, specifically connected to your forked version of this repository. If you have a look at [the original Developer Keynote repository](https://github.com/SAP-samples/teched2020-developer-keynote), i.e. the source of your fork, i.e. the one in the [SAP-samples](https://github.com/SAP-samples/) organization on GitHub, you'll see that it has a list of "Packages" associated with it, as shown in the bottom right of this screenshot:
 
 ![Packages in the original Developer Keynote repository](images/packages.png)
 
-Note that the packages (you can also see them in [the organization-level package list, filtered by repository](https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote)) each have a Docker icon next to them; this denotes that they are Docker packages (there are other package types that can be stored in the repository, such as NPM and NuGet packages).
+Note that the packages (you can also see them in [the organization-level package list, filtered by repository](https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote)) each have a Docker icon next to them; this denotes that they are Docker packages (there are other package types that can be stored in the repository, such as NPM and NuGet packages). 
 
-And, last but not least, access to packages in the GitHub package registry requires authentication - this is why you'll need to generate a secret to make available to Kyma to use, to retrieve the container image from there.
+Note also that access to packages in the GitHub package registry requires authentication - this is why you'll need to generate a secret to make available to Kyma to use, to retrieve the container image from there.
 
-
-
-If you have Docker in your development environment, you can use the `docker` command line tool to achieve the first two steps; there's also a helper script ([`d`](d)) for this. However, if you're using the App Studio as your [development environment](../../README.md#a-development-environment) then you don't have direct access to Docker or the `docker` tool. Instead, you can use [GitHub Actions](https://github.com/features/actions) in the context of your repository to both build and publish the Docker image. 
+Once you've completed the steps in this section, you'll also have an 's4mock' package in the GitHub Package Registry in the context of your own repository, and it will be that package that your Kyma runtime instance will retrieve.
 
 #### Build a Docker image
 
-In case you haven't, the first thing you need to do is to create a Docker image of this app and its environment. Do this by invoking the `d` script with the "build" action, as described in the "Locally in a Docker container" section earlier (essentially, like this: `$ ./d build`). This then is the "package" that is then published and gets run in k8s once the deployment process is complete.
+If you have Docker in your development environment, you can use the `docker` command line tool to achieve the first two steps; there's also a helper script ([`d`](d)) for this. However, if you're using the App Studio as your [development environment](../../README.md#a-development-environment) then you don't have direct access to Docker or the `docker` tool. Instead, you can use [GitHub Actions](https://github.com/features/actions) in the context of your repository to both build and publish the Docker image. 
+
+There is an [`image-build-and-publish.yml`](../../.github/workflows/image-build-and-publish.yml) workflow available in this repository, with the description "Build and publish Docker image". You can see it from a DevOps perspective in the "Actions" area of this repository (again, make sure you're working within _your fork_ of the Developer Keynote repository):
+
+![The workflow](images/workflow.png)
+
+This workflow consists of a single job with multiple steps, which perform the following activities:
+
+1. Checks out the repository content (into the workflow's runtime)
+1. Builds the Docker image
+1. Logs into the package registry and pushes the image there
+
+While browsing the [workflow source](../../.github/workflows/image-build-and-publish.yml), notice also that the workflow defines three inputs, as follows:
+
+|Input|Description|
+|-|-|
+|`componentdir`|The directory in the repo where the component lives|
+|`app`|The name for the package (e.g. s4mock, brain or calculationservice)|
+|`dir`|The directory containing the app artifacts (relative to the component's location in the repo)|
+
+In other words, yes - this workflow is designed to offer Docker image build and publishing services for not just this SANDBOX component, but for other components in this Developer Keynote repository (and so must be parameterized). 
 
 
 #### Publish the image to a container registry
