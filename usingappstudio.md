@@ -33,7 +33,7 @@ Creation of the Dev Space will take a few moments; once you see the "RUNNING" st
 
 In the [Download and installation](README.md#download-and-installation) section of this repository's main README, you'll see that you must fork this repository into your own user or organization space on GitHub, and then clone that fork.
 
-Assuming that you've already forked the repository, now would be a good time to clone that fork. In other words, to make a local copy of *your fork* of this repository.
+Assuming that you've already forked the repository (you would normally do this on the GitHub website, using the "Fork" button in the top right), now would be a good time to clone that fork. In other words, to make a local copy of *your fork* of this repository.
 
 > Let's assume that your GitHub username is "sapdeveloper" - this name will be used in the subsequent examples; make sure you substitute your own username when carrying out the instructions.
 
