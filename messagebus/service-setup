@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -o errexit
+
+# Enterprise Messaging service instance setup - service-setup
+
+# Set up messaging service instance and service key. Sort of idempotent
+# i.e. it can rerun if required.
+
+source ./settings.sh # configuration
+
+parameters=$(
+  yq r -j - << EO_PARAMETERS
+emname: "${instance}"
+options:
+  management: true
+  messagingrest: true
+EO_PARAMETERS
+)
+
+# Login in if required - check by issuing 'cf target' and
+# and then issuing 'cf login' if the return code was high
+cf target > /dev/null 2>&1 || cf login
+
+# Create instance of messaging service
+cf create-service "${service}" "${plan}" "${instance}" -c "${parameters}"
+
+# Create service key
+cf create-service-key "${instance}" "${servicekey}"
+
+# Invalidate any current service key file
+rm -f "sk-$instance-$servicekey.json"
