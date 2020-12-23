@@ -47,11 +47,11 @@ In order to interact with the message bus, various components need to authentica
 
 With the "emdev" instance selected, use the "Create" button in the "Service Keys" section to create a service key:
 
-![service key](messagebus/images/servicekey.png)
+![service key](images/servicekey.png)
 
 In the dialog that appears, ensure you specify the name "sk1" for the "Service key name". You can leave any other fields as they are:
 
-![service key name](messagebus/images/servicekeyname.png)
+![service key name](images/servicekeyname.png)
 
 And that's it - once created, you have everything you need for the message bus portion of this repository.
 
