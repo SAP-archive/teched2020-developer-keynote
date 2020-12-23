@@ -11,6 +11,7 @@
     - [Using cf deploy](#using-cf-deploy)
   - [On SAP Cloud Platform - Kyma runtime](#on-sap-cloud-platform---kyma-runtime)
     - [Docker images, containers, package registries and Kyma](#docker-images-containers-package-registries-and-kyma)
+    - [Build a Docker image](#build-a-docker-image)
   
 
 
@@ -271,7 +272,7 @@ That place where we'll make the container image available is a container registr
 
 ![Packages in the original Developer Keynote repository](images/packages.png)
 
-Note that the packages (you can also see them in [the organization-level package list, filtered by repository](https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote)) each have a Docker icon next to them; this denotes that they are Docker packages (there are other package types that can be stored in the repository, such as NPM and NuGet packages). 
+Note that the packages (you can also see them in [the organization-level package list, filtered by repository](https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote)) each have a Docker icon next to them; this denotes that they are Docker packages (there are other package types that can be stored in the repository, such as those from NPM and NuGet). 
 
 Note also that access to packages in the GitHub package registry requires authentication - this is why you'll need to generate a secret to make available to Kyma to use, to retrieve the container image from there.
 
