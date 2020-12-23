@@ -1,4 +1,4 @@
-# SANDBOX
+# The SANDBOX component
 
 **Contents**
 - [Overview](#overview)
