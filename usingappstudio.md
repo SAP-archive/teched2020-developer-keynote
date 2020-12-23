@@ -6,6 +6,7 @@
 - [Create a Dev Space](#create-a-dev-space)
 - [Clone your fork of this repository](#clone-your-fork-of-this-repository)
 - [Open up a terminal](#open-up-a-terminal)
+- [Add tools to your Dev Space](#add-tools-to-your-dev-space)
 
 ## Overview
 
@@ -71,7 +72,7 @@ You'll be using commands in the shell when setting up some components in this re
 
 Do this by using the menu path "terminal -> New terminal", or using the "terminal: Open New terminal" via the Command Palette, or simply with the keyboard shortcut Ctrl-`.
 
-## Add tools to your Dev Space
+## Add tools to your Dev Space
 
 Depending on the type of Dev Space you set up, you'll already have access to some command line tools in the shell. The type of Dev Space you've specified in these instructions makes available the Cloud Foundry (CF) `cf` tool, for example. You can try it out now, by entering the command at the prompt:
 
@@ -89,7 +90,8 @@ At the prompt, invoke the [`appstudiosetup`](appstudiosetup) script, which will 
 user: teched2020-developer-keynote $ ./appstudiosetup
 Installing yq ...
 Installing jq ...
-Please now restart the terminal (Ctrl-D then Ctrl-`) to have the new shell settings take effect ...```
+Please now restart the terminal (Ctrl-D then Ctrl-`) to have the new shell settings take effect ...
+```
 
 As instructed, restart the terminal, and you're all set!
 
