@@ -5,7 +5,7 @@
 - [Perform initial setup](#perform-initial-setup)
 - [Create a Dev Space](#create-a-dev-space)
 - [Clone your fork of this repository](#clone-your-fork-of-this-repository)
-- [Open up a Termina](#open-up-a-terminal)
+- [Open up a Terminal](#open-up-a-terminal)
 
 ## Overview
 
