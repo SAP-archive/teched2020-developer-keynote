@@ -221,7 +221,7 @@ Your URL will be different, mostly because of the use of the `--random-route` sw
 In case you prefer the Multi Target Application (MTA) approach, there's an [`mta.yaml`](mta.yaml) file in this directory too, so you can use the build-and-deploy approach if you really want to, like this (a reduced sample output is also shown):
 
 ```
-$ mbt build && cf deploy mta_archives/s4-mock_1.0.0.mtar
+user: sandbox $ mbt build && cf deploy mta_archives/s4-mock_1.0.0.mtar
 [2020-11-24 11:03:38]  INFO Cloud MTA Build Tool version 1.0.16
 [2020-11-24 11:03:38]  INFO generating the "Makefile_20201124110338.mta" file...
 [2020-11-24 11:03:38]  INFO done
