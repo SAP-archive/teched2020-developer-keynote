@@ -2,9 +2,26 @@
 
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/teched2020-developer-keynote)](https://api.reuse.software/info/github.com/SAP-samples/teched2020-developer-keynote)
 
-This is the repository containing all the source (code, configuration and more) that was put together by the SAP Developer Advocates team for the Developer Keynote (DK100) at SAP TechEd 2020.
+**Contents**
 
-## Description
+- [Overview](#overview)
+- [Requirements](#requirements)
+  - [A development environment](#a-development-environment)
+  - [A GitHub account](#a-github-account)
+  - [An SAP Cloud Platform trial account](#an-sap-cloud-platform-trial-account)
+  - [Access to the SAP Business API Hub](#access-to-the-sap-business-api-hub)
+  - [A message bus](#a-message-bus)
+  - [Docker](#docker)
+- [Download and installation](#download-and-installation)
+- [Known issues](#known-issues)
+- [How to obtain support](#how-to-obtain-support)
+- [Contributing](#contributing)
+- [License](#license)
+
+
+## Overview
+
+This is the repository containing all the source (code, configuration and more) that was put together by the SAP Developer Advocates team for the Developer Keynote (DK100) at SAP TechEd 2020.
 
 The Developer Keynote session is designed to show how developers of different backgrounds, using different tools, technologies and languages can come together and contribute collectively towards an extension to an SAP S/4HANA Cloud system, using SAP Cloud Platform and services & runtimes upon it.
 
@@ -38,7 +55,7 @@ Component-specific requirements are to be found in the respective READMEs, but t
 
 ### A development environment
 
-You'll need a development environment with tools that are detailed below and in the component-specific READMEs. We all have our own preferences which is awesome, but if you want to follow along and can't decide, or are unsure of which direction to take, or are unable to install tools locally, we are building instructions to help you out, centred around the [SAP Business Application Studio](https://help.sap.com/viewer/product/SAP%20Business%20Application%20Studio/Cloud/en-US) (App Studio).
+You'll need a development environment with tools that are detailed below and in the component-specific READMEs. We all have our own preferences, which is great, but if you want to follow along and can't decide, or are unsure of which direction to take, or are unable to install tools locally, we are building instructions to help you out, centred around the [SAP Business Application Studio](https://help.sap.com/viewer/product/SAP%20Business%20Application%20Studio/Cloud/en-US) (App Studio).
 
 If you want to take that approach, make sure you read and follow the [App Studio setup instructions](usingappstudio.md).
 
@@ -48,7 +65,7 @@ You'll need your own GitHub account. Not only for the normal reasons of communit
 
 You'll need your GitHub account when starting out - the [Download and Installation](#download-and-installation) section below will instruct you to fork this repository into your own space.
 
-### SAP Cloud Platform
+### An SAP Cloud Platform trial account
 
 - Trial account: You'll need a trial account on SAP Cloud Platform, if you haven't got one already. Follow [this tutorial](https://developers.sap.com/tutorials/hcp-create-trial-account.html) for detailed instructions.
 
@@ -60,7 +77,7 @@ You'll need your GitHub account when starting out - the [Download and Installati
 
 ![Enable Kyma button](images/enable-kyma.png)
 
-### SAP Business API Hub
+### Access to the SAP Business API Hub
 
 - Access: Make sure you can log in to the [SAP Business API Hub](https://api.sap.com)
 
@@ -71,7 +88,7 @@ You'll need your GitHub account when starting out - the [Download and Installati
 - API key: Check that you have an API key available to you in your [preferences](https://api.sap.com/preferences), for access to the sandbox system
 
 
-### Message bus
+### A message bus
 
 The one component on the whiteboard diagram that wasn't listed earlier is of course the MESSAGE BUS. This is an instance of the SAP Enterprise Messaging service. You'll need one of these. There is a 'dev' plan available for trial account users, it is marked as deprecated but perfectly serviceable for our needs.
 
@@ -82,8 +99,6 @@ Please set up an instance of the SAP Enterprise Messaging service according to [
 ### Docker
 
 If you want to try out the local Docker and Kyma runtime based aspects, you'll need Docker on your machine. Install it by following the [Get Docker](https://docs.docker.com/get-docker/) instructions for your platform.
-
-> The use of Docker as a container runtime may be deprecated in future versions of k8s, but for the purposes of this repository, we're happy to use it for now.
 
 
 ## Download and installation
