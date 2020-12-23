@@ -1,5 +1,9 @@
 # SAP Enterprise Messaging - Setup
 
+**Contents**
+- [Using the cockpit](#using-the-cockpit)
+- [Using a script](#using-a-script)
+
 To get a a message bus component of your own, as shown in the whiteboard diagram, follow these instructions to set up an instance of the SAP Enterprise Messaging service in your trial account.
 
 ![Whiteboard diagram](images/whiteboard.jpg)
