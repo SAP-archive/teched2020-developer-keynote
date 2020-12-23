@@ -23,7 +23,9 @@ Follow the instructions here to get ready.
 
 Note that App Studio doesn't give you a Docker engine - you won't be able to directly build images, for example, in the context of a Dev Space. However, there are other ways to get images built and published (which is what's required for some of the components in this repository, for eventual deployment to and execution in the Kyma / Kubernetes environment). 
 
-Where Docker images need to be built, we'll be using facilities provided by GitHub, in the context of your own forked version of this repository. These facilities come in the form of actions and command line invocations that can be carried out in the context of jobs, using GitHub Actions. 
+Where Docker images need to be built, we'll be using facilities provided by GitHub, in the context of your own forked version of this repository. This is partly why we've insisted you fork this repository before starting (the other, main reason being that you get to store Docker images in the [GitHub Package Repository](https://github.com/features/packages) facilities connected to your own repository). 
+
+The Docker facilities in GitHub come in the form of actions & command line invocations that can be carried out in the context of jobs, using [GitHub Actions](https://github.com/features/actions).
 
 If you choose to use and manage your own development environment, and have access to Docker, you are of course more than welcome to use Docker locally.
 
