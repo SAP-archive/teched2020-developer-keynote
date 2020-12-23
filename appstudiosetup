@@ -40,7 +40,7 @@ main() {
     install yq https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64
     install jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
 
-    echo "Please now restart the terminal (Ctrl-D then Ctrl-\`) to have the new shell settings take effect ..."
+    echo "Please now restart the terminal (Ctrl-D then Ctrl-\`) to have the new shell settings take effect."
 }
 
 main "$@"
