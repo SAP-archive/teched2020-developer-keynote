@@ -29,7 +29,7 @@ There are many ways to set things up like this; here, we'll show you a few diffe
 
 You can create both the service instance and the service key using features of the SAP Cloud Platform Cockpit.
 
-### Creating the service instance
+### Creating the service instance
 
 First, search in the Service Marketplace section of the Cockpit for the Enterprise Messaging service. Once you've found it, you can then set up a "dev" plan instance in your trial account using the "Create Instance" button shown in this screenshot:
 
@@ -41,17 +41,17 @@ Be sure to specify the name "emdev" as the Instance Name (in the Basic Info step
 
 Once the instance has been created, you can then create the service key.
 
-### Creating the service key
+### Creating the service key
 
 In order to interact with the message bus, various components need to authenticate with it. For example, the [EMITTER](../s4hana/event/) component uses the messaging API to emit an event message; in order to do that successfully, it uses the service key information to authenticate first.
 
 With the "emdev" instance selected, use the "Create" button in the "Service Keys" section to create a service key:
 
-![service key](images/servicekey.png)
+![service key](messagebus/images/servicekey.png)
 
 In the dialog that appears, ensure you specify the name "sk1" for the "Service key name". You can leave any other fields as they are:
 
-![service key name](images/servicekeyname.png)
+![service key name](messagebus/images/servicekeyname.png)
 
 And that's it - once created, you have everything you need for the message bus portion of this repository.
 
@@ -114,11 +114,10 @@ OK
 
 Creating service key sk1 for service instance emdev as sapdeveloper@example.com...
 OK
-
+```
 > You can rerun this script if you need to - if the service instance or service key already exist, you'll be notified (by `cf`).
 
-
-### Manually
+### Manually
 
 You can also run the `cf` commands manually. Here's a brief summary of what you need to do.
 
