@@ -314,7 +314,7 @@ Start the workflow and be ready to supply the appropriate values for the paramet
 |The name for the package (e.g. s4mock, brain or calculationservice)|`s4mock`|
 |The directory containing the app artifacts (relative to the component's location in the repo)|`router/`|
 
-> As you can see, the example in the screenshot is from where the user [https://github.com/qmacro](qmacro) has forked the repository into their own space.
+> As you can see, the example in the screenshot is from where the user [qmacro](https://github.com/qmacro) has forked the Developer Keynote repository into their own space. When you do this, you should be looking at your own fork.
 
 The workflow should complete successfully - if you wish, examine the detailed output of the steps (by expanding the `>` symbols shown in the screenshot):
 
