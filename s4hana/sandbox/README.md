@@ -7,6 +7,8 @@
 - [Running the app](#running-the-app)
   - [Locally](#locally)
   - [On SAP Cloud Platform - CF runtime](#on-sap-cloud-platform---cf-runtime)
+    - [Using cf push](#using-cf-push)
+    - [Using cf deploy](#using-cf-deploy)
 
 
 ## Overview
@@ -110,7 +112,7 @@ user: sandbox $
 
 During the Developer Keynote demo itself, this app is run in the cloud, on SAP Cloud Platform, and specifically in the Kyma runtime. But you can also run it in the CF runtime, and this section is in case you want to do that.
 
-Because of the simplicity of the app and the fact that it doesn't depend on anything else, we can use the simple `cf push` approach. The alternative would be to use `cf deploy`, but that's more appropriate when you want to connect up the app to services that it requires too. This app is standalone and does not rely on any services.
+Because of the simplicity of the app and the fact that it doesn't depend on anything else, we can use the simple `cf push` approach. The alternative would be to use `cf deploy`, but that's more appropriate when you want to connect up the app to services that it requires too. There's a sample [`mta.yaml`](mta.yaml) deployment descriptor in this same directory, and [an example invocation below](#using-cf-deploy), if you want to explore that.
 
 Before running the `cf push` command, make sure you're logged in and connected to your CF organization and space. Check what your CF API endpoint is from your SAP Cloud Platform Cockpit and issue the `cf login` command. The flow will look something like this (your API endpoint may be different):
 
@@ -139,6 +141,8 @@ Org:            14ee89fftrial
 Space:          dev
 $
 ```
+
+#### Using cf push 
 
 Now you can make the `cf push` invocation. Specify a name for the app ("proxyapp") and include some options. Here's a copy-pasteable version, with explanations:
 
@@ -212,7 +216,9 @@ In the output, the route is shown, and you can check that you can access the `AP
 
 Your URL will be different, mostly because of the use of the `--random-route` switch. You should see the service document served to you again, but this time, via the proxy app running in the CF environment on SAP Cloud Platform.
 
-> In case you prefer the Multi Target Application (MTA) approach, there's an `mta.yaml` file in this directory too, so you can use the build-and-deploy approach if you really want to, like this (a reduced sample output is also shown):
+#### Using cf deploy
+
+In case you prefer the Multi Target Application (MTA) approach, there's an [`mta.yaml`](mta.yaml) file in this directory too, so you can use the build-and-deploy approach if you really want to, like this (a reduced sample output is also shown):
 
 ```
 $ mbt build && cf deploy mta_archives/s4-mock_1.0.0.mtar
@@ -235,6 +241,8 @@ $ mbt build && cf deploy mta_archives/s4-mock_1.0.0.mtar
 Application "proxyapp" started and available at "14ee89fftrial-dev-proxyapp.cfapps.eu10.hana.ondemand.com"
 Process finished.
 ```
+
+> The `mbt` command will be automatically available to you in App Studio if you [set up your Dev Space as directed](../../usingappstudio.md#create-a-dev-space).
 
 In this example, the `API_SALES_ORDER_SRV`'s service document would be available at:
 
