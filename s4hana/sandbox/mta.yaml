@@ -7,5 +7,5 @@ modules:
     type: approuter.nodejs
     path: router
     parameters:
-      disk-quota: 256M
-      memory: 128M
+      disk-quota: 512M
+      memory: 256M
