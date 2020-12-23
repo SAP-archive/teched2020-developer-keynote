@@ -95,11 +95,4 @@ Please now restart the terminal (Ctrl-D then Ctrl-`) to have the new shell setti
 
 As instructed, restart the terminal, and you're all set!
 
-> The reason for restarting the terminal is so that the shell environment will be restarted, which will in turn mean that the `.bashrc` file that sets up various things will be invoked again. We want this to happen because the `appstudiosetup` script has inserted a line into `.bashrc` to add a local directory to the `PATH` environment variable, so that the newly installed tools are available to run directly (if you're interested, it's the `setup()` function in `appstudiosetup` that does this).
-
-
-
-
-
-
-
+> The reason for restarting the terminal is so that the shell environment will be restarted, which will in turn means that the `.bashrc` file that sets up various things will be invoked again. We want this to happen because the `appstudiosetup` script has inserted a line into `.bashrc` to add a local directory to the `PATH` environment variable, so that the newly installed tools are available to run directly (if you're interested, it's the `setup()` function in `appstudiosetup` that does this).
