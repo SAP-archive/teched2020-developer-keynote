@@ -108,14 +108,14 @@ user: sandbox $
 
 ### On SAP Cloud Platform - CF runtime
 
-During the DK100 Developer Keynote demo itself, this app is run in the cloud, on SAP Cloud Platform, and specifically in the Kyma runtime. But you can also run it in the CF runtime, and this section is in case you want to do that.
+During the Developer Keynote demo itself, this app is run in the cloud, on SAP Cloud Platform, and specifically in the Kyma runtime. But you can also run it in the CF runtime, and this section is in case you want to do that.
 
-Because of the simplicity of the app and the fact that it doesn't depend on anything else, we can use the simple `cf push` approach.
+Because of the simplicity of the app and the fact that it doesn't depend on anything else, we can use the simple `cf push` approach. The alternative would be to use `cf deploy`, but that's more appropriate when you want to connect up the app to services that it requires too. This app is standalone and does not rely on any services.
 
 Before running the `cf push` command, make sure you're logged in and connected to your CF organization and space. Check what your CF API endpoint is from your SAP Cloud Platform Cockpit and issue the `cf login` command. The flow will look something like this (your API endpoint may be different):
 
 ```sh
-$ cf login
+user: sandbox $ cf login
 API endpoint: https://api.cf.eu10.hana.ondemand.com
 
 Email: sapdeveloper@example.com
@@ -125,26 +125,44 @@ Authenticating...
 OK
 
 Select an org:
-1. 4dc50e9btrial
-2. p123456789trial
+1. 14ee89fftrial
+2. ...
 
 Org (enter to skip): 1
-Targeted org 4dc50e9btrial
+Targeted org 14ee89fftrial
 
 Targeted space dev
 
 API endpoint:   https://api.cf.eu10.hana.ondemand.com (API version: 3.88.0)
 User:           sapdeveloper@example.com
-Org:            4dc50e9btrial
+Org:            14ee89fftrial
 Space:          dev
 $
 ```
 
-Here's what the `cf push` invocation looks like, and the sort of thing you should see (lots of output removed for readability):
+Now you can make the `cf push` invocation. Specify a name for the app ("proxyapp") and include some options. Here's a copy-pasteable version, with explanations:
 
 ```
-$ cf push --random-route -p router proxyapp
-Pushing app proxyapp to org 4dc50e9btrial / space dev as sapdeveloper@example.com...
+cf push \
+  --random-route \
+  -k 512M \
+  -m 256M \
+  -p router/ \
+  proxyapp
+```
+
+|Option|Explanation|
+|-|-|
+|`--random-route`|request a random route so the app doesn't clash with any existing routes|
+|`-k 512M`|The app should have 512M of disk space|
+|`-m 256M`|The app should have 256M of memory|
+|`-p router/`|The app is located in the `router/` directory|
+
+Here's what the invocation looks like, and the sort of thing you should see (lots of output removed for readability):
+
+```
+user: sandbox $ cf push --random-route -k 512M -m 256M -p router/ proxyapp
+Pushing app proxyapp to org 14ee89fftrial / space dev as sapdeveloper@example.com...
 Getting app info...
 Creating app with these attributes...
 + name:       proxyapp
@@ -184,8 +202,8 @@ type:            web
 instances:       1/1
 memory usage:    1024M
 start command:   npm start
-     state     since                  cpu    memory    disk      details
-#0   running   2020-11-24T10:18:36Z   0.0%   0 of 1G   0 of 1G
+     state     since                  cpu    memory          disk         details
+#0   running   2020-12-23T13:50:21Z   0.0%   39.1K of 256M   8K of 512M   
 ```
 
 In the output, the route is shown, and you can check that you can access the `API_SALES_ORDER_SRV`'s service document again, at the URL relating to the route URL. In this case, it is:
@@ -214,13 +232,13 @@ $ mbt build && cf deploy mta_archives/s4-mock_1.0.0.mtar
 [2020-11-24 11:03:41]  INFO the MTA archive generated at: /Users/username/Projects/teched2020-developer-keynote/s4hana/sandbox/mta_archives/s4-mock_1.0.0.mtar
 [2020-11-24 11:03:41]  INFO cleaning temporary files...
 ...
-Application "proxyapp" started and available at "4dc50e9btrial-dev-proxyapp.cfapps.eu10.hana.ondemand.com"
+Application "proxyapp" started and available at "14ee89fftrial-dev-proxyapp.cfapps.eu10.hana.ondemand.com"
 Process finished.
 ```
 
 In this example, the `API_SALES_ORDER_SRV`'s service document would be available at:
 
-`https://4dc50e9btrial-dev-proxyapp.cfapps.eu10.hana.ondemand.com/sap/opu/odata/sap/API_SALES_ORDER_SRV/`
+`https://14ee89fftrial-dev-proxyapp.cfapps.eu10.hana.ondemand.com/sap/opu/odata/sap/API_SALES_ORDER_SRV/`
 
 
 ### On SAP Cloud Platform - Kyma runtime
