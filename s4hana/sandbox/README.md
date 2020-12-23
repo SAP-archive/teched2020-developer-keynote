@@ -10,7 +10,7 @@ These instructions assume that you've opted to use the SAP Business Application 
 
 The context in which it runs is shown as the highlighted section of the whiteboard:
 
-![whiteboard, with SANDBOX highlighted](whiteboard-sandbox.png)
+![whiteboard, with SANDBOX highlighted](images/whiteboard-sandbox.png)
 
 Access to the API Hub sandbox system is protected; each and every call to it needs to have an API key specified in an HTTP header. That is what this app does - attach the API key to all requests during transit.
 
@@ -26,11 +26,11 @@ In the context of the App Studio as your development environment, while you can 
 
 Note that everything in this README is relative to -- and based upon you being in -- this README's location in the repository, i.e. the `s4hana/sandbox/` directory:
 
-![relative location - the `s4hana/sandbox` directory](relative-location.png)
+![relative location - the `s4hana/sandbox` directory](images/relative-location.png)
 
 Command line invocations shown here should also be made in the App Studio. To get ready, **open a new Terminal** with the menu path "Terminal -> New Terminal"; this should present you with a new panel with a Bash shell prompt, something like this:
 
-![Bash shell prompt in a new Terminal session](shell-prompt.png)
+![Bash shell prompt in a new Terminal session](images/shell-prompt.png)
 
 At this prompt, **move to the `s4hana/sandbox/` directory now**, like this:
 
@@ -88,7 +88,7 @@ approuter@ start /Users/username/Projects/teched2020-developer-keynote/s4hana/sa
 
 At this point, the app is running and listening for requests on port 5000. This is of course within the context of the App Studio's environment, which is not immediately available to you in your browser. So at this point, App Studio will pop up an "Expose and Open" message allowing you to have that port exposed to you.
 
-![App Studio port message](port-message.png)
+![App Studio port message](images/port-message.png)
 
 > App Studio will only show this popup once once - if you restart the app, use the "Ports: Preview" command in App Studio's Command Palette (menu item "View -> Find Command") to access the feature again.
 
@@ -263,7 +263,7 @@ latest: digest: sha256:58870f6f89546548d6ee290cab89850a763c7c66faa93a2373bf1cf93
 
 You can check in your own GitHub repository that this has been successful - check in your repository's Packages section (look on the right of your repository's home page on GitHub). You should see the `s4mock` package listed, as it is in [this repository's Packages section](https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote):
 
-![The s4mock package listed](s4mock-package-listing.png)
+![The s4mock package listed](images/s4mock-package-listing.png)
 
 > Other packages are shown in this screenshot too - they're from other components in this repository.
 
@@ -334,6 +334,6 @@ Just like before, you can check that it's working by requesting the API's servic
 
 Visit the Kyma console (get there from your trial subaccount overview page and use the "Link to dashboard" link), select the "default" namespace, and in the "Configuration > API Rules" section, you'll see the relevant URL:
 
-![API Rules](api-rules.png)
+![API Rules](images/api-rules.png)
 
 Open up that URL. You'll noticed that you get redirected to `/sap/opu/odata/sap/API_SALES_ORDER_SRV/` - you should now see your old friend the API's service document.
