@@ -5,7 +5,7 @@
 - [Perform initial setup](#perform-initial-setup)
 - [Create a Dev Space](#create-a-dev-space)
 - [Clone your fork of this repository](#clone-your-fork-of-this-repository)
-- [Open up a Terminal](#open-up-a-terminal)
+- [Open up a terminal](#open-up-a-terminal)
 
 ## Overview
 
@@ -65,9 +65,36 @@ Now use the "Open Workspace" facility to open up a workspace pointing to the new
 
 The Dev Space will restart and you should see the contents of your cloned repository in the Explorer view.
 
-## Open up a Terminal
+## Open up a terminal
 
-You'll be using commands in the shell when setting up some components in this repository, so you might as well open up a Terminal in your Dev Space right now. You can do this by using the menu path "Terminal -> New Terminal", or using the "Terminal: Open New Terminal" via the Command Palette, or simply with the keyboard shortcut Ctrl-`.
+You'll be using commands in the shell when setting up some components in this repository, and you'll certainly be needing one for the next step in this Dev Space setup, so it's time to open up a terminal in your Dev Space right now.
+
+Do this by using the menu path "terminal -> New terminal", or using the "terminal: Open New terminal" via the Command Palette, or simply with the keyboard shortcut Ctrl-`.
+
+## Add tools to your Dev Space
+
+Depending on the type of Dev Space you set up, you'll already have access to some command line tools in the shell. The type of Dev Space you've specified in these instructions makes available the Cloud Foundry (CF) `cf` tool, for example. You can try it out now, by entering the command at the prompt:
+
+```
+user: teched2020-developer-keynote $ cf
+```
+
+You should see some help summarizing what you can do with that command.
+
+It's possible that some activities might require the use of tools that are not installed by default - the setting up of some of the components in this repository is one example, where tools such as [`jq`](https://stedolan.github.io/jq/) are needed. We've provided a setup script that you can run in the terminal that will install these tools for you.
+
+At the prompt, invoke the [`appstudiosetup`](appstudiosetup) script, which will install various tools for you:
+
+```
+user: teched2020-developer-keynote $ ./appstudiosetup
+Installing yq ...
+Installing jq ...
+Please now restart the terminal (Ctrl-D then Ctrl-`) to have the new shell settings take effect ...```
+
+As instructed, restart the terminal, and you're all set!
+
+> The reason for restarting the terminal is so that the shell environment will be restarted, which will in turn mean that the `.bashrc` file that sets up various things will be invoked again. We want this to happen because the `appstudiosetup` script has inserted a line into `.bashrc` to add a local directory to the `PATH` environment variable, so that the newly installed tools are available to run directly (if you're interested, it's the `setup()` function in `appstudiosetup` that does this).
+
 
 
 
