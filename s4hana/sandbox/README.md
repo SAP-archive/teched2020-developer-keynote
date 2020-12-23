@@ -9,6 +9,9 @@
   - [On SAP Cloud Platform - CF runtime](#on-sap-cloud-platform---cf-runtime)
     - [Using cf push](#using-cf-push)
     - [Using cf deploy](#using-cf-deploy)
+  - [On SAP Cloud Platform - Kyma runtime](#on-sap-cloud-platform---kyma-runtime)
+    - [Docker images, containers, package registries and Kyma](#docker-images-containers-package-registries-and-kyma)
+  
 
 
 ## Overview
@@ -251,14 +254,30 @@ In this example, the `API_SALES_ORDER_SRV`'s service document would be available
 
 ### On SAP Cloud Platform - Kyma runtime
 
-There are a number of steps to get the app running in Kyma, i.e. on k8s:
+There are a number of steps to get the app running in Kyma, i.e. on k8s.
 
-- build a Docker image for the app
-- publish the image to a container registry
-- create a k8s secret for registry access
-- make a deployment to Kyma
+#### Docker images, containers, package registries and Kyma
 
-If you've gone through the process of running the app locally in a Docker container, as described earlier, you're already part way there.
+Having a look at the steps, they are, approximately:
+
+1. build a Docker image for the app
+1. publish the image to a container registry
+1. create a k8s secret for registry access
+1. make a deployment to Kyma
+
+In other words, in a Kyma context, the app exists as a container and we'll be using Docker to create the container image from which our app container can be created. Moreover, we need to make that container image available somewhere for the Kyma runtime to retrieve it and start up one or more instances of it. 
+
+That place where we'll make the container image available is a container registry provided by GitHub, specifically connected to your forked version of this repository. If you have a look at [the original Developer Keynote repository](https://github.com/SAP-samples/teched2020-developer-keynote), i.e. the source of your fork, i.e. the one in the [SAP-samples](https://github.com/SAP-samples/) organization on GitHub, you'll see that it has a list of "Packages" associated with it, as shown in the bottom right of this screenshot:
+
+![Packages in the original Developer Keynote repository](images/packages.png)
+
+Note that the packages (you can also see them in [the organization-level package list, filtered by repository](https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote)) each have a Docker icon next to them; this denotes that they are Docker packages (there are other package types that can be stored in the repository, such as NPM and NuGet packages).
+
+And, last but not least, access to packages in the GitHub package registry requires authentication - this is why you'll need to generate a secret to make available to Kyma to use, to retrieve the container image from there.
+
+
+
+If you have Docker in your development environment, you can use the `docker` command line tool to achieve the first two steps; there's also a helper script ([`d`](d)) for this. However, if you're using the App Studio as your [development environment](../../README.md#a-development-environment) then you don't have direct access to Docker or the `docker` tool. Instead, you can use [GitHub Actions](https://github.com/features/actions) in the context of your repository to both build and publish the Docker image. 
 
 #### Build a Docker image
 
