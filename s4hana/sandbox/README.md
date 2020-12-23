@@ -11,7 +11,7 @@
     - [Using cf deploy](#using-cf-deploy)
   - [On SAP Cloud Platform - Kyma runtime](#on-sap-cloud-platform---kyma-runtime)
     - [Docker images, containers, package registries and Kyma](#docker-images-containers-package-registries-and-kyma)
-    - [Build a Docker image](#build-a-docker-image)
+    - [Build and publish a Docker image](#build-and-publish-a-docker-image)
   
 
 
@@ -278,11 +278,11 @@ Note also that access to packages in the GitHub package registry requires authen
 
 Once you've completed the steps in this section, you'll also have an 's4mock' package in the GitHub Package Registry in the context of your own repository, and it will be that package that your Kyma runtime instance will retrieve.
 
-#### Build a Docker image
+#### Build and publish a Docker image
 
-If you have Docker in your development environment, you can use the `docker` command line tool to achieve the first two steps; there's also a helper script ([`d`](d)) for this. However, if you're using the App Studio as your [development environment](../../README.md#a-development-environment) then you don't have direct access to Docker or the `docker` tool. Instead, you can use [GitHub Actions](https://github.com/features/actions) in the context of your repository to both build and publish the Docker image. 
+If you have Docker in your development environment, you can use the `docker` command line tool to achieve the first two steps; there's also a helper script ([`d`](d)) for this. 
 
-There is an [`image-build-and-publish.yml`](../../.github/workflows/image-build-and-publish.yml) workflow available in this repository, with the description "Build and publish Docker image". You can see it from a DevOps perspective in the "Actions" area of this repository (again, make sure you're working within _your fork_ of the Developer Keynote repository):
+However, if you're using the App Studio as your [development environment](../../README.md#a-development-environment) then you don't have direct access to Docker or the `docker` tool. Instead, you can use [GitHub Actions](https://github.com/features/actions) in the context of your repository to both build and publish the Docker image. There is an [`image-build-and-publish.yml`](../../.github/workflows/image-build-and-publish.yml) workflow available in this repository, with the description "Build and publish Docker image". You can see it from a DevOps perspective in the "Actions" area of this repository (again, make sure you're working within _your fork_ of the Developer Keynote repository):
 
 ![The workflow](images/workflow.png)
 
@@ -292,7 +292,7 @@ This workflow consists of a single job with multiple steps, which perform the fo
 1. Builds the Docker image
 1. Logs into the package registry and pushes the image there
 
-While browsing the [workflow source](../../.github/workflows/image-build-and-publish.yml), notice also that the workflow defines three inputs, as follows:
+While browsing the [workflow source](../../.github/workflows/image-build-and-publish.yml), you will notice also that the workflow defines three inputs, as follows:
 
 |Input|Description|
 |-|-|
@@ -300,8 +300,29 @@ While browsing the [workflow source](../../.github/workflows/image-build-and-pub
 |`app`|The name for the package (e.g. s4mock, brain or calculationservice)|
 |`dir`|The directory containing the app artifacts (relative to the component's location in the repo)|
 
-In other words, yes - this workflow is designed to offer Docker image build and publishing services for not just this SANDBOX component, but for other components in this Developer Keynote repository (and so must be parameterized). 
+In other words, yes - this workflow is designed to offer Docker image build and publishing services for not just this SANDBOX component, but for other components in this Developer Keynote repository, specifically the BRAIN and CONVERTER ("calculationservice") components ... and so the workflow must be parameterized. 
 
+> If this is the first time you are using workflows on your forked repository, be aware that you'll have to [enable them first](../../enabling-workflows.md).
+
+Start the workflow and be ready to supply the appropriate values for the parameters. Select the workflow ("Build and publish Docker image") and use the `workflow_dispatch` event trigger, i.e. the "Run workflow" button to manually invoke it. Specify the appropriate values for this SANDBOX component, as shown in the screenshot and the following table:
+
+![Run workflow](images/run-workflow.png)
+
+|Parameter|Specify this value|
+|-|-|
+|The directory in the repo where the component lives|`s4hana/sandbox/`|
+|The name for the package (e.g. s4mock, brain or calculationservice)|`s4mock`|
+|The directory containing the app artifacts (relative to the component's location in the repo)|`router/`|
+
+The workflow should complete successfully - if you wish, examine the detailed output of the steps (by expanding the `>` symbols shown in the screenshot):
+
+![successful completion of the build job](images/build-job-success.png)
+
+The result of this successful workflow execution should be a package "s4mock", representing a Docker image version of this SANDBOX component app, in the GitHub package registry, associated with your repository. You will be able to see this on the main page of your repository:
+
+![s4mock package](images/s4mock-package.png)
+
+You'll also be able to see it in the general package listing for your GitHub user in a similar way to the listing for this SAP-samples based repository: https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote - just substitute the `orgs/SAP-samples` part with your GitHub username to see your own.
 
 #### Publish the image to a container registry
 
