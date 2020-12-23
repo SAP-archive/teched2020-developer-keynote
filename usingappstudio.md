@@ -2,6 +2,7 @@
 
 **Contents**
 - [Overview](#overview)
+  - [A note on Docker and App Studio](#a-note-on-docker-and-app-studio)
 - [Perform initial setup](#perform-initial-setup)
 - [Create a Dev Space](#create-a-dev-space)
 - [Clone your fork of this repository](#clone-your-fork-of-this-repository)
@@ -17,6 +18,16 @@ The aim here is to make sure you can dig into and get your hands dirty with all 
 The [App Studio](https://help.sap.com/viewer/product/SAP%20Business%20Application%20Studio/Cloud/en-US) is available to everyone with a trial account on SAP Cloud Platform, and provides a very comfortable working environment with a familiar IDE paradigm, a wealth of plugins and extensions, and access to a terminal for using command line tools.
 
 Follow the instructions here to get ready.
+
+### A note on Docker and App Studio
+
+Note that App Studio doesn't give you a Docker engine - you won't be able to directly build images, for example, in the context of a Dev Space. However, there are other ways to get images built and published (which is what's required for some of the components in this repository, for eventual deployment to and execution in the Kyma / Kubernetes environment). 
+
+Where Docker images need to be built, we'll be using facilities provided by GitHub, in the context of your own forked version of this repository. This is partly why we've insisted you fork this repository before starting (the other, main reason being that you get to store Docker images in the [GitHub Package Repository](https://github.com/features/packages) facilities connected to your own repository). 
+
+The Docker facilities in GitHub come in the form of actions & command line invocations that can be carried out in the context of jobs, using [GitHub Actions](https://github.com/features/actions).
+
+If you choose to use and manage your own development environment, and have access to Docker, you are of course more than welcome to use Docker locally.
 
 ## Perform initial setup
 

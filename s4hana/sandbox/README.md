@@ -1,12 +1,19 @@
-# SANDBOX
+# The SANDBOX component
 
-This is a small app that acts as a proxy in front of the SAP API Business Hub (API Hub) sandbox system. Because the app itself is small, we'll take the opportunity to explore different ways of running it, without having to worry too much about _what_ we're running. So here we'll explore running locally, in Docker, on Cloud Foundry (CF) and on Kubernetes (k8s) with Kyma.
+**Contents**
+- [Overview](#overview)
+- [Notes](#notes)
+- [Configuration](#configuration)
+- [Running the app](#running-the-app)
+  - [Locally](#locally)
+  - [On SAP Cloud Platform - CF runtime](#on-sap-cloud-platform---cf-runtime)
 
-## Assumptions
-
-These instructions assume that you've opted to use the SAP Business Application Studio (App Studio) as your [development environment](../../README.md#a-development-environment) and have followed the [App Studio setup instructions](../../usingappstudio.md). However, there's nothing stopping you from doing all of this in your own development environment.
 
 ## Overview
+
+The SANDBOX component is a small app that acts as a proxy in front of the SAP API Business Hub (API Hub) sandbox system. Because the app itself is small, we'll take the opportunity to explore different ways of running it, without having to worry too much about _what_ we're running. So here we'll explore running locally, on Cloud Foundry (CF) and on Kubernetes (k8s) with Kyma. In the Developer Keynote, this app is running in the Kyma runtime.
+
+> The contents of this README assume that you've opted to use the SAP Business Application Studio (App Studio) as your [development environment](../../README.md#a-development-environment) and have followed the [App Studio setup instructions](../../usingappstudio.md).
 
 The context in which it runs is shown as the highlighted section of the whiteboard:
 
@@ -14,21 +21,17 @@ The context in which it runs is shown as the highlighted section of the whiteboa
 
 Access to the API Hub sandbox system is protected; each and every call to it needs to have an API key specified in an HTTP header. That is what this app does - attach the API key to all requests during transit.
 
-There are two APIs that are used on the sandbox system that the API Hub makes available. Both are SAP S/4HANA Cloud APIs: [Sales Order (A2X)](https://api.sap.com/api/API_SALES_ORDER_SRV/resource) and [Business Partner (A2X)](https://api.sap.com/api/API_BUSINESS_PARTNER/resource).
+There are two APIs that are used on the sandbox system that the API Hub makes available for our use in the context of the Developer Keynote. Both are SAP S/4HANA Cloud APIs: [Sales Order (A2X)](https://api.sap.com/api/API_SALES_ORDER_SRV/resource) and [Business Partner (A2X)](https://api.sap.com/api/API_BUSINESS_PARTNER/resource).
 
-In the developer keynote, this app is running in the Kyma runtime, but -- depending on the development environment you have -- you can run it locally, locally in a Docker container, and in CF too. It's useful to get this app running in different environments because you can compare and contrast them and learn about the differences.
-
-There are two helper scripts in this directory that have been written to help you through the Docker related steps (the [`d`](d) script) and the Kyma / k8s related steps (the [`k`](k) script), and you can use them depending on the development environment setup that you have.
-
-In the context of the App Studio as your development environment, while you can use the `k` script for the Kyma / k8s tasks, you'll perform the Docker tasks using GitHub Actions features related to your forked GitHub repository rather than the `d` script. This is because there is no App Studio local Docker engine available, but there is one in the context of [GitHub Actions](https://github.com/features/actions).
+There are two helper scripts in this directory that have been written to help you through the Docker related steps (the [`d`](d) script) and the Kyma / k8s related steps (the [`k`](k) script), and you can use them depending on the development environment setup that you have. In the context of the App Studio as your development environment, while you can use the `k` script for the Kyma / k8s tasks, you'll perform the Docker tasks using GitHub Actions features related to your forked GitHub repository rather than the `d` script. See the [note on Docker and App Studio](../../usingappstudio.md#a-note-on-docker-and-app-studio) for more details.
 
 ## Notes
 
-Note that everything in this README is relative to -- and based upon you being in -- this README's location in the repository, i.e. the `s4hana/sandbox/` directory:
+Note that everything in this README is relative to this README's location in the repository, i.e. the `s4hana/sandbox/` directory:
 
 ![relative location - the `s4hana/sandbox` directory](images/relative-location.png)
 
-Command line invocations shown here should also be made in the App Studio. To get ready, **open a new Terminal** with the menu path "Terminal -> New Terminal"; this should present you with a new panel with a Bash shell prompt, something like this:
+Command line invocations shown here should also be made in the App Studio. To get ready, [make sure you have a terminal open and ready](usingappstudio.md#open-up-a-terminal), this should present you with a Bash shell prompt, something like this:
 
 ![Bash shell prompt in a new Terminal session](images/shell-prompt.png)
 
@@ -39,9 +42,10 @@ user: teched2020-developer-keynote $ cd s4hana/sandbox/
 user: sandbox $
 ```
 
-As you can see here, the information before the `$` prompt shows you your username and (the last component part of) your directory location.
-
 > Alternatively, you can open a Terminal directly at the `s4hana/sandbox/` directory location by using the context menu on the `sandbox` directory node in the App Studio's Explorer and selecting "Open in Terminal".
+
+As you can see here from what's displayed, the information before the `$` prompt shows you your username in the Dev Space ("user") and the last component part of your directory location ("sandbox").
+
 
 ## Configuration
 
@@ -59,7 +63,7 @@ Note that while editing these configuration files, you'll see another environmen
 
 ## Running the app
 
-As mentioned earlier, you can run this app in a number of different contexts. We'll start with local, then look at a deployment to CF, and finally Kyma / k8s.
+As mentioned earlier, you can run this app in a number of different contexts. We'll start with running locally, then look at a deployment to CF, and finally Kyma / k8s.
 
 ### Locally
 
