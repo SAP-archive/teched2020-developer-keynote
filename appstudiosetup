@@ -19,7 +19,7 @@ setup() {
 
 # Add other configurations
 configure() {
-    echo $'KUBECONFIG=$HOME/projects/teched2020-developer-keynote/kubeconfig.yml' >> "$HOME/.bashrc"
+    echo $'export KUBECONFIG=$HOME/projects/teched2020-developer-keynote/kubeconfig.yml' >> "$HOME/.bashrc"
 }
 
 install() {
