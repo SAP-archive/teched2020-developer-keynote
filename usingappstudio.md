@@ -8,6 +8,7 @@
 - [Clone your fork of this repository](#clone-your-fork-of-this-repository)
 - [Open up a terminal](#open-up-a-terminal)
 - [Add tools to your Dev Space](#add-tools-to-your-dev-space)
+- [Set up the Kyma runtime configuration](#set-up-the-kyma-runtime-configuration)
 
 ## Overview
 
@@ -107,3 +108,39 @@ Please now restart the terminal (Ctrl-D then Ctrl-`) to have the new shell setti
 As instructed, restart the terminal, and you're all set!
 
 > The reason for restarting the terminal is so that the shell environment will be restarted, which will in turn means that the `.bashrc` file that sets up various things will be invoked again. We want this to happen because the `appstudiosetup` script has inserted a line into `.bashrc` to add a local directory to the `PATH` environment variable, so that the newly installed tools are available to run directly (if you're interested, it's the `setup()` function in `appstudiosetup` that does this).
+
+## Set up the Kyma runtime configuration
+
+To interact with Kyma, you can use the dashboard, which will be linked from your trial subaccount on SAP Cloud Platform, as shown:
+
+![Kyma dashboard link](images/kyma-dashboard-link.png)
+
+You can also use the `kubectl` command line tool. This tool is automatically installed into your Dev Space with the `appstudiosetup` script mentioned in an earlier section, but in order to use it, or rather connect it to your specific Kyma environment, you need to download the configuration known as "kubeconfig", and ensure that your `kubectl` tool knows where to find that configuration.
+
+You download the "kubeconfig" configuration as a file, from the Kyma dashboard, and then tell `kubectl` where it is via the special environment variable `KUBECONFIG`. In the SAP Developers tutorial [Install the Kubernetes Command Line Tool](https://developers.sap.com/tutorials/cp-kyma-download-cli.html) this process is described generally in the last two steps ("Download the Kyma runtime kubeconfig" and "Set the KUBECONFIG environment variable"). This is what we need to do now, but in the context of your Dev Space.
+
+Downloading the "kubeconfig" configuration will result in a `kubeconfig.yml` file being placed in your local filesystem. Upload this to your Dev Space's workspace, specifically to the root i.e. the `projects/teched2020-developer-keynote/` directory. You can do this simply by selecting the file in your file system and dragging it to the Explorer part of your Dev Space, ensuring you drag it into the right place. 
+
+Once you've done that, you're all set - the [`appstudiosetup`](appstudiosetup) script has already set the `KUBECONFIG` environment variable for you, by inserting a line like this into your `.bashrc` file:
+
+```sh
+export KUBECONFIG=$HOME/projects/teched2020-developer-keynote/kubeconfig.yml
+```
+
+You should now be able to query your Kyma runtime. Try a simple request, and you should see some output indicating a successful authentication with and connection to your runtime:
+
+```
+user: teched2020-developer-keynote $ kubectl get namespaces
+NAME               STATUS   AGE
+compass-system     Active   2d23h
+default            Active   3d
+istio-system       Active   3d
+knative-eventing   Active   3d
+kube-node-lease    Active   3d
+kube-public        Active   3d
+kube-system        Active   3d
+kyma-installer     Active   3d
+kyma-integration   Active   2d23h
+kyma-system        Active   3d
+natss              Active   3d
+```
