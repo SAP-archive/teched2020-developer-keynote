@@ -326,37 +326,6 @@ The result of this successful workflow execution should be a package "s4mock", r
 
 You'll also be able to see it in the general package listing for your GitHub user in a similar way to the listing for this SAP-samples based repository: https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote - just substitute the `orgs/SAP-samples` part with your GitHub username to see your own.
 
-#### Publish the image to a container registry
-
-The reason this step is required is because we want to get Kyma to pull the image from a container registry. We use the GitHub Packages Docker container registry in our session, and you can too. In the GitHub documentation article [Configuring Docker for use with GitHub Packages](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages) there's a section on [Authenticating to GitHub Packages](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages#authenticating-to-github-packages) which describes how you need to create a personal access token to use as a password in authentication flows. Do this now.
-
-> Once you have a person access token (with the appropriate scopes) you can publish your Docker image to your GitHub account.
-
-First, authenticate yourself with the registry, using the "login" action of the `d` script:
-
-```
-$ ./d login
-Authenticating with GitHub Packages
-Enter username: <YOUR GITHUB ORG/USERNAME>
-Enter password / token: <ACCESS TOKEN>
-Login Succeeded
-```
-
-Now you can publish the image, using the "publish" action of the `d` script, and you should see something similar to what's shown here:
-
-```
-$ ./d publish
-Publishing image to GitHub Packages
-The push refers to repository [docker.pkg.github.com/sap-samples/teched2020-developer-keynote/s4mock]
-...
-latest: digest: sha256:58870f6f89546548d6ee290cab89850a763c7c66faa93a2373bf1cf9385ec954 size: 3054
-```
-
-You can check in your own GitHub repository that this has been successful - check in your repository's Packages section (look on the right of your repository's home page on GitHub). You should see the `s4mock` package listed, as it is in [this repository's Packages section](https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote):
-
-![The s4mock package listed](images/s4mock-package-listing.png)
-
-> Other packages are shown in this screenshot too - they're from other components in this repository.
 
 #### Create a k8s secret for registry access
 
