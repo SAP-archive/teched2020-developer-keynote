@@ -17,6 +17,11 @@ setup() {
     echo $'PATH=$PATH:'"$bin" >> "$HOME/.bashrc"
 }
 
+# Add other configurations
+configure() {
+    echo $'KUBECONFIG=$HOME/projects/teched2020-developer-keynote/kubeconfig.yml' >> "$HOME/.bashrc"
+}
+
 install() {
     local name=$1
     local url=$2
@@ -37,6 +42,7 @@ main() {
     fi
 
     setup
+    configure
     install yq https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64
     install jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
     install kubectl "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
