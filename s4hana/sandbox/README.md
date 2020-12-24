@@ -12,6 +12,7 @@
   - [On SAP Cloud Platform - Kyma runtime](#on-sap-cloud-platform---kyma-runtime)
     - [Docker images, containers, package registries and Kyma](#docker-images-containers-package-registries-and-kyma)
     - [Build and publish a Docker image](#build-and-publish-a-docker-image)
+    - [Create a k8s secret for registry access](#create-a-k8s-secret-for-registry-access)
   
 
 
@@ -329,14 +330,28 @@ You'll also be able to see it in the general package listing for your GitHub use
 
 #### Create a k8s secret for registry access
 
-You had to authenticate to the container registry before publishing the image there; so too must the runtime (k8s) authenticate to be able to retrieve it. So in this step you need to store the container registry credentials so that they can be used by the runtime platform.
+So at this point you have a Docker container image in the GitHub packages registry, associated with your own repository. If you look at the last step in the [workflow source](../../.github/workflows/image-build-and-publish.yml) you'll see it looks like this:
 
-> You must be first authenticated with your Kyma runtime on SAP Cloud Platform for this step.
+```yaml
+    - name: Push the image to GitHub Package Registry
+      if: ${{ success() }}
+      run: |
+        echo ${{ secrets.GITHUB_TOKEN }} | docker login ${HUB} --username ${USER} --password-stdin
+        docker push ${HUB}/${GITHUB_REPOSITORY}/${{ github.event.inputs.app }}:${TAG}
+```
 
-A typical incantation to create such a secret looks like this:
+Note the `docker login` part before the `docker push` - authentication is required to connect to and interact with this registry. Not only for pushing images but also for retrieving them. That's why we now need to create a [secret](https://kubernetes.io/docs/concepts/configuration/secret/) with the same credentials, so that the image can be retrieved when we make the deployment. 
+
+> You must be first authenticated with your Kyma runtime on SAP Cloud Platform for this step, and have the Kyma runtime configuration downloaded and set up. See the [Set up the Kyma runtime configuration](../../usingappstudio.md#set-up-the-kyma-runtime-configuration) section of [Using the SAP Business Application Studio](../../usingappstudio.md).
+
+There are different types of secrets - the type we need to create is a Docker registry secret. A typical incantation to create such a secret looks like this:
 
 ```
-kubectl create secret docker-registry regcred --docker-server=https://docker.pkg.github.com --docker-username=<YOUR GITHUB ORG/USERNAME> --docker-password=<ACCESS TOKEN> --docker-email=<YOUR GITHUB EMAIL>
+kubectl create secret docker-registry <SECRETNAME> \
+  --docker-server=https://docker.pkg.github.com \
+  --docker-username=<YOUR GITHUB ORG/USERNAME> \
+  --docker-password=<ACCESS TOKEN> \
+  --docker-email=<YOUR GITHUB EMAIL>
 ```
 
 This has been also made available as an action in another script: [`k`](k):
