@@ -9,6 +9,8 @@
   - [Overview](#overview)
   - [Setting up](#setting-up)
   - [Queue and queue subscription to a topic](#queue-and-queue-subscription-to-a-topic)
+  - [Publishing of another message](#publishing-of-another-message)
+  - [Consuming the message from the queue(#consuming-the-message-from-the-queue)
 
 
 ## Overview
@@ -196,12 +198,12 @@ acknowledge_message_consumption
 
 Use the `management` script to create a test queue, and then connect it to the "salesorder/created" topic.
 
-First, the queue. Let's call it "testqueue":
+First, the queue. Let's call it "test":
 
 ```
-user: cloud-messaging-handsonsapdev $ ./management create_update_queue testqueue
+user: cloud-messaging-handsonsapdev $ ./management create_update_queue test
 {
-  "name": "testqueue",
+  "name": "test",
   "messageCount": 0,
   "queueSizeInBytes": 0,
   "unacknowledgedMessageCount": 0,
@@ -212,18 +214,92 @@ user: cloud-messaging-handsonsapdev $ ./management create_update_queue testqueue
 }
 ```
 
-Now, the queue subscription, connecting this "testqueue" to the "salesorder/created" topic:
+Now, the queue subscription, connecting this "test" to the "salesorder/created" topic:
 
 ```bash
-user: cloud-messaging-handsonsapdev $ ./management create_update_queue_subscription testqueue salesorder/created
+user: cloud-messaging-handsonsapdev $ ./management create_update_queue_subscription test salesorder/created
 {
-  "queueName": "testqueue",
+  "queueName": "test",
   "topicPattern": "salesorder/created"
 }
 ```
 
+Let's just check to see if there are any messages in this new "test" queue:
+
+```bash
+user: cloud-messaging-handsonsapdev $ ./management get_queue test
+{
+  "name": "test",
+  "messageCount": 0,
+  "queueSizeInBytes": 0,
+  "unacknowledgedMessageCount": 0,
+  "maxQueueSizeInBytes": 0,
+  "maxQueueMessageCount": 0,
+  "respectTtl": null,
+  "deadMsgQueue": null
+}
+```
+
+We can see from the value for the `messageCount` property that there are none (which makes sense, we've only just created it).
+
 So far so good. Now we're ready to use the `emit` script again to create another "salesorder/created" message.
 
+### Publishing of another message
 
+Back over in the first terminal (on the left in the screenshot above), use the `emit` script again to publish another message to the "salesorder/created" topic.
+
+> For those wondering, the message we published earlier disappeared, as there was no queue subscribed to the topic, and it is the queue mechanism, rather than the topic mechanism, where messages are held.
+
+```bash
+user: event $ ./emit 1
+2020-12-31 13:59:15 Publishing sales order created event for 1
+2020-12-31 13:59:15 Publish message to topic salesorder%2Fcreated
+```
+
+Back over in the second terminal (on the right), let's check again to see if there are now any messages in the "test" queue:
+
+```bash
+user: cloud-messaging-handsonsapdev $ ./management get_queue test
+{
+  "name": "test",
+  "messageCount": 1,
+  "queueSizeInBytes": 256,
+  "unacknowledgedMessageCount": 0,
+  "maxQueueSizeInBytes": 0,
+  "maxQueueMessageCount": 0,
+  "respectTtl": null,
+  "deadMsgQueue": null
+}
+
+We now have one message in the queue!
+
+### Consuming the message from the queue
+
+Let's consume that message, using the Messaging API. That way we can have a look at the details.
+
+```bash
+user: cloud-messaging-handsonsapdev $ ./messaging consume_message_from_queue testqueue
+2020-12-31 14:03:41 Consume message from queue
+{"type":"sap.s4.beh.salesorder.v1.SalesOrder.Created.v1","specversion":"1.0","source":"/default/sap.s4.beh/DEVCLNT001","id":"db13c94e-c20f-4b2e-8171-6970104721a0","time":"2020-12-31T13:59:15Z","datacontenttype":"application/json","data":{"SalesOrder":"1"}}
+```
+
+Great - we can see that the message is indeed what we're expecting. If we format the message JSON, we can read it a little better:
+
+```bash
+user: cloud-messaging-handsonsapdev $ echo $'{"type":"sap.s4.beh.salesorder.v1.SalesOrder.Created.v1","specversion":"1.0","source":"/default/sap.s4.beh/DEVCLNT001","id":"db13c94e-c20f-4b2e-8171-6970104721a0","time":"2020-12-31T13:59:15Z","datacontenttype":"application/json","data":{"SalesOrder":"1"}}' | jq .
+{
+  "type": "sap.s4.beh.salesorder.v1.SalesOrder.Created.v1",
+  "specversion": "1.0",
+  "source": "/default/sap.s4.beh/DEVCLNT001",
+  "id": "db13c94e-c20f-4b2e-8171-6970104721a0",
+  "time": "2020-12-31T13:59:15Z",
+  "datacontenttype": "application/json",
+  "data": {
+    "SalesOrder": "1"
+  }
+}
+```
+
+Nice work!
 
 
