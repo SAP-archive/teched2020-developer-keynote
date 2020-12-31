@@ -5,6 +5,7 @@
 **Contents**
 
 - [Overview](#overview)
+- [The components](#the-components)
 - [Quick start](#quick-start)
 - [Requirements](#requirements)
   - [A development environment](#a-development-environment)
@@ -31,6 +32,8 @@ Watch the [Developer Keynote replay](https://events.sapteched.com/widget/sap/sap
 The layout of this repository generally reflects the different components shown on the whiteboard diagram and demonstrated throughout the session.
 
 ![Whiteboard diagram](images/whiteboard.jpg)
+
+## The components
 
 You can study and experiment with each component individually, and they are of course all designed to work together as shown in the developer keynote itself. Each component has its own directory within this repository.
 
