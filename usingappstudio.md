@@ -121,6 +121,8 @@ You download the "kubeconfig" configuration as a file, from the Kyma dashboard, 
 
 Downloading the "kubeconfig" configuration will result in a `kubeconfig.yml` file being placed in your local filesystem. Upload this to your Dev Space's workspace, specifically to the root i.e. the `projects/teched2020-developer-keynote/` directory. You can do this simply by selecting the file in your file system and dragging it to the Explorer part of your Dev Space, ensuring you drag it into the right place. 
 
+> The "kubeconfig" based credentials expire after a certain amount of time; you'll notice because you'll see a message like this: "error: You must be logged into the server (the server has asked for the client to provide credentials)". When this happens, simply repeat the download / upload process here.
+
 Once you've done that, you're all set - the [`appstudiosetup`](appstudiosetup) script has already set the `KUBECONFIG` environment variable for you, by inserting a line like this into your `.bashrc` file:
 
 ```sh
