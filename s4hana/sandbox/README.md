@@ -13,7 +13,8 @@
     - [Docker images, containers, package registries and Kyma](#docker-images-containers-package-registries-and-kyma)
     - [Build and publish a Docker image](#build-and-publish-a-docker-image)
     - [Create a k8s secret for registry access](#create-a-k8s-secret-for-registry-access)
-  
+    - [Make a deployment to Kyma](#make-a-deployment-to-kyma)
+- [Summary](#summary)
 
 
 ## Overview
@@ -430,3 +431,7 @@ Visit the Kyma console (get there from your trial subaccount overview page and u
 ![API Rules](images/api-rules.png)
 
 Open up that URL. You'll noticed that you get redirected to `/sap/opu/odata/sap/API_SALES_ORDER_SRV/` - you should now see your old friend the API's service document.
+
+## Summary
+
+At this point, you should have your own SANDBOX component ("s4mock") built as a Docker image, stored in the GitHub Package Registry in the context of your forked repository, and that image deployed to the Kyma runtime on your SAP Cloud Platform trial account. Well done!
