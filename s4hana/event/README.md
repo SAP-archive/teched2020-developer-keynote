@@ -5,6 +5,7 @@
 - [Overview](#overview)
 - [Requirements](#requirements)
 - [Usage](#usage)
+- [Checking event messages](#checking-event-messages)
 
 ## Overview
 
@@ -45,11 +46,11 @@ These instructions assume you've forked this repository (see the [Download and I
 
 ## Usage
 
-The component itself is the `emit` script in this directory. It's designed to be used from the command line, and expects a single parameter that is mandatory - the sales order number. In order for the end-to-end process to make sense and work properly, this must be a sales order that exists in the S/4HANA mock system. Use your [SANDBOX component](../sandbox) to get a proxy running in front of the API Hub's mock service for API_SALES_ORDER_SRV, and pick a valid sales order from the `A_SalesOrder` entityset. 
+The component itself is the `emit` script in this directory. It's designed to be used from the command line, and expects a single parameter that is mandatory - the sales order number. In order for the end-to-end process to make sense and work properly, this must be a sales order that exists in the S/4HANA mock system. Use your [SANDBOX component](../sandbox) to get a proxy running in front of the API Hub's mock service for API_SALES_ORDER_SRV, and pick a valid sales order from the `A_SalesOrder` entityset.
 
 For example, if you are currently running a [local version of the proxy](../sandbox#locally), look at the first 10 sales orders in the entityset at
 
-`http://localhost:5000/sap/opu/odata/sap/API_SALES_ORDER_SRV/A_SalesOrder?$top=10` 
+`http://localhost:5000/sap/opu/odata/sap/API_SALES_ORDER_SRV/A_SalesOrder?$top=10`
 
 and pick one of the sales order IDs from that list (get the value from the `SalesOrder` property).
 
@@ -96,3 +97,129 @@ user: event $ ./emit 1
 ```
 
 > The `%2F` in the topic name is a URL encoded `/` which is required because the Messaging API endpoint uses the topic name in the URL path. We could have the `emit` script encode it, but that would mean an extra dependency on e.g. Python or [an npm package](https://www.npmjs.com/package/url-decode-encode-cli) for example, which is not worth it for this.
+
+## Checking event messages
+
+The output at the end of the previous section, stating that a sales order created event was indeed published, is all well and good, but the rhyming proverb _Доверяй, но проверяй_ ([Trust, but verify](https://en.wikipedia.org/wiki/Trust,_but_verify)) encourages to dig in a little to check what was published.
+
+This is an optional last step, in case you're interested.
+
+### Overview
+
+Accompanying the [Diving into messaging on SAP Cloud Platform series](https://www.youtube.com/playlist?list=PL6RpkC85SLQCf--P9o7DtfjEcucimapUf) on the Hands-on SAP Dev show (see [An overview of SAP Developers video content](An overview of SAP Developers video content) for more info) there's a repository of scripts and configuration: [cloud-messaging-handsonsapdev](https://github.com/SAP-samples/cloud-messaging-handsonsapdev).
+
+In this repository there are scripts that allow you to comfortably use the SAP Enterprise Messaging APIs. There are two APIs, each with various endpoints. Briefly, they are:
+
+- Management: relating to queues and queue subscriptions
+- Messaging: relating to production and consumption of messages (including via webhook subscriptions)
+
+Using the Management API, you can set up a test queue & subscribe it to the "salesorder/created" topic. Then, once you've used the `emit` script as described earlier, you can use the Messaging API to consume the messages from that test queue. This way you can get a bit closer to what's going on, while also verifying for yourself that `emit` did what it said it did.
+
+### Setting up
+
+First, open up a second terminal in which to perform these steps. You can use the shortcut Ctrl-` to open up a new terminal window, or you can use the "Split Terminal" feature to create another terminal window side-by-side. This screenshot shows a second split terminal, which was created by using the "two boxes" icon in the top right of the first terminal window (you can also use the "Terminal: Split Terminal" command from App Studio's Command Palette, also shown in the screenshot):
+
+![split terminals](../../images/split-terminals.png)
+
+Now, in the second terminal, move to the `projects/` directory, which is where your current cloned repository is (this is also shown in the screenshot above), like this:
+
+```
+user: teched2020-developer-keynote $ cd $HOME/projects
+user: projects $
+```
+
+If at this point you list the contents of the `projects/` directory you'll see the root of this repository, i.e. a directory called `teched2020-developer-keynote`:
+
+```
+user: projects $ ls
+teched2020-developer-keynote
+```
+
+Now clone the [cloud-messaging-handsonsapdev](https://github.com/SAP-samples/cloud-messaging-handsonsapdev) repository:
+
+```
+user: projects $ git clone https://github.com/SAP-samples/cloud-messaging-handsonsapdev.git
+Cloning into 'cloud-messaging-handsonsapdev'...
+remote: Enumerating objects: 322, done.
+remote: Total 322 (delta 0), reused 0 (delta 0), pack-reused 322
+Receiving objects: 100% (322/322), 113.32 KiB | 547.00 KiB/s, done.
+```
+
+Now there are two directories in `projects/`, one for each of the repositories you now have cloned here. Move into the new `cloud-messaging-handsonsapdev/` directory:
+
+```
+user: projects $ ls
+cloud-messaging-handsonsapdev  teched2020-developer-keynote
+user: projects $ cd cloud-messaging-handsonsapdev/
+user: cloud-messaging-handsonsapdev $
+```
+
+At this point you're ready to invoke the [`management`](https://github.com/SAP-samples/cloud-messaging-handsonsapdev/blob/main/management) and [`messaging`](https://github.com/SAP-samples/cloud-messaging-handsonsapdev/blob/main/messaging) scripts that allow you to use the Management and Messaging APIs respectively.
+
+Try them both out now, with no arguments, to get a feel for what they offer.
+
+The `management` script offers queue and queue subscription related API endpoints:
+
+```
+user: cloud-messaging-handsonsapdev $ ./management
+create_update_queue
+delete_queue
+get_queue
+list_queues
+list_queue_subscriptions
+create_update_queue_subscription
+delete_queue_subscription
+```
+
+The `messaging` script offers message production and consumption API endpoints:
+
+```
+user: cloud-messaging-handsonsapdev $ ./messaging
+publish_message_to_topic
+publish_message_to_queue
+list_webhook_subscriptions
+get_webhook_subscription
+create_webhook_subscription
+delete_webhook_subscription
+trigger_handshake_request
+pause_webhook_subscription
+resume_webhook_subscription
+consume_message_from_queue
+acknowledge_message_consumption
+```
+
+### Queue and queue subscription to a topic
+
+Use the `management` script to create a test queue, and then connect it to the "salesorder/created" topic.
+
+First, the queue. Let's call it "testqueue":
+
+```
+user: cloud-messaging-handsonsapdev $ ./management create_update_queue testqueue
+{
+  "name": "testqueue",
+  "messageCount": 0,
+  "queueSizeInBytes": 0,
+  "unacknowledgedMessageCount": 0,
+  "maxQueueSizeInBytes": 0,
+  "maxQueueMessageCount": 0,
+  "respectTtl": null,
+  "deadMsgQueue": null
+}
+```
+
+Now, the queue subscription, connecting this "testqueue" to the "salesorder/created" topic:
+
+```
+user: cloud-messaging-handsonsapdev $ ./management create_update_queue_subscription testqueue salesorder/created
+{
+  "queueName": "testqueue",
+  "topicPattern": "salesorder/created"
+}
+```
+
+So far so good. Now we're ready to use the `emit` script again to create another "salesorder/created" message.
+
+
+
+
