@@ -98,7 +98,7 @@ user: event $ ./emit 1
 
 > The `%2F` in the topic name is a URL encoded `/` which is required because the Messaging API endpoint uses the topic name in the URL path. We could have the `emit` script encode it, but that would mean an extra dependency on e.g. Python or [an npm package](https://www.npmjs.com/package/url-decode-encode-cli) for example, which is not worth it for this.
 
-## Checking event messages
+## Checking event messages
 
 The output at the end of the previous section, stating that a sales order created event was indeed published, is all well and good, but the rhyming proverb _Доверяй, но проверяй_ ([Trust, but verify](https://en.wikipedia.org/wiki/Trust,_but_verify)) encourages to dig in a little to check what was published.
 
