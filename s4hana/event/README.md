@@ -10,7 +10,7 @@
   - [Setting up](#setting-up)
   - [Queue and queue subscription to a topic](#queue-and-queue-subscription-to-a-topic)
   - [Publishing of another message](#publishing-of-another-message)
-  - [Consuming the message from the queue(#consuming-the-message-from-the-queue)
+  - [Consuming the message from the queue](#consuming-the-message-from-the-queue)
 
 
 ## Overview
@@ -244,7 +244,7 @@ We can see from the value for the `messageCount` property that there are none (w
 
 So far so good. Now we're ready to use the `emit` script again to create another "salesorder/created" message.
 
-### Publishing of another message
+### Publishing of another message
 
 Back over in the first terminal (on the left in the screenshot above), use the `emit` script again to publish another message to the "salesorder/created" topic.
 
@@ -270,6 +270,7 @@ user: cloud-messaging-handsonsapdev $ ./management get_queue test
   "respectTtl": null,
   "deadMsgQueue": null
 }
+```
 
 We now have one message in the queue!
 
