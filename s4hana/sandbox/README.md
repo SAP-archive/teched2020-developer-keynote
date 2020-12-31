@@ -390,7 +390,25 @@ regcred                           kubernetes.io/dockerconfigjson        1      1
 
 #### Make a deployment to Kyma
 
-Now everything is ready to make a deployment to the Kyma runtime. The deployment is described in the `deployment.yaml` file, which includes a reference to the Docker image you've just published to the container registry. It will be retrieved using the secret you just created.
+Now everything is ready to make a deployment to the Kyma runtime. The deployment is described in the `deployment.yaml` file, which includes a number of important references that should now be familiar to you. Take a quick look at the contents of this file to see them, and you'll also need to make a modification too. Let's first look at them:
+
+- the API key for the API Hub sandbox system (plus a pointer to the endpoint in the form of a destination definition)
+- the Docker image ("s4mock"), stored in the GitHub Package Registry 
+- the "regcred" secret you just created
+
+Make sure you modify the value for the following property:
+
+`spec -> template -> spec -> containers -> image`
+
+Initially, this will have the following value:
+
+`docker.pkg.github.com/sap-samples/teched2020-developer-keynote/s4mock:latest`
+
+Change this to match your forked repository that your working from. Following the example from earlier, where the user 'qmacro' has forked the repository, the change in this case needs to be made so that the value becomes:
+
+`docker.pkg.github.com/qmacro/teched2020-developer-keynote/s4mock:latest`
+
+Make sure this matches your GitHub org / username and repository name and save the file.
 
 The deployment is quite simple at this stage (as you can see from the `deploy` function in the [`k`](k) script). Invoke it with the "deploy" action thus:
 
