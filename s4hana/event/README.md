@@ -106,14 +106,14 @@ This is an optional last step, in case you're interested.
 
 ### Overview
 
-Accompanying the [Diving into messaging on SAP Cloud Platform series](https://www.youtube.com/playlist?list=PL6RpkC85SLQCf--P9o7DtfjEcucimapUf) on the Hands-on SAP Dev show (see [An overview of SAP Developers video content](An overview of SAP Developers video content) for more info) there's a repository of scripts and configuration: [cloud-messaging-handsonsapdev](https://github.com/SAP-samples/cloud-messaging-handsonsapdev).
+Accompanying the [Diving into messaging on SAP Cloud Platform series](https://www.youtube.com/playlist?list=PL6RpkC85SLQCf--P9o7DtfjEcucimapUf) on the Hands-on SAP Dev show (see [An overview of SAP Developers video content](https://blogs.sap.com/2020/11/09/an-overview-of-sap-developers-video-content/) for more info) there's a repository [cloud-messaging-handsonsapdev](https://github.com/SAP-samples/cloud-messaging-handsonsapdev).
 
-In this repository there are scripts that allow you to comfortably use the SAP Enterprise Messaging APIs. There are two APIs, each with various endpoints. Briefly, they are:
+In this repository there are scripts that allow you to use the SAP Enterprise Messaging APIs in a simple way from the comfort of the terminal. There are two APIs, each with various endpoints. Briefly, they are:
 
 - Management: relating to queues and queue subscriptions
 - Messaging: relating to production and consumption of messages (including via webhook subscriptions)
 
-Using the Management API, you can set up a test queue & subscribe it to the "salesorder/created" topic. Then, once you've used the `emit` script as described earlier, you can use the Messaging API to consume the messages from that test queue. This way you can get a bit closer to what's going on, while also verifying for yourself that `emit` did what it said it did.
+To verify what is actually happening with this EMITTER component, you can use the Management API to set up a test queue & subscribe it to the "salesorder/created" topic. Then, once you've used the `emit` script as described earlier, you can use the Messaging API to consume the messages from that test queue and have a quick look at the contents. This way you can get a bit closer to what's going on, while also verifying for yourself that `emit` did what it said it did.
 
 ### Setting up
 
@@ -121,7 +121,7 @@ First, open up a second terminal in which to perform these steps. You can use th
 
 ![split terminals](../../images/split-terminals.png)
 
-Now, in the second terminal, move to the `projects/` directory, which is where your current cloned repository is (this is also shown in the screenshot above), like this:
+Next, in the second terminal, move to the `projects/` directory, which is where your current cloned repository is (this is also shown in the screenshot above), like this:
 
 ```
 user: teched2020-developer-keynote $ cd $HOME/projects
@@ -130,14 +130,14 @@ user: projects $
 
 If at this point you list the contents of the `projects/` directory you'll see the root of this repository, i.e. a directory called `teched2020-developer-keynote`:
 
-```
+```bash
 user: projects $ ls
 teched2020-developer-keynote
 ```
 
 Now clone the [cloud-messaging-handsonsapdev](https://github.com/SAP-samples/cloud-messaging-handsonsapdev) repository:
 
-```
+```bash
 user: projects $ git clone https://github.com/SAP-samples/cloud-messaging-handsonsapdev.git
 Cloning into 'cloud-messaging-handsonsapdev'...
 remote: Enumerating objects: 322, done.
@@ -145,9 +145,9 @@ remote: Total 322 (delta 0), reused 0 (delta 0), pack-reused 322
 Receiving objects: 100% (322/322), 113.32 KiB | 547.00 KiB/s, done.
 ```
 
-Now there are two directories in `projects/`, one for each of the repositories you now have cloned here. Move into the new `cloud-messaging-handsonsapdev/` directory:
+At this point there are two directories in `projects/`, one for each of the repositories you now have cloned here. Move into the new `cloud-messaging-handsonsapdev/` directory:
 
-```
+```bash
 user: projects $ ls
 cloud-messaging-handsonsapdev  teched2020-developer-keynote
 user: projects $ cd cloud-messaging-handsonsapdev/
@@ -160,7 +160,7 @@ Try them both out now, with no arguments, to get a feel for what they offer.
 
 The `management` script offers queue and queue subscription related API endpoints:
 
-```
+```bash
 user: cloud-messaging-handsonsapdev $ ./management
 create_update_queue
 delete_queue
@@ -173,7 +173,7 @@ delete_queue_subscription
 
 The `messaging` script offers message production and consumption API endpoints:
 
-```
+```bash
 user: cloud-messaging-handsonsapdev $ ./messaging
 publish_message_to_topic
 publish_message_to_queue
@@ -210,7 +210,7 @@ user: cloud-messaging-handsonsapdev $ ./management create_update_queue testqueue
 
 Now, the queue subscription, connecting this "testqueue" to the "salesorder/created" topic:
 
-```
+```bash
 user: cloud-messaging-handsonsapdev $ ./management create_update_queue_subscription testqueue salesorder/created
 {
   "queueName": "testqueue",
