@@ -114,6 +114,8 @@ In the same directory as this message bus README there is a script and a script 
 - the [`service-setup`](service-setup) script sets up the service instance and service key
 - the [`settings.sh`](settings.sh) script library contains settings to specify the names required (i.e. "emdev", "sk1" and so on)
 
+> `settings.sh` is actually a symbolic link to a shared file in the root of this repository.
+
 The `service-setup` script will create the service instance and the service key.
 
 Run the `service-setup` script:
