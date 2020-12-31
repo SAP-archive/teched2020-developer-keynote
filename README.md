@@ -64,6 +64,8 @@ You'll need a development environment with tools that are detailed below and in 
 
 If you want to take that approach, make sure you read and follow the [App Studio setup instructions](usingappstudio/).
 
+> Some of the sample output in the instructions in this repository is based on use of a Dev Space in the App Studio; specifically the way the shell prompt is displayed. An example of this can be seen in the [Usage section of the EMITTER component information](s4hana/event#usage).
+
 ### A GitHub account
 
 You'll need your own GitHub account. Not only for the normal reasons of community and collaboration (you may want to send contributions to this repository via pull requests, for example) but also because some of the components are run in the Kyma environment on SAP Cloud Platform, and the individual component instructions (such as the ones for the [SANDBOX](s4hana/sandbox/)) will direct you to build Docker images and publish them to your own GitHub Packages container registry. See the [GitHub Packages Documentation](https://docs.github.com/en/free-pro-team@latest/packages) for more information.
