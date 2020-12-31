@@ -33,7 +33,7 @@ The layout of this repository generally reflects the different components shown 
 
 ![Whiteboard diagram](images/whiteboard.jpg)
 
-## The components
+## The components
 
 You can study and experiment with each component individually, and they are of course all designed to work together as shown in the developer keynote itself. Each component has its own directory within this repository.
 
