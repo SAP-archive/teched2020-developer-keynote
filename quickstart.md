@@ -9,5 +9,6 @@ The starting assumption is that you have already **set up your [SAP Cloud Platfo
 |1|[Set up a Dev Space in App Studio](usingappstudio/)|
 |2|[Set up the message bus](messagebus/)|
 |3|[Set up and deploy the SANDBOX component](s4hana/sandbox/)|
+|4|[Set up and use the EMITTER component](s4hana/event/)|
 
 (to be continued ...)
