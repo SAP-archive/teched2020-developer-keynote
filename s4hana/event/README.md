@@ -37,7 +37,7 @@ The `emit` Bash script uses some external tools, none of which are obscure, but 
 - `yq` (see [the `yq` home page](https://github.com/mikefarah/yq))
 - `jq` (see [the `jq` home page](https://stedolan.github.io/jq/))
 
-If you are using the SAP Business Application Studio (App Studio) for your development environment, and have followed the [Using the SAP Business Application Studio](../../usingappstudio.md) instructions, these tools will already be installed and ready for you to use (from the [Add tools to your Dev Space](../../usingappstudio.md#add-tools-to-your-dev-space) step).
+> If you are using the SAP Business Application Studio (App Studio) for your development environment, and have followed the [Using the SAP Business Application Studio](../../usingappstudio.md) instructions, these tools will already be installed and ready for you to use (from the [Add tools to your Dev Space](../../usingappstudio.md#add-tools-to-your-dev-space) step).
 
 You'll also need a message bus, in the form of an instance of the SAP Enterprise Messaging service. Follow the [Message bus setup](../../messagebus) instructions if you haven't done already.
 
