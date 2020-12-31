@@ -45,7 +45,13 @@ These instructions assume you've forked this repository (see the [Download and I
 
 ## Usage
 
-The component itself is the `emit` script in this directory. It's designed to be used from the command line, and expects a single parameter that is mandatory - the sales order number. In order for the end-to-end process to make sense and work properly, this must be a sales order that exists in the S/4HANA mock system. Use your [SANDBOX component](../sandbox) to get a proxy running in front of the API Hub's mock service for API_SALES_ORDER_SRV, and pick a valid sales order from the `A_SalesOrder` entityset. For example, if you are currently running a [local version of the proxy](../sandbox#locally), look at the first 10 sales orders in the entityset at `http://localhost:5000/sap/opu/odata/sap/API_SALES_ORDER_SRV/A_SalesOrder?$top=10` and pick one of the sales order IDs from that list (get the value from the `SalesOrder` property).
+The component itself is the `emit` script in this directory. It's designed to be used from the command line, and expects a single parameter that is mandatory - the sales order number. In order for the end-to-end process to make sense and work properly, this must be a sales order that exists in the S/4HANA mock system. Use your [SANDBOX component](../sandbox) to get a proxy running in front of the API Hub's mock service for API_SALES_ORDER_SRV, and pick a valid sales order from the `A_SalesOrder` entityset. 
+
+For example, if you are currently running a [local version of the proxy](../sandbox#locally), look at the first 10 sales orders in the entityset at
+
+`http://localhost:5000/sap/opu/odata/sap/API_SALES_ORDER_SRV/A_SalesOrder?$top=10` 
+
+and pick one of the sales order IDs from that list (get the value from the `SalesOrder` property).
 
 To use this EMITTER component:
 
