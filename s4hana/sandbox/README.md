@@ -21,7 +21,7 @@
 
 The SANDBOX component is a small app that acts as a proxy in front of the SAP API Business Hub (API Hub) sandbox system. Because the app itself is small, we'll take the opportunity to explore different ways of running it, without having to worry too much about _what_ we're running. So here we'll explore running locally, on Cloud Foundry (CF) and on Kubernetes (k8s) with Kyma. In the Developer Keynote, this app is running in the Kyma runtime.
 
-> The contents of this README assume that you've opted to use the SAP Business Application Studio (App Studio) as your [development environment](../../README.md#a-development-environment) and have followed the [App Studio setup instructions](../../usingappstudio.md).
+> The contents of this README assume that you've opted to use the SAP Business Application Studio (App Studio) as your [development environment](../../README.md#a-development-environment) and have followed the [App Studio setup instructions](../../usingappstudio/).
 
 The context in which it runs is shown as the highlighted section of the whiteboard:
 
@@ -31,7 +31,7 @@ Access to the API Hub sandbox system is protected; each and every call to it nee
 
 There are two APIs that are used on the sandbox system that the API Hub makes available for our use in the context of the Developer Keynote. Both are SAP S/4HANA Cloud APIs: [Sales Order (A2X)](https://api.sap.com/api/API_SALES_ORDER_SRV/resource) and [Business Partner (A2X)](https://api.sap.com/api/API_BUSINESS_PARTNER/resource).
 
-There are two helper scripts in this directory that have been written to help you through the Docker related steps (the [`d`](d) script) and the Kyma / k8s related steps (the [`k`](k) script), and you can use them depending on the development environment setup that you have. In the context of the App Studio as your development environment, while you can use the `k` script for the Kyma / k8s tasks, you'll perform the Docker tasks using GitHub Actions features related to your forked GitHub repository rather than the `d` script. See the [note on Docker and App Studio](../../usingappstudio.md#a-note-on-docker-and-app-studio) for more details.
+There are two helper scripts in this directory that have been written to help you through the Docker related steps (the [`d`](d) script) and the Kyma / k8s related steps (the [`k`](k) script), and you can use them depending on the development environment setup that you have. In the context of the App Studio as your development environment, while you can use the `k` script for the Kyma / k8s tasks, you'll perform the Docker tasks using GitHub Actions features related to your forked GitHub repository rather than the `d` script. See the [note on Docker and App Studio](../../usingappstudio/README.md#a-note-on-docker-and-app-studio) for more details.
 
 ## Notes
 
@@ -148,7 +148,7 @@ Space:          dev
 $
 ```
 
-#### Using cf push 
+#### Using cf push
 
 Now you can make the `cf push` invocation. Specify a name for the app ("proxyapp") and include some options. Here's a copy-pasteable version, with explanations:
 
@@ -213,7 +213,7 @@ instances:       1/1
 memory usage:    1024M
 start command:   npm start
      state     since                  cpu    memory          disk         details
-#0   running   2020-12-23T13:50:21Z   0.0%   39.1K of 256M   8K of 512M   
+#0   running   2020-12-23T13:50:21Z   0.0%   39.1K of 256M   8K of 512M
 ```
 
 In the output, the route is shown, and you can check that you can access the `API_SALES_ORDER_SRV`'s service document again, at the URL relating to the route URL. In this case, it is:
@@ -248,7 +248,7 @@ Application "proxyapp" started and available at "14ee89fftrial-dev-proxyapp.cfap
 Process finished.
 ```
 
-> The `mbt` command will be automatically available to you in App Studio if you [set up your Dev Space as directed](../../usingappstudio.md#create-a-dev-space).
+> The `mbt` command will be automatically available to you in App Studio if you [set up your Dev Space as directed](../../usingappstudio/README.md#create-a-dev-space).
 
 In this example, the `API_SALES_ORDER_SRV`'s service document would be available at:
 
@@ -268,13 +268,13 @@ There are a number of steps to get the app running in Kyma, i.e. on k8s.
 1. create a k8s secret for registry access
 1. make a deployment to Kyma
 
-In other words, in a Kyma context, the app exists as a container and we'll be using Docker to create the image from which our app container can be created. Moreover, we need to make that container image available somewhere for the Kyma runtime to retrieve it and start up one or more instances of it. 
+In other words, in a Kyma context, the app exists as a container and we'll be using Docker to create the image from which our app container can be created. Moreover, we need to make that container image available somewhere for the Kyma runtime to retrieve it and start up one or more instances of it.
 
 That place where we'll make the container image available is a container registry provided by GitHub, specifically connected to your forked version of this repository. If you have a look at [the original Developer Keynote repository](https://github.com/SAP-samples/teched2020-developer-keynote), i.e. the source of your fork, i.e. the one in the [SAP-samples](https://github.com/SAP-samples/) organization on GitHub, you'll see that it has a list of "Packages" associated with it, as shown in the bottom right of this screenshot:
 
 ![Packages in the original Developer Keynote repository](images/packages.png)
 
-Note that the packages (you can also see them in [the organization-level package list, filtered by repository](https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote)) each have a Docker icon next to them; this denotes that they are Docker packages (there are other package types that can be stored in the repository, such as those from NPM and NuGet). 
+Note that the packages (you can also see them in [the organization-level package list, filtered by repository](https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote)) each have a Docker icon next to them; this denotes that they are Docker packages (there are other package types that can be stored in the repository, such as those from NPM and NuGet).
 
 Note also that access to packages in the GitHub package registry requires authentication - this is why you'll need to generate a secret to make available to Kyma to use, to retrieve the container image from there.
 
@@ -282,7 +282,7 @@ Once you've completed the steps in this section, you'll also have an 's4mock' pa
 
 #### Build and publish a Docker image
 
-If you have Docker in your development environment, you can use the `docker` command line tool to achieve the first two steps; there's also a helper script ([`d`](d)) for this. 
+If you have Docker in your development environment, you can use the `docker` command line tool to achieve the first two steps; there's also a helper script ([`d`](d)) for this.
 
 However, if you're using the App Studio as your [development environment](../../README.md#a-development-environment) then you don't have direct access to Docker or the `docker` tool. Instead, you can use [GitHub Actions](https://github.com/features/actions) in the context of your repository to both build and publish the Docker image. There is an [`image-build-and-publish.yml`](../../.github/workflows/image-build-and-publish.yml) workflow available in this repository, with the description "Build and publish Docker image". You can see it from a DevOps perspective in the "Actions" area of this repository (again, make sure you're working within _your fork_ of the Developer Keynote repository):
 
@@ -302,7 +302,7 @@ While browsing the [workflow source](../../.github/workflows/image-build-and-pub
 |`app`|The name for the package (e.g. s4mock, brain or calculationservice)|
 |`dir`|The directory containing the app artifacts (relative to the component's location in the repo)|
 
-In other words, yes - this workflow is designed to offer Docker image build and publishing services for not just this SANDBOX component, but for other components in this Developer Keynote repository, specifically the BRAIN and CONVERTER ("calculationservice") components ... and so the workflow must be parameterized. 
+In other words, yes - this workflow is designed to offer Docker image build and publishing services for not just this SANDBOX component, but for other components in this Developer Keynote repository, specifically the BRAIN and CONVERTER ("calculationservice") components ... and so the workflow must be parameterized.
 
 > If this is the first time you are using workflows on your forked repository, be aware that you'll have to [enable them first](../../enabling-workflows.md).
 
@@ -341,9 +341,9 @@ So at this point you have a Docker container image in the GitHub packages regist
         docker push ${HUB}/${GITHUB_REPOSITORY}/${{ github.event.inputs.app }}:${TAG}
 ```
 
-Note the `docker login` part before the `docker push` - authentication is required to connect to and interact with this registry. Not only for pushing images but also for retrieving them. That's why we now need to create a [secret](https://kubernetes.io/docs/concepts/configuration/secret/) with the same credentials, so that the image can be retrieved when we make the deployment. 
+Note the `docker login` part before the `docker push` - authentication is required to connect to and interact with this registry. Not only for pushing images but also for retrieving them. That's why we now need to create a [secret](https://kubernetes.io/docs/concepts/configuration/secret/) with the same credentials, so that the image can be retrieved when we make the deployment.
 
-> You must be first authenticated with your Kyma runtime on SAP Cloud Platform for this step, and have the Kyma runtime configuration downloaded and set up. See the [Set up the Kyma runtime configuration](../../usingappstudio.md#set-up-the-kyma-runtime-configuration) section of [Using the SAP Business Application Studio](../../usingappstudio.md).
+> You must be first authenticated with your Kyma runtime on SAP Cloud Platform for this step, and have the Kyma runtime configuration downloaded and set up. See the [Set up the Kyma runtime configuration](../../usingappstudio/README.md#set-up-the-kyma-runtime-configuration) section of [Using the SAP Business Application Studio](../../usingappstudio/).
 
 There are different types of secrets - the type we need to create is a Docker registry secret. A typical incantation to create such a secret looks like this:
 
@@ -394,7 +394,7 @@ regcred                           kubernetes.io/dockerconfigjson        1      1
 Now everything is ready to make a deployment to the Kyma runtime. The deployment is described in the `deployment.yaml` file, which includes a number of important references that should now be familiar to you. Take a quick look at the contents of this file to see them, and you'll also need to make a modification too. Let's first look at them:
 
 - the API key for the API Hub sandbox system (plus a pointer to the endpoint in the form of a destination definition)
-- the Docker image ("s4mock"), stored in the GitHub Package Registry 
+- the Docker image ("s4mock"), stored in the GitHub Package Registry
 - the "regcred" secret you just created
 
 Make sure you modify the value for the following property:

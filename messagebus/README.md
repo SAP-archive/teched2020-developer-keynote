@@ -71,7 +71,7 @@ And that's it - once created, you have everything you need for the message bus p
 
 If you prefer to set things up from the command line, you can do so too. This will also indirectly introduce you to some of the uses of the Cloud Foundry (CF) Command Line Interface (CLI), namely `cf`. We've provided a script, but you can also run the commands individually by looking at the script's contents and learning what it does.
 
-This section assumes you've opted to follow the instructions on [using the SAP Business Application Studio](../usingappstudio.md) for your [development environment](../README.md#a-development-environment), but you can of course set up and run this script in your own environment.
+This section assumes you've opted to follow the instructions on [using the SAP Business Application Studio](../usingappstudio/) for your [development environment](../README.md#a-development-environment), but you can of course set up and run this script in your own environment.
 In a Terminal in your App Studio Dev Space, first make sure you're in this `messagebus` directory, authenticated with your CF endpoint and have your trial account related organization and space selected:
 
 ```

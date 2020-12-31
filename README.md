@@ -62,7 +62,7 @@ Component-specific requirements are to be found in the respective READMEs, but t
 
 You'll need a development environment with tools that are detailed below and in the component-specific READMEs. We all have our own preferences, which is great, but if you want to follow along and can't decide, or are unsure of which direction to take, or are unable to install tools locally, we are building instructions to help you out, centred around the [SAP Business Application Studio](https://help.sap.com/viewer/product/SAP%20Business%20Application%20Studio/Cloud/en-US) (App Studio).
 
-If you want to take that approach, make sure you read and follow the [App Studio setup instructions](usingappstudio.md).
+If you want to take that approach, make sure you read and follow the [App Studio setup instructions](usingappstudio/).
 
 ### A GitHub account
 
@@ -78,7 +78,7 @@ You'll need your GitHub account when starting out - the [Download and Installati
 
   > The CF command line interface (CLI) is available as the `cf` command. The version of `cf` required for use in this repository context is version 6. There is a newer version 7 but there is [an issue with version 7 in the use of the `cf env` command](https://github.com/cloudfoundry/cli/issues/2116), which needs to work correctly here. Moreover, it's more likely than not that you have version 6 of `cf` already installed and available.
 
-- Kyma environment: While a Kyma environment is not set up automatically, you can (and should) enable one with the "Enable Kyma" button on the main account overview page in the Cockpit, as shown in this screenshot. Follow [this tutorial](https://developers.sap.com/tutorials/cp-kyma-getting-started.html) for detailed instructions, and make sure you also install the k8s command line tool (`kubectl`) and download and set your "kubeconfig" appropriately, as explained in the [Install the Kubernetes Command Line Tool](https://developers.sap.com/tutorials/cp-kyma-download-cli.html) tutorial. Note that if you've decided to [use App Studio for your development environment](usingappstudio.md) there's a specific section in the instructions that shows you [how to set up the "kubeconfig" in your Dev Space context](usingappstudio.md#set-up-the-kyma-runtime-configuration).
+- Kyma environment: While a Kyma environment is not set up automatically, you can (and should) enable one with the "Enable Kyma" button on the main account overview page in the Cockpit, as shown in this screenshot. Follow [this tutorial](https://developers.sap.com/tutorials/cp-kyma-getting-started.html) for detailed instructions, and make sure you also install the k8s command line tool (`kubectl`) and download and set your "kubeconfig" appropriately, as explained in the [Install the Kubernetes Command Line Tool](https://developers.sap.com/tutorials/cp-kyma-download-cli.html) tutorial. Note that if you've decided to [use App Studio for your development environment](usingappstudio/) there's a specific section in the instructions that shows you [how to set up the "kubeconfig" in your Dev Space context](usingappstudio/README.md#set-up-the-kyma-runtime-configuration).
 
 ![Enable Kyma button](images/enable-kyma.png)
 

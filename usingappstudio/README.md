@@ -22,9 +22,9 @@ Follow the instructions here to get ready.
 
 ### A note on Docker and App Studio
 
-Note that App Studio doesn't give you a Docker engine - you won't be able to directly build images, for example, in the context of a Dev Space. However, there are other ways to get images built and published (which is what's required for some of the components in this repository, for eventual deployment to and execution in the Kyma / Kubernetes environment). 
+Note that App Studio doesn't give you a Docker engine - you won't be able to directly build images, for example, in the context of a Dev Space. However, there are other ways to get images built and published (which is what's required for some of the components in this repository, for eventual deployment to and execution in the Kyma / Kubernetes environment).
 
-Where Docker images need to be built, we'll be using facilities provided by GitHub, in the context of your own forked version of this repository. This is partly why we've insisted you fork this repository before starting (the other, main reason being that you get to store Docker images in the [GitHub Package Repository](https://github.com/features/packages) facilities connected to your own repository). 
+Where Docker images need to be built, we'll be using facilities provided by GitHub, in the context of your own forked version of this repository. This is partly why we've insisted you fork this repository before starting (the other, main reason being that you get to store Docker images in the [GitHub Package Repository](https://github.com/features/packages) facilities connected to your own repository).
 
 The Docker facilities in GitHub come in the form of actions & command line invocations that can be carried out in the context of jobs, using [GitHub Actions](https://github.com/features/actions). Jobs are defined in so-called "workflows", and are available in the Actions section of the repository. Note that you'll have to [enable workflows on your forked repository](enabling-workflows.md).
 
@@ -119,7 +119,7 @@ You can also use the `kubectl` command line tool. This tool is automatically ins
 
 You download the "kubeconfig" configuration as a file, from the Kyma dashboard, and then tell `kubectl` where it is via the special environment variable `KUBECONFIG`. In the SAP Developers tutorial [Install the Kubernetes Command Line Tool](https://developers.sap.com/tutorials/cp-kyma-download-cli.html) this process is described generally in the last two steps ("Download the Kyma runtime kubeconfig" and "Set the KUBECONFIG environment variable"). This is what we need to do now, but in the context of your Dev Space.
 
-Downloading the "kubeconfig" configuration will result in a `kubeconfig.yml` file being placed in your local filesystem. Upload this to your Dev Space's workspace, specifically to the root i.e. the `projects/teched2020-developer-keynote/` directory. You can do this simply by selecting the file in your file system and dragging it to the Explorer part of your Dev Space, ensuring you drag it into the right place. 
+Downloading the "kubeconfig" configuration will result in a `kubeconfig.yml` file being placed in your local filesystem. Upload this to your Dev Space's workspace, specifically to the root i.e. the `projects/teched2020-developer-keynote/` directory. You can do this simply by selecting the file in your file system and dragging it to the Explorer part of your Dev Space, ensuring you drag it into the right place.
 
 > The "kubeconfig" based credentials expire after a certain amount of time; you'll notice because you'll see a message like this: "error: You must be logged into the server (the server has asked for the client to provide credentials)". When this happens, simply repeat the download / upload process here.
 
