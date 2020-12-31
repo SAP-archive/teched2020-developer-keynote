@@ -6,6 +6,10 @@
 - [Requirements](#requirements)
 - [Usage](#usage)
 - [Checking event messages](#checking-event-messages)
+  - [Overview](#overview)
+  - [Setting up](#setting-up)
+  - [Queue and queue subscription to a topic](#queue-and-queue-subscription-to-a-topic)
+
 
 ## Overview
 
