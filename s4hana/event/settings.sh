@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-# SETTINGS - source this file in each script
+# SAP Enterprise Messaging service settings common all the relevant
+# components in the repository - settings.sh
 
 # shellcheck disable=SC2034
 service=enterprise-messaging
