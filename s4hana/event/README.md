@@ -15,6 +15,8 @@ It is a single Bash shell script `emit`, supported by two helper libraries:
 - `localutils.sh` providing basic functions for logging, access token retrieval, and so on
 - `settings.sh` providing the actual names of instances, plans and service keys
 
+> `settings.sh` is actually a symbolic link to a shared file in the root of this repository.
+
 The Emitter uses the [Messaging API](https://help.sap.com/doc/3dfdf81b17b744ea921ce7ad464d1bd7/Cloud/en-US/messagingrest-api-spec.html) to publish a message to a topic on the bus provided by this project's Enterprise Messaging service instance. The specific API endpoint used is `POST /messagingrest/v1/topics/{topic-name}/messages`.
 
 The API call is authenticated with OAuth 2.0, whereby an access token is retrieved using details in the `emdev` service instance's service key `sk1` - the specifics which are from the `settings` helper library.
