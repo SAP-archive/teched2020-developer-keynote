@@ -96,10 +96,11 @@ You should see some help summarizing what you can do with that command.
 
 It's possible that some activities might require the use of tools that are not installed by default - the setting up of some of the components in this repository is one example, where tools such as [`jq`](https://stedolan.github.io/jq/) are needed. We've provided a setup script that you can run in the terminal that will install these tools for you.
 
-At the prompt, invoke the [`appstudiosetup`](appstudiosetup) script, which will install various tools for you:
+At the prompt, move to this `usingappstudio/` directory, and then invoke the [`appstudiosetup`](appstudiosetup) script, which will install various tools for you:
 
 ```
-user: teched2020-developer-keynote $ ./appstudiosetup
+user: teched2020-developer-keynote $ cd usingappstudio/
+user: usingappstudio $ ./appstudiosetup
 Installing yq ...
 Installing jq ...
 Please now restart the terminal (Ctrl-D then Ctrl-`) to have the new shell settings take effect.
