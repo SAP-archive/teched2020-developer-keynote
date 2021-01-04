@@ -10,5 +10,6 @@ The starting assumption is that you have already **set up your [SAP Cloud Platfo
 |2|[Set up the message bus](messagebus/)|
 |3|[Set up and deploy the SANDBOX component](s4hana/sandbox/)|
 |4|[Set up and use the EMITTER component](s4hana/event/)|
+|5|[Set up and execute the BRAIN component, controlling the activity level as you go](cap/brain/)|
 
 (to be continued ...)
