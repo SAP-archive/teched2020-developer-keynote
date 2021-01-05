@@ -25,12 +25,12 @@ This README is quite long, but hopefully useful and interesting. Here's a small 
 
 ## Overview
 
-The brain is a basic CAP application with two of the three layers in use. In effect, a "service" more than an application:
+The BRAIN component is a basic CAP application with two of the three layers in use. In effect, a "service" more than an application:
 
 |Layer|Description|
 |-|-|
 |`app`|Unused|
-|`srv`|A single service `teched` is defined exposing an entity `CharityEntry`. Custom JavaScript code for managing the Brain's operations and activities|
+|`srv`|A single service `teched` is defined exposing an entity `CharityEntry`. Custom JavaScript code for managing the BRAIN's operations and activities|
 |`db`|An entity `CharityEntry` is defined with a `SoldToParty` property as key, and a counter property. This entity is defined within the namespace `charity`|
 
 The service, once deployed, does not require any human intervention to function. Processing follows a sequence of the following activities, each time an event published to the "salesorder/created" topic on the message bus is received; each activity is denoted by a "level" number (1 through 4):
