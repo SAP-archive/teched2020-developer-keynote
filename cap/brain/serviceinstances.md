@@ -12,6 +12,8 @@ In addition to the message bus provided by an instance of the SAP Enterprise Mes
 
 They can be set up easily from the command line in your App Studio's Dev Space, or in any other command line environment, providing that you've authenticated with and connected to your Cloud Foundry (CF) organization and space. They can also be set up using the SAP Cloud Platform Cockpit, which you can do yourself instead if you wish.
 
+The naming convention for service instances used here is to combine the (short) service name and the plan name. You will see this in action in the `cf create-service` invocations coming up; remember that the invocation follows this pattern: `cf create-service <service name> <plan> <instance name>`.
+
 ## Using the command line
 
 At the command line (start one up in your Dev Space by following the instructions in [Open up a terminal](../../usingappstudio#open-up-a-terminal), start by listing your existing service instances. You'll see something like this:
