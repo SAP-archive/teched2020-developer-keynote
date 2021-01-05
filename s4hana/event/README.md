@@ -151,11 +151,16 @@ remote: Total 322 (delta 0), reused 0 (delta 0), pack-reused 322
 Receiving objects: 100% (322/322), 113.32 KiB | 547.00 KiB/s, done.
 ```
 
-At this point there are two directories in `projects/`, one for each of the repositories you now have cloned here. Move into the new `cloud-messaging-handsonsapdev/` directory:
+At this point there are two directories in `projects/`, one for each of the repositories you now have cloned here: 
 
 ```bash
 user: projects $ ls
 cloud-messaging-handsonsapdev  teched2020-developer-keynote
+```
+
+Move into the new `cloud-messaging-handsonsapdev/` directory:
+
+```bash
 user: projects $ cd cloud-messaging-handsonsapdev/
 user: cloud-messaging-handsonsapdev $
 ```
