@@ -390,7 +390,9 @@ Once you've reached this stage, you should set the `BRAIN_LEVEL` value permanent
 
 ### On SAP Cloud Platform - Kyma runtime
 
-Well done to making it this far in the README :-) Now we've successfully got the service running locally, we'll go directly to a deployment to the Kyma runtime. (If you're interested in how you might also run a service locally in Docker, and also on CF, see how we do it for the [SANDBOX](../../s4hana/sandbox) component.)
+Well done to making it this far in the README!
+
+Now we've successfully got the service running locally, we'll go directly to a deployment to the Kyma runtime. (If you're interested in how you might also run a service on CF, see how we do it for the [SANDBOX](../../s4hana/sandbox) component.)
 
 There are a number of steps to get the app running in Kyma, i.e. on k8s:
 
