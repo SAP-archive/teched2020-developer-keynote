@@ -1,5 +1,11 @@
 # Service instances setup
 
+**Contents**
+
+- [Using the command line](#using-the-command-line)
+  - [Destination service](#destination-service)
+  - [Authorization & Trust Management service]
+  
 In addition to the message bus provided by an instance of the SAP Enterprise Messaging service, the BRAIN component requires a couple of additional services, relating to the need to read destination definitions in your SAP Cloud Platform subaccount.
 
 They can be set up easily from the command line in your App Studio's Dev Space, or in any other command line environment, providing that you've authenticated with and connected to your Cloud Foundry (CF) organization and space. They can also be set up using the SAP Cloud Platform Cockpit, which you can do yourself instead if you wish.
@@ -18,6 +24,8 @@ emdev   enterprise-messaging   dev                 create succeeded   sm-enterpr
 
 > At this initial point, if you're not authenticated and connected to your CF organization and space, you'll be prompted to use `cf login` first.
 
+### Destination service
+
 Set up an instance of the Destination service like this:
 
 ```
@@ -26,6 +34,7 @@ Creating service instance destination-lite in org 14ee89fftrial / space dev as s
 OK
 ```
 
+### Authorization & Trust Management service
 
 Set up an instance of the Authorization & Trust Management service (XSUAA) like this:
 
