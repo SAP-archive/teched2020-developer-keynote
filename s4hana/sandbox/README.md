@@ -10,10 +10,8 @@
     - [Using cf push](#using-cf-push)
     - [Using cf deploy](#using-cf-deploy)
   - [On SAP Cloud Platform - Kyma runtime](#on-sap-cloud-platform---kyma-runtime)
-    - [Docker images, containers, package registries and Kyma](#docker-images-containers-package-registries-and-kyma)
-    - [Build and publish a Docker image](#build-and-publish-a-docker-image)
-    - [Create a k8s secret for registry access](#create-a-k8s-secret-for-registry-access)
-    - [Make a deployment to Kyma](#make-a-deployment-to-kyma)
+    - [Build & publish, secrets and deployment](#build--publish-secrets-and-deployment)
+    - [Check the component is up and running](#check-the-component-is-up-and-running)
 - [Summary](#summary)
 
 
@@ -257,172 +255,13 @@ In this example, the `API_SALES_ORDER_SRV`'s service document would be available
 
 ### On SAP Cloud Platform - Kyma runtime
 
-In the Developer Keynote, this is where the app was running.
+This BRAIN component has something in common with the [SANDBOX](../../s4hana/sandbox) and [CONVERTER](../../kyma) components ... and that is that the Kyma runtime was where each of them was running in the actual [Developer Keynote](https://events.sapteched.com/widget/sap/sapteched2020/Catalog/session/1603314875989001AsWU). And the process for getting the component up and running in the Kyma runtime is the same each time. There's an extra step required for this BRAIN component, but we'll come to that in good time. 
 
-#### Docker images, containers, package registries and Kyma
+#### Build & publish, secrets and deployment
 
-There are a number of steps to get the app running in Kyma, i.e. on k8s.
+Because the process is common, you can find it described in a separate (and therefore shared) document - [Getting a component up and running on the Kyma runtime](../../kymaruntime/). Head on over to that document now, and follow the instructions, bearing in mind that you're building the SANDBOX component. Come back here when you're done.
 
-1. build a Docker image for the app
-1. publish the image to a container registry
-1. create a k8s secret for registry access
-1. make a deployment to Kyma
-
-In other words, in a Kyma context, the app exists as a container and we'll be using Docker to create the image from which our app container can be created. Moreover, we need to make that container image available somewhere for the Kyma runtime to retrieve it and start up one or more instances of it.
-
-That place where we'll make the container image available is a container registry provided by GitHub, specifically connected to your forked version of this repository. If you have a look at [the original Developer Keynote repository](https://github.com/SAP-samples/teched2020-developer-keynote), i.e. the source of your fork, i.e. the one in the [SAP-samples](https://github.com/SAP-samples/) organization on GitHub, you'll see that it has a list of "Packages" associated with it, as shown in the bottom right of this screenshot:
-
-![Packages in the original Developer Keynote repository](images/packages.png)
-
-Note that the packages (you can also see them in [the organization-level package list, filtered by repository](https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote)) each have a Docker icon next to them; this denotes that they are Docker packages (there are other package types that can be stored in the repository, such as those from NPM and NuGet).
-
-Note also that access to packages in the GitHub package registry requires authentication - this is why you'll need to generate a secret to make available to Kyma to use, to retrieve the container image from there.
-
-Once you've completed the steps in this section, you'll also have an 's4mock' package in the GitHub Package Registry in the context of your own repository, and it will be that package that your Kyma runtime instance will retrieve.
-
-#### Build and publish a Docker image
-
-If you have Docker in your development environment, you can use the `docker` command line tool to achieve the first two steps; there's also a helper script ([`d`](d)) for this.
-
-However, if you're using the App Studio as your [development environment](../../README.md#a-development-environment) then you don't have direct access to Docker or the `docker` tool. Instead, you can use [GitHub Actions](https://github.com/features/actions) in the context of your repository to both build and publish the Docker image. There is an [`image-build-and-publish.yml`](../../.github/workflows/image-build-and-publish.yml) workflow available in this repository, with the description "Build and publish Docker image". You can see it from a DevOps perspective in the "Actions" area of this repository (again, make sure you're working within _your fork_ of the Developer Keynote repository):
-
-![The workflow](images/workflow.png)
-
-This workflow consists of a single job with multiple steps, which perform the following activities:
-
-1. Checks out the repository content (into the workflow's runtime)
-1. Builds the Docker image
-1. Logs into the package registry and pushes the image there
-
-While browsing the [workflow source](../../.github/workflows/image-build-and-publish.yml), you will notice also that the workflow defines three inputs, as follows:
-
-|Input|Description|
-|-|-|
-|`componentdir`|The directory in the repo where the component lives|
-|`app`|The name for the package (e.g. s4mock, brain or calculationservice)|
-|`dir`|The directory containing the app artifacts (relative to the component's location in the repo)|
-
-In other words, yes - this workflow is designed to offer Docker image build and publishing services for not just this SANDBOX component, but for other components in this Developer Keynote repository, specifically the BRAIN and CONVERTER ("calculationservice") components ... and so the workflow must be parameterized.
-
-> If this is the first time you are using workflows on your forked repository, be aware that you'll have to [enable them first](../../enabling-workflows.md).
-
-Start the workflow and be ready to supply the appropriate values for the parameters. Select the workflow ("Build and publish Docker image") and use the `workflow_dispatch` event trigger, i.e. the "Run workflow" button to manually invoke it. Specify the appropriate values for this SANDBOX component, as shown in the screenshot and the following table:
-
-![Run workflow](images/run-workflow.png)
-
-|Parameter|Specify this value|
-|-|-|
-|The directory in the repo where the component lives|`s4hana/sandbox/`|
-|The name for the package (e.g. s4mock, brain or calculationservice)|`s4mock`|
-|The directory containing the app artifacts (relative to the component's location in the repo)|`router/`|
-
-> As you can see, the example in the screenshot is from where the user [qmacro](https://github.com/qmacro) has forked the Developer Keynote repository into their own space. When you do this, you should be looking at your own fork.
-
-The workflow should complete successfully - if you wish, examine the detailed output of the steps (by expanding the `>` symbols shown in the screenshot):
-
-![successful completion of the build job](images/build-job-success.png)
-
-The result of this successful workflow execution should be a package "s4mock", representing a Docker image version of this SANDBOX component app, in the GitHub package registry, associated with your repository. You will be able to see this on the main page of your repository:
-
-![s4mock package](images/s4mock-package.png)
-
-You'll also be able to see it in the general package listing for your GitHub user in a similar way to the listing for this SAP-samples based repository: https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote - just substitute the `orgs/SAP-samples` part with your GitHub username to see your own.
-
-
-#### Create a k8s secret for registry access
-
-So at this point you have a Docker container image in the GitHub packages registry, associated with your own repository. If you look at the last step in the [workflow source](../../.github/workflows/image-build-and-publish.yml) you'll see it looks like this:
-
-```yaml
-    - name: Push the image to GitHub Package Registry
-      if: ${{ success() }}
-      run: |
-        echo ${{ secrets.GITHUB_TOKEN }} | docker login ${HUB} --username ${USER} --password-stdin
-        docker push ${HUB}/${GITHUB_REPOSITORY}/${{ github.event.inputs.app }}:${TAG}
-```
-
-Note the `docker login` part before the `docker push` - authentication is required to connect to and interact with this registry. Not only for pushing images but also for retrieving them. That's why we now need to create a [secret](https://kubernetes.io/docs/concepts/configuration/secret/) with the same credentials, so that the image can be retrieved when we make the deployment.
-
-> You must be first authenticated with your Kyma runtime on SAP Cloud Platform for this step, and have the Kyma runtime configuration downloaded and set up. See the [Set up the Kyma runtime configuration](../../usingappstudio/README.md#set-up-the-kyma-runtime-configuration) section of [Using the SAP Business Application Studio](../../usingappstudio/).
-
-There are different types of secrets - the type we need to create is a Docker registry secret. A typical incantation to create such a secret looks like this:
-
-```
-kubectl create secret docker-registry <SECRETNAME> \
-  --docker-server=https://docker.pkg.github.com \
-  --docker-username=<YOUR GITHUB ORG/USERNAME> \
-  --docker-password=<ACCESS TOKEN> \
-  --docker-email=<YOUR GITHUB EMAIL>
-```
-
-This has been also made available as an action in another script: [`k`](k):
-
-```shell
-$ ./k
-Usage: k <action>
-where <action> is one of:
-- deploy: make deployment
-- secret: create secret for GitHub Package registry access
-```
-
-Create the secret like this:
-
-```shell
-$ ./k secret
-Setting up docker-registry secret regcred for access to https://docker.pkg.github.com
-Secret regcred exists - will remove first (hit enter to continue)
-secret "regcred" deleted
-Enter email: <YOUR GITHUB EMAIL>
-Enter username: <YOUR GITHUB ORG/USERNAME>
-Enter password / token: <ACCESS TOKEN>
-secret/regcred created
-```
-
-> If there already is a secret of the same name you'll be prompted to have it deleted first, as shown in this example output.
-
-You can check that the secret has been created, thus:
-
-```shell
-$ kubectl get secrets
-NAME                              TYPE                                  DATA   AGE
-regcred                           kubernetes.io/dockerconfigjson        1      109s
-...
-```
-
-#### Make a deployment to Kyma
-
-Now everything is ready to make a deployment to the Kyma runtime. The deployment is described in the `deployment.yaml` file, which includes a number of important references that should now be familiar to you. Take a quick look at the contents of this file to see them, and you'll also need to make a modification too. Let's first look at them:
-
-- the API key for the API Hub sandbox system (plus a pointer to the endpoint in the form of a destination definition)
-- the Docker image ("s4mock"), stored in the GitHub Package Registry
-- the "regcred" secret you just created
-
-Make sure you modify the value for the following property:
-
-`spec -> template -> spec -> containers -> image`
-
-Initially, this will have the following value:
-
-`docker.pkg.github.com/sap-samples/teched2020-developer-keynote/s4mock:latest`
-
-Change this to match your forked repository that your working from. Following the example from earlier, where the user 'qmacro' has forked the repository, the change in this case needs to be made so that the value becomes:
-
-`docker.pkg.github.com/qmacro/teched2020-developer-keynote/s4mock:latest`
-
-Make sure this matches your GitHub org / username and repository name and save the file.
-
-The deployment is quite simple at this stage (as you can see from the `deploy` function in the [`k`](k) script). Invoke it with the "deploy" action thus:
-
-```shell
- ./k deploy
-Deploying to k8s
-configmap/appconfig created
-deployment.apps/s4mock created
-service/s4mock created
-apirule.gateway.kyma-project.io/s4mock created
-```
-
-The app is now deployed to the Kyma runtime in your SAP Cloud Platform subaccount.
+#### Check the component is up and running
 
 Just like before, you can check that it's working by requesting the API's service document. You'll need first to find out what the first part of the URL is.
 
