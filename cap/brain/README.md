@@ -153,7 +153,7 @@ Because of what this contains, it is not normally included in any repository for
 At this point, you can start the service running locally with `cds run`, shown here with typical output (with some lines removed for readability):
 
 ```
-$ cds run
+user: brain $ cds run
 
 [cds] - model loaded from 3 file(s):
 
@@ -211,6 +211,12 @@ BRAIN_LEVEL set to 1
 
 [cds] - Add subscription { topic: 'salesorder/created', queue: 'CAP/0000' }
 ```
+
+Before we start to examine the output, if you're in Dev Space from your App Studio based development environment, the fact that a process has started listening on host `localhost` port `4004` will have caused App Studio to prompt you with a message offering you the possibility of exposing this so that you can access the service from your browser:
+
+![port message](port-4004-message.png)
+
+Select the "Expose and Open" button (you may be subsequently prompted to add a description). Once you've seen the contents of the web page, flip back to your browser tab where you have your Dev Space, to look at the output of `cds run`.
 
 In that output, observe how the CAP messaging support automatically connects to the message bus (the instance of the SAP Enterprise Messaging service) and, in order to subscribe to the "salesorder/created" topic, creates a queue "CAP/0000" and a queue subscription, connecting that "CAP/0000" queue to the "salesorder/created" topic:
 
