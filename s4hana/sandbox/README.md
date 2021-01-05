@@ -255,7 +255,7 @@ In this example, the `API_SALES_ORDER_SRV`'s service document would be available
 
 ### On SAP Cloud Platform - Kyma runtime
 
-This BRAIN component has something in common with the [SANDBOX](../../s4hana/sandbox) and [CONVERTER](../../kyma) components ... and that is that the Kyma runtime was where each of them was running in the actual [Developer Keynote](https://events.sapteched.com/widget/sap/sapteched2020/Catalog/session/1603314875989001AsWU). And the process for getting the component up and running in the Kyma runtime is the same each time. There's an extra step required for this BRAIN component, but we'll come to that in good time. 
+This SANDBOX component has something in common with the [BRAIN](../../cap/brain/) and [CONVERTER](../../kyma/) components ... and that is that the Kyma runtime was where each of them was running in the actual [Developer Keynote](https://events.sapteched.com/widget/sap/sapteched2020/Catalog/session/1603314875989001AsWU). And the process for getting the component up and running in the Kyma runtime is the same each time. 
 
 #### Build & publish, secrets and deployment
 
