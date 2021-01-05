@@ -4,7 +4,7 @@
 
 - [Using the command line](#using-the-command-line)
   - [Destination service](#destination-service)
-  - [Authorization & Trust Management service]
+  - [Authorization & Trust Management service](#authorization--trust-management-service)
   
 In addition to the message bus provided by an instance of the SAP Enterprise Messaging service, the BRAIN component requires a couple of additional services, relating to the need to read destination definitions in your SAP Cloud Platform subaccount.
 
