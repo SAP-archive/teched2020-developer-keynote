@@ -1,5 +1,12 @@
 # Generating a default-env.json file
 
+**Contents**
+- [Scenario](#scenario)
+- [Approach](#approach)
+- [Following the approach](#following-the-approach)
+  - [Step by step](#step-by-step)
+  - [Using a script](#using-a-script)
+
 Sometimes you want to run a CAP application locally for testing purposes. If that application requires a connection to a remote service on the Cloud Foundry (CF) runtime of SAP Cloud Platform, you can do this by making service binding details available locally to that application. This is done using values in a specially named file `default-env.json`.
 
 There are various ways to generate the contents needed for such a file, here's one.
