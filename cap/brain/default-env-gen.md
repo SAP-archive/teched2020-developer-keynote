@@ -142,40 +142,48 @@ The script expects a single mandatory argument - your choice of a name for the t
 Here's a (slightly edited) example invocation:
 
 ```
-$ ./default-env-gen myapp
-proxyapp-optimistic-antelope-vv.cfapps.eu10.hana.ondemand.com
-Deleting app myapp in org 4dc50e9btrial / space dev as sapdeveloper@example.com...
+user: brain $ ./default-env-gen temp1
+Deleting app temp1 in org 14ee89fftrial / space dev as sapdeveloper@example.com...
 OK
-App myapp does not exist.
-Pushing app myapp to org 4dc50e9btrial / space dev as sapdeveloper@example.com...
+App temp1 does not exist.
+Pushing app temp1 to org 14ee89fftrial / space dev as sapdeveloper@example.com...
 Getting app info...
 Creating app with these attributes...
-+ name:       myapp
-  path:       /Users/username/Projects/teched2020-developer-keynote/cap/brain
++ name:         temp1
+  path:         /home/user/projects/teched2020-developer-keynote/cap/brain
++ disk quota:   64M
++ memory:       32M
 
-Creating app myapp...
+Creating app temp1...
 Comparing local files to remote cache...
 Packaging files to upload...
+Uploading files...
+ 6.35 MiB / 6.35 MiB  100.00% 1s
 
 Waiting for API to complete processing files...
 
-name:              myapp
+name:              temp1
 requested state:   stopped
-routes:
+routes:            
+last uploaded:     
+stack:             
+buildpacks:        
 
 type:           web
 instances:      0/1
 memory usage:   32M
      state   since                  cpu    memory   disk     details
-#0   down    2020-12-04T10:20:24Z   0.0%   0 of 0   0 of 0
+#0   down    2021-01-05T13:54:53Z   0.0%   0 of 0   0 of 0   
 
-Binding service emdev to app myapp in org 4dc50e9btrial / space dev as sapdeveloper@example.com...
+Binding service emdev to app temp1 in org 14ee89fftrial / space dev as sapdeveloper@example.com...
 OK
 
-Binding service destination-lite to app myapp in org 4dc50e9btrial / space dev as sapdeveloper@example.com...
+TIP: Use 'cf restage temp1' to ensure your env variable changes take effect
+Binding service destination-lite to app temp1 in org 14ee89fftrial / space dev as sapdeveloper@example.com...
 OK
 
-Binding service xsuaa-application to app myapp in org 4dc50e9btrial / space dev as sapdeveloper@example.com...
+TIP: Use 'cf restage temp1' to ensure your env variable changes take effect
+Binding service xsuaa-application to app temp1 in org 14ee89fftrial / space dev as sapdeveloper@example.com...
 OK
 ```
 
