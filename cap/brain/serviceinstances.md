@@ -1,11 +1,13 @@
 # Service instances setup
 
 **Contents**
-
+- [Overview](#overview)
 - [Using the command line](#using-the-command-line)
   - [Destination service](#destination-service)
   - [Authorization & Trust Management service](#authorization--trust-management-service)
   
+## Overview
+
 In addition to the message bus provided by an instance of the SAP Enterprise Messaging service, the BRAIN component requires a couple of additional services, relating to the need to read destination definitions in your SAP Cloud Platform subaccount.
 
 They can be set up easily from the command line in your App Studio's Dev Space, or in any other command line environment, providing that you've authenticated with and connected to your Cloud Foundry (CF) organization and space. They can also be set up using the SAP Cloud Platform Cockpit, which you can do yourself instead if you wish.
