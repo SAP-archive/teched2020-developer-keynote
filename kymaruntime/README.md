@@ -42,7 +42,7 @@ Throughout the instructions in this document, you must ensure that you specify t
 
 ### Build and publish a Docker image
 
-If you have Docker in your development environment, you can use the `docker` command line tool to achieve the first two steps; there are `d` helper scripts in the SANDBOX and BRAIN components' directories explicitly for this purpose.
+If you have Docker in your development environment, you can use the `docker` command line tool to achieve the first two steps; there are helper scripts (each called `d`) in the SANDBOX and BRAIN components' directories explicitly for this purpose.
 
 However, if you're using the App Studio as your [development environment](../README.md#a-development-environment) then you don't have direct access to Docker or the `docker` tool and you won't be able to make use of the `d` scripts. 
 
