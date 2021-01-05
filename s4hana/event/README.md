@@ -286,7 +286,7 @@ We now have one message in the queue!
 Let's consume that message, using the Messaging API. That way we can have a look at the details.
 
 ```bash
-user: cloud-messaging-handsonsapdev $ ./messaging consume_message_from_queue testqueue
+user: cloud-messaging-handsonsapdev $ ./messaging consume_message_from_queue test
 2020-12-31 14:03:41 Consume message from queue
 {"type":"sap.s4.beh.salesorder.v1.SalesOrder.Created.v1","specversion":"1.0","source":"/default/sap.s4.beh/DEVCLNT001","id":"db13c94e-c20f-4b2e-8171-6970104721a0","time":"2020-12-31T13:59:15Z","datacontenttype":"application/json","data":{"SalesOrder":"1"}}
 ```
