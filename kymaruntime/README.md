@@ -38,7 +38,7 @@ Once you've completed the steps in this section, you'll also have a package in t
 |[SANDBOX](s4hana/sandbox/README.md#on-sap-cloud-platform---kyma-runtime)|`s4mock`|`s4hana/sandbox/`|`router/`|
 |[BRAIN](cap/brain/README.md#on-sap-cloud-platform---kyma-runtime)|`brain`|`cap/brain/`|`.`|
 
-Throughout the instructions in this document, you must ensure that you specify the right package name for the component you're building for Kyma, and also the appropriate relative directory name.
+Throughout the instructions in this document, you must ensure that you specify the right details for the component you're building for Kyma, as shown in this table.
 
 ### Build and publish a Docker image
 
