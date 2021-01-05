@@ -76,10 +76,18 @@ If you're just starting out, and only want to get the BRAIN component up and run
 
 The best way to get this component up and running is to start locally. So now is a good point to set things up for local execution. This is a CAP based service, which relies on certain NPM modules (see the `dependencies` and `devDependencies` nodes in [`package.json`](package.json) and a local SQLite-powered persistence layer (see the `cds -> requires -> db` node in the same file).
 
-In this (`cap/brain/`) directory, first get the modules installed by running `npm install`. This is the sort of thing you should see:
+First, ensure you're in this (`cap/brain/`) directory:
+
+```bash
+user: teched2020-developer-keynote $ cd cap/brain/
+user: brain $ pwd
+/home/user/projects/teched2020-developer-keynote/cap/brain
+```
+
+Next, get the modules installed by running `npm install`. This is the sort of thing you should see:
 
 ```
-$ npm install
+user: brain $ npm install
 
 > @sap/hana-client@2.6.54 install /private/tmp/teched2020-developer-keynote/cap/brain/node_modules/@sap/hana-client
 > node checkbuild.js
@@ -104,7 +112,7 @@ found 0 vulnerabilities
 Now run `cds deploy` to cause the persistence layer artifact (the SQLite database file) to be summoned into existence (note that there are a few test records in the CSV file):
 
 ```
-$ cds deploy
+user: brain $ cds deploy
  > filling charity.CharityEntry from db/csv/charity-CharityEntry.csv
 /> successfully deployed to ./brain.db
 ```
