@@ -36,7 +36,7 @@ Once you've completed the steps in this section, you'll also have a package in t
 |Component|[SANDBOX](s4hana/sandbox/)|[BRAIN](cap/brain/)|
 |-|-|-|
 |Component Directory (`componentdir`)|`s4hana/sandbox/`|`cap/brain/`|
-|Package|`s4mock`|`brain`|
+|Package (`app`)|`s4mock`|`brain`|
 |App Artifact Directory (`dir`)|`router/`|.|
 
 
