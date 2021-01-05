@@ -205,6 +205,6 @@ service/s4mock created
 apirule.gateway.kyma-project.io/s4mock created
 ```
 
-The app is now deployed to the Kyma runtime in your SAP Cloud Platform subaccount.
+Your component is now deployed to the Kyma runtime in your SAP Cloud Platform subaccount.
 
 Good work! 
