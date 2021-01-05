@@ -18,10 +18,10 @@ In your subaccount, go to the "Connectivity" -> "Destinations" section and for e
 |Proxy Type|Internet|Internet|
 |Authentication|None|None|
 
-For the SANDBOX component URL, use the scheme plus the fully qualified hostname only, i.e. don't add any of the URL's path. Here's an example (your URL will have the same pattern but different details):
+For the **SANDBOX component** URL (for the `S4SalesOrders` service), use the scheme plus the fully qualified hostname only, i.e. don't add any of the URL's path. Here's an example (your URL will have the same pattern but different details):
 
 `https://s4mock.c081c90.kyma.shoot.live.k8s-hana.ondemand.com`
 
-Here's an example of what the destination definition for the `S4SalesOrders` service might look like in your SAP Cloud Platform Cockpit:
+And here's an example of what the destination definition might look like in your SAP Cloud Platform Cockpit:
 
 ![Definition of the `apihub_mock_salesorders` destination](apihub_mock_salesorders.png)
