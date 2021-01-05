@@ -38,7 +38,7 @@ The service, once deployed, does not require any human intervention to function.
 1. Log the message details
 1. Retrieve sales order header details from the OData service `API_SALES_ORDER_SRV` proxied by the SANDBOX component
 1. Request a conversion of the total net amount of the sales order to the equivalent in charity fund credits, by calling the CONVERTER component\*
-1. Publish a new event to the "Internal/Charityfund/Increased" topic
+1. Publish a new event to the "Internal/Charityfund/Increased" topic\*
 
 _\*This is as long as sold-to party is one that hasn't already been processed 10 times before_
 
