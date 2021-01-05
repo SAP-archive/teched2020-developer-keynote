@@ -318,7 +318,17 @@ SalesOrder number is 1
 SalesOrder details retrieved {"SalesOrder":"1","SalesOrganization":"1710","SoldToParty":"17100001","CreationDate":"/Date(1471392000000)/","TotalNetAmount":"52.65"}
 ```
 
-Observe that this time, not only is the event message logged ("Message received { ... }") but also a connection is made to the `S4SalesOrders` endpoint and header data is retrieved for the sales order number sent in the event message (1).
+Observe that this time, not only is the event message logged ("Message received { ... }") but also a connection is made to the `S4SalesOrders` endpoint and header data is retrieved for the sales order number sent in the event message (1). This header data is in JSON format, and pretty-printed, looks like this:
+
+```json
+{
+  "SalesOrder": "1",
+  "SalesOrganization": "1710",
+  "SoldToParty": "17100001",
+  "CreationDate": "/Date(1471392000000)/",
+  "TotalNetAmount": "52.65"
+}
+```
 
 **Testing BRAIN_LEVEL 3**
 
