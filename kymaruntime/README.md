@@ -46,7 +46,7 @@ If you have Docker in your development environment, you can use the `docker` com
 
 However, if you're using the App Studio as your [development environment](../README.md#a-development-environment) then you don't have direct access to Docker or the `docker` tool and you won't be able to make use of the `d` scripts. 
 
-Instead, you can use [GitHub Actions](https://github.com/features/actions) in the context of your repository to both build and publish the Docker image. There is an [`image-build-and-publish.yml`](../.github/workflows/image-build-and-publish.yml) workflow available in this repository, with the description "Build and publish Docker image". You can see it from a DevOps perspective in the "Actions" area of this repository (again, make sure you're working within _your fork_ of the Developer Keynote repository):
+Instead, you can use [GitHub Actions](https://github.com/features/actions) in the context of your repository to both build and publish the Docker image (i.e. take care of the first two steps in one go). There is an [`image-build-and-publish.yml`](../.github/workflows/image-build-and-publish.yml) workflow available in this repository, with the description "Build and publish Docker image". You can see it from a DevOps perspective in the "Actions" area of this repository (again, make sure you're working within _your fork_ of the Developer Keynote repository):
 
 ![The workflow](images/workflow.png)
 
