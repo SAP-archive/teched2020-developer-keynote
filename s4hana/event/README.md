@@ -169,6 +169,8 @@ At this point you're ready to invoke the [`management`](https://github.com/SAP-s
 
 Try them both out now, with no arguments, to get a feel for what they offer.
 
+> Before invoking either the `management` or `messaging` script, ensure you're authenticated and connected to your CF org and space with `cf login`.
+
 The `management` script offers queue and queue subscription related API endpoints:
 
 ```bash
