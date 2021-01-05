@@ -12,8 +12,9 @@
 - [Running it](#running-it)
   - [Locally](#locally)
   - [On SAP Cloud Platform - Kyma runtime](#on-sap-cloud-platform---kyma-runtime)
-    - [Perform the main steps](#perform-the-main-steps)
+    - [Build & publish, secrets and deployment](#build--publish-secrets-and-deployment)
     - [Create and deploy a credentials config map](#create-and-deploy-a-credentials-config-map)
+    - [Check the component is up and running](#check-the-component-is-up-and-running)    
 
 ## Overview
 
@@ -395,7 +396,7 @@ Now we've successfully got the service running locally, we'll go directly to a d
 
 This BRAIN component has something in common with the [SANDBOX](../../s4hana/sandbox) and [CONVERTER](../../kyma) components ... and that is that the Kyma runtime was where each of them was running in the actual [Developer Keynote](https://events.sapteched.com/widget/sap/sapteched2020/Catalog/session/1603314875989001AsWU). And the process for getting the component up and running in the Kyma runtime is the same each time. There's an extra step required for this BRAIN component, but we'll come to that in good time. 
 
-#### Perform the main steps
+#### Build & publish, secrets and deployment
 
 Because the process is common, you can find it described in a separate (and therefore shared) document - [Getting a component up and running on the Kyma runtime](../../kymaruntime/). Head on over to that document now, and follow the instructions, bearing in mind that you're building the BRAIN component. Come back here when you're done.
 
@@ -425,8 +426,9 @@ Creating and deploying config map to k8s
 configmap/appconfigcap configured
 ```
 
+#### Check the component is up and running
 
-Well done! At this stage, you should have the CAP brain service deployed to and running in the Kyma runtime in your SAP Cloud Platform trial account. If you check the Deployments in the Kyma console you might see something similar to this, where this BRAIN component (package name `brain`) is deployed, along with others (`s4mock` and `calc-service` in this example):
+Well done! At this stage, you should have the BRAIN component deployed to and running in the Kyma runtime in your SAP Cloud Platform trial account. If you check the Deployments in the Kyma console you might see something similar to this, where this BRAIN component (package name `brain`) is deployed, along with others (`s4mock` and `calc-service` in this example):
 
 ![The CAP brain service deployed to the Kyma runtime](brain-deployed.png)
 
