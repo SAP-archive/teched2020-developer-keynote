@@ -3,6 +3,9 @@
 **Contents**
 - [Overview](#overview)
 - [Steps](#steps)
+  - [Build and publish a Docker image](#build-and-publish-a-docker-image)
+  - [Create a k8s secret for registry access](#create-a-k8s-secret-for-registry-access)
+  - [Make a deployment to Kyma](#make-a-deployment-to-kyma)
 
 
 ## Overview
