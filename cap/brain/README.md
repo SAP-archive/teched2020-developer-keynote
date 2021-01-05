@@ -59,9 +59,15 @@ In carrying out the activities listed above, the CAP service consumes the follow
 
 ## Setup required
 
-You'll need to set a few things up in preparation for getting this component up and running. These instructions assume you've cloned your forked copy of this repository, as described in the [Download and installation section](../../README.md#download-and-installation) of the main repository README. The GitHub username in the examples in this README is 'qmacro' - you should replace this with your own GitHub username. 
+You'll need to set a few things up in preparation for getting this component up and running. 
+
+### Assumptions
+
+These instructions assume you've cloned your forked copy of this repository, as described in the [Download and installation section](../../README.md#download-and-installation) of the main repository README. The GitHub username in the examples in this README is 'qmacro' - you should replace this with your own GitHub username. 
 
 It also assumes you've opted to use the SAP Business Application Studio (App Studio) for your development environment and have followed the setup instructions in [Using the SAP Business Application Studio](/usingappstudio/). Prompts shown in examples in this README will reflect the prompt style in the terminal of an App Studio Dev Space (showing the username, current directory, and so on).
+
+Finally it also assumes you've already set up the message bus, an instance of the SAP Enterprise Messaging service, following the instructions in [Message bus setup](../../messagebus/).
 
 ### Destinations
 
@@ -71,6 +77,17 @@ As mentioned above, there are some destinations at play here. Two, in fact, poin
 - the `ConversionService` endpoint, required for BRAIN_LEVEL 3
 
 If you're just starting out, and only want to get the BRAIN component up and running at BRAIN_LEVEL 1 for now, you can leave the destinations setup until you're ready. Otherwise, set these destinations up now, following the [Destinations setup](destinations.md) instructions.
+
+### Service instances
+
+In addition to an instance of the SAP Enterprise Messaging service, the BRAIN component requires access to instances of another couple of services:
+
+- the Destination service
+- the Authorization & Trust Management service (otherwise known as XSUAA)
+
+These services are to enable the reading of those two destination definitions (for the `S4SalesOrders` and `ConversionService` endpoints) that you've just created in the previous section.
+
+Set up these services now following the [Service instances setup](serviceinstances.md) instructions.
 
 ### Local service setup
 
