@@ -12,9 +12,7 @@
 - [Running it](#running-it)
   - [Locally](#locally)
   - [On SAP Cloud Platform - Kyma runtime](#on-sap-cloud-platform---kyma-runtime)
-    - [Build a Docker image](#build-a-docker-image)
-    - [Publish the image to a container registry](#publish-the-image-to-a-container-registry)
-    - [Create a k8s secret for registry access](#create-a-k8s-secret-for-registry-access)
+    - [Perform the main steps](#perform-the-main-steps)
     - [Create and deploy a credentials config map](#create-and-deploy-a-credentials-config-map)
 
 ## Overview
