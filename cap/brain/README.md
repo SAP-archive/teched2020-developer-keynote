@@ -20,9 +20,6 @@ This README is quite long, but hopefully useful and interesting. Here's a small 
     - [Create a k8s secret for registry access](#create-a-k8s-secret-for-registry-access)
     - [Create and deploy a credentials config map](#create-and-deploy-a-credentials-config-map)
 
-
-
-
 ## Overview
 
 The BRAIN component is a basic CAP application with two of the three layers in use. In effect, a "service" more than an application:
@@ -40,7 +37,7 @@ The service, once deployed, does not require any human intervention to function.
 1. Request a conversion of the total net amount of the sales order to the equivalent in charity fund credits, by calling the CONVERTER component\*
 1. Publish a new event to the "Internal/Charityfund/Increased" topic\*
 
-_\*This is as long as sold-to party is one that hasn't already been processed 10 times before_
+_\*This is as long as the sold-to party is one that hasn't already been processed 10 times before_
 
 ## Controlling the processing
 
@@ -62,11 +59,18 @@ In carrying out the activities listed above, the CAP service consumes the follow
 
 ## Setup required
 
-You'll need to set a few things up in preparation for getting this component up and running. These instructions assume you've cloned your forked copy of this repository, as described in the [Download and installation section](../../README.md#download-and-installation) of the main repository README. The GitHub username in the examples in this README is 'qmacro' - you should replace this with your own GitHub username.
+You'll need to set a few things up in preparation for getting this component up and running. These instructions assume you've cloned your forked copy of this repository, as described in the [Download and installation section](../../README.md#download-and-installation) of the main repository README. The GitHub username in the examples in this README is 'qmacro' - you should replace this with your own GitHub username. 
+
+It also assumes you've opted to use the SAP Business Application Studio (App Studio) for your development environment and have followed the setup instructions in [Using the SAP Business Application Studio](/usingappstudio/). Prompts shown in examples in this README will reflect the prompt style in the terminal of an App Studio Dev Space (showing the username, current directory, and so on).
 
 ### Destinations
 
-As mentioned above, there are some destinations at play here, destinations that point to the `S4SalesOrders` and `ConversionService` endpoints. Set those up now, following the [Destinations setup](destinations.md) instructions.
+As mentioned above, there are some destinations at play here. Two, in fact, pointing to:
+
+- the `S4SalesOrders` endpoint, required for BRAIN_LEVEL 2
+- the `ConversionService` endpoint, required for BRAIN_LEVEL 3
+
+If you're just starting out, and only want to get the BRAIN component up and running at BRAIN_LEVEL 1 for now, you can leave the destinations setup until you're ready. Otherwise, set these destinations up now, following the [Destinations setup](destinations.md) instructions.
 
 ### Local service setup
 
