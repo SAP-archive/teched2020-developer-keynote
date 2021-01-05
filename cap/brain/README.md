@@ -1,11 +1,6 @@
 # BRAIN
 
-This section relates to BRAIN component, the service that coordinates the event messages, subscribes to the "salesorder/created" topic, and publishes event messages to the "Internal/Charityfund/Increased" topic, and is represented by the "BRAIN" block in the whiteboard diagram.
-
-![The Brain in context](brain.png)
-
-This README is quite long, but hopefully useful and interesting. Here's a small table of contents to help you navigate.
-
+**Contents**
 - [Overview](#overview)
 - [Controlling the processing](#controlling-the-processing)
 - [Remote services defined and used](#remote-services-defined-and-used)
@@ -23,6 +18,12 @@ This README is quite long, but hopefully useful and interesting. Here's a small 
     - [Create and deploy a credentials config map](#create-and-deploy-a-credentials-config-map)
 
 ## Overview
+
+This section relates to BRAIN component, the service that coordinates the event messages, subscribes to the "salesorder/created" topic, and publishes event messages to the "Internal/Charityfund/Increased" topic, and is represented by the "BRAIN" block in the whiteboard diagram.
+
+![The Brain in context](brain.png)
+
+This README is quite long, but hopefully useful and interesting. Here's a small table of contents to help you navigate.
 
 The BRAIN component is a basic CAP application with two of the three layers in use. In effect, a "service" more than an application:
 
