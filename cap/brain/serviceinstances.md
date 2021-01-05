@@ -22,7 +22,7 @@ Set up an instance of the Destination service like this:
 
 ```
 user: brain $ cf create-service destination lite destination-lite
-Creating service instance destination-lite in org 14ee89fftrial / space dev as dj.adams@sap.com...
+Creating service instance destination-lite in org 14ee89fftrial / space dev as sapdeveloper@example.com...
 OK
 ```
 
@@ -31,7 +31,7 @@ Set up an instance of the Authorization & Trust Management service (XSUAA) like 
 
 ```
 user: brain $ cf create-service xsuaa application xsuaa-application
-Creating service instance xsuaa-application in org 14ee89fftrial / space dev as dj.adams@sap.com...
+Creating service instance xsuaa-application in org 14ee89fftrial / space dev as sapdeveloper@example.com...
 OK
 ```
 
