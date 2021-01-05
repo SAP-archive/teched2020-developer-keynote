@@ -33,10 +33,13 @@ Note also that access to packages in the GitHub package registry requires authen
 
 Once you've completed the steps in this section, you'll also have a package in the GitHub Package Registry in the context of your own repository, and it will be that package that your Kyma runtime instance will retrieve. Depending on where you've come from to read this document, this package will be one of the following:
 
-|Component|Package|Component Directory (`componentdir`)|App Artifact Directory (`dir`)|
-|-|-|-|-|
-|[SANDBOX](s4hana/sandbox/README.md#on-sap-cloud-platform---kyma-runtime)|`s4mock`|`s4hana/sandbox/`|`router/`|
-|[BRAIN](cap/brain/README.md#on-sap-cloud-platform---kyma-runtime)|`brain`|`cap/brain/`|`.`|
+|Component|[SANDBOX](s4hana/sandbox/)|[BRAIN](cap/brain/)|
+|-|-|-|
+|Component Directory (`componentdir`)|`s4hana/sandbox/`|`cap/brain/`|
+|Package|`s4mock`|`brain`|
+|App Artifact Directory (`dir`)|`router/`|.|
+
+
 
 Throughout the instructions in this document, you must ensure that you specify the right details for the component you're building for Kyma, as shown in this table.
 
