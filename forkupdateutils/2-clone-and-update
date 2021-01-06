@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Clone the new test fork, update it from upstream, and push the
+# updates to the repo on GitHub - 2-clone-and-update
+
+declare reponame=teched2020-developer-keynote
+declare upstreamsource=https://github.com/SAP-samples/teched2020-developer-keynote.git
+
+gh repo clone $reponame
+cd $reponame || exit
+git remote add upstream $upstreamsource
+git remote -v
+git pull upstream main
+git push origin main
