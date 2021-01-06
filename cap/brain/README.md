@@ -1,4 +1,4 @@
-# BRAIN
+# The BRAIN component
 
 **Contents**
 - [Overview](#overview)
