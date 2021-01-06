@@ -10,9 +10,9 @@
 
 ## Overview
 
-This document explains the steps required to get a component running on the Kyma runtime, which is based on Kubernetes (k8s). These steps are necessary for some of the components in this Developer Keynote repository, specifically the [SANDBOX](s4hana/sandbox/README.md#on-sap-cloud-platform---kyma-runtime), [BRAIN](cap/brain/README.md#on-sap-cloud-platform---kyma-runtime) and [CONVERTER](kyma/) components. 
+This document explains the steps required to get a component running on the Kyma runtime, which is based on Kubernetes (k8s). These steps are necessary for some of the components in this Developer Keynote repository, specifically the [SANDBOX](s4hana/sandbox/README.md#on-sap-cloud-platform---kyma-runtime) and [BRAIN](cap/brain/README.md#on-sap-cloud-platform---kyma-runtime) components. If you've come here from the main READMEs for either of those two components, remember that context - i.e. you're here to get either the SANDBOX or the BRAIN component up and running on the Kyma runtime. 
 
-There are a number of steps to get the app running in Kyma, i.e. on k8s:
+There are a number of steps:
 
 1. build a Docker image for the component
 1. publish the image to a container registry
