@@ -92,7 +92,7 @@ When you set up a trial account, a Cloud Foundry (CF) environment is set up auto
 
 #### Kyma environment
 
-While a Kyma environment is not set up automatically, you can (and should) enable one with the "Enable Kyma" button on the main account overview page in the Cockpit, as shown in this screenshot:
+While a Kyma environment is not set up automatically, you can (and should) enable one with the "Enable Kyma" button on the main trial account overview page in the Cockpit, as shown in this screenshot:
 
 ![Enable Kyma button](images/enable-kyma.png)
 
