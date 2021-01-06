@@ -98,7 +98,7 @@ While a Kyma environment is not set up automatically, you can (and should) enabl
 
 Follow [this tutorial](https://developers.sap.com/tutorials/cp-kyma-getting-started.html) for detailed instructions, and make sure you also install the k8s command line tool (`kubectl`) and download and set your "kubeconfig" appropriately, as explained in the [Install the Kubernetes Command Line Tool](https://developers.sap.com/tutorials/cp-kyma-download-cli.html) tutorial. 
 
-> If you've decided to [use App Studio for your development environment](usingappstudio/), the setup script that we've prepared for that scenario installs `kubectl` for you automatically, and there's a specific section in the instructions that shows you [how to bring in the "kubeconfig" into your Dev Space context](usingappstudio/README.md#set-up-the-kyma-runtime-configuration).
+> If you've decided to [use App Studio for your development environment](usingappstudio/), the setup script that we've prepared for that scenario installs `kubectl` for you automatically, and there's a specific section in the instructions that shows you [how to bring in the "kubeconfig" into your App Studio's Dev Space context](usingappstudio/README.md#set-up-the-kyma-runtime-configuration).
 
 
 ### Access to the SAP Business API Hub
