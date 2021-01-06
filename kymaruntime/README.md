@@ -37,7 +37,7 @@ Note also that access to packages in the GitHub package registry requires authen
 
 Once you've completed the steps in this section, you'll also have a package in the GitHub Package Registry in the context of your own repository, and it will be that package that your Kyma runtime instance retrieves. Depending on where you've come from to read this document, this package will be for one of the following components:
 
-|Component|[SANDBOX](s4hana/sandbox/)|[BRAIN](cap/brain/)|
+|Component|[SANDBOX](../s4hana/sandbox/)|[BRAIN](../cap/brain/)|
 |-|-|-|
 |Component Directory (`componentdir`)|`s4hana/sandbox/`|`cap/brain/`|
 |Package (`app`)|`s4mock`|`brain`|
