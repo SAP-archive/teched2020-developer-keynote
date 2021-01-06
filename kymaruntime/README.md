@@ -21,17 +21,19 @@ There are a number of steps:
 
 In other words, in a Kyma context, the component exists as a container and we'll be using Docker to create the image from which our component container can be created. Moreover, we need to make that container image available somewhere for the Kyma runtime to retrieve it and start up one or more instances of it.
 
-That place where we'll make the container image available is in a [package registry provided by GitHub](https://github.com/features/packages), specifically connected to your forked version of this repository. If you have a look at [the original Developer Keynote repository](https://github.com/SAP-samples/teched2020-developer-keynote), i.e. the source of your fork, i.e. the one in the [SAP-samples](https://github.com/SAP-samples/) organization on GitHub, you'll see that it has a list of "Packages" associated with it, as shown in the bottom right of this screenshot:
+That place where we'll make the container image available is in a [package registry provided by GitHub](https://github.com/features/packages), specifically connected to your forked version of this repository. If you have a look at the source of your fork - [the original Developer Keynote repository](https://github.com/SAP-samples/teched2020-developer-keynote) i.e. the one in the [SAP-samples](https://github.com/SAP-samples/) organization on GitHub - you'll see that it has a list of "Packages" associated with it, as shown in the bottom right of this screenshot:
 
 ![Packages in the original Developer Keynote repository](images/packages.png)
 
-Note that the packages (you can also see them in [the organization-level package list, filtered by repository](https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote)) each have a Docker icon next to them; this denotes that they are Docker packages (there are other package types that can be stored in the repository, such as those from NPM and NuGet).
+You can also see them in [the SAP-samples organization-level package list, filtered by repository](https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote).
+
+Note that the packages each have a Docker icon next to them; this denotes that they are Docker packages (there are other package types that can be stored in the repository, such as those from NPM and NuGet).
 
 Note also that access to packages in the GitHub package registry requires authentication - this is why you'll need to generate a secret to make available to Kyma to use, to retrieve the container image from there.
 
 ## Steps
 
-Once you've completed the steps in this section, you'll also have a package in the GitHub Package Registry in the context of your own repository, and it will be that package that your Kyma runtime instance will retrieve. Depending on where you've come from to read this document, this package will be one of the following:
+Once you've completed the steps in this section, you'll also have a package in the GitHub Package Registry in the context of your own repository, and it will be that package that your Kyma runtime instance retrieves. Depending on where you've come from to read this document, this package will be for one of the following components:
 
 |Component|[SANDBOX](s4hana/sandbox/)|[BRAIN](cap/brain/)|
 |-|-|-|
@@ -39,17 +41,15 @@ Once you've completed the steps in this section, you'll also have a package in t
 |Package (`app`)|`s4mock`|`brain`|
 |App Artifact Directory (`dir`)|`router/`|.|
 
-
-
-Throughout the instructions in this document, you must ensure that you specify the right details for the component you're building for Kyma, as shown in this table.
+Throughout the instructions in this document, you must ensure that you specify the right details for the component you're building for Kyma, as shown in this table. The properties `componentdir`, `app` and `dir` will become clear shortly.
 
 ### Build and publish a Docker image
 
 If you have Docker in your development environment, you can use the `docker` command line tool to achieve the first two steps; there are helper scripts (each called `d`) in the SANDBOX and BRAIN components' directories explicitly for this purpose.
 
-However, if you're using the App Studio as your [development environment](../README.md#a-development-environment) then you don't have direct access to Docker or the `docker` tool and you won't be able to make use of the `d` scripts. 
+However, if you're using the App Studio as your [development environment](../README.md#a-development-environment) then you don't have direct access to a Docker engine and you won't be able to make use of the `docker` tool or the `d` scripts. 
 
-Instead, you can use [GitHub Actions](https://github.com/features/actions) in the context of your repository to both build and publish the Docker image (i.e. take care of the first two steps in one go). There is an [`image-build-and-publish.yml`](../.github/workflows/image-build-and-publish.yml) workflow available in this repository, with the description "Build and publish Docker image". You can see it from a DevOps perspective in the "Actions" area of this repository (again, make sure you're working within _your fork_ of the Developer Keynote repository):
+Instead, you can use [GitHub Actions](https://github.com/features/actions) in the context of your repository to both build and publish the Docker image (i.e. take care of the first two steps in one go). There is a GitHub Actions workflow [Build and publish Docker image](../.github/workflows/image-build-and-publish.yml) available in this repository. You can see it in the "Actions" area of this repository (again, make sure you're working within _your fork_ of the Developer Keynote repository):
 
 ![The workflow](images/workflow.png)
 
@@ -71,11 +71,15 @@ In other words, yes - this workflow is designed to offer Docker image build and 
 
 > If this is the first time you are using workflows on your forked repository, be aware that you'll have to [enable them first](../../enabling-workflows.md).
 
-Start the workflow and be ready to supply the appropriate values for the parameters. Select the workflow ("Build and publish Docker image") and use the `workflow_dispatch` event trigger, i.e. the "Run workflow" button to manually invoke it. Specify the appropriate values for your component. This following screenshot shows an example specifically for the SANDBOX component - make sure you specify values appropriate for the component you're dealing with (using values from the table above):
+Start the workflow (in your own repository) and be ready to supply the appropriate values for the parameters. Select the workflow ("Build and publish Docker image") and use the `workflow_dispatch` event trigger, i.e. the "Run workflow" button to manually invoke it. Specify the appropriate values for your component. This following screenshot shows an example specifically for the SANDBOX component - make sure you specify values appropriate for the component you're dealing with (using values from the table earlier, at the start of the [Steps](#steps) section):
 
 ![Run workflow](images/run-workflow.png)
 
-In other words, for the SANDBOX component, specify:
+> As you can see, the example in the screenshot is from where the user [qmacro](https://github.com/qmacro) has forked the Developer Keynote repository into their own space. When you do this, you should be looking at **your own fork**.
+
+Regarding the branch value for the "Use workflow from" parameter - keep it as it is (it most likely will be "main" if you've forked your repo from the original one in the SAP-samples organization).
+
+Then, for the SANDBOX component, specify:
 
 |Parameter|Value|
 |-|-|
@@ -91,13 +95,9 @@ But for the BRAIN component, specify:
 |The name for the package (e.g. s4mock, brain or calculationservice)|`brain`|
 |The directory containing the app artifacts (relative to the component's location in the repo)|`.`|
 
-> As you can see, the example in the screenshot is from where the user [qmacro](https://github.com/qmacro) has forked the Developer Keynote repository into their own space. When you do this, you should be looking at **your own fork**.
+The workflow should complete successfully. If you wish, examine the detailed output of the steps (by expanding the `>` symbols shown in the screenshot). Here's an example, from the build and publish workflow for the `s4mock` package (SANDBOX component):
 
-Regarding the branch value for the "Use workflow from" parameter - keep it as it is (it most likely will be "main" if you've forked your repo from the original one in the SAP-samples organization).
-
-The workflow should complete successfully - if you wish, examine the detailed output of the steps (by expanding the `>` symbols shown in the screenshot). Here's an example, from the build and publish workflow for the `s4mock` package (SANDBOX component):
-
-![successful completion of the build job](images/build-job-success.png)
+![successful completion of the job](images/job-success.png)
 
 The result of this successful workflow execution should be a package representing a Docker image version of your component, in the GitHub package registry, associated with your repository. You will be able to see this on the main page of your repository. This is what it would look like for the SANDBOX component (`s4mock` package):
 
