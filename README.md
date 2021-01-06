@@ -27,7 +27,7 @@
 
 This is the repository containing all the source (code, configuration and more) that was put together by the SAP Developer Advocates team for the Developer Keynote (DK100) at SAP TechEd 2020.
 
-:fast_forward: If If you're just looking to dive in and get going on your own with this, the **[quick start](quickstart.md)** guide may be useful to you.
+:fast_forward: If you're just looking to dive in and get going on your own with this, the **[quick start](quickstart.md)** guide may be useful to you.
 
 The Developer Keynote session is designed to show how developers of different backgrounds, using different tools, technologies and languages can come together and contribute collectively towards an extension to an SAP S/4HANA Cloud system, using SAP Cloud Platform and services & runtimes upon it.
 
