@@ -6,7 +6,6 @@
 
 - [Overview](#overview)
 - [The components](#the-components)
-- [Quick start](#quick-start)
 - [Requirements](#requirements)
   - [A development environment](#a-development-environment)
   - [A GitHub account](#a-github-account)
@@ -27,6 +26,8 @@
 ## Overview
 
 This is the repository containing all the source (code, configuration and more) that was put together by the SAP Developer Advocates team for the Developer Keynote (DK100) at SAP TechEd 2020.
+
+If you're just looking to dive in and get going on your own with this, the **[quick start](quickstart.md)** guide may be useful to you.
 
 The Developer Keynote session is designed to show how developers of different backgrounds, using different tools, technologies and languages can come together and contribute collectively towards an extension to an SAP S/4HANA Cloud system, using SAP Cloud Platform and services & runtimes upon it.
 
@@ -55,10 +56,6 @@ We recommend you take the components one at a time. Specific instructions are gi
 - [CHARITY](abap/) - the charity backend service that receives event messages published to the "Internal/Charityfund/Increased" topic, stores the data, retrieves business partner info, and makes an OData service available for the FRONTEND component (a Steampunk ABAP stack RAP based service)
 
 If you're wondering about the MESSAGE BUS component, see the [appropriate section a bit further down](#a-message-bus) and the dedicated [message bus setup](messagebus/) section.
-
-## Quick start
-
-If you're just looking for a guided set of steps, you may want to follow the [quick start](quickstart.md) guide (which is a work in progress for now).
 
 ## Requirements
 
