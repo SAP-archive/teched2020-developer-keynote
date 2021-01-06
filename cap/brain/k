@@ -21,7 +21,6 @@ with options:
 -r | --repository <GitHub repository>
 
 with actions:
-
 - deploy: make deployment (needs -u and -r)
 - configmap: create and deploy config map
 - secret: create secret for GitHub Package registry access
