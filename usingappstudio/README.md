@@ -26,7 +26,7 @@ Note that App Studio doesn't give you a Docker engine - you won't be able to dir
 
 Where Docker images need to be built, we'll be using facilities provided by GitHub, in the context of your own forked version of this repository. This is partly why we've insisted you fork this repository before starting (the other, main reason being that you get to store Docker images in the [GitHub Package Repository](https://github.com/features/packages) facilities connected to your own repository).
 
-The Docker facilities in GitHub come in the form of actions & command line invocations that can be carried out in the context of jobs, using [GitHub Actions](https://github.com/features/actions). Jobs are defined in so-called "workflows", and are available in the Actions section of the repository. Note that you'll have to [enable workflows on your forked repository](enabling-workflows.md).
+The Docker facilities in GitHub come in the form of actions & command line invocations that can be carried out in the context of jobs, using [GitHub Actions](https://github.com/features/actions). Jobs are defined in so-called "workflows", and are available in the Actions section of the repository. Note that you'll have to [enable workflows on your forked repository](../enabling-workflows.md).
 
 If you choose to use and manage your own development environment, and have access to Docker, you are of course more than welcome to use Docker locally.
 
