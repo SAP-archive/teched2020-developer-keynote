@@ -175,37 +175,14 @@ regcred                           kubernetes.io/dockerconfigjson        1      1
 
 ### Make a deployment to Kyma
 
-Now everything is ready to make a deployment to the Kyma runtime. The deployment is described in the component-specific `deployment.yaml` file that you will find in the Component Directory (where you came from to read this document), which includes a number of important references that should now be familiar to you. Take a quick look at the contents of your `deployment.yaml` file to see them, and you'll also need to make a modification too. 
+Now everything is ready to make a deployment to the Kyma runtime. The deployment is described in the component-specific `deployment.yaml` file that you will find in the Component Directory (where you came from to read this document), which includes a number of important references that should now be familiar to you. 
 
-Here are quick references to each of the `deployment.yaml` files - pick the one for the component you're working on, and make sure you make the modification in the actual file in your development environment of course:
+Take a quick look at the contents of your `deployment.yaml` file to see them, and you'll also spot a URL for the Docker image, stored in the GitHub Package Registry, that has generic values "OWNER" and "REPOSITORY". These will be replaced by the `k` script when you run it with the `deploy` action, according to the values you specify for the user and repository options.
 
-|Component|Component Directory|Deployment File|
-|-|-|-|
-|[SANDBOX](s4hana/sandbox/)|`s4hana/sandbox/`|[`s4hana/sandbox/deployment.yaml`](../s4hana/sandbox/deployment.yaml)|
-|[BRAIN](cap/brain/)|`cap/brain/`|[`cap/brain/deployment.yaml`](../cap/brain/deployment.yaml)|
-
-Taking a look in the respective `deployment.yaml` file, you should see an `image` property with the value being a URL for the Docker image, stored in the GitHub Package Registry.
-
-Make sure you modify the value for that specific `image` property, following the property hierarchy in the file:
-
-`spec -> template -> spec -> containers -> image`
-
-Initially, this will have a value like this:
-
-`docker.pkg.github.com/OWNER/REPOSITORY/<package>:latest`
-
-Change this so that `OWNER` and `REPOSITORY` to match your forked repository that your working from. Following the example from earlier, where the user 'qmacro' has forked the repository, the change in this case needs to be made so that the value becomes:
-
-`docker.pkg.github.com/qmacro/teched2020-developer-keynote/<package>:latest`
-
-> Leave the `<package>` part of the URL as it is.
-
-Make sure this matches your GitHub org / username and repository name and save the file.
-
-The deployment is quite simple at this stage (as you can see from the `deploy` function in the `k` script). Invoke it with the "deploy" action. Here's an example of that, for the SANDBOX component:
+The deployment is quite simple at this stage (as you can see from the `deploy` function in the `k` script). Invoke it with the "deploy" action. Here's an example of that, for the SANDBOX component, where the user who has forked the `teched2020-developer-keynote` repository is "qmacro":
 
 ```shell
-user: brain $ ./k deploy
+user: sandbox $ ./k -u qmacro -r teched2020-developer-keynote deploy
 Deploying to k8s
 configmap/appconfig created
 deployment.apps/s4mock created
