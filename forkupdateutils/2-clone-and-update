@@ -3,12 +3,14 @@
 # Clone the new test fork, update it from upstream, and push the
 # updates to the repo on GitHub - 2-clone-and-update
 
+declare username=qmacro
+declare upstreamsource=SAP-samples
 declare reponame=teched2020-developer-keynote
-declare upstreamsource=https://github.com/SAP-samples/teched2020-developer-keynote.git
+declare github=https://github.com
 
-gh repo clone $reponame
+git clone "$github/$username/$reponame.git"
 cd $reponame || exit
-git remote add upstream $upstreamsource
+git remote add upstream "$github/$upstreamsource/$reponame.git"
 git remote -v
 git pull upstream main
 git push origin main
