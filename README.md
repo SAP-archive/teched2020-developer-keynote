@@ -11,6 +11,9 @@
   - [A development environment](#a-development-environment)
   - [A GitHub account](#a-github-account)
   - [An SAP Cloud Platform trial account](#an-sap-cloud-platform-trial-account)
+    - [Trial account](#trial-account)
+    - [Cloud Foundry environment](#cloud-foundry-environment)
+    - [Kyma environment](#kyma-environment)
   - [Access to the SAP Business API Hub](#access-to-the-sap-business-api-hub)
   - [A message bus](#a-message-bus)
   - [Docker](#docker)
@@ -77,13 +80,19 @@ You'll need your GitHub account when starting out - the [Download and Installati
 
 ### An SAP Cloud Platform trial account
 
-- Trial account: You'll need a trial account on SAP Cloud Platform, if you haven't got one already. Follow [this tutorial](https://developers.sap.com/tutorials/hcp-create-trial-account.html) for detailed instructions.
+#### Trial account
 
-- Cloud Foundry (CF) environment: When you set up a trial account, a CF environment is set up automatically for you, with an organization and single 'dev' space.
+You'll need a trial account on SAP Cloud Platform, if you haven't got one already. Follow [this tutorial](https://developers.sap.com/tutorials/hcp-create-trial-account.html) for detailed instructions.
 
-  > The CF command line interface (CLI) is available as the `cf` command. The version of `cf` required for use in this repository context is version 6. There is a newer version 7 but there is [an issue with version 7 in the use of the `cf env` command](https://github.com/cloudfoundry/cli/issues/2116), which needs to work correctly here. Moreover, it's more likely than not that you have version 6 of `cf` already installed and available.
+#### Cloud Foundry environment
 
-- Kyma environment: While a Kyma environment is not set up automatically, you can (and should) enable one with the "Enable Kyma" button on the main account overview page in the Cockpit, as shown in this screenshot:
+When you set up a trial account, a Cloud Foundry (CF) environment is set up automatically for you, with an organization and single 'dev' space.
+
+> The CF command line interface (CLI) is available as the `cf` command. The version of `cf` required for use in this repository context is version 6. There is a newer version 7 but there is [an issue with version 7 in the use of the `cf env` command](https://github.com/cloudfoundry/cli/issues/2116), which needs to work correctly here. Moreover, it's more likely than not that you have version 6 of `cf` already installed and available.
+
+#### Kyma environment
+
+While a Kyma environment is not set up automatically, you can (and should) enable one with the "Enable Kyma" button on the main account overview page in the Cockpit, as shown in this screenshot:
 
 ![Enable Kyma button](images/enable-kyma.png)
 
