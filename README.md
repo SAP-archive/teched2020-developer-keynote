@@ -83,9 +83,14 @@ You'll need your GitHub account when starting out - the [Download and Installati
 
   > The CF command line interface (CLI) is available as the `cf` command. The version of `cf` required for use in this repository context is version 6. There is a newer version 7 but there is [an issue with version 7 in the use of the `cf env` command](https://github.com/cloudfoundry/cli/issues/2116), which needs to work correctly here. Moreover, it's more likely than not that you have version 6 of `cf` already installed and available.
 
-- Kyma environment: While a Kyma environment is not set up automatically, you can (and should) enable one with the "Enable Kyma" button on the main account overview page in the Cockpit, as shown in this screenshot. Follow [this tutorial](https://developers.sap.com/tutorials/cp-kyma-getting-started.html) for detailed instructions, and make sure you also install the k8s command line tool (`kubectl`) and download and set your "kubeconfig" appropriately, as explained in the [Install the Kubernetes Command Line Tool](https://developers.sap.com/tutorials/cp-kyma-download-cli.html) tutorial. Note that if you've decided to [use App Studio for your development environment](usingappstudio/) there's a specific section in the instructions that shows you [how to set up the "kubeconfig" in your Dev Space context](usingappstudio/README.md#set-up-the-kyma-runtime-configuration).
+- Kyma environment: While a Kyma environment is not set up automatically, you can (and should) enable one with the "Enable Kyma" button on the main account overview page in the Cockpit, as shown in this screenshot:
 
 ![Enable Kyma button](images/enable-kyma.png)
+
+Follow [this tutorial](https://developers.sap.com/tutorials/cp-kyma-getting-started.html) for detailed instructions, and make sure you also install the k8s command line tool (`kubectl`) and download and set your "kubeconfig" appropriately, as explained in the [Install the Kubernetes Command Line Tool](https://developers.sap.com/tutorials/cp-kyma-download-cli.html) tutorial. 
+
+> If you've decided to [use App Studio for your development environment](usingappstudio/), the setup script that we've prepared for that scenario installs `kubectl` for you automatically, and there's a specific section in the instructions that shows you [how to bring in the "kubeconfig" into your Dev Space context](usingappstudio/README.md#set-up-the-kyma-runtime-configuration).
+
 
 ### Access to the SAP Business API Hub
 
