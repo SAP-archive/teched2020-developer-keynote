@@ -1,4 +1,4 @@
-# EMITTER
+# The EMITTER component
 
 **Contents**
 
