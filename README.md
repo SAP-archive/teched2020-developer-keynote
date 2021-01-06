@@ -122,7 +122,9 @@ Please set up an instance of the SAP Enterprise Messaging service according to [
 
 ### Docker
 
-If you want to try out the local Docker and Kyma runtime based aspects, you'll need Docker on your machine. Install it by following the [Get Docker](https://docs.docker.com/get-docker/) instructions for your platform.
+If you want to try out the local Docker and Kyma runtime based aspects, you'll need Docker on your machine. Not just the `docker` client, but the Docker engine. Install it by following the [Get Docker](https://docs.docker.com/get-docker/) instructions for your platform. 
+
+Alternatively, you can use the [GitHub Actions](https://github.com/features/actions) based facility we've [provided](.github/workflows/) to perform the Docker engine specific parts (building images). This is particularly relevant if you choose to use the App Studio as your [development environment](#a-development-environment). See the [App Studio setup instructions](usingappstudio/) for more details.
 
 
 ## Download and installation
