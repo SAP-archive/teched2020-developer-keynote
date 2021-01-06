@@ -10,7 +10,9 @@
 
 ## Overview
 
-This document explains the steps required to get a component running on the Kyma runtime, which is based on Kubernetes (k8s). These steps are necessary for some of the components in this Developer Keynote repository, specifically the [SANDBOX](s4hana/sandbox/README.md#on-sap-cloud-platform---kyma-runtime) and [BRAIN](cap/brain/README.md#on-sap-cloud-platform---kyma-runtime) components. If you've come here from the main READMEs for either of those two components, remember that context - i.e. you're here to get either the SANDBOX or the BRAIN component up and running on the Kyma runtime. 
+This document explains the steps required to get a component running on the Kyma runtime, which is based on Kubernetes (k8s). These steps are necessary for some of the components in this Developer Keynote repository, specifically the [SANDBOX](s4hana/sandbox/README.md#on-sap-cloud-platform---kyma-runtime) and [BRAIN](cap/brain/README.md#on-sap-cloud-platform---kyma-runtime) components. 
+
+If you've come here from the main READMEs for either of those two components, remember that context - i.e. you're here to get either the SANDBOX or the BRAIN component up and running on the Kyma runtime. Note that throughout this document, each example shown will be based on one or the other component only.
 
 There are a number of steps:
 
@@ -131,13 +133,19 @@ kubectl create secret docker-registry <SECRETNAME> \
   --docker-email=<YOUR GITHUB EMAIL>
 ```
 
-This has been also made available as an action in another script (`k`) in your component's directory. Ensure you're in your component's directory and execute it like this (the following invocation examples are from the BRAIN component's `cap/brain/` directory):
+This has been also made available as an action in another script (`k`) in your component's directory. Ensure you're in your component's directory and execute it like this (the following invocation examples are from the BRAIN component's `cap/brain/` directory, if you're working with another component, the prompt will look different, but the invocation will be the same):
 
 ```shell
 user: brain $ ./k
-Usage: k <action>
-where <action> is one of:
-- deploy: make deployment
+Usage: k <options> <action>
+
+with options:
+-u | --user <GitHub user>
+-r | --repository <GitHub repository>
+
+with actions:
+- deploy: make deployment (needs -u and -r)
+- configmap: create and deploy config map
 - secret: create secret for GitHub Package registry access
 ```
 
@@ -159,7 +167,7 @@ secret/regcred created
 You can check that the secret has been created, thus:
 
 ```shell
-$ kubectl get secrets
+user: brain $ kubectl get secrets
 NAME                              TYPE                                  DATA   AGE
 regcred                           kubernetes.io/dockerconfigjson        1      109s
 ...
@@ -176,9 +184,9 @@ Here are quick references to each of the `deployment.yaml` files - pick the one 
 |[SANDBOX](s4hana/sandbox/)|`s4hana/sandbox/`|[`s4hana/sandbox/deployment.yaml`](../s4hana/sandbox/deployment.yaml)|
 |[BRAIN](cap/brain/)|`cap/brain/`|[`cap/brain/deployment.yaml`](../cap/brain/deployment.yaml)|
 
-Taking a look in the respective `deployment.yaml` file, you should see a URL for the Docker image, stored in the GitHub Package Registry
+Taking a look in the respective `deployment.yaml` file, you should see an `image` property with the value being a URL for the Docker image, stored in the GitHub Package Registry.
 
-Make sure you modify the value for the following property:
+Make sure you modify the value for that specific `image` property, following the property hierarchy in the file:
 
 `spec -> template -> spec -> containers -> image`
 
@@ -190,14 +198,14 @@ Change this so that `OWNER` and `REPOSITORY` to match your forked repository tha
 
 `docker.pkg.github.com/qmacro/teched2020-developer-keynote/<package>:latest`
 
-Make sure this matches your GitHub org / username and repository name and save the file.
-
 > Leave the `<package>` part of the URL as it is.
 
-The deployment is quite simple at this stage (as you can see from the `deploy` function in the `k` script). Invoke it with the "deploy" action thus:
+Make sure this matches your GitHub org / username and repository name and save the file.
+
+The deployment is quite simple at this stage (as you can see from the `deploy` function in the `k` script). Invoke it with the "deploy" action. Here's an example of that, for the SANDBOX component:
 
 ```shell
- ./k deploy
+user: brain $ ./k deploy
 Deploying to k8s
 configmap/appconfig created
 deployment.apps/s4mock created
