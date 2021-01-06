@@ -241,7 +241,7 @@ This is directly related to the activity level described earlier in the [Control
 At this point, you should leave this CAP service running, and (say, in a new terminal window) jump over to your [EMITTER](../../s4hana/event) component, set that up (if you haven't got it set up already) and emit a "salesorder/created" event message. Look in particular at the [Usage](../../s4hana/event/README.md#usage) section for hints on how to do this. Emit an event message for a sales order (e.g. 1) - the invocation and output should look something like this:
 
 ```
-$ ./emit 1
+user: event $ ./emit 1
 2020-12-07 13:48:59 Publishing sales order created event for 1
 2020-12-07 13:48:59 Publish message to topic salesorder%2Fcreated
 ```
@@ -300,7 +300,7 @@ For example, if you've got the [SANDBOX](../../s4hana/sandbox) component set up 
 This is how you'd do that - basically you can specify the value for `BRAIN_LEVEL`, while restarting the service, this time giving an explicit value for the variable, like this:
 
 ```sh
-$ BRAIN_LEVEL=2 cds run
+user: brain $ BRAIN_LEVEL=2 cds run
 ```
 
 In the other terminal window, emitting another event message in the same way (`./emit 1`) should result in not only the logging of the event message received, but also the results of the sales order information retrieval described (in the [overview](#overview)) as what happens at `BRAIN_LEVEL` 2.
@@ -337,7 +337,7 @@ Once you also have the [CONVERTER](../../kyma) component up and active in the Ky
 Restart the service, this time specifying 3 as the `BRAIN_LEVEL` value:
 
 ```sh
-$ BRAIN_LEVEL=3 cds run
+user: brain $ BRAIN_LEVEL=3 cds run
 ```
 
 As before, emit another event message in the other terminal window, and check the log output from this CAP service. In addition to the messages we've already seen for `BRAIN_LEVEL` 1 and 2, you should now also see something like this:
@@ -356,7 +356,7 @@ This shows that the CAP service successfully connected to the RESTful endpoint o
 Finally you can test `BRAIN_LEVEL` 4, which causes an event message to be created and published to the message bus, specifically on the topic "Internal/Charityfund/Increased". Because there's no further service upon which the CAP service relies for this, you can go ahead straight away after `BRAIN_LEVEL` 3 and test it:
 
 ```sh
-$ BRAIN_LEVEL=4 cds run
+user: brain $ BRAIN_LEVEL=4 cds run
 ```
 
 After emitting one more event message in the other terminal window, you should see extra log messages for this new `BRAIN_LEVEL` 4, something like this:
@@ -418,10 +418,12 @@ envFrom:
 
 This refers to the config map that we're about to create in this step, containing the same `VCAP_SERVICES` environment variable based access credentials as earlier.
 
-Providing you already have the `default-env.json` file (if you've already run the CAP brain service locally, you will have), you can create the config map and deploy it in a single step, again using the `k` script. Here's an example invocation:
+You'll need a `default-env.json` file. If you've already run the CAP brain service locally, you will have it. If not, follow the instructions in [Generating a default-env.json file](default-env-gen.md) before continuing.
+
+You can create the config map and deploy it in a single step, again using the `k` script. Here's an example invocation:
 
 ```
-$ ./k configmap
+user: brain $ ./k configmap
 Creating and deploying config map to k8s
 configmap/appconfigcap configured
 ```
