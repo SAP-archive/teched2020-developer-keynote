@@ -207,4 +207,4 @@ apirule.gateway.kyma-project.io/s4mock created
 
 Your component is now deployed to the Kyma runtime in your SAP Cloud Platform subaccount.
 
-Good work! 
+Good work! Don't forget to return to where you came from, to continue following any component-specific instructions. 
