@@ -34,7 +34,12 @@ Moreover, the service instance parameters should ensure that the management and 
 
 With respect to the service instance, there's the "dev" plan available to you as a trial user; while this is marked as deprecated, it is still a very workable plan and exposes everything we need here.
 
-There are many ways to set things up like this; here, we'll show you a few different ways. One is to do via graphical interface of the SAP Cloud Platform Cockpit. Another is to use the command line - either using a script, or doing it manually, command by command.
+There are many ways to set things up like this; here, we'll show you a couple of different ways:
+
+- Via the graphical interface of the SAP Cloud Platform Cockpit, described in the [Setup in the Cockpit](#setup-in-the-cockpit) section
+- On the command line, either using a script, or doing it manually, command by command. This is described in the [Setup on the command line](#setup-on-the-command-line) section
+
+Pick one approach and follow the instructions.
 
 ## Setup in the Cockpit
 
