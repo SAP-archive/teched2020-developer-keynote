@@ -4,27 +4,65 @@
 
 set -o errexit
 
-declare namespace dockerserver
+declare namespace dockerserver user repository
 self=$(basename "$0")
 namespace=default
 dockerserver=https://docker.pkg.github.com
 secretname=regcred
 
+# Helper functions -----------------------------------------------------
+
 usage() {
   cat <<EOF
-Usage: $self <action>
+Usage: $self <options> <action>
 
-where <action> is one of:
-- deploy: make deployment
+with options:
+-u | --user <GitHub user>
+-r | --repository <GitHub repository>
+
+with actions:
+- deploy: make deployment (needs -u and -r)
+- configmap: create and deploy config map
 - secret: create secret for GitHub Package registry access
 EOF
 }
 
+checkval() {
+  while (( $# )); do
+    if [[ -z "$1" ]]; then
+      usage
+      exit 1
+    fi
+    shift
+  done
+}
+
+# Action functions -----------------------------------------------------
+
 deploy() {
+  checkval "$user" "$repository"
   echo Deploying to k8s
-  kubectl apply \
-    -f deployment.yaml \
-    -n $namespace
+  sed -e "s/OWNER/$user/; s/REPOSITORY/$repository/" deployment.yaml \
+    | kubectl apply -n $namespace -f -
+}
+
+configmap() {
+  local json
+  if [ ! -f default-env.json ]; then
+    echo No default-env.json file
+    exit 1
+  fi
+  echo Creating and deploying config map to k8s
+  json=$(jq -r .VCAP_SERVICES default-env.json | tr '\n' ' ')
+  cat <<EOF | kubectl apply -f -
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: appconfigcap
+data:
+  VCAP_SERVICES: |
+    $json
+EOF
 }
 
 secret() {
@@ -45,17 +83,47 @@ secret() {
     --docker-password="$pass"
 }
 
+# Main function --------------------------------------------------------
+
 main() {
-  local action=$1
-  case $action in
-    deploy|secret)
-      $action
-      ;;
-    *)
-      usage
-      exit 1
-  esac
+  local action
+  local arg
+  if [[ $# -eq 0 ]]; then
+    usage
+    exit 1
+  fi
+  while (( $# )); do
+    arg=$1
+    case $arg in
+      -u|--user)
+        shift
+        user=$1
+        ;;
+      -r|--repository)
+        shift
+        repository=$1
+        ;;
+      deploy|secret|configmap)
+        action=$arg
+        shift $(( $# - 1 ))
+        ;;
+      *)
+        usage
+        exit 1
+        ;;
+    esac
+    shift
+  done
+
+  if [[ -z "$action" ]]; then
+    usage
+    exit 1
+  fi
+
+  $action
 
 }
+
+# Execution start ------------------------------------------------------
 
 main "$@"
