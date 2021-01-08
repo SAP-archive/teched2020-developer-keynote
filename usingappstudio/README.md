@@ -82,7 +82,7 @@ The Dev Space will restart and you should see the contents of your cloned reposi
 
 You'll be using commands in the shell when setting up some components in this repository, and you'll certainly be needing one for the next step in this Dev Space setup, so it's time to open up a terminal in your Dev Space right now.
 
-Do this by using the menu path "terminal -> New terminal", or using the "terminal: Open New terminal" via the Command Palette, or simply with the keyboard shortcut Ctrl-`.
+Do this by using the menu path "Terminal -> New Terminal", or using the "Terminal: Open New Terminal" via the Command Palette, or simply with the keyboard shortcut Ctrl-`.
 
 ## Add tools to your Dev Space
 
