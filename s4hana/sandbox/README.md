@@ -1,74 +1,85 @@
-# Mock Router
+# The SANDBOX component
 
-This is a small app that acts as a proxy in front of the SAP API Business Hub (API Hub) sandbox system. Because the app itself is small, we'll take the opportunity to explore different ways of running it, without having to worry too much about _what_ we're running. So here we'll explore running locally, in Docker, on CF and on Kubernetes with Kyma.
+**Contents**
+- [Overview](#overview)
+- [Notes](#notes)
+- [Configuration](#configuration)
+- [Running the app](#running-the-app)
+  - [Locally](#locally)
+  - [On SAP Cloud Platform - CF runtime](#on-sap-cloud-platform---cf-runtime)
+    - [Using cf push](#using-cf-push)
+    - [Using cf deploy](#using-cf-deploy)
+  - [On SAP Cloud Platform - Kyma runtime](#on-sap-cloud-platform---kyma-runtime)
+    - [Build & publish, secrets and deployment](#build--publish-secrets-and-deployment)
+    - [Check the component is up and running](#check-the-component-is-up-and-running)
+- [Summary](#summary)
+
 
 ## Overview
 
+The SANDBOX component is a small app that acts as a proxy in front of the SAP API Business Hub (API Hub) sandbox system. Because the app itself is small, we'll take the opportunity to explore different ways of running it, without having to worry too much about _what_ we're running. So here we'll explore running locally, on Cloud Foundry (CF) and on Kubernetes (k8s) with Kyma. In the Developer Keynote, this app is running in the Kyma runtime.
+
+> The contents of this README assume that you've opted to use the SAP Business Application Studio (App Studio) as your [development environment](../../README.md#a-development-environment) and have followed the [App Studio setup instructions](../../usingappstudio/).
+
 The context in which it runs is shown as the highlighted section of the whiteboard:
 
-![whiteboard, with SANDBOX highlighted](whiteboard-sandbox.png)
+![whiteboard, with SANDBOX highlighted](images/whiteboard-sandbox.png)
 
 Access to the API Hub sandbox system is protected; each and every call to it needs to have an API key specified in an HTTP header. That is what this app does - attach the API key to all requests during transit.
 
-There are two APIs that are used on the sandbox system that the API Hub makes available. Both are SAP S/4HANA Cloud APIs: [Sales Order (A2X)](https://api.sap.com/api/API_SALES_ORDER_SRV/resource) and [Business Partner (A2X)](https://api.sap.com/api/API_BUSINESS_PARTNER/resource).
+There are two APIs that are used on the sandbox system that the API Hub makes available for our use in the context of the Developer Keynote. Both are SAP S/4HANA Cloud APIs: [Sales Order (A2X)](https://api.sap.com/api/API_SALES_ORDER_SRV/resource) and [Business Partner (A2X)](https://api.sap.com/api/API_BUSINESS_PARTNER/resource).
 
-In the developer keynote, this app is running in the Kyma runtime, but you can run it locally, locally in a Docker container, and also in Cloud Foundry. This README will show you how to get this app running in all four environments so you can compare and contrast them.
+There are two helper scripts in this directory that have been written to help you through the Docker related steps (the [`d`](d) script) and the Kyma / k8s related steps (the [`k`](k) script), and you can use them depending on the development environment setup that you have. In the context of the App Studio as your development environment, while you can use the `k` script for the Kyma / k8s tasks, you'll perform the Docker tasks using GitHub Actions features related to your forked GitHub repository rather than the `d` script. See the [note on Docker and App Studio](../../usingappstudio/README.md#a-note-on-docker-and-app-studio) for more details.
 
-> This entire procedure assumes you have cloned this repository to your own space on GitHub, and that you are therefore aware of the values for OWNER (your GitHub org or username) and REPOSITORY (where you've cloned this) throughout the rest of this document. All the examples (of output, and so on) will be given based on the home org and repository for this content, i.e. `sap-samples/teched2020-developer-keynote`.
+## Notes
 
-There are two helper scripts in this directory that have been written to help you through the steps, they are:
+Note that everything in this README is relative to this README's location in the repository, i.e. the `s4hana/sandbox/` directory:
 
-- `d` for Docker related activities
-- `k` for Kyma / Kubernetes (k8s) related activities
+![relative location - the `s4hana/sandbox` directory](images/relative-location.png)
 
-We'll refer to the use of these scripts throughout the steps. You can of course run the actual commands directly if you wish, instead.
+Command line invocations shown here should also be made in the App Studio. To get ready, [make sure you have a terminal open and ready](usingappstudio.md#open-up-a-terminal), this should present you with a Bash shell prompt, something like this:
 
+![Bash shell prompt in a new Terminal session](images/shell-prompt.png)
 
-## Prerequisites
+At this prompt, **move to the `s4hana/sandbox/` directory now**, like this:
 
-1. [Configure Essential Local Development Tools](https://developers.sap.com/group.scp-local-tools.html)
+```
+user: teched2020-developer-keynote $ cd s4hana/sandbox/
+user: sandbox $
+```
 
-2. Clone this repository
-    ```
-    $ git clone https://github.com/SAP-samples/teched2020-developer-keynote
-    ```
+> Alternatively, you can open a Terminal directly at the `s4hana/sandbox/` directory location by using the context menu on the `sandbox` directory node in the App Studio's Explorer and selecting "Open in Terminal".
 
-3. Modify the `d` script in this directory and change the OWNER and REPOSITORY values in the `tag` variable (towards the top of the file) to reflect your own GitHub org or username and repository name. This is what the line looks like *before* modification, so you know what you're looking for:
-
-    ```
-    tag=docker.pkg.github.com/OWNER/REPOSITORY/s4mock:latest
-    ```
+As you can see here from what's displayed, the information before the `$` prompt shows you your username in the Dev Space ("user") and the last component part of your directory location ("sandbox").
 
 
 ## Configuration
 
-The API key is unique to you and is available in the [preferences section](https://api.sap.com/preferences) of the API Hub. You'll need to specify it in two places, one for the Kyma runtime (Kubernetes deployment) and one for the other environments.
+The API key is unique to you and is available in the [preferences section](https://api.sap.com/preferences) of the API Hub. You'll need to specify it in two places, one for the Kyma runtime (k8s deployment) and one for the other environments.
 
 1. Log on to the API Hub and grab your API key from the [preferences section](https://api.sap.com/preferences).
 
 2. Replace `YOUR-API-KEY` in [`deployment.yaml`](deployment.yaml) with your API key - this is for the Kyma deployment
 
-3. Replace `YOUR-API-KEY` in [`router/default-env.json`](router/default-env.json) with your API key - this is for the other environments
+3. Also replace `YOUR-API-KEY` in [`router/default-env.json`](router/default-env.json) with your API key - this is for the local & CF execution
 
-Note that you will see another environment variable `destinations` specified in both places - this is a quick way of defining simple destinations instead of setting them up at the subaccount or service instance level on SAP Cloud Platform. (The `destinations.json` file is an unused configuration file used when having a destination automatically defined on SAP Cloud Platform, and has been kept in this repo for reference.)
+> Pay attention to the differences in quoting between the YAML and JSON files - the API key in the YAML file goes in raw, but in the JSON file it must be within double quotes.
+
+Note that while editing these configuration files, you'll see another environment variable `destinations` - this is a quick way of defining simple destinations instead of setting them up at the subaccount or service instance level on SAP Cloud Platform. (The `destinations.json` file is an unused configuration file used when having a destination automatically defined on SAP Cloud Platform, and has been kept in this repo for reference.)
 
 ## Running the app
 
-As mentioned earlier, you can run this app in a number of different contexts. It's useful to go through each of these contexts to gain some familiarity and also to understand what's similar and what's different.
-
-> For everything that follows, the assumption is that you're in this directory (i.e. where this `README.md` file is) when invoking commands, unless otherwise explicitly stated.
+As mentioned earlier, you can run this app in a number of different contexts. We'll start with running locally, then look at a deployment to CF, and finally Kyma / k8s.
 
 ### Locally
 
-You can run the app locally. Try this first. After moving to the app's directory (`router/`), install the module dependencies, and then start the app up:
+You can run the app locally. Try this first. Move to the app's directory (`router/`), install the module dependencies, and then start the app up. Like this:
 
 ```
-$ cd router/
-$ npm install
-$ npm start
+user: sandbox $ cd router/
+user: router $ npm install
+user: router $ npm start
 ```
-
-> Here, and elsewhere - the shell prompt is indicated with a `$` symbol.
 
 You should see log output similar to this:
 
@@ -85,88 +96,81 @@ approuter@ start /Users/username/Projects/teched2020-developer-keynote/s4hana/sa
 #2.0#2020 11 23 16:38:43:606#+00:00#INFO#/approuter#####khuryg01##########khuryg01#PLAIN##Application router is listening on port: 5000#
 ```
 
-At this point, the app is running and listening for requests on the local loopback interface (`localhost`, or 127.0.0.1) on port 5000. To test it, try to access the `API_SALES_ORDER_SRV`'s service document at this address: http://localhost:5000/sap/opu/odata/sap/API_SALES_ORDER_SRV/. You should see the service document served to you.
+At this point, the app is running and listening for requests on port 5000. This is of course within the context of the App Studio's environment, which is not immediately available to you in your browser. So at this point, App Studio will pop up an "Expose and Open" message allowing you to have that port exposed to you.
 
+![App Studio port message](images/port-message.png)
 
-### Locally in a Docker container
+> App Studio will only show this popup once once - if you restart the app, use the "Ports: Preview" command in App Studio's Command Palette (menu item "View -> Find Command") to access the feature again.
 
-If you have Docker installed on your machine, you can also run this in a Docker container. You'll need to create a Docker image of this app if you want to deploy it to the Kyma runtime anyway, so now's a good time to set that image up and fire up a container based on that image to test it.
+Once you opt for the "Expose and Open" feature, a new browser tab should open and you should see the `API_SALES_ORDER_SRV`'s service document. This is, then, the Sales Order (A2X) API on the API Hub's sandbox system, reversed proxied by the app you're now running.
 
-There is already a [`Dockerfile`](Dockerfile) contained in this directory that will inform the Docker image build process, and you can build the image with an invocation similar to this:
-
-```
-$ docker build -t <TAG> -f <DOCKERFILE> router/
-```
-
-This has been wrapped into a script along with other Docker related actions that you'll need. The script, also in this directory, is called `d` and you can see the actions that it supports by invoking it with no arguments:
+When you've finished trying out the app locally (end it with Ctrl-C), **make sure you move back up a directory** to where this `README.md` file is:
 
 ```
-$ ./d
-Usage: d <action>
-where <action> is one of:
-- login: login to GitHub Packages
-- build: create the Docker image
-- run: run a container locally based on the image
-- publish: publish the image to GitHub
+user: router $ cd ..
+user: sandbox $
 ```
 
-The container you are going to run is based on an image defined in the `Dockerfile` file, and the image must be built first. So you can invoke the `d` script with the "build" action.
 
+### On SAP Cloud Platform - CF runtime
 
-Here's the invocation, and the sort of output that you should see:
+During the Developer Keynote demo itself, this app is run in the cloud, on SAP Cloud Platform, and specifically in the Kyma runtime. But you can also run it in the CF runtime, and this section is in case you want to do that.
 
-```
-$ ./d build
-Building image for router
-[+] Building 4.0s (10/10) FINISHED
-=> [internal] load .dockerignore
-=> transferring context: 2B
-=> [internal] load build definition from Dockerfile
-=> transferring dockerfile: 37B
-=> [internal] load metadata for docker.io/library/node:12.18.1
-=> [1/5] FROM docker.io/library/node:12.18.1@sha256:2b85f4981f92ee034b51a3c8bb22dbb451d650d5c12b6439a169f8adc750e4b6
-=> [internal] load build context
-=> transferring context: 1.04MB
-=> CACHED [2/5] WORKDIR /usr/src/app
-=> CACHED [3/5] COPY /package*.json ./
-=> CACHED [4/5] RUN npm install
-=> [5/5] COPY /. .
-=> exporting to image
-=> exporting layers
-=> writing image sha256:2a53e4da22f1fda40a69db1e1c7a46caa1b22ac960beddc811e29fdec2785499
-=> naming to docker.pkg.github.com/sap-samples/teched2020-developer-keynote/s4mock:latest
-```
+Because of the simplicity of the app and the fact that it doesn't depend on anything else, we can use the simple `cf push` approach. The alternative would be to use `cf deploy`, but that's more appropriate when you want to connect up the app to services that it requires too. There's a sample [`mta.yaml`](mta.yaml) deployment descriptor in this same directory, and [an example invocation below](#using-cf-deploy), if you want to explore that.
 
-You can check the image that has just been created, like this:
+Before running the `cf push` command, make sure you're logged in and connected to your CF organization and space. Check what your CF API endpoint is from your SAP Cloud Platform Cockpit and issue the `cf login` command. The flow will look something like this (your API endpoint may be different):
 
-```
-$ docker image ls
-REPOSITORY                                                              TAG                 IMAGE ID            CREATED             SIZE
-docker.pkg.github.com/sap-samples/teched2020-developer-keynote/s4mock   latest              2a53e4da22f1        9 minutes ago       994MB
-...
-```
+```sh
+user: sandbox $ cf login
+API endpoint: https://api.cf.eu10.hana.ondemand.com
 
-Now the image exists, you can instantiate a container from it. Do this by using the "run" action with the `d` script.
+Email: sapdeveloper@example.com
 
-```
-$ ./d run
-Running detached instance of image locally
-61538774a32d66eaa5e28ad721389ca1378cb1d485ca6f4d19cdf33a07d423a2
+Password:
+Authenticating...
+OK
+
+Select an org:
+1. 14ee89fftrial
+2. ...
+
+Org (enter to skip): 1
+Targeted org 14ee89fftrial
+
+Targeted space dev
+
+API endpoint:   https://api.cf.eu10.hana.ondemand.com (API version: 3.88.0)
+User:           sapdeveloper@example.com
+Org:            14ee89fftrial
+Space:          dev
+$
 ```
 
-Note that the invocation includes the `-d` switch to tell Docker to run the image in "detached" (i.e. background) mode - in which case just the container ID is printed. But the container is running, and inside it, the same Node process as before is running. The `-p` switch (inspect the source code of the [`d`](d) script to check) exposes the port 5000 to the host (i.e. your machine) so you can connect to the service as if it was running directly locally, as before.
+#### Using cf push
 
-Check that you can access the `API_SALES_ORDER_SRV`'s service document again, at this same address: http://localhost:5000/sap/opu/odata/sap/API_SALES_ORDER_SRV/. You should see the service document served to you again, but this time, via the proxy app running inside the container.
-
-## On SAP Cloud Platform - Cloud Foundry runtime
-
-During the DK100 Developer Keynote demo itself, this app is run in the cloud, on SAP Cloud Platform, and specifically in the Kyma runtime. But you can also run it in the Cloud Foundry runtime, and this section is in case you want to do that.
-
-Because of the simplicity of the app and the fact that it doesn't depend on anything else, we can use the simple `cf push` approach. Here's what the invocation looks like, and the sort of thing you should see (lots of output removed for readability):
+Now you can make the `cf push` invocation. Specify a name for the app ("proxyapp") and include some options. Here's a copy-pasteable version, with explanations:
 
 ```
-$ cf push --random-route -p router proxyapp
-Pushing app proxyapp to org 58f45caftrial / space dev as dj.adams@sap.com...
+cf push \
+  --random-route \
+  -k 512M \
+  -m 256M \
+  -p router/ \
+  proxyapp
+```
+
+|Option|Explanation|
+|-|-|
+|`--random-route`|request a random route so the app doesn't clash with any existing routes|
+|`-k 512M`|The app should have 512M of disk space|
+|`-m 256M`|The app should have 256M of memory|
+|`-p router/`|The app is located in the `router/` directory|
+
+Here's what the invocation looks like, and the sort of thing you should see (lots of output removed for readability):
+
+```
+user: sandbox $ cf push --random-route -k 512M -m 256M -p router/ proxyapp
+Pushing app proxyapp to org 14ee89fftrial / space dev as sapdeveloper@example.com...
 Getting app info...
 Creating app with these attributes...
 + name:       proxyapp
@@ -206,20 +210,22 @@ type:            web
 instances:       1/1
 memory usage:    1024M
 start command:   npm start
-     state     since                  cpu    memory    disk      details
-#0   running   2020-11-24T10:18:36Z   0.0%   0 of 1G   0 of 1G
+     state     since                  cpu    memory          disk         details
+#0   running   2020-12-23T13:50:21Z   0.0%   39.1K of 256M   8K of 512M
 ```
 
 In the output, the route is shown, and you can check that you can access the `API_SALES_ORDER_SRV`'s service document again, at the URL relating to the route URL. In this case, it is:
 
-`http://proxyapp-wise-gnu-hc.cfapps.eu10.hana.ondemand.com/sap/opu/odata/sap/API_SALES_ORDER_SRV/`
+`https://proxyapp-wise-gnu-hc.cfapps.eu10.hana.ondemand.com/sap/opu/odata/sap/API_SALES_ORDER_SRV/`
 
-Your URL will be different, mostly because of the use of the `--random-route` switch. You should see the service document served to you again, but this time, via the proxy app running in the Cloud Foundry environment on SAP Cloud Platform.
+Your URL will be different, mostly because of the use of the `--random-route` switch. You should see the service document served to you again, but this time, via the proxy app running in the CF environment on SAP Cloud Platform.
 
-> In case you prefer the Multi Target Application (MTA) approach, there's an `mta.yaml` file in this directory too, so you can use the build-and-deploy approach if you really want to, like this (a reduced sample output is also shown):
+#### Using cf deploy
+
+In case you prefer the Multi Target Application (MTA) approach, there's an [`mta.yaml`](mta.yaml) file in this directory too, so you can use the build-and-deploy approach if you really want to, like this (a reduced sample output is also shown):
 
 ```
-$ mbt build && cf deploy mta_archives/s4-mock_1.0.0.mtar
+user: sandbox $ mbt build && cf deploy mta_archives/s4-mock_1.0.0.mtar
 [2020-11-24 11:03:38]  INFO Cloud MTA Build Tool version 1.0.16
 [2020-11-24 11:03:38]  INFO generating the "Makefile_20201124110338.mta" file...
 [2020-11-24 11:03:38]  INFO done
@@ -236,129 +242,35 @@ $ mbt build && cf deploy mta_archives/s4-mock_1.0.0.mtar
 [2020-11-24 11:03:41]  INFO the MTA archive generated at: /Users/username/Projects/teched2020-developer-keynote/s4hana/sandbox/mta_archives/s4-mock_1.0.0.mtar
 [2020-11-24 11:03:41]  INFO cleaning temporary files...
 ...
-Application "proxyapp" started and available at "z8f45caftrial-dev-proxyapp.cfapps.eu10.hana.ondemand.com"
+Application "proxyapp" started and available at "14ee89fftrial-dev-proxyapp.cfapps.eu10.hana.ondemand.com"
 Process finished.
 ```
+
+> The `mbt` command will be automatically available to you in App Studio if you [set up your Dev Space as directed](../../usingappstudio/README.md#create-a-dev-space).
+
+In this example, the `API_SALES_ORDER_SRV`'s service document would be available at:
+
+`https://14ee89fftrial-dev-proxyapp.cfapps.eu10.hana.ondemand.com/sap/opu/odata/sap/API_SALES_ORDER_SRV/`
 
 
 ### On SAP Cloud Platform - Kyma runtime
 
-There are a number of steps to get the app running in Kyma, i.e. on k8s:
+This SANDBOX component has something in common with the [BRAIN](../../cap/brain/) and [CONVERTER](../../kyma/) components ... and that is that the Kyma runtime was where each of them was running in the actual [Developer Keynote](https://events.sapteched.com/widget/sap/sapteched2020/Catalog/session/1603314875989001AsWU). And the process for getting the component up and running in the Kyma runtime is the same each time. 
 
-- build a Docker image for the app
-- publish the image to a container registry
-- create a k8s secret for registry access
-- make a deployment to Kyma
+#### Build & publish, secrets and deployment
 
-If you've gone through the process of running the app locally in a Docker container, as described earlier, you're already part way there.
+Because the process is common, you can find it described in a separate (and therefore shared) document - [Getting a component up and running on the Kyma runtime](../../kymaruntime/). Head on over to that document now, and follow the instructions, bearing in mind that you're building the SANDBOX component. Come back here when you're done.
 
-#### Build a Docker image
+#### Check the component is up and running
 
- In case you haven't, the first thing you need to do is to create a Docker image of this app and its environment. Do this by invoking the `d` script with the "build" action, as described in the "Locally in a Docker container" section earlier (essentially, like this: `$ ./d build`). This then is the "package" that is then published and gets run in k8s once the deployment process is complete.
+Just like before, you can check that the component has been successfully deployed and that it's now running on the Kyma runtime by requesting the API's service document. You'll need first to find out what the first part of the URL is.
 
+Visit the Kyma console (get there from your trial subaccount overview page and use the "Link to dashboard" link), select the "default" namespace, and in the "Configuration > API Rules" section, you'll see the relevant URL:
 
-#### Publish the image to a container registry
+![API Rules](images/api-rules.png)
 
-The reason this step is required is because we want to get Kyma to pull the image from a container registry. We use the GitHub Packages Docker container registry in our session, and you can too. In the GitHub documentation article [Configuring Docker for use with GitHub Packages](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages) there's a section on [Authenticating to GitHub Packages](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages#authenticating-to-github-packages) which describes how you need to create a personal access token to use as a password in authentication flows. Do this now.
+Open up that URL. You'll noticed that you get redirected to `/sap/opu/odata/sap/API_SALES_ORDER_SRV/` - you should now see your old friend the API's service document.
 
-Once you have a person access token (with the appropriate scopes) you can publish your Docker image to your GitHub account.
+## Summary
 
-First, authenticate yourself with the registry, using the "login" action of the `d` script:
-
-```
-$ ./d login
-Authenticating with GitHub Packages
-Enter username: <YOUR GITHUB ORG/USERNAME>
-Enter password / token: <ACCESS TOKEN>
-Login Succeeded
-```
-
-Now you can publish the image, using the "publish" action of the `d` script, and you should see something similar to what's shown here:
-
-```
-$ ./d publish
-Publishing image to GitHub Packages
-The push refers to repository [docker.pkg.github.com/sap-samples/teched2020-developer-keynote/s4mock]
-...
-latest: digest: sha256:58870f6f89546548d6ee290cab89850a763c7c66faa93a2373bf1cf9385ec954 size: 3054
-```
-
-You can check in your own GitHub repository that this has been successful - check in your repository's Packages section; you should see the `s4mock` package listed, as it is in [this repository's Packages section](https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote):
-
-![The s4mock package listed](s4mock-package-listing.png)
-
-
-#### Create a k8s secret for registry access
-
-You had to authenticate to the container registry before publishing the image there; so too must the runtime (k8s) authenticate to be able to retrieve it. So in this step you need to store the container registry credentials so that they can be used by the runtime platform.
-
-> You must be first authenticated with your Kyma runtime on SAP Cloud Platform for this step.
-
-A typical incantation to create such a secret looks like this:
-
-```
-kubectl create secret docker-registry regcred --docker-server=https://docker.pkg.github.com --docker-username=<YOUR GITHUB ORG/USERNAME> --docker-password=<ACCESS TOKEN> --docker-email=<YOUR GITHUB EMAIL>
-```
-
-This has been also made available as an action in another script: [`k`](k):
-
-```shell
-$ ./k
-Usage: k <action>
-where <action> is one of:
-- deploy: make deployment
-- secret: create secret for GitHub Package registry access
-```
-
-Create the secret like this:
-
-```shell
-$ ./k secret
-Setting up docker-registry secret regcred for access to https://docker.pkg.github.com
-Secret regcred exists - will remove first (hit enter to continue)
-secret "regcred" deleted
-Enter email: <YOUR GITHUB EMAIL>
-Enter username: <YOUR GITHUB ORG/USERNAME>
-Enter password / token: <ACCESS TOKEN>
-secret/regcred created
-```
-
-> If there already is a secret of the same name you'll be prompted to have it deleted first, as shown in this example output.
-
-You can check that the secret has been created, thus:
-
-```shell
-$ kubectl get secrets
-NAME                              TYPE                                  DATA   AGE
-regcred                           kubernetes.io/dockerconfigjson        1      109s
-...
-```
-
-#### Make a deployment to Kyma
-
-Now everything is ready to make a deployment to the Kyma runtime. The deployment is described in the `deployment.yaml` file, which includes a reference to the Docker image you've just published to the container registry. It will be retrieved using the secret you just created.
-
-The deployment is quite simple at this stage (as you can see from the `deploy` function in the [`k`](k) script). Invoke it with the "deploy" action thus:
-
-```shell
- ./k deploy
-Deploying to k8s
-configmap/appconfig created
-deployment.apps/s4mock created
-service/s4mock created
-apirule.gateway.kyma-project.io/s4mock created
-```
-
-The app is now deployed to the Kyma runtime in your SAP Cloud Platform subaccount.
-
-Just like before, you can check that it's working by requesting the API's service document. You'll need first to find out what the first part of the URL is.
-
-Visiting the Kyma console - get there from your trial subaccount overview page and following the "Link to dashboard" link, as shown in the screenshot:
-
-![Link to dashboard](dashboard-link.png)
-
-In the API Rules section, you'll see the relevant URL:
-
-![API Rules](api-rules.png)
-
-Open up that URL and then append `/sap/opu/odata/sap/API_SALES_ORDER_SRV/` to it - you should see your old friend the API's service document.
+At this point, you should have your own SANDBOX component ("s4mock") built as a Docker image, stored in the GitHub Package Registry in the context of your forked repository, and that image deployed to the Kyma runtime on your SAP Cloud Platform trial account. Well done!

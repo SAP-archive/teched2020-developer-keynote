@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+# App Studio setup - appstudiosetup
+
+# Run this script from a shell prompt within your App Studio Dev Space,
+# to set up various tools that you'll need if you want to use the App
+# Studio as your development environment to work through setting up the
+# components in this Developer Keynote repository.
+
+set -o errexit
+declare bin="$HOME/bin"
+
+# Create directory for user-local executables and add it to the PATH
+# env var in .bashrc.
+setup() {
+    [ -d "$bin" ] || mkdir "$bin"
+    echo $'PATH=$PATH:'"$bin" >> "$HOME/.bashrc"
+}
+
+# Add other configurations
+configure() {
+    echo $'export KUBECONFIG=$HOME/projects/teched2020-developer-keynote/kubeconfig.yml' >> "$HOME/.bashrc"
+}
+
+install() {
+    local name=$1
+    local url=$2
+    echo -n "Installing $name ..."
+    curl --silent -L "$url" > "$bin/$name"
+    chmod +x "$bin/$name"
+    echo
+}
+
+main() {
+
+    # Only run in App Studio - check by looking for the string 'sap' in
+    # the env var 'externalEntrypoint' which will be set in the context
+    # of a shell in the App Studio.
+    if ! grep -i sap <<< "$externalEntrypoint" >/dev/null; then
+      echo Only for use in SAP Business Application Studio
+      exit 1
+    fi
+
+    setup
+    configure
+    install uuidgen "file://${PWD}/bin/uuidgen"
+    install yq https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64
+    install jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
+    install kubectl "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+
+    echo "Please now restart the terminal (Ctrl-D then Ctrl-\`) to have the new shell settings take effect."
+}
+
+main "$@"

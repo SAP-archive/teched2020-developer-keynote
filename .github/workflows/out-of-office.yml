@@ -1,0 +1,18 @@
+name: Out Of Office
+on:
+  issues:
+    types: [opened]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: bubkoo/welcome-action@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FIRST_ISSUE: >
+            Hi there @{{ author }} 👋 
+            
+            Thanks for trying out the contents of this Developer Keynote repo and opening an issue. 
+            Just to let you know we're taking a break over the holiday period and will be back in early January. 
+            Stay safe and see you soon!
+            

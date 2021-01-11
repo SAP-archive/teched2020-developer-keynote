@@ -10,8 +10,8 @@ qos=0
 
 output=silent # silent or verbose
 
-source ./settings
-source ./localutils # getservicekey getval gettoken
+source ./settings.sh
+source ./localutils.sh # getservicekey getval gettoken
 
 # Functions ------------------------------------------------------
 

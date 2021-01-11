@@ -6,16 +6,21 @@
    <STARTING_FOLDER>/abap/src/</STARTING_FOLDER>
    <FOLDER_LOGIC>PREFIX</FOLDER_LOGIC>
    <IGNORE>
+    <item>/abap/images/</item>
+    <item>/abap/README.md</item>
     <item>/.reuse/</item>
     <item>/LICENSES/</item>
     <item>/cap/brain/</item>
     <item>/converter/mock</item>
+    <item>/images/</item>
     <item>/kyma/</item>
+    <item>/rapreceiver/</item>
     <item>/s4hana/</item>
     <item>/ui/</item>
-    <item>/rapreceiver/</item>
     <item>/.gitignore</item>
     <item>/README.md</item>
+    <item>/messaging-setup.md</item>
+    <item>/storyboard.md</item>
     <item>/package.json</item>
     <item>/.travis.yml</item>
    </IGNORE>

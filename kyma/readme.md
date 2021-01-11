@@ -143,3 +143,10 @@ If you navigate out of your namespace and into the `Diagnostics/Logs` you can se
 
 Even if you want to reduce the amount of replica sets you can do this at any time the same way as you would increase the amount. Kyma will make sure to reduce the amount of replica sets and so the amount of running pods to the specified amount with zero downtime of your service. In order for Kyma to do that it utilizes the Service Mesh provided by Istio. With Istio it allows Kyma to enable you to define certain rules to enforce secure pod injection at any time. To read more about Kyma's Service Mesh and Istio visit the [Service Mesh - Overview](https://kyma-project.io/docs/components/service-mesh) documentation.
 
+## Calling the Calculation Service
+
+The calculation service in this project is used as charity fund converter which can be called to convert a sales amount to charity credits. If you have successfully deployed the calculation service to the SAP Cloud Platform, Kyma runtime it will be exposed via an API Rule. The API rule defines the path over which the service can be reached.
+
+![kyma_api_rule](https://user-images.githubusercontent.com/9074514/101039448-23563080-357c-11eb-9483-6e54f1d30485.png)
+
+To request a conversion use the path ``` /conversion ```, e.g. ``` /conversion?salesAmount=100 ```. The calculation service will then respond with a JSON response the calculated charity credits.

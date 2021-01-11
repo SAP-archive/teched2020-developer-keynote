@@ -8,7 +8,7 @@ declare self applocation dockerreg tag
 self=$(basename "$0")
 applocation=router
 dockerreg=https://docker.pkg.github.com
-tag=docker.pkg.github.com/sap-samples/teched2020-developer-keynote/s4mock:latest
+tag=docker.pkg.github.com/OWNER/REPOSITORY/s4mock:latest
 
 usage() {
   cat <<EOF
