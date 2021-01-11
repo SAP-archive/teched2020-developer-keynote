@@ -1,5 +1,7 @@
 # Quick start
 
+> **This document is still work in progress and might not be complete.**
+
 This is a deliberately brief [TL;DR](https://www.urbandictionary.com/define.php?term=tl%3Bdr) style overview of the steps you might want to take to explore the contents of this repository. It assumes that you're wanting to **use the SAP Business Application Studio (App Studio)** as [your development environment](README.md#a-development-environment).
 
 |Step|Description|
