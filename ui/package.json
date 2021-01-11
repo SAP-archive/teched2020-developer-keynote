@@ -9,6 +9,6 @@
     "build": "npx rimraf dashboard.zip && cd dashboard/ && npx bestzip ../dashboard.zip *"
   },
   "dependencies": {
-    "@sap/approuter": "^8.6.0"
+    "@sap/approuter": "^9.0.1"
   }
 }

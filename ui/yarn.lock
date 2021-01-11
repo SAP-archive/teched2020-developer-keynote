@@ -2,19 +2,19 @@
 # yarn lockfile v1
 
 
-"@sap/approuter@^8.5.0":
-  version "8.5.2"
-  resolved "https://registry.yarnpkg.com/@sap/approuter/-/approuter-8.5.2.tgz#5c3965cc3264205ebacf396caf971b108b5a8a15"
-  integrity sha512-jpjqD9vsyvVGLoc/wsHgAMZfOWo2zz68wopqKpi0gC1SkrnEegLOHom24mrjrWtLyxOGTBxgVv18F8TBqw9Z8Q==
+"@sap/approuter@^9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@sap/approuter/-/approuter-9.0.1.tgz#836c2a8047bd86fd187b5dbc3df785e9e91f6d8f"
+  integrity sha512-F4lcnkABYJF14zvx+NPDkP19PyMR/UV6HBPvynoerglpgY3m9CcPQ+YMKn7Ns0ljfF38bfzPBZkAL48UFSnROg==
   dependencies:
     "@sap/audit-logging" "3.1.1"
     "@sap/e2e-trace" "2.1.0"
-    "@sap/logging" "5.3.1"
+    "@sap/logging" "6.0.2"
     "@sap/xsenv" "2.2.0"
-    "@sap/xssec" "3.0.9"
+    "@sap/xssec" "3.0.10"
     agentkeepalive "2.0.5"
     async "2.0.1"
-    base64-url "2.0.0"
+    base64-url "2.3.3"
     basic-auth "1.0.3"
     body-parser "1.18.3"
     cf-nodejs-logging-support "6.4.3"
@@ -38,6 +38,7 @@
     ms "2.1.1"
     mustache "2.2.1"
     node-cache "4.1.1"
+    node-forge "0.10.0"
     passport "0.3.2"
     request "2.88.2"
     request-stats "2.0.1"
@@ -51,6 +52,7 @@
     uid-safe "2.1.5"
     urijs "1.16.1"
     uuid "3.2.1"
+    validator "13.5.2"
     verror "1.10.0"
     ws "7.3.1"
 
@@ -63,21 +65,28 @@
     request "2.88.2"
     requestretry "4.0.2"
 
-"@sap/e2e-trace@2.1.0", "@sap/e2e-trace@^2.0.0":
+"@sap/e2e-trace@2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@sap/e2e-trace/-/e2e-trace-2.1.0.tgz#c722c96c8f8e5f5e801969b544a907145c088e57"
   integrity sha512-kP4RTFx4ACw1WWYTbePH+lKHiZD7gfOoOTzDAgAHujYOwPmKed63W+gLn79C9dGY7VTb3TeLMoNB8J3Xrhyyfg==
   dependencies:
     request-stats "3.0.0"
 
-"@sap/logging@5.3.1":
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/@sap/logging/-/logging-5.3.1.tgz#71d67abb8b1657dcbeeeef6495ed4be0ec5943ba"
-  integrity sha512-O7ZOu9FwjUaFyskU1SK52zog6y5G7Aa6sJ7OeuC2cP99ycW/ZtwFd4zDTV3JZ3/i/GFIO7QuwcN+XiWvlrwkrw==
+"@sap/e2e-trace@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@sap/e2e-trace/-/e2e-trace-3.0.0.tgz#8ae2ad6cceb545db14d15dcf45e6020dd74a0ea1"
+  integrity sha512-0dwG0Ifai/CJjEAGuY4B9gnjjhNez5zX+FCmuhYkgLxNxeMX+rI4p36ferup+WUum8vnvyRwNz4UJ9LDnUPQgw==
   dependencies:
-    "@sap/e2e-trace" "^2.0.0"
-    lodash "4.17.19"
-    moment "2.19.3"
+    request-stats "3.0.0"
+
+"@sap/logging@6.0.2":
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@sap/logging/-/logging-6.0.2.tgz#899a5e4e0b71b53afd419ba4eed4448aeccd1f0d"
+  integrity sha512-5fp6hMQIja78+H7McAwF6DFaW2pgclqoEiFS0rK2o3jBsORub3HcZR+XWUskta7uYktyt5n+nxmZHM1vOKmiJg==
+  dependencies:
+    "@sap/e2e-trace" "^3.0.0"
+    lodash "4.17.20"
+    moment "2.29.0"
 
 "@sap/xsenv@2.2.0":
   version "2.2.0"
@@ -87,10 +96,10 @@
     debug "3.1.0"
     verror "1.10.0"
 
-"@sap/xssec@3.0.9":
-  version "3.0.9"
-  resolved "https://registry.yarnpkg.com/@sap/xssec/-/xssec-3.0.9.tgz#a58afcbf8f552271ec6c00d02dd127e83a5ea3e6"
-  integrity sha512-I5awdgYsPsWn+/dh2EVxKb5VjSp3Jf/8RaPSfo5yS+J0MS/hf2yoC7jg3i8KvjDtEOJo8Tc47kmUTMPV/6rUBA==
+"@sap/xssec@3.0.10":
+  version "3.0.10"
+  resolved "https://registry.yarnpkg.com/@sap/xssec/-/xssec-3.0.10.tgz#a2cee569045cc56c87de1bc1a75b0fd7a4586b89"
+  integrity sha512-d5dxbtiB6DZ/tQxMdxvPuuJ4UwVnPUIsQvtxwrbfoume6jp03/OMlzpOfVRy2lHXN/uzXNIuqntuhiUqTzGj/Q==
   dependencies:
     debug "4.1.1"
     jsonwebtoken "^8.5.1"
@@ -163,10 +172,10 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.10.1.tgz#e1e82e4f3e999e2cfd61b161280d16a111f86428"
   integrity sha512-zg7Hz2k5lI8kb7U32998pRRFin7zJlkfezGJjUc2heaD4Pw2wObakCDVzkKztTm/Ln7eiVvYsjqak0Ed4LkMDA==
 
-base64-url@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/base64-url/-/base64-url-2.0.0.tgz#54f7244fee7f94f6f4e28a64034a981234c2fe1f"
-  integrity sha1-VPckT+5/lPb04opkA0qYEjTC/h8=
+base64-url@2.3.3:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/base64-url/-/base64-url-2.3.3.tgz#645b71455c75109511f27d98450327e455f488ec"
+  integrity sha512-dLMhIsK7OplcDauDH/tZLvK7JmUZK3A7KiQpjNzsBrM6Etw7hzNI1tLEywqJk9NnwkgWuFKSlx/IUO7vF6Mo8Q==
 
 basic-auth@1.0.3:
   version "1.0.3"
@@ -371,11 +380,6 @@ destroy@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
   integrity sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
-
-dotenv@^8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
-  integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
 
 ecc-jsbn@~0.1.1:
   version "0.1.2"
@@ -687,11 +691,6 @@ lodash.once@^4.0.0:
   resolved "https://registry.yarnpkg.com/lodash.once/-/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
   integrity sha1-DdOXEhPHxW34gJd9UEyI+0cal6w=
 
-lodash@4.17.19:
-  version "4.17.19"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
-  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
-
 lodash@4.17.20, lodash@4.x, lodash@^4.17.10, lodash@^4.8.0:
   version "4.17.20"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
@@ -744,6 +743,11 @@ moment@2.19.3:
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.3.tgz#bdb99d270d6d7fda78cc0fbace855e27fe7da69f"
   integrity sha1-vbmdJw1tf9p4zA+6zoVeJ/59pp8=
 
+moment@2.29.0:
+  version "2.29.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.0.tgz#fcbef955844d91deb55438613ddcec56e86a3425"
+  integrity sha512-z6IJ5HXYiuxvFTI6eiQ9dm77uE0gyy1yXNApVHqTcnIKfY9tIwEjlzsZ6u1LQXvVgKeTnv9Xm7NDvJ7lso3MtA==
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -781,6 +785,11 @@ node-cache@4.1.1:
   dependencies:
     clone "2.x"
     lodash "4.x"
+
+node-forge@0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.10.0.tgz#32dea2afb3e9926f02ee5ce8794902691a676bf3"
+  integrity sha512-PPmu8eEeG9saEUvI97fm4OYxXVB6bFvyNTyiUOBichBpFG8A1Ljw3bY62+5oOjDEMHRnd0Y7HQ+x7uzxOzC6JA==
 
 oauth-sign@~0.9.0:
   version "0.9.0"
@@ -1133,6 +1142,11 @@ valid-url@1.0.9:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/valid-url/-/valid-url-1.0.9.tgz#1c14479b40f1397a75782f115e4086447433a200"
   integrity sha1-HBRHm0DxOXp1eC8RXkCGRHQzogA=
+
+validator@13.5.2:
+  version "13.5.2"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-13.5.2.tgz#c97ae63ed4224999fb6f42c91eaca9567fe69a46"
+  integrity sha512-mD45p0rvHVBlY2Zuy3F3ESIe1h5X58GPfAtslBjY7EtTqGquZTj+VX/J4RnHWN8FKq0C9WRVt1oWAcytWRuYLQ==
 
 vary@~1.1.2:
   version "1.1.2"
