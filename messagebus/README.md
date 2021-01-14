@@ -11,7 +11,7 @@
 
 ## Overview
 
-This README will help you set things up for the message bus part of the whiteboard diagram.
+This document will help you set things up for the MESSAGE BUS part of the whiteboard diagram.
 
 ![Message Bus](images/messagebus.png)
 
