@@ -2,6 +2,8 @@
 
 # Set up test forked repo based on an existing fork - setup-test-fork
 
+set -o errexit
+
 declare reponame=teched2020-developer-keynote
 
 doesexist() {

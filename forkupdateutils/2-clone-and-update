@@ -3,6 +3,8 @@
 # Clone the new test fork, update it from upstream, and push the
 # updates to the repo on GitHub - 2-clone-and-update
 
+set -o errexit
+
 declare username=qmacro
 declare upstreamsource=SAP-samples
 declare reponame=teched2020-developer-keynote
