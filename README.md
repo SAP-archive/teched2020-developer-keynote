@@ -132,6 +132,8 @@ To use this repository, **fork it into your own user or org space on GitHub, and
 
 For more information about forking in general, see [Fork a repo](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo) in the GitHub documentation.
 
+Occasionally, we'll add content to this repo. If you need to update your fork to bring it back into line, you can follow the instructions in this blog post: [Updating your fork of the Developer Keynote repository](https://blogs.sap.com/2021/01/06/updating-your-developer-keynote-repo-fork/).
+
 Throughout the instructions in this repository, the place where you forked this repository too will be referred to in the form "OWNER/REPOSITORY", and you should replace these placeholders with values that are appropriate for you. For example, if you are on GitHub as 'qmacro', and you fork this repository to that space, your values for "OWNER/REPOSITORY" would be "qmacro/teched2020-developer-keynote".
 
 ## Known issues
