@@ -32,6 +32,8 @@ Moreover, the service instance parameters should ensure that the management and 
 }
 ```
 
+> Information on these options is available on the [Create an Enterprise Messaging Service Instance](https://help.sap.com/viewer/bf82e6b26456494cbdd197057c09979f/Cloud/en-US/6f694dcc608c41d390218848873dc6f3.html) page of the SAP Help Portal.
+
 With respect to the service instance, there's the "dev" plan available to you as a trial user; while this is marked as deprecated, it is still a very workable plan and exposes everything we need here.
 
 There are many ways to set things up like this; here, we'll show you a couple of different ways:
