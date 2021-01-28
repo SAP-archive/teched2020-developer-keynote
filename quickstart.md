@@ -14,5 +14,6 @@ This is a deliberately brief [TL;DR](https://www.urbandictionary.com/define.php?
 |6|[Set up and deploy the SANDBOX component](s4hana/sandbox/)|
 |7|[Set up and use the EMITTER component](s4hana/event/)|
 |8|[Set up and execute the BRAIN component, controlling the activity level as you go](cap/brain/)|
+|9|[Set up and bring the CONVERTER component into the mix](converter/)|
 
 (to be continued ...)
