@@ -7,7 +7,7 @@ This is a deliberately brief [TL;DR](https://www.urbandictionary.com/define.php?
 |Step|Description|
 |-|-|
 |1|[Set up your SAP Cloud Platform trial account](README.md#an-sap-cloud-platform-trial-account)|
-|2|[Check access to the SAP Business API Hub](README.md#access-to-the-sap-business-api-hub)|
+|2|[Check access to the SAP API Business Hub](README.md#access-to-the-sap-api-business-hub)|
 |3|[Fork this repository to your own account on GitHub](README.md#download-and-installation)|
 |4|[Set up a Dev Space in App Studio](usingappstudio/)|
 |5|[Set up the message bus](messagebus/)|

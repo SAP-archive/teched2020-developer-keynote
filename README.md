@@ -13,7 +13,7 @@
     - [Trial account](#trial-account)
     - [Cloud Foundry environment](#cloud-foundry-environment)
     - [Kyma environment](#kyma-environment)
-  - [Access to the SAP Business API Hub](#access-to-the-sap-business-api-hub)
+  - [Access to the SAP API Business Hub](#access-to-the-sap-api-business-hub)
   - [A message bus](#a-message-bus)
   - [Docker](#docker)
 - [Download and installation](#download-and-installation)
@@ -45,7 +45,7 @@ You can study and experiment with each component individually, and they are of c
 
 We recommend you take the components one at a time. Specific instructions are given for each component, in the respective README files. Here's a list of those components, with links to their directories (and the READMEs):
 
-- [SANDBOX](s4hana/sandbox/) - the proxy app that sits in front of the SAP Business API Hub sandbox system and injects the API key into each request as it passes through (JavaScript app using the `@sap/approuter` package)
+- [SANDBOX](s4hana/sandbox/) - the proxy app that sits in front of the SAP API Business Hub sandbox system and injects the API key into each request as it passes through (JavaScript app using the `@sap/approuter` package)
 
 - [EMITTER](s4hana/event/) - the script that generates and emits (publishes) a "salesorder/created" event message to the message bus (Bash shell script invoking Messaging API calls to the SAP Enterprise Messaging service instance)
 
@@ -95,14 +95,14 @@ While a Kyma environment is not set up automatically, you can (and should) enabl
 
 ![Enable Kyma button](images/enable-kyma.png)
 
-Follow [this tutorial](https://developers.sap.com/tutorials/cp-kyma-getting-started.html) for detailed instructions, and make sure you also install the k8s command line tool (`kubectl`) and download and set your "kubeconfig" appropriately, as explained in the [Install the Kubernetes Command Line Tool](https://developers.sap.com/tutorials/cp-kyma-download-cli.html) tutorial. 
+Follow [this tutorial](https://developers.sap.com/tutorials/cp-kyma-getting-started.html) for detailed instructions, and make sure you also install the k8s command line tool (`kubectl`) and download and set your "kubeconfig" appropriately, as explained in the [Install the Kubernetes Command Line Tool](https://developers.sap.com/tutorials/cp-kyma-download-cli.html) tutorial.
 
 > If you've decided to [use App Studio for your development environment](usingappstudio/), the setup script that we've prepared for that scenario installs `kubectl` for you automatically, and there's a specific section in the instructions that shows you [how to bring in the "kubeconfig" into your App Studio's Dev Space context](usingappstudio/README.md#set-up-the-kyma-runtime-configuration).
 
 
-### Access to the SAP Business API Hub
+### Access to the SAP API Business Hub
 
-- Access: Make sure you can log in to the [SAP Business API Hub](https://api.sap.com)
+- Access: Make sure you can log in to the [SAP API Business Hub](https://api.sap.com)
 
 - API information: Check that you can access the API information (e.g. for the [Sales Order (A2X) API](https://api.sap.com/api/API_SALES_ORDER_SRV/resource))
 
@@ -121,7 +121,7 @@ Please set up an instance of the SAP Enterprise Messaging service according to [
 
 ### Docker
 
-If you want to try out the local Docker and Kyma runtime based aspects, you'll need Docker on your machine. Not just the `docker` client, but the Docker engine. Install it by following the [Get Docker](https://docs.docker.com/get-docker/) instructions for your platform. 
+If you want to try out the local Docker and Kyma runtime based aspects, you'll need Docker on your machine. Not just the `docker` client, but the Docker engine. Install it by following the [Get Docker](https://docs.docker.com/get-docker/) instructions for your platform.
 
 Alternatively, you can use the [GitHub Actions](https://github.com/features/actions) based facility we've [provided](.github/workflows/) to perform the Docker engine specific parts (building images). This is particularly relevant if you choose to use the App Studio as your [development environment](#a-development-environment). See the [App Studio setup instructions](usingappstudio/) for more details.
 
