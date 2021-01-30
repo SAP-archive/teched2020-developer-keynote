@@ -10,7 +10,7 @@ set -o errexit
 source ./settings.sh # configuration
 
 parameters=$(
-  yq r -j - << EO_PARAMETERS
+  yq e -j - << EO_PARAMETERS
 emname: "${instance}"
 options:
   management: true
