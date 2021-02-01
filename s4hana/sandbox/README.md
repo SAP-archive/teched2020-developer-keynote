@@ -68,7 +68,7 @@ The API key is unique to you and is available in the [preferences section](https
 By the way, if you're going to do this with other folks present (such as on a [📺 live stream](https://www.youtube.com/watch?v=lxtWeKR2kaM)) you can avoid showing the API key while editing by using the power of the shell, like this:
 
 ```shell
-user: sandbox $ sed "s/YOUR-API-KEY/$(read -p'API key:' -s && echo $REPLY)/" router/default-env.json deployment.yaml
+user: sandbox $ sed -i "s/YOUR-API-KEY/$(read -p'API key:' -s && echo $REPLY)/" router/default-env.json deployment.yaml
 ```
 
 Note that while editing these configuration files, you'll see another environment variable `destinations` - this is a quick way of defining simple destinations instead of setting them up at the subaccount or service instance level on SAP Cloud Platform. (The `destinations.json` file is an unused configuration file used when having a destination automatically defined on SAP Cloud Platform, and has been kept in this repo for reference.)
