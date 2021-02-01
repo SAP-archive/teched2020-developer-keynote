@@ -55,7 +55,11 @@ Instead, you can use [GitHub Actions](https://github.com/features/actions) in th
 
 ![The workflow](images/workflow.png)
 
-This workflow consists of a single job with multiple steps, which perform the following activities:
+> If this is the first time you are using workflows on your forked repository, be aware that you'll probably see a warning like this, and have to [enable them first](../../enabling-workflows.md):
+
+![actions-warning](images/actions-warning.png)
+
+This "Build and publish Docker image" workflow consists of a single job with multiple steps, which perform the following activities:
 
 1. Checks out the repository content (into the workflow's runtime)
 1. Builds the Docker image
@@ -70,8 +74,6 @@ While browsing the [workflow source](../.github/workflows/image-build-and-publis
 |`dir`|The directory containing the app artifacts (relative to the component's location in the repo)|
 
 In other words, yes - this workflow is designed to offer Docker image build and publishing services for multiple components in this repository, namely the SANDBOX, BRAIN and CONVERTER ("calculationservice") components ... and so the workflow must be parameterized.
-
-> If this is the first time you are using workflows on your forked repository, be aware that you'll have to [enable them first](../../enabling-workflows.md).
 
 Start the workflow (in your own repository) and be ready to supply the appropriate values for the parameters. Select the workflow ("Build and publish Docker image") and use the `workflow_dispatch` event trigger, i.e. the "Run workflow" button to manually invoke it. Specify the appropriate values for your component. This following screenshot shows an example specifically for the SANDBOX component - make sure you specify values appropriate for the component you're dealing with (using values from the table earlier, at the start of the [Steps](#steps) section):
 
