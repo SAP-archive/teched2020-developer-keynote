@@ -108,7 +108,7 @@ At this point, the app is running and listening for requests on port 5000. This 
 
 > App Studio will only show this popup once once - if you restart the app, use the "Ports: Preview" command in App Studio's Command Palette (menu item "View -> Find Command") to access the feature again.
 
-Once you opt for the "Expose and Open" feature, a new browser tab should open and you should see the `API_SALES_ORDER_SRV`'s service document. This is, then, the Sales Order (A2X) API on the API Hub's sandbox system, reversed proxied by the app you're now running.
+Once you opt for the "Expose and Open" feature, a new browser tab should open and you should see the `API_SALES_ORDER_SRV`'s service document (due to the value of `/sap/opu/odata/sap/API_SALES_ORDER_SRV/` being specified for the `welcomeFile` property in the `xs-app.json` based configuration). This is the Sales Order (A2X) API on the API Hub's sandbox system, reversed proxied by the app you're now running.
 
 When you've finished trying out the app locally (end it with Ctrl-C), **make sure you move back up a directory** to where this `README.md` file is:
 
