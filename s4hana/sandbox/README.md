@@ -73,6 +73,8 @@ user: sandbox $ sed -i "s/YOUR-API-KEY/$(read -p'API key:' -s && echo $REPLY)/" 
 
 Note that while editing these configuration files, you'll see another environment variable `destinations` - this is a quick way of defining simple destinations instead of setting them up at the subaccount or service instance level on SAP Cloud Platform. (The `destinations.json` file is an unused configuration file used when having a destination automatically defined on SAP Cloud Platform, and has been kept in this repo for reference.)
 
+🚨 Be sure not to commit these changes to your repository lest they find their way to GitHub. We included the original files (containing the "YOUR-API-KEY" placeholders) so you could start from there, but we strongly recommend you do not share your configuration once you've added the API key to the files.
+
 ## Running the app
 
 As mentioned earlier, you can run this app in a number of different contexts. We'll start with running locally, then look at a deployment to CF, and finally Kyma / k8s.
