@@ -107,7 +107,7 @@ The result of this successful workflow execution should be a package representin
 
 ![s4mock package](images/s4mock-package.png)
 
-You'll also be able to see it in the general package listing for your GitHub user in a similar way to the listing for this SAP-samples based repository: https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote - just substitute the `orgs/SAP-samples` part with your GitHub username to see your own.
+You'll also be able to see it in the general package listing for your GitHub user in a similar way to the listing for this SAP-samples based repository: https://github.com/orgs/SAP-samples/packages?repo_name=teched2020-developer-keynote. In your case, go to your home on GitHub (e.g. the home of the user 'qmacro' is simply at https://github.com/qmacro) and select the "Packages" tab. The resulting URL will be something like this: https://github.com/qmacro?tab=packages.
 
 ### Create a k8s secret for registry access
 
