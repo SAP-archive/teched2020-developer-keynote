@@ -78,7 +78,7 @@ func setupRoutes() {
 
 // The main method of the GO application setting up the routes and starting the http server.
 func main() {
-	fmt.Println("Go Web App Started on Port 3000")
+	fmt.Println("Go Web App Started on Port 8080")
 	setupRoutes()
-	http.ListenAndServe(":3000", nil)
+	http.ListenAndServe(":8080", nil)
 }

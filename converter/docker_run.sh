@@ -1,1 +1,1 @@
-docker run -d -p 3000:3000 docker.pkg.github.com/sap-samples/teched2020-developer-keynote/calculationservice:latest
+docker run -d -p 8080:8080 docker.pkg.github.com/sap-samples/teched2020-developer-keynote/calculationservice:latest
