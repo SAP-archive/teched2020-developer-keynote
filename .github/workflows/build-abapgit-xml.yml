@@ -2,7 +2,7 @@ name: Build .abapgit.xml file
 on: [workflow_dispatch, push]
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
     - name: Check out this repository
       uses: actions/checkout@v2
