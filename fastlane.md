@@ -49,9 +49,10 @@ uqrg...
 
 
 6. Deploy to Steampunk + create destination
-   > @Rich I think I need your help here
-    => Save the URL to use it later in step 6.
-
+  
+   Install abapGit in ABAP Development Tools(ADT), import the ABAP objects and activate them.
+   Create HTTP Service object, and point it to the handler class ZCL_CDC_REST_SERVICE
+   Grab the service URL from the service binding Z_UI_C_CSTDONCREDITS_R Save the URL to use it later in step 6.
 
 8. Deploy the frontend
 
