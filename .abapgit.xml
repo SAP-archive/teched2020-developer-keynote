@@ -6,28 +6,29 @@
    <STARTING_FOLDER>/abap/src/</STARTING_FOLDER>
    <FOLDER_LOGIC>PREFIX</FOLDER_LOGIC>
    <IGNORE>
-    <item>/abap/images/</item>
     <item>/abap/README.md</item>
-    <item>/.github/workflows/</item>    
+    <item>/abap/images/</item>
+    <item>/.github/</item>
+    <item>/.gitignore</item>
     <item>/.reuse/</item>
     <item>/LICENSES/</item>
-    <item>/cap/brain/</item>
+    <item>/README.md</item>
+    <item>/abap/</item>
+    <item>/cap/</item>
     <item>/converter/</item>
+    <item>/enabling-workflows.md</item>
     <item>/forkupdateutils/</item>
     <item>/images/</item>
     <item>/kymaruntime/</item>
+    <item>/message-bus-settings.sh</item>
     <item>/messagebus/</item>
     <item>/mock-converter/</item>
+    <item>/quickstart.md</item>
     <item>/rapreceiver/</item>
     <item>/s4hana/</item>
+    <item>/storyboard.md</item>
     <item>/ui/</item>
     <item>/usingappstudio/</item>
-    <item>/.gitignore</item>
-    <item>/README.md</item>
-    <item>/enabling-workflows.md</item>
-    <item>/message-bus-settings.sh</item>
-    <item>/quickstart.md</item>
-    <item>/storyboard.md</item>
    </IGNORE>
   </DATA>
  </asx:values>
