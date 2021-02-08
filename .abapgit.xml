@@ -8,21 +8,26 @@
    <IGNORE>
     <item>/abap/images/</item>
     <item>/abap/README.md</item>
+    <item>/.github/workflows/</item>    
     <item>/.reuse/</item>
     <item>/LICENSES/</item>
     <item>/cap/brain/</item>
-    <item>/converter/mock</item>
+    <item>/converter/</item>
+    <item>/forkupdateutils/</item>
     <item>/images/</item>
-    <item>/kyma/</item>
+    <item>/kymaruntime/</item>
+    <item>/messagebus/</item>
+    <item>/mock-converter/</item>
     <item>/rapreceiver/</item>
     <item>/s4hana/</item>
     <item>/ui/</item>
+    <item>/usingappstudio/</item>
     <item>/.gitignore</item>
     <item>/README.md</item>
-    <item>/messaging-setup.md</item>
+    <item>/enabling-workflows.md</item>
+    <item>/message-bus-settings.sh</item>
+    <item>/quickstart.md</item>
     <item>/storyboard.md</item>
-    <item>/package.json</item>
-    <item>/.travis.yml</item>
    </IGNORE>
   </DATA>
  </asx:values>
