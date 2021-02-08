@@ -26,3 +26,8 @@ jobs:
          </asx:values>
         </asx:abap>
         EOF
+    - name: Commit changes if required
+      run: |
+        git config --global user.email "qmacro@gmail.com"
+        git config --global user.name "DJ Adams"
+        git diff --exit-code || (git add .abapgit.xml && git commit -m 'update .abapgit.xml' && git push)
