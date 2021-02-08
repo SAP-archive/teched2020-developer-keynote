@@ -1,3 +1,8 @@
+# Needed tools
+
+- [Install CLI tooling](https://developers.sap.com/group.scp-local-tools.html)
+- [Install Node.js-based tooling](https://developers.sap.com/tutorials/cp-cf-sapui5-local-setup.html)
+
 
 Local tools or App Studio?
 1. Clone the repo
@@ -18,7 +23,7 @@ uqrg...
     cf set-env proxyapp API_KEY uqrg...
     cf restage proxyapp 
     ```
-    copy URL and create destination?
+    => Save the URL to use it later in step 6.
     
 
 5. Deploy the converter service
@@ -26,44 +31,42 @@ uqrg...
     cd ../../converter
     cf push converter --random-route 
     ```
-
-    copy URL and create destination?
+    => Save the URL to use it later in step 6.
 
 
 
 6. Deploy the brain component
 
-    > write destinations in some file
+    Add the saved URLs from the previous two steps to `cap/brain/destinations.json`. You can also run `cf apps` in case you didn't save the URL of the apps.
+
+
     install sqlite3 in prod deps
     ```
     cd ../cap/brain/
-    add mta.yaml + destination +em.json
     mbt build
-    cf deploy mta_archives/brain_1.0.0.mtar
-    ```
-
-    3. Create EM messageing
-    ```
-    cf create-service enterprise-messaging \
-      dev \
-      emdev \
-      -c '{ "emname": "emdev", "options": { "management": true, "messagingrest": true } }'
+    cf deploy mta_archives/developer-keynote-brain_1.0.0.mtar 
     ```
 
 
-6. Create ABAP + destination
+6. Deploy to Steampunk + create destination
+   > @Rich I think I need your help here
+    => Save the URL to use it later in step 6.
+
 
 8. Deploy the frontend
+
+    Add the saved URLs from the previous step to `ui/destinations.json`.
+
     ```
     cd ../ui
     mbt build
     cf deploy mta_archives/developer-keynote-dashboard_1.0.0.mtar
+    cf html5-list -d -u 
     ```
 
-    Access <https://subaccount-id.launchpad.cfapps.eu10.hana.ondemand.com/developerkeynote.dashboard> (Substitute your subaccount ID here)
+    Access the printed URL. The URL should follow this pattern `https://<subaccount-id>.launchpad.cfapps.eu10.hana.ondemand.com/developerkeynote.dashboard`.
 
 
 9. Run the emitter
-    ```
-    ```
+   > @DJ I think I need your help here
 

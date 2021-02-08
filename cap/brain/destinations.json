@@ -1,0 +1,27 @@
+{
+    "init_data": {
+        "instance": {
+            "existing_destinations_policy": "update",
+            "destinations": [
+                {
+                    "Name": "apihub_mock_salesorders",
+                    "Description": "Automatically generated destination",
+                    "Authentication": "NoAuthentication",
+                    "ProxyType": "Internet",
+                    "Type": "HTTP",
+                    "URL": "https://...-proxyapp.cfapps.eu10.hana.ondemand.com",
+                    "HTML5.DynamicDestination": true
+                },
+                {
+                    "Name": "charityfund_converter",
+                    "Description": "Automatically generated destination",
+                    "Authentication": "NoAuthentication",
+                    "ProxyType": "Internet",
+                    "Type": "HTTP",
+                    "URL": "https://converter-...cfapps.eu10.hana.ondemand.com/",
+                    "HTML5.DynamicDestination": true
+                }
+            ]
+        }
+    }
+}

@@ -7,17 +7,17 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "^4",
-    "@sap/xb-msg-amqp-v100": "latest",
     "@sap/hana-client": "^2.5",
+    "@sap/xb-msg-amqp-v100": "latest",
     "console-log-level": "^1.4.1",
-    "express": "^4"
+    "express": "^4",
+    "sqlite3": "^4.2.0"
   },
   "devDependencies": {
-    "prettier": "2.1.2",
-    "sqlite3": "^4"
+    "prettier": "2.1.2"
   },
   "scripts": {
-    "start": "cds run",
+    "start": "cds run --in-memory",
     "hana": "cds deploy --to hana:brain --auto-undeploy",
     "build": "cds build/all --clean"
   },

@@ -67,6 +67,7 @@ resources:
       service: destination
       service-name: developer-keynote-dashboard-destination-service
       service-plan: lite
+      path: ./destinations.json
   - name: developer-keynote-dashboard_html_repo_host
     type: org.cloudfoundry.managed-service
     parameters:
