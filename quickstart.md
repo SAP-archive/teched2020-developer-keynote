@@ -9,7 +9,7 @@ We're working through these steps on the Hands-on SAP Dev [show](https://blogs.s
 |Step|Description|
 |-|-|
 |1|[Set up your SAP Cloud Platform trial account](README.md#an-sap-cloud-platform-trial-account) [📺](https://youtu.be/9Q-84fxe0Jg?t=765)|
-|2|[Check access to the SAP API Business Hub](README.md#access-to-the-sap-business-api-hub) [📺](https://youtu.be/9Q-84fxe0Jg?t=945)|
+|2|[Check access to the SAP API Business Hub](README.md#access-to-the-sap-api-business-hub) [📺](https://youtu.be/9Q-84fxe0Jg?t=945)|
 |3|[Fork this repository to your own account on GitHub](README.md#download-and-installation) [📺](https://youtu.be/9Q-84fxe0Jg?t=1410)|
 |4|[Set up a Dev Space in App Studio](usingappstudio/) [📺](https://youtu.be/9Q-84fxe0Jg?t=2250)|
 |5|[Set up the message bus](messagebus/) [📺](https://www.youtube.com/watch?v=0-b-V5vd14Y&list=PL6RpkC85SLQCBncEWbkHTLz7ykB9C7yof&index=2)|
