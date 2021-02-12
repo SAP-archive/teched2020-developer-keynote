@@ -13,7 +13,7 @@ We're working through these steps on the Hands-on SAP Dev [show](https://blogs.s
 |3|[Fork this repository to your own account on GitHub](README.md#download-and-installation)|[📺](https://youtu.be/9Q-84fxe0Jg?t=1410)|
 |4|[Set up a Dev Space in App Studio](usingappstudio/)|[📺](https://youtu.be/9Q-84fxe0Jg?t=2250)|
 |5|[Set up the message bus](messagebus/)|[📺](https://www.youtube.com/watch?v=0-b-V5vd14Y&list=PL6RpkC85SLQCBncEWbkHTLz7ykB9C7yof&index=2)|
-|6|[Set up and deploy the SANDBOX component](s4hana/sandbox/)|[📺](https://www.youtube.com/watch?v=lxtWeKR2kaM)|
+|6|[Set up and deploy the SANDBOX component](s4hana/sandbox/)|[📺](https://www.youtube.com/watch?v=lxtWeKR2kaM) and [📺](https://youtu.be/yYeiTs4AC_U)|
 |7|[Set up and use the EMITTER component](s4hana/event/)||
 |8|[Set up and execute the BRAIN component, controlling the activity level as you go](cap/brain/)||
 |9|[Set up and bring the CONVERTER component into the mix](converter/)||
