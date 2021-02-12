@@ -31,6 +31,8 @@ You can also see them in [the SAP-samples organization-level package list, filte
 
 Note that the packages each have a Docker icon next to them; this denotes that they are Docker packages (there are other package types that can be stored in the repository, such as those from NPM and NuGet).
 
+> We explored the GitHub package registry, in the context of NPM packages, in [Episode 53](https://blogs.sap.com/2019/01/16/hands-on-sap-dev-with-qmacro-new-live-stream-series/#ep53) of the Hands-on SAP Dev live stream series, in case you're interested to dig in more.
+
 Note also that access to packages in the GitHub package registry requires authentication - this is why you'll need to generate a secret to make available to Kyma to use, to retrieve the container image from there.
 
 ## Steps
