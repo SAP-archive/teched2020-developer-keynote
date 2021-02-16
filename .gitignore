@@ -4,6 +4,7 @@ sk*.json
 default-env.json
 .DS_Store
 dashboard.zip
+manifest-bundle.zip
 mta_archives/
 ui/resources
 *.db-journal

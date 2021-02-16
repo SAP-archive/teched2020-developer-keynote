@@ -15,6 +15,21 @@
 				"uri": "cardManifests.json",
 				"type": "JSON"
 			}
+		},
+		"crossNavigation": {
+			"inbounds": {
+				"fe-inbound": {
+					"signature": {
+						"parameters": {},
+						"additionalParameters": "allowed"
+					},
+					"semanticObject": "masterDetail",
+					"action": "display",
+					"title": "Dashboard",
+					"subTitle": "",
+					"icon": ""
+				}
+			}
 		}
 	},
 	"sap.ui": {

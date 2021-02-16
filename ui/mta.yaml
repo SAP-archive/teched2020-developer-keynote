@@ -23,7 +23,7 @@ modules:
       - name: developer-keynote-dashboard-destination-service
         parameters:
           content:
-            subaccount:
+            instance:
               destinations:
                 - Name: developer-keynote-html_destination
                   ServiceInstanceName: developer-keynote-dashboard_html_repo_host
@@ -65,9 +65,10 @@ resources:
     type: org.cloudfoundry.managed-service
     parameters:
       service: destination
-      service-name: developer-keynote-dashboard-destination-service
       service-plan: lite
-      path: ./destinations.json
+      config:
+        HTML5Runtime_enabled: true
+        version: 1.0.0
   - name: developer-keynote-dashboard_html_repo_host
     type: org.cloudfoundry.managed-service
     parameters:
