@@ -1,0 +1,18 @@
+{
+    "init_data": {
+        "instance": {
+            "existing_destinations_policy": "update",
+            "destinations": [
+                {
+                    "Name": "rap",
+                    "Description": "Automatically generated destination",
+                    "Authentication": "NoAuthentication",
+                    "ProxyType": "Internet",
+                    "Type": "HTTP",
+                    "URL": "https://",
+                    "HTML5.DynamicDestination": true
+                }
+            ]
+        }
+    }
+}

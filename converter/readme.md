@@ -17,7 +17,7 @@ spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
   service:
     name: calc-service
-    port: 3000
+    port: 8080
     host: calc-service
   rules:
     - path: /.*
@@ -43,7 +43,7 @@ Alternatively, the [`docker_build.sh`](https://github.com/SAP-samples/teched2020
 The dockerized service can then be deployed locally through the command line by executing:
 
 ```cli
-docker run --publish 3000:3000 --detach --name calcservie calcservice:1.0
+docker run --publish 8080:8080 --detach --name calcservie calcservice:1.0
 
 ```
 
@@ -137,7 +137,7 @@ Going to the Replica Set section you can see that in the meantime 5 of 5 replica
 
 ![Kyma_Console_UI_Change_ReplicaSet_4](https://user-images.githubusercontent.com/9074514/99512591-f0ac1580-2989-11eb-8ecd-1a6d169fe54d.png)
 
-If you navigate out of your namespace and into the `Diagnostics/Logs` you can see that Kyma took the changes and started up more replicas of the service on `Port 3000`. With this you can simply scale your application or service at anytime.
+If you navigate out of your namespace and into the `Diagnostics/Logs` you can see that Kyma took the changes and started up more replicas of the service on `Port 8080`. With this you can simply scale your application or service at anytime.
 
 ![Kyma_Console_UI_Change_ReplicaSet_5](https://user-images.githubusercontent.com/9074514/99512756-205b1d80-298a-11eb-9c30-230ab52528be.png)
 

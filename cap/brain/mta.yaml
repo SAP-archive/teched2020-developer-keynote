@@ -1,0 +1,37 @@
+ID: developer-keynote-brain
+_schema-version: "2.1"
+version: 1.0.0
+
+modules:
+  - name: brain
+    type: nodejs
+    path: .
+    parameters:
+      disk-quota: 1G
+      memory: 1G
+    requires:
+      - name: developer-keynote-em
+      - name: developer-keynote-destination
+    build-parameters:
+      builder: custom
+      commands: []
+      ignore: ["node_modules/"]
+
+resources:
+  - name: developer-keynote-em
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: enterprise-messaging
+      service-plan: dev
+      config:
+        emname: emdev
+        options: 
+          management: true
+          messagingrest: true
+
+  - name: developer-keynote-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-plan: lite
+      service: destination
+      path: ./destinations.json

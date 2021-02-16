@@ -18,7 +18,7 @@ spec:
         image: docker.pkg.github.com/sap-samples/teched2020-developer-keynote/calculationservice:latest
         imagePullPolicy: Always # change to pull after testing
         ports:
-          - containerPort: 3000
+          - containerPort: 8080
         resources:
           limits:
             memory: 1000Mi
@@ -35,8 +35,8 @@ metadata:
 spec:
   ports:
   - name: http
-    port: 3000
-    targetPort: 3000
+    port: 8080
+    targetPort: 8080
   selector:
     name: calc-service
 
@@ -49,7 +49,7 @@ spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
   service:
     name: calc-service
-    port: 3000
+    port: 8080
     host: calc-service
   rules:
     - path: /.*
