@@ -8,12 +8,12 @@
    <IGNORE>
     <item>/abap/README.md</item>
     <item>/abap/images/</item>
-    <item>/.github</item>
+    <item>/.github/</item>
     <item>/.gitignore</item>
     <item>/.reuse/</item>
     <item>/LICENSES/</item>
     <item>/README.md</item>
-    <item>/cap/brain/</item>
+    <item>/cap/</item>
     <item>/converter/</item>
     <item>/enabling-workflows.md</item>
     <item>/fastlane.md</item>
