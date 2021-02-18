@@ -30,7 +30,7 @@ CLASS zcl_cdc_customer_master IMPLEMENTATION.
 
     TRY.
 
-        DATA: lv_url TYPE string VALUE 'https://s4mock.c210ab1.kyma.shoot.live.k8s-hana.ondemand.com'.
+        DATA: lv_url TYPE string VALUE 'insert sap apihub service URL here'.
         lo_http_client = cl_web_http_client_manager=>create_by_http_destination(
                         i_destination = cl_http_destination_provider=>create_by_url( lv_url ) ).
 
