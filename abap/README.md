@@ -8,7 +8,7 @@ The context in which it runs is shown as the highlighted section of the whiteboa
 
 ![whiteboard, with CHARITY highlighted](./images/whiteboard-charity.jpg)
 
-The first task of the Charity componet is to handle the incoming message from the webhook subscription in Enterprise Messaging. The webhook subscription is configured to trigger a request to the HTTP Service(ZCDC_REST_SERVICE) endpoint URL in the Steampunk system.  The ABAP handler class called ZCL_CDC_REST_SERVICE is the class which implements the methods for the endpoint.  As the HTTP Service has not been imported with the abapgit project, you will need to create this service manually(see steps beelow).
+The first task of the Charity componet is to handle the incoming message from the webhook subscription in Enterprise Messaging. The webhook subscription is configured to trigger a request to the HTTP Service(ZCDC_REST_SERVICE) endpoint URL in the Steampunk system.  The ABAP handler class called ZCL_CDC_REST_SERVICE is the class which implements the methods for the endpoint.  As the HTTP Service has not been imported with the abapgit project, you will need to create this service manually(see steps below).
 
 To create this HTTP service object manually....
    
