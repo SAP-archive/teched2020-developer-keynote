@@ -134,11 +134,11 @@ To create the Service Consumption Model object manually....
 
 9. Go to the class ZCL_CDC_CUSTOMER_MASTER.  Update the data definintion for LT_BUSINESS_DATA.  Use the ABAP Artifact Name from step 6.
 
-    ![SrvConModel Step](./images/scm_1_9.png)
+    ![SrvConModel Step](./images/scm_1_8.png)
 
 10. Update the apihub service URL here as well.
 
-    ![SrvConModel Step](./images/scm_1_10.png)
+    ![SrvConModel Step](./images/scm_1_9.png)
 
 Next, the service definitions and service bindings.  Z_SD_C_CSTDONCREDITS_R is the reporting service definition which is used in the application. Z_UI_C_CSTDONCREDITS_R is the service binding.
 
