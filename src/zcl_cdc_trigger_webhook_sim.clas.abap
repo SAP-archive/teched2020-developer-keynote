@@ -14,7 +14,7 @@ CLASS zcl_cdc_trigger_webhook_sim IMPLEMENTATION.
 
   METHOD if_oo_adt_classrun~main.
 
-    TRY.
+   TRY.
 
         DATA(lo_cdc_service) = NEW zcl_cdc_rest_service(  ).
 
