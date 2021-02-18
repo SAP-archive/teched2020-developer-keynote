@@ -12,13 +12,17 @@ The first task of the Charity componet is to handle the incoming message from th
 
 To create this HTTP service object manually....
 1. From your package, right-click and choose New->Other ABAP Repository Object.
-    ![HTTP Srv Step 1](./images/http_service_def_1_1.png)
+![HTTP Srv Step 1](./images/http_service_def_1_1.png)
+<br>
 2. Under Connectivity, choose HTTP Service, and click Next.
-    ![HTTP Srv Step 2](./images/http_service_def_1_2.png)
+![HTTP Srv Step 2](./images/http_service_def_1_2.png)
+<br>
 3. Enter the name of the service as ZCDC_REST_SERVICE, keep the default name for the class as ZCL_CDC_REST_SERVICE, click Next, then Finish.
-    ![HTTP Srv Step 3](./images/http_service_def_1_3.png)
+![HTTP Srv Step 3](./images/http_service_def_1_3.png)
+<br>
 4. You will now see the new service, make sure to activate.
-    ![HTTP Service](./images/httpservice.jpg)
+![HTTP Service](./images/httpservice.jpg)
+<br>
 
 The ABAP HTTP handler class which is tied to this endpoint URL expects a certain payload containing the relevant data. 
 
