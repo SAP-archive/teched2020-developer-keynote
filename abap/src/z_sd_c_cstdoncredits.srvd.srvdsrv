@@ -1,4 +1,0 @@
-@EndUserText.label: 'Customer Donation Credits - Service Definition'
-define service Z_sd_c_cstdoncredits {
-  expose z_c_cstdoncredits as credits;
-}
