@@ -47,6 +47,7 @@
      </SERVICES>
     </CONTENT>
     <PUBLISHED>true</PUBLISHED>
+    <BINDING_CREATED>true</BINDING_CREATED>
    </SRVB>
   </asx:values>
  </asx:abap>

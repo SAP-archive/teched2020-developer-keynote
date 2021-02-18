@@ -15,7 +15,7 @@ CLASS zcl_cdc_customer_master IMPLEMENTATION.
 
   METHOD if_sadl_exit_calc_element_read~calculate.
 
-    DATA: lt_business_data TYPE TABLE OF zcdc_a_customer,
+    DATA: lt_business_data TYPE TABLE OF zcdc_a_customers,
           lo_http_client   TYPE REF TO if_web_http_client,
           lo_client_proxy  TYPE REF TO /iwbep/if_cp_client_proxy,
           lo_request       TYPE REF TO /iwbep/if_cp_request_read_list,
@@ -30,7 +30,7 @@ CLASS zcl_cdc_customer_master IMPLEMENTATION.
 
     TRY.
 
-        DATA: lv_url TYPE string VALUE 'insert sap apihub service URL here'.
+        DATA: lv_url TYPE string VALUE 'https://82715b8dtrial-dev-proxyapp.cfapps.eu10.hana.ondemand.com/'.
         lo_http_client = cl_web_http_client_manager=>create_by_http_destination(
                         i_destination = cl_http_destination_provider=>create_by_url( lv_url ) ).
 
