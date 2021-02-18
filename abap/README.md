@@ -86,11 +86,14 @@ The virtual element for "Customer Name" is implemented in ABAP class ZCL_CDC_CUS
 As the Service Consumption Model object has not been imported with the abapgit project, you will need to create this  manually(see steps beelow).
 
 To create this HTTP service object manually....
-1. Do this
-2. Do that
-
-
-![Service Consumption Model](./images/serviceconsumptionmodel.jpg)
+1. From your package, right-click and choose New->Other ABAP Repository Object.
+![HTTP Srv Step 1](./images/1_1.png)
+2. Under Connectivity, choose HTTP Service, and click Next.
+![HTTP Srv Step 2](./images/1_2.png)
+3. Enter the name of the service as ZCDC_REST_SERVICE, keep the default name for the class as ZCL_CDC_REST_SERVICE, click Next, then Finish
+![HTTP Srv Step 3](./images/1_3.png)
+4. You will now see the new service, make sure to activate.
+![HTTP Srv Step 4](./images/serviceconsumptionmodel.jpg)
 
 Next, the service definitions and service bindings.  Z_SD_C_CSTDONCREDITS_R is the reporting service definition which is used in the application. Z_UI_C_CSTDONCREDITS_R is the service binding.
 
