@@ -147,11 +147,11 @@ To create the Service Consumption Model object manually....
 
 ## Service Definitions & Service Bindings
 
-Next, the service definitions and service bindings.  Z_SD_C_CSTDONCREDITS_R is the reporting service definition which is used in the application. Z_UI_C_CSTDONCREDITS_R is the service binding.  You will need to make sure that the service binding is activated, and that you click on the Publish button in order to use the service.
+Next, the service definitions and service bindings.  Z_SD_C_CSTDONCREDITS_R is the reporting service definition which is used in the application. Z_UI_C_CSTDONCREDITS_R is the service binding.  
 
 ![Services](./images/services.jpg)
 
-From the service binding, it is possible to launch a Fiori preview application to test the service.
+You will need to make sure that the service binding is activated, and that you click on the Publish button in order to use the service.  Once published, it is possible to launch a Fiori preview application to test the service from the service binding.
 
 ![Service Binding](./images/bindingpreview.jpg)
 
