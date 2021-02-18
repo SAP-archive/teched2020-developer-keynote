@@ -8,7 +8,7 @@
    <IGNORE>
     <item>/abap/README.md</item>
     <item>/abap/images/</item>
-    <item>/.github/</item>
+    <item>/.github/workflows/</item>
     <item>/.gitignore</item>
     <item>/.reuse/</item>
     <item>/LICENSES/</item>
