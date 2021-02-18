@@ -1,4 +1,4 @@
 @EndUserText.label: 'ZCDC_BUPA'
-define service ZCDC_BUPA {
+define service ZCDC_BUPA2 {
  expose ZCDC_A_CUSTOMERS; 
  } 
