@@ -11,17 +11,17 @@ The context in which it runs is shown as the highlighted section of the whiteboa
 The first task of the Charity componet is to handle the incoming message from the webhook subscription in Enterprise Messaging. The webhook subscription is configured to trigger a request to the HTTP Service(ZCDC_REST_SERVICE) endpoint URL in the Steampunk system.  The ABAP handler class called ZCL_CDC_REST_SERVICE is the class which implements the methods for the endpoint.  As the HTTP Service has not been imported with the abapgit project, you will need to create this service manually(see steps beelow).
 
 To create this HTTP service object manually....
-1. From your package, right-click and choose New->Other ABAP Repository Object.
-![HTTP Srv Step 1](./images/http_service_def_1_1.png)
+    1. From your package, right-click and choose New->Other ABAP Repository Object.
+    ![HTTP Srv Step 1](./images/http_service_def_1_1.png)
 
-2. Under Connectivity, choose HTTP Service, and click Next.
-![HTTP Srv Step 2](./images/http_service_def_1_2.png)
+    2. Under Connectivity, choose HTTP Service, and click Next.
+    ![HTTP Srv Step 2](./images/http_service_def_1_2.png)
 
-3. Enter the name of the service as ZCDC_REST_SERVICE, keep the default name for the class as ZCL_CDC_REST_SERVICE, click Next, then Finish.
-![HTTP Srv Step 3](./images/http_service_def_1_3.png)
+    3. Enter the name of the service as ZCDC_REST_SERVICE, keep the default name for the class as ZCL_CDC_REST_SERVICE, click Next, then Finish.
+    ![HTTP Srv Step 3](./images/http_service_def_1_3.png)
 
-4. You will now see the new service, make sure to activate.
-![HTTP Service](./images/httpservice.jpg)
+    4. You will now see the new service, make sure to activate.
+    ![HTTP Service](./images/httpservice.jpg)
 
 
 The ABAP HTTP handler class which is tied to this endpoint URL expects a certain payload containing the relevant data. 
