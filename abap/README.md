@@ -13,9 +13,11 @@ The first task of the Charity componet is to handle the incoming message from th
 To create this HTTP service object manually....
    
 1. From your package, right-click and choose New->Other ABAP Repository Object.
+
     ![HTTP Srv Step 1](./images/http_service_def_1_1.png)
 
 2. Under Connectivity, choose HTTP Service, and click Next.
+
     ![HTTP Srv Step 2](./images/http_service_def_1_2.png)
 
 3. Enter the name of the service as ZCDC_REST_SERVICE, keep the default name for the class as ZCL_CDC_REST_SERVICE, click Next, then Finish.
@@ -23,6 +25,7 @@ To create this HTTP service object manually....
     ![HTTP Srv Step 3](./images/http_service_def_1_3.png)
     
 4. You will now see the new service, make sure to activate.
+
     ![HTTP Service](./images/httpservice.jpg)
 
 
@@ -97,29 +100,37 @@ As the Service Consumption Model object has not been imported with the abapgit p
 
 To create the Service Consumption Model object manually....
 
-First, make sure you have the edmx file. Go to the SAP API Hub, and download the edmx file for the Business Partner Odata Service.
-![SrvConModel edmx](./images/scm_1_0.png)
+1. First, make sure you have the edmx file. Go to the SAP API Hub, and download the edmx file for the Business Partner Odata Service.
+    
+    ![SrvConModel edmx](./images/scm_1_0.png)
 
-1. From your package, right-click on Business Services and choose New->Service Consumption Model.
-![SrvConModel Step 1](./images/scm_1_1.png)
+2. From your package, right-click on Business Services and choose New->Service Consumption Model.
+    
+    ![SrvConModel Step 1](./images/scm_1_1.png)
 
-2. Name it as ZCDC_BUPA_CUST, give a description, and choose OData as the mode.  Click Next.
-![SrvConModel Step 1](./images/scm_1_2.png)
+3. Name it as ZCDC_BUPA_CUST, give a description, and choose OData as the mode.  Click Next.
 
-3. Click Browse, and choose the edmx file that you downloaded.
-![SrvConModel Step 1](./images/scm_1_3.png)
+    ![SrvConModel Step 1](./images/scm_1_2.png)
 
-4. Add the prefix as CDC_ and then click Next.
-![SrvConModel Step 1](./images/scm_1_4.png)
+4. Click Browse, and choose the edmx file that you downloaded.
 
-5. Click Deselect All, then select only A_Customer, ensure the generated ABAP Artifact Name is correct.  Click Next.
-![SrvConModel Step 1](./images/scm_1_5.png)
+    ![SrvConModel Step 1](./images/scm_1_3.png)
 
-6. Click Next, then Finish.
-![SrvConModel Step 1](./images/scm_1_6.png)
+5. Add the prefix as CDC_ and then click Next.
 
-7. You will then see the activated service consumption model object.  If you named everything correctly, the code in the ZCL_CDC_CUSTOMER_MASTER class should work just fine after you have updated the url.
-![SrvConModel Step 1](./images/scm_1_7.png)
+    ![SrvConModel Step 1](./images/scm_1_4.png)
+
+6. Click Deselect All, then select only A_Customer, ensure the generated ABAP Artifact Name is correct.  Click Next.
+    
+    ![SrvConModel Step 1](./images/scm_1_5.png)
+
+7. Click Next, then Finish.
+
+    ![SrvConModel Step 1](./images/scm_1_6.png)
+
+8. You will then see the activated service consumption model object.  If you named everything correctly, the code in the ZCL_CDC_CUSTOMER_MASTER class should work just fine after you have updated the url.
+
+    ![SrvConModel Step 1](./images/scm_1_7.png)
 
 
 Next, the service definitions and service bindings.  Z_SD_C_CSTDONCREDITS_R is the reporting service definition which is used in the application. Z_UI_C_CSTDONCREDITS_R is the service binding.
