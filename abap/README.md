@@ -106,32 +106,39 @@ To create the Service Consumption Model object manually....
 
 2. From your package, right-click on Business Services and choose New->Service Consumption Model.
     
-    ![SrvConModel Step 1](./images/scm_1_1.png)
+    ![SrvConModel Step](./images/scm_1_1.png)
 
 3. Name it as ZCDC_BUPA_CUST, give a description, and choose OData as the mode.  Click Next.
 
-    ![SrvConModel Step 1](./images/scm_1_2.png)
+    ![SrvConModel Step](./images/scm_1_2.png)
 
 4. Click Browse, and choose the edmx file that you downloaded.
 
-    ![SrvConModel Step 1](./images/scm_1_3.png)
+    ![SrvConModel Step](./images/scm_1_3.png)
 
 5. Add the prefix as CDC_ and then click Next.
 
-    ![SrvConModel Step 1](./images/scm_1_4.png)
+    ![SrvConModel Step](./images/scm_1_4.png)
 
-6. Click Deselect All, then select only A_Customer, ensure the generated ABAP Artifact Name is correct.  Click Next.
+6. Click Deselect All, then select only A_Customer, remember this generated ABAP Artifact Name for step 9.  Click Next.
     
-    ![SrvConModel Step 1](./images/scm_1_5.png)
+    ![SrvConModel Step](./images/scm_1_5.png)
 
 7. Click Next, then Finish.
 
-    ![SrvConModel Step 1](./images/scm_1_6.png)
+    ![SrvConModel Step](./images/scm_1_6.png)
 
-8. You will then see the activated service consumption model object.  If you named everything correctly, the code in the ZCL_CDC_CUSTOMER_MASTER class should work just fine after you have updated the url.
+8. You will then see the activated service consumption model object.  
 
-    ![SrvConModel Step 1](./images/scm_1_7.png)
+    ![SrvConModel Step](./images/scm_1_7.png)
 
+9. Go to the class ZCL_CDC_CUSTOMER_MASTER.  Update the data definintion for LT_BUSINESS_DATA.  Use the ABAP Artifact Name from step 6.
+
+    ![SrvConModel Step](./images/scm_1_9.png)
+
+10. Update the apihub service URL here as well.
+
+    ![SrvConModel Step](./images/scm_1_10.png)
 
 Next, the service definitions and service bindings.  Z_SD_C_CSTDONCREDITS_R is the reporting service definition which is used in the application. Z_UI_C_CSTDONCREDITS_R is the service binding.
 
