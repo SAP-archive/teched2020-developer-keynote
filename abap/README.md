@@ -147,7 +147,7 @@ To create the Service Consumption Model object manually....
 
 ## Service Definitions & Service Bindings
 
-Next, the service definitions and service bindings.  Z_SD_C_CSTDONCREDITS_R is the reporting service definition which is used in the application. Z_UI_C_CSTDONCREDITS_R is the service binding.
+Next, the service definitions and service bindings.  Z_SD_C_CSTDONCREDITS_R is the reporting service definition which is used in the application. Z_UI_C_CSTDONCREDITS_R is the service binding.  You will need to make sure that the service binding is activated, and that you click on the Publish button in order to use the service.
 
 ![Services](./images/services.jpg)
 
