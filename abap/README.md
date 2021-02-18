@@ -20,7 +20,7 @@ To create this HTTP service object manually....
 
 3. Enter the name of the service as ZCDC_REST_SERVICE, keep the default name for the class as ZCL_CDC_REST_SERVICE, click Next, then Finish.
     ![HTTP Srv Step 3](./images/http_service_def_1_3.png)
-
+    
 4. You will now see the new service, make sure to activate.
     ![HTTP Service](./images/httpservice.jpg)
 
