@@ -36,7 +36,7 @@ CLASS zcl_cdc_customer_master IMPLEMENTATION.
 
         lo_client_proxy = cl_web_odata_client_factory=>create_v2_remote_proxy(
           EXPORTING
-            iv_service_definition_name = 'ZCDC_BUPA'
+            iv_service_definition_name = 'ZCDC_BUPA_CUST'
             io_http_client             = lo_http_client
             iv_relative_service_root   = '/sap/opu/odata/sap/API_BUSINESS_PARTNER' ).
 
