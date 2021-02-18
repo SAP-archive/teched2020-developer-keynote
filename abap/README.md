@@ -8,7 +8,11 @@ The context in which it runs is shown as the highlighted section of the whiteboa
 
 ![whiteboard, with CHARITY highlighted](./images/whiteboard-charity.jpg)
 
-The first task of the Charity componet is to handle the incoming message from the webhook subscription in Enterprise Messaging. The webhook subscription is configured to trigger a request to the HTTP Service(ZCDC_REST_SERVICE) endpoint URL in the Steampunk system.  The ABAP handler class called ZCL_CDC_REST_SERVICE is the class which implements the methods for the endpoint.  
+The first task of the Charity componet is to handle the incoming message from the webhook subscription in Enterprise Messaging. The webhook subscription is configured to trigger a request to the HTTP Service(ZCDC_REST_SERVICE) endpoint URL in the Steampunk system.  The ABAP handler class called ZCL_CDC_REST_SERVICE is the class which implements the methods for the endpoint.  As the HTTP Service has not been imported with the abapgit project, you will need to create this service manually(see steps beelow).
+
+To create this HTTP service object manually....
+1. Do this
+2. Do that
 
 ![HTTP Service](./images/httpservice.jpg)
 
@@ -79,6 +83,13 @@ define root view entity Z_C_CSTDONCREDITS_R as projection on Z_I_CSTDONCREDITS_R
 
 The virtual element for "Customer Name" is implemented in ABAP class ZCL_CDC_CUSTOMER_MASTER.  In this class, leveraging a code snippet from the Service Consumption Model for reading all entites, all customer names are pulled in and incorporated with the rest of the data in the Z table.
 
+As the Service Consumption Model object has not been imported with the abapgit project, you will need to create this  manually(see steps beelow).
+
+To create this HTTP service object manually....
+1. Do this
+2. Do that
+
+
 ![Service Consumption Model](./images/serviceconsumptionmodel.jpg)
 
 Next, the service definitions and service bindings.  Z_SD_C_CSTDONCREDITS_R is the reporting service definition which is used in the application. Z_UI_C_CSTDONCREDITS_R is the service binding.
@@ -101,7 +112,7 @@ From the service binding, it is possible to launch a Fiori preview application t
 
 Once you have installed the abapGit plug-in for ADT, you can now clone this repo to your ABAP system and create the required ABAP Objects.  
 
-Currently abapGit does not handle the creation of the HTTP service, so you will need to create that manually and configure that service to point to the handler class ZCL_CDC_REST_SERVICE.
+Currently abapGit does not handle the creation of the HTTP service nor the Service Consumption Model objects, so you will need to create and configure them manually. See instructions above.
 
 
 
