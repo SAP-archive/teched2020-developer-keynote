@@ -8,6 +8,8 @@ The context in which it runs is shown as the highlighted section of the whiteboa
 
 ![whiteboard, with CHARITY highlighted](./images/whiteboard-charity.jpg)
 
+## HTTP Service & Handler Class
+
 The first task of the Charity componet is to handle the incoming message from the webhook subscription in Enterprise Messaging. The webhook subscription is configured to trigger a request to the HTTP Service(ZCDC_REST_SERVICE) endpoint URL in the Steampunk system.  The ABAP handler class called ZCL_CDC_REST_SERVICE is the class which implements the methods for the endpoint.  As the HTTP Service has not been imported with the abapgit project, you will need to create this service manually(see steps below).
 
 To create this HTTP service object manually....
@@ -72,14 +74,15 @@ A #POST method to the http service endpoint is triggered by Enterprise Messaging
         ENDIF.
 ```
 
-
 ![Data Preview](./images/datapreview.jpg)
+
+## Exposing the Data via CDS Views
 
 The data has now flowed to the custom table. The second task of this component is to expose the data to the user interface via an OData service provided by the ABAP RESTful Application Programming model framework. For this there are several views, a lowest level business object interface view, Z_I_CSTDONCREDITS and a reporting view on top of it called Z_I_CSTDONCREDITS_R.  On top of the interface views are the consumption views, Z_C_CSTDONCREDITS and Z_C_CSTDONCREDITS_R.  
 
 ![Views](./images/views.jpg)
 
-The Z_C_CSTDONCREDITS_R view is the view which is exposed and consumed by the user interface. It contains the relevant data, including the virtual ele3ment "Customer Name" which is pulled in from the source S/4HANA system at runtime via the Service Consumption Model object called ZCDC_BUPA.
+The Z_C_CSTDONCREDITS_R view is the view which is exposed and consumed by the user interface. It contains the relevant data, including the virtual element "Customer Name" which is pulled in from the source S/4HANA system at runtime via the Service Consumption Model object called ZCDC_BUPA_CUST.
 
 ```@EndUserText.label: 'Customer Donation Credits - Reporting'
 @AccessControl.authorizationCheck: #CHECK
@@ -93,6 +96,8 @@ define root view entity Z_C_CSTDONCREDITS_R as projection on Z_I_CSTDONCREDITS_R
     totalcredits
 }
 ```
+
+## Leveraging the Service Consumption Model
 
 The virtual element for "Customer Name" is implemented in ABAP class ZCL_CDC_CUSTOMER_MASTER.  In this class, leveraging a code snippet from the Service Consumption Model for reading all entites, all customer names are pulled in and incorporated with the rest of the data in the Z table.
 
@@ -140,6 +145,8 @@ To create the Service Consumption Model object manually....
 
     ![SrvConModel Step](./images/scm_1_9.png)
 
+## Service Definitions & Service Bindings
+
 Next, the service definitions and service bindings.  Z_SD_C_CSTDONCREDITS_R is the reporting service definition which is used in the application. Z_UI_C_CSTDONCREDITS_R is the service binding.
 
 ![Services](./images/services.jpg)
@@ -158,7 +165,7 @@ From the service binding, it is possible to launch a Fiori preview application t
 
 ## Installation & Configuration
 
-Once you have installed the abapGit plug-in for ADT, you can now clone this repo to your ABAP system and create the required ABAP Objects.  
+Once you have installed the abapGit plug-in for ADT, you can now clone this repo to your ABAP system and create the required ABAP Objects.  Make sure to activate ALL imported objects before moving further.
 
 Currently abapGit does not handle the creation of the HTTP service nor the Service Consumption Model objects, so you will need to create and configure them manually. See instructions above.
 
