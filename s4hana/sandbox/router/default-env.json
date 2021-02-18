@@ -1,9 +1,0 @@
-{
-  "API_KEY": "YOUR-API-KEY",
-   "destinations": [
-    {
-      "name": "apihub_sandbox",
-      "url": "https://sandbox.api.sap.com"
-    }
-  ]
-}

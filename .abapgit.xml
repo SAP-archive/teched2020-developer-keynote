@@ -3,32 +3,14 @@
  <asx:values>
   <DATA>
    <MASTER_LANGUAGE>E</MASTER_LANGUAGE>
-   <STARTING_FOLDER>/abap/src/</STARTING_FOLDER>
+   <STARTING_FOLDER>/src/</STARTING_FOLDER>
    <FOLDER_LOGIC>PREFIX</FOLDER_LOGIC>
    <IGNORE>
-    <item>/abap/README.md</item>
-    <item>/abap/images/</item>
-    <item>/.github/</item>
     <item>/.gitignore</item>
-    <item>/.reuse/</item>
-    <item>/LICENSES/</item>
+    <item>/LICENSE</item>
     <item>/README.md</item>
-    <item>/cap/</item>
-    <item>/converter/</item>
-    <item>/enabling-workflows.md</item>
-    <item>/fastlane.md</item>
-    <item>/forkupdateutils/</item>
-    <item>/images/</item>
-    <item>/kymaruntime/</item>
-    <item>/message-bus-settings.sh</item>
-    <item>/messagebus/</item>
-    <item>/mock-converter/</item>
-    <item>/quickstart.md</item>
-    <item>/rapreceiver/</item>
-    <item>/s4hana/</item>
-    <item>/storyboard.md</item>
-    <item>/ui/</item>
-    <item>/usingappstudio/</item>
+    <item>/package.json</item>
+    <item>/.travis.yml</item>
    </IGNORE>
   </DATA>
  </asx:values>
