@@ -20,8 +20,8 @@ CLASS zcl_cdc_trigger_webhook_sim IMPLEMENTATION.
 
         DATA(lo_http_client) = cl_web_http_client_manager=>create_by_http_destination(
                       i_destination = cl_http_destination_provider=>create_by_url( |https://| && cl_abap_context_info=>get_system_url( ) ) ).
-        DATA(lo_request) = lo_http_client->get_http_request( ).  " Get a request object
-        DATA(lo_response) = lo_http_client->execute( i_method = if_web_http_client=>post ).  " Just generate dummy response object
+        DATA(lo_request) = lo_http_client->get_http_request( ).  " Mock a request object
+        DATA(lo_response) = lo_http_client->execute( i_method = if_web_http_client=>post ).  " Mock a response object, setting method to POST
 
         DATA(lv_payload) =  `{   "data": {` && |\r\n|  &&
                             `        "data": {` && |\r\n|  &&
