@@ -1,6 +1,6 @@
 # CHARITY
 
-The Charity component is the ABAP layer of the application and it has two responsibilities. First, it handles the message coming in from Enterprise Messaging and updates our custom table in our Steampunk system.  Secondly, it exposes the data in our custom table via an OData service leveraging the ABAP RESTful Application Programming(RAP) model.
+The Charity component is the ABAP layer of the application and it has two responsibilities. First, it handles the message coming in from Enterprise Messaging and updates our custom table in our ABAP system.  Secondly, it exposes the data in our custom table via an OData service leveraging the ABAP RESTful Application Programming(RAP) model.
 
 ## Overview
 
@@ -10,7 +10,7 @@ The context in which it runs is shown as the highlighted section of the whiteboa
 
 ## HTTP Service & Handler Class
 
-The first task of the Charity componet is to handle the incoming message from the webhook subscription in Enterprise Messaging. The webhook subscription is configured to trigger a request to the HTTP Service(ZCDC_REST_SERVICE) endpoint URL in the Steampunk system.  The ABAP handler class called ZCL_CDC_REST_SERVICE is the class which implements the methods for the endpoint.  As the HTTP Service has not been imported with the abapgit project, you will need to create this service manually(see steps below).
+The first task of the Charity componet is to handle the incoming message from the webhook subscription in Enterprise Messaging. The webhook subscription is configured to trigger a request to the HTTP Service(ZCDC_REST_SERVICE) endpoint URL in the ABAP system.  The ABAP handler class called ZCL_CDC_REST_SERVICE is the class which implements the methods for the endpoint.  As the HTTP Service has not been imported with the abapgit project, you will need to create this service manually(see steps below).  Finally, You can use the ZCL_CDC_TRIGGER_WEBHOOK_SIM class to simulate the HTTP service being triggered by the enterprise messaging webhook. This class mocks HTTP request/response objects and calls the HANDLE_REQUEST method directly passing in the JSON payload that the EM webhook would pass.
 
 To create this HTTP service object manually....
    
