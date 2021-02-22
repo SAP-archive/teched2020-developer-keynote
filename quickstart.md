@@ -17,7 +17,7 @@ We're working through these steps on the Hands-on SAP Dev [show](https://blogs.s
 |7|[Set up and use the EMITTER component](s4hana/event/)|[📺](https://youtu.be/dq-PSlUun6g)|
 |8|[Set up and execute the BRAIN component, controlling the activity level as you go](cap/brain/)||
 |9|[Set up and bring the CONVERTER component into the mix](converter/)||
-|10|[Set up the CHARITY components](abap/)||
+|10|[Set up the CHARITY component](abap/)||
 
 (to be continued ...)
 
