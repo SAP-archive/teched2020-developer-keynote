@@ -1,5 +1,6 @@
 name: Out Of Office
 on:
+  workflow_dispatch:
   issues:
     types: [opened]
 jobs:
