@@ -11,34 +11,24 @@
 # instance and an xsuaa service instance, with specific names,
 # and bind those if it finds them.
 
-declare instance_enterprise_messaging=emdev
-declare targetfilename=default-env.json
-declare sedcommandfile=default-env-gen.sed
+readonly instance_enterprise_messaging=emdev
+readonly targetfilename=default-env.json
+readonly sedcommandfile=default-env-gen.sed
 
 # shellcheck disable=SC2034
-declare instance_destination=destination-lite
+readonly instance_destination=destination-lite
 # shellcheck disable=SC2034
-declare instance_xsuaa=xsuaa-application
+readonly instance_xsuaa=xsuaa-application
 
 main() {
   local appname=$1
   local instance=${2:-$instance_enterprise_messaging}
 
   # Remove any existing dir and app
-  rmdir "$appname" 2>/dev/null
   cf d -f "$appname" 2>/dev/null
 
   # Create new temp dir and deploy
-  mkdir "$appname"
-  cf push -c null \
-    -k 64M \
-    -m 32M \
-    --no-route \
-    --no-start \
-    "$appname" "$appname"
-
-  # Remove dir
-  rmdir "$appname" 2>/dev/null
+  cf push "$appname" -k 64M -m 32M --no-route --no-start
 
   # Bind the SAP Enterprise Messaging service instance to the app
   cf bind-service "$appname" "$instance"
