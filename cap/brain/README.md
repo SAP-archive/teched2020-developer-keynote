@@ -22,8 +22,6 @@ This section relates to BRAIN component, the service that coordinates the event 
 
 ![The Brain in context](brain.png)
 
-This README is quite long, but hopefully useful and interesting. Here's a small table of contents to help you navigate.
-
 The BRAIN component is a basic CAP application with two of the three layers in use. In effect, a "service" more than an application:
 
 |Layer|Description|
