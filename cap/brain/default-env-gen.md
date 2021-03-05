@@ -70,7 +70,7 @@ $ cf env mytempapp > default-env.txt
 The output of `cf env` contains what we need, but also some extraneous information. So open the `default-env.txt` file up and edit it to leave just the JSON section containing the `VCAP_SERVICES` section, as shown here, i.e. remove everything except what's shown between the START and END cut lines.
 
 ```
-Getting env variables for app temp in org 4dc50e9btrial / space dev as sapdeveloper@example.com...
+Getting env variables for app mytempapp in org 4dc50e9btrial / space dev as sapdeveloper@example.com...
 OK
 
 System-Provided:
@@ -106,7 +106,7 @@ System-Provided:
 {
  "VCAP_APPLICATION": {
   "application_id": "d279e412-be5d-48fc-bf40-8d887c77f263",
-  "application_name": "temp",
+  "application_name": "mytempapp",
   ...
  }
 }
