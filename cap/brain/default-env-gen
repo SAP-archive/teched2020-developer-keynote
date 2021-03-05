@@ -24,13 +24,13 @@ main() {
   local appname=$1
   local instance=${2:-$instance_enterprise_messaging}
 
-  # Remove any existing dir and app
+  # Remove any existing app
   cf d -f "$appname" 2>/dev/null
 
-  # Create new temp dir and deploy
+  # Deploy empty app
   cf push "$appname" -k 64M -m 32M --no-route --no-start
 
-  # Bind the SAP Enterprise Messaging service instance to the app
+  # Bind the messaging service instance to the app
   cf bind-service "$appname" "$instance"
 
   # If present, also bind the destination and xsuaa service instances
