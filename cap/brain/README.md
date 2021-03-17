@@ -14,7 +14,7 @@
   - [On SAP Cloud Platform - Kyma runtime](#on-sap-cloud-platform---kyma-runtime)
     - [Build & publish, secrets and deployment](#build--publish-secrets-and-deployment)
     - [Create and deploy a credentials config map](#create-and-deploy-a-credentials-config-map)
-    - [Check the component is up and running](#check-the-component-is-up-and-running)    
+    - [Check the component is up and running](#check-the-component-is-up-and-running)
 
 ## Overview
 
@@ -59,11 +59,11 @@ In carrying out the activities listed above, the CAP service consumes the follow
 
 ## Setup required
 
-You'll need to set a few things up in preparation for getting this component up and running. 
+You'll need to set a few things up in preparation for getting this component up and running.
 
 ### Assumptions
 
-These instructions assume you've cloned your forked copy of this repository, as described in the [Download and installation section](../../README.md#download-and-installation) of the main repository README. The GitHub username in the examples in this README is 'qmacro' - you should replace this with your own GitHub username. 
+These instructions assume you've cloned your forked copy of this repository, as described in the [Download and installation section](../../README.md#download-and-installation) of the main repository README. The GitHub username in the examples in this README is 'qmacro' - you should replace this with your own GitHub username.
 
 It also assumes you've opted to use the SAP Business Application Studio (App Studio) for your development environment and have followed the setup instructions in [Using the SAP Business Application Studio](/usingappstudio/). Prompts shown in examples in this README will reflect the prompt style in the terminal of an App Studio Dev Space (showing the username, current directory, and so on).
 
@@ -295,6 +295,8 @@ Depending on how far you've got with the setup of the other components in this r
 
 For example, if you've got the [SANDBOX](../../s4hana/sandbox) component set up (including a [destination](destinations.md) for it), you can increase the `BRAIN_LEVEL` to 2, to have the sales order header details retrieved from the OData service API_SALES_ORDER_SRV proxied by the that component.
 
+> A recent update to the libraries in CAP that provide this level of support means that if an entity in the imported OData service is prefixed with a namespace, then if the service definition has the same name as the namespace (in this case `API_SALES_ORDER_SRV`) then it will automatically try that prefix in building the query. If the service definition name is different (in this case, it is, being `S4SalesOrders`) then the namespace needs to be specified explicitly. This means that the `SELECT` target is now `SELECT.one('API.SALES_ORDER_SRV.A_SalesOrder')` rather than just `SELECT.one('A_SalesOrder')`.
+
 This is how you'd do that - basically you can specify the value for `BRAIN_LEVEL`, while restarting the service, this time giving an explicit value for the variable, like this:
 
 ```sh
@@ -388,15 +390,15 @@ Once you've reached this stage, you should set the `BRAIN_LEVEL` value permanent
 
 ### On SAP Cloud Platform - Kyma runtime
 
-Well done to making it this far in the README! 
+Well done to making it this far in the README!
 
 Now we've successfully got the service running locally, we'll go directly to a deployment to the Kyma runtime. (If you're interested in how you might also run a service on CF, see how we do it for the [SANDBOX](../../s4hana/sandbox) component.)
 
-This BRAIN component has something in common with the [SANDBOX](../../s4hana/sandbox) and [CONVERTER](../../kyma) components ... and that is that the Kyma runtime was where each of them was running in the actual [Developer Keynote](https://events.sapteched.com/widget/sap/sapteched2020/Catalog/session/1603314875989001AsWU). And the process for getting the component up and running in the Kyma runtime is the same each time. 
+This BRAIN component has something in common with the [SANDBOX](../../s4hana/sandbox) and [CONVERTER](../../kyma) components ... and that is that the Kyma runtime was where each of them was running in the actual [Developer Keynote](https://events.sapteched.com/widget/sap/sapteched2020/Catalog/session/1603314875989001AsWU). And the process for getting the component up and running in the Kyma runtime is the same each time.
 
 #### Build & publish, secrets and deployment
 
-Because the process is common, you can find it described in a separate (and therefore shared) document - [Getting a component up and running on the Kyma runtime](../../kymaruntime/). Head on over to that document now, and follow the instructions, bearing in mind that you're building the BRAIN component. Come back here when you're done, because there's an extra step required for this BRAIN component, which we can do when you return. 
+Because the process is common, you can find it described in a separate (and therefore shared) document - [Getting a component up and running on the Kyma runtime](../../kymaruntime/). Head on over to that document now, and follow the instructions, bearing in mind that you're building the BRAIN component. Come back here when you're done, because there's an extra step required for this BRAIN component, which we can do when you return.
 
 #### Create and deploy a credentials config map
 
