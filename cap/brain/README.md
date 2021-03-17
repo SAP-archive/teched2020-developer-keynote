@@ -402,7 +402,7 @@ Because the process is common, you can find it described in a separate (and ther
 
 #### Create and deploy a credentials config map
 
-OK. Welcome back. In addition to the steps described in [Getting a component up and running on the Kyma runtime](../../kymaruntime.md), there's one more step for this BRAIN component, too:
+OK. Welcome back. In addition to the steps described in [Getting a component up and running on the Kyma runtime](../../kymaruntime), there's one more step for this BRAIN component, too:
 
 - create and deploy a credentials config map containing the access credentials for the services that the brain connects to
 
