@@ -14,7 +14,7 @@ In your subaccount, go to the "Connectivity" -> "Destinations" section and for e
 |-|-|-|
 |Name|`apihub_mock_salesorders`|`charityfund_converter`|
 |Type|HTTP|HTTP|
-|URL|<the Kyma runtime endpoint for your [SANDBOX](../../s4hana/sandbox) component>|<the Kyma runtime endpoint for your [CONVERTER](../../kyma) component>|
+|URL|<the Kyma runtime endpoint for your [SANDBOX](../../s4hana/sandbox) component>|<the Kyma runtime endpoint for your [CONVERTER](../../converter) component>|
 |Proxy Type|Internet|Internet|
 |Authentication|None|None|
 

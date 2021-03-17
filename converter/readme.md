@@ -1,12 +1,12 @@
 The SAP Cloud Platform, Kyma Runtime deployed GoLang service is indicated by the "Converter(Go)" block in the [schematic](https://sap.sharepoint.com/:p:/r/sites/100499/_layouts/15/Doc.aspx?sourcedoc=%7B02231566-2A17-412E-8E59-5D0A34317F12%7D&file=Scratch.pptx&action=edit&mobileredirect=true) diagram.
 
-It can be found [`kyma/`](https://github.com/SAP-samples/teched2020-developer-keynote/tree/main/kyma) directory in this repository.
+It can be found in the [`converter/`](https://github.com/SAP-samples/teched2020-developer-keynote/tree/main/converter) directory in this repository.
 
 # Overview
 This is a simple GoLang based service build into a Docker Image and deployed to the SAP Cloud Platform, Kyma runtime.
 
 ## main.go
-The [`main.go`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/kyma/main.go) file contains simple GoLang code which is responsible for the calculation of credit points. The calculation of these credit points is dependent on the incoming sales amount of the [`Brain (CAP service)`](https://github.com/SAP-samples/teched2020-developer-keynote/tree/main/cap/brain). The GoLang service extracts the sales amount through an URL parameter `salesAmount` which gets set by the CAP service through an exposed RESTful API. The RESTful API endpoint implemented in the `main.go` file is not secured through any authentication and is available publicly through the API Endpoint which gets created through the SAP Cloud Platform, Kyma Runtime APIRule defined in the [`Deployment.yaml`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/kyma/Deployment.yaml).
+The [`main.go`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/converter/main.go) file contains simple GoLang code which is responsible for the calculation of credit points. The calculation of these credit points is dependent on the incoming sales amount of the [`Brain (CAP service)`](https://github.com/SAP-samples/teched2020-developer-keynote/tree/main/cap/brain). The GoLang service extracts the sales amount through an URL parameter `salesAmount` which gets set by the CAP service through an exposed RESTful API. The RESTful API endpoint implemented in the `main.go` file is not secured through any authentication and is available publicly through the API Endpoint which gets created through the SAP Cloud Platform, Kyma Runtime APIRule defined in the [`Deployment.yaml`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/converter/Deployment.yaml).
 
 ```yaml
 apiVersion: gateway.kyma-project.io/v1alpha1
@@ -24,11 +24,11 @@ spec:
       methods: ["GET"]
       accessStrategies:
         - handler: noop
-          config: {}    
+          config: {}
 
 ```
 
-For further information review the [`main.go`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/kyma/main.go) file and it's code documentation.
+For further information review the [`main.go`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/converter/main.go) file and it's code documentation.
 
 ## The Dockerfile and building a Docker Image
 The Dockerfile as is doesn't need to be changed in order to dockerize the GoLang service for deployment. The Dockerfile can be simply build with the following command:
@@ -38,7 +38,7 @@ docker build --tag calcservice:1.0 .
 
 ```
 
-Alternatively, the [`docker_build.sh`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/kyma/docker_build.sh) shell script can be run.
+Alternatively, the [`docker_build.sh`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/converter/docker_build.sh) shell script can be run.
 
 The dockerized service can then be deployed locally through the command line by executing:
 
@@ -47,14 +47,14 @@ docker run --publish 8080:8080 --detach --name calcservie calcservice:1.0
 
 ```
 
-Alternatively, the [docker_run.sh](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/kyma/docker_run.sh) shell script can be run.
+Alternatively, the [docker_run.sh](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/converter/docker_run.sh) shell script can be run.
 
 
 Detached mode `--detach` will tell Docker to run this container in the background.
 
 The Docker Image is published to a Docker package registry on GitHub. For more information about the [GitHub Container Registry](https://docs.github.com/en/free-pro-team@latest/packages/getting-started-with-github-container-registry/about-github-container-registry) go to the official documentation.
 
-To publish the Docker Image to the GitHub Container Registry run the [`docker_publish.sh`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/kyma/docker_publish.sh) shell script. The shell script is publishing the Docker Image to the TechEd 2020 Developer Keynote registry entry.
+To publish the Docker Image to the GitHub Container Registry run the [`docker_publish.sh`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/converter/docker_publish.sh) shell script. The shell script is publishing the Docker Image to the TechEd 2020 Developer Keynote registry entry.
 
 ## Deployment to the SAP Cloud Platform, Kyma runtime
 
@@ -62,7 +62,7 @@ The SAP Cloud Platform, Kyma runtime is a Kubernetes based runtime which can be 
 
 ![Kyma_Console_UI](https://user-images.githubusercontent.com/9074514/99507827-2c43e100-2984-11eb-9036-2483243a3278.png)
 
-In order to successfully deploy a containerized application or service to Kyma you need to create a [`deployment.yaml`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/kyma/Deployment.yaml) file where you specify the runtime variables for the container to run in. These variables range from:
+In order to successfully deploy a containerized application or service to Kyma you need to create a [`deployment.yaml`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/converter/Deployment.yaml) file where you specify the runtime variables for the container to run in. These variables range from:
 
 - amount of replicas of the container
 - name
