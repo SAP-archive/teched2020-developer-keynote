@@ -65,7 +65,7 @@ module.exports = async (srv) => {
 
     // Retrieve the sales order details from the S/4HANA component
     const result = await s4salesorders.tx(msg).run(
-      SELECT.one('A_SalesOrder').columns(salesOrderProperties).where({
+      SELECT.one('API_SALES_ORDER_SRV.A_SalesOrder').columns(salesOrderProperties).where({
         SalesOrder: SalesOrder,
       })
     )
