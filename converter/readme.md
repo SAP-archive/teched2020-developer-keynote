@@ -30,7 +30,7 @@ spec:
 
 ```
 
-For further information review the [`main.go`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/converter/main.go) file and it's code documentation.
+For further information review the [`main.go`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/converter/main.go) file and its code documentation.
 
 ## The Dockerfile and building a Docker Image
 The Dockerfile as is doesn't need to be changed in order to dockerize the GoLang service for deployment. The Dockerfile can be simply build with the following command:
