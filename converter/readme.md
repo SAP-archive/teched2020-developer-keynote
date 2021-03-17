@@ -5,10 +5,10 @@ The SAP Cloud Platform, Kyma Runtime deployed GoLang service is indicated by the
 It can be found in the [`converter/`](https://github.com/SAP-samples/teched2020-developer-keynote/tree/main/converter) directory in this repository.
 
 # Overview
-This is a simple GoLang based service build into a Docker Image and deployed to the SAP Cloud Platform, Kyma runtime.
+This is a simple GoLang based service built into a Docker Image and deployed to the SAP Cloud Platform, Kyma runtime.
 
 ## main.go
-The [`main.go`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/converter/main.go) file contains simple GoLang code which is responsible for the calculation of credit points. The calculation of these credit points is dependent on the incoming sales amount of the [`Brain (CAP service)`](https://github.com/SAP-samples/teched2020-developer-keynote/tree/main/cap/brain). The GoLang service extracts the sales amount through an URL parameter `salesAmount` which gets set by the CAP service through an exposed RESTful API. The RESTful API endpoint implemented in the `main.go` file is not secured through any authentication and is available publicly through the API Endpoint which gets created through the SAP Cloud Platform, Kyma Runtime APIRule defined in the [`deployment.yaml`](deployment.yaml).
+The [`main.go`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/converter/main.go) file contains simple GoLang code which is responsible for the calculation of credit points. The calculation of these credit points is dependent on the incoming sales amount of the [BRAIN](https://github.com/SAP-samples/teched2020-developer-keynote/tree/main/cap/brain) component. The GoLang service extracts the sales amount through an URL parameter `salesAmount` which gets set by the CAP service through an exposed RESTful API. The RESTful API endpoint implemented in the `main.go` file is not secured through any authentication and is available publicly through the API Endpoint which gets created through the SAP Cloud Platform, Kyma Runtime APIRule defined in the [`deployment.yaml`](deployment.yaml).
 
 ```yaml
 apiVersion: gateway.kyma-project.io/v1alpha1
@@ -45,7 +45,7 @@ Alternatively, the [`docker_build.sh`](https://github.com/SAP-samples/teched2020
 The dockerized service can then be deployed locally through the command line by executing:
 
 ```cli
-docker run --publish 8080:8080 --detach --name calcservie calcservice:1.0
+docker run --publish 8080:8080 --detach --name calcservice calcservice:1.0
 
 ```
 
@@ -56,7 +56,7 @@ Detached mode `--detach` will tell Docker to run this container in the backgroun
 
 The Docker Image is published to a Docker package registry on GitHub. For more information about the [GitHub Container Registry](https://docs.github.com/en/free-pro-team@latest/packages/getting-started-with-github-container-registry/about-github-container-registry) go to the official documentation.
 
-To publish the Docker Image to the GitHub Container Registry run the [`docker_publish.sh`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/converter/docker_publish.sh) shell script. The shell script is publishing the Docker Image to the TechEd 2020 Developer Keynote registry entry.
+To publish the Docker Image to the registry run the [`docker_publish.sh`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/converter/docker_publish.sh) shell script. The shell script is publishing the Docker Image to the TechEd 2020 Developer Keynote registry entry.
 
 ## Deployment to the SAP Cloud Platform, Kyma runtime
 
