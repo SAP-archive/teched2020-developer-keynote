@@ -289,7 +289,7 @@ This is the event message that the CAP service received from the message bus, be
 
 Nice!
 
-Depending on how far you've got with the setup of the other components in this repository, specifically those two that this component interact with - the [SANDBOX](../../s4hana/sandbox) and the [CONVERTER](../../kyma) components - you may want to set the value for the `BRAIN_LEVEL` accordingly.
+Depending on how far you've got with the setup of the other components in this repository, specifically those two that this component interact with - the [SANDBOX](../../s4hana/sandbox) and the [CONVERTER](../../converter) components - you may want to set the value for the `BRAIN_LEVEL` accordingly.
 
 **Testing BRAIN_LEVEL 2**
 
@@ -332,7 +332,7 @@ Observe that this time, not only is the event message logged ("Message received 
 
 **Testing BRAIN_LEVEL 3**
 
-Once you also have the [CONVERTER](../../kyma) component up and active in the Kyma runtime in your trial subaccount (along with the corresponding [destination](destinations.md) for it), you can move up to `BRAIN_LEVEL` 3 to include the conversion from the total net amount of the sales order to the credit amount for the charity fund.
+Once you also have the [CONVERTER](../../converter) component up and active in the Kyma runtime in your trial subaccount (along with the corresponding [destination](destinations.md) for it), you can move up to `BRAIN_LEVEL` 3 to include the conversion from the total net amount of the sales order to the credit amount for the charity fund.
 
 Restart the service, this time specifying 3 as the `BRAIN_LEVEL` value:
 
@@ -349,7 +349,7 @@ BRAIN_LEVEL set to 3
 Conversion result is {"Credits":7.9}
 ```
 
-This shows that the CAP service successfully connected to the RESTful endpoint of the [CONVERTER](../../kyma) component and retrieved the charity fund credit amount equivalent for the sales order's total net amount.
+This shows that the CAP service successfully connected to the RESTful endpoint of the [CONVERTER](../../converter) component and retrieved the charity fund credit amount equivalent for the sales order's total net amount.
 
 **Testing BRAIN_LEVEL 4**
 
@@ -394,7 +394,7 @@ Well done to making it this far in the README!
 
 Now we've successfully got the service running locally, we'll go directly to a deployment to the Kyma runtime. (If you're interested in how you might also run a service on CF, see how we do it for the [SANDBOX](../../s4hana/sandbox) component.)
 
-This BRAIN component has something in common with the [SANDBOX](../../s4hana/sandbox) and [CONVERTER](../../kyma) components ... and that is that the Kyma runtime was where each of them was running in the actual [Developer Keynote](https://events.sapteched.com/widget/sap/sapteched2020/Catalog/session/1603314875989001AsWU). And the process for getting the component up and running in the Kyma runtime is the same each time.
+This BRAIN component has something in common with the [SANDBOX](../../s4hana/sandbox) and [CONVERTER](../../converter) components ... and that is that the Kyma runtime was where each of them was running in the actual [Developer Keynote](https://events.sapteched.com/widget/sap/sapteched2020/Catalog/session/1603314875989001AsWU). And the process for getting the component up and running in the Kyma runtime is the same each time.
 
 #### Build & publish, secrets and deployment
 
