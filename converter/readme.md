@@ -41,6 +41,13 @@ docker build --tag calcservice:1.0 .
 ```
 
 Alternatively, the [`docker_build.sh`](https://github.com/SAP-samples/teched2020-developer-keynote/blob/main/converter/docker_build.sh) shell script can be run.
+Important to know is that if you run the shell script you need to change the GitHub repository name:
+
+```cli
+docker build -t docker.pkg.github.com/<Your-GitHub-Name>/teched2020-developer-keynote/calculationservice:latest -f Dockerfile .
+```
+
+This is true for all upcoming shell scripts in this documentation.
 
 The dockerized service can then be deployed locally through the command line by executing:
 
@@ -74,6 +81,18 @@ In order to successfully deploy a containerized application or service to Kyma y
 - API Rules for external exposure
 
 As mentioned above, these deployment files follow the [YAML](https://yaml.org) syntax. If you want to read more about deploying to Kyma, please refer to the [`Write your deployment file`](https://kyma-project.io/docs/#details-deploy-with-a-private-docker-registry-write-your-deployment-file) documentation.
+
+If you want to reuse the YAML file provided in this repository make sure you change the docker image location to yours.
+
+```yaml
+    spec:
+      containers:
+      - name: application
+        image: docker.pkg.github.com/<Your-GitHub-Name>/teched2020-developer-keynote/calculationservice:latest
+        imagePullPolicy: Always # change to pull after testing
+        ports:
+          - containerPort: 8080
+```
 
 The deployment itself is pretty simple:
 
