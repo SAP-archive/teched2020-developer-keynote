@@ -15,9 +15,9 @@ Once started, it will display any logs emitted from the webhook receiver.
 On shutdown, it will clean up by deleting the webhook subscription and the queue (and implicitly also the queue subscription to the topic).
 
 
-**`emit`**
+**`genpay`**
 
-Produces a full payload, in JSON, to be sent to the "Internal/Charityfund/Increased" topic.
+Generates a full payload, in JSON, to be sent to the "Internal/Charityfund/Increased" topic.
 
 ## Usage
 
