@@ -52,4 +52,4 @@ log Attaching webhook subscription to app "$webhook_app" for queue "$queue"
 log Monitoring messages received at the webhook app "$webhook_app" ...
 trap cleanup SIGINT
 cf start "$webhook_app"
-cf logs "$webhook_app" | grep '💥'
+cf logs "$webhook_app"
