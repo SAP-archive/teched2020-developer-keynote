@@ -14,7 +14,7 @@ We're working through these steps on the Hands-on SAP Dev [show](https://blogs.s
 |6|[Set up and deploy the SANDBOX component](s4hana/sandbox/)|[📺](https://www.youtube.com/watch?v=lxtWeKR2kaM) and [📺](https://youtu.be/yYeiTs4AC_U)|
 |7|[Set up and use the EMITTER component](s4hana/event/)|[📺](https://youtu.be/dq-PSlUun6g)|
 |8|[Interlude - GitHub Actions](usingappstudio#a-note-on-docker-and-app-studio)|[📺](https://youtu.be/THdTT5UdDnY)|
-|9|[Set up and execute the BRAIN component, controlling the activity level as you go](cap/brain/)|[📺](https://youtu.be/wdn0F-VDNCc)|
+|9|[Set up and execute the BRAIN component, controlling the activity level as you go](cap/brain/)|[📺](https://youtu.be/wdn0F-VDNCc) and [📺](https://youtu.be/SpBnnCJHAwM)|
 |10|[Set up and bring the CONVERTER component into the mix](converter/)|[📺](https://youtu.be/ksKrttRqoik)|
 |11|[Set up the CHARITY component](abap/)||
 |12|[Set up the UI component](ui/)||
