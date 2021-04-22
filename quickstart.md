@@ -17,4 +17,4 @@ We're working through these steps on the Hands-on SAP Dev [show](https://blogs.s
 |9|[Set up and execute the BRAIN component, controlling the activity level as you go](cap/brain/)|[📺](https://youtu.be/wdn0F-VDNCc) and [📺](https://youtu.be/SpBnnCJHAwM)|
 |10|[Set up and bring the CONVERTER component into the mix](converter/)|[📺](https://youtu.be/ksKrttRqoik)|
 |11|[Set up the CHARITY component](abap/)|[📺](https://www.youtube.com/watch?v=Q98BvpH0cKc)|
-|12|[Set up the UI component](ui/)||
+|12|[Set up the FRONTEND component](ui/)|[📺](https://youtu.be/dmazQE90qLs)|
