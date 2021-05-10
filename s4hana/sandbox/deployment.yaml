@@ -24,23 +24,23 @@ spec:
         version: v1
     spec:
       containers:
-      # replace this image URL with your own repository
-      - image: docker.pkg.github.com/OWNER/REPOSITORY/s4mock:latest
-        imagePullPolicy: Always
-        name: s4mock
-        ports:
-        - name: http
-          containerPort: 5000
-        resources:
-          limits:
-            memory: 1000Mi
-          requests:
-            memory: 32Mi
-        envFrom:
-          - configMapRef:
-              name: appconfig
+        # replace this image URL with your own repository
+        - image: ghcr.io/sap-samples/developer-keynote-2020-s4mock:latest
+          imagePullPolicy: Always
+          name: s4mock
+          ports:
+            - name: http
+              containerPort: 5000
+          resources:
+            limits:
+              memory: 1000Mi
+            requests:
+              memory: 32Mi
+          envFrom:
+            - configMapRef:
+                name: appconfig
       imagePullSecrets:
-      - name: regcred
+        - name: regcred
 
 ---
 apiVersion: v1
@@ -51,12 +51,11 @@ metadata:
     app: s4mock
 spec:
   ports:
-  - port: 5000
-    name: http
-    targetPort: 5000
+    - port: 5000
+      name: http
+      targetPort: 5000
   selector:
     app: s4mock
-
 
 ---
 apiVersion: gateway.kyma-project.io/v1alpha1
@@ -71,7 +70,7 @@ spec:
     host: s4mock
   rules:
     - path: /.*
-      methods: ["GET","POST","PUT","DELETE","PATCH","HEAD"]
+      methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"]
       accessStrategies:
         - handler: noop
           config: {}
