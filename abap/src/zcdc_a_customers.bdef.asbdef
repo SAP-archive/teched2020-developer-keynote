@@ -1,5 +1,0 @@
- implementation abstract;
- define behavior for ZCDC_A_CUSTOMERS
-  {
-  update;
- }

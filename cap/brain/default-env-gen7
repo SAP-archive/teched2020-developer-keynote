@@ -40,8 +40,16 @@ main() {
       && cf bind-service "$appname" "${!name}"
   done
 
+  local guid=$(cf app "$appname" --guid)
+  echo $guid
+
   # Request environment info
-  cf env "$appname" | sed -n -f "$sedcommandfile" > "$targetfilename"
+  JQ=jq
+  curl https://stedolan.github.io/jq/download/linux64/jq > $JQ && chmod +x $JQ
+  ls -la $JQ
+ 
+  cf curl "/v3/apps/$guid/env" | ./jq -r '.system_env_json' > "$targetfilename"
+  #cf env "$appname" | sed -n -f "$sedcommandfile" > "$targetfilename"
 
 }
 

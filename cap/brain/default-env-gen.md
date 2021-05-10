@@ -39,35 +39,24 @@ There are two ways to follow this approach available here - you can do it manual
 
 First, pick a temporary name for the app - we'll use this throughout these steps. Let's pick `mytempapp` for example.
 
-```sh
-$ appname=mytempapp
-```
-
-First, make sure that there's no directory called `mytempapp`, and no existing app already deployed with that name:
+First, make sure that there's no existing app already deployed with that name:
 
 ```sh
-$ rmdir $appname
-$ cf d -f $appname
+$ cf d -f mytempapp
 ```
 
-Now create a new temporary app directory and deploy the app based upon that:
+Now deploy an empty app:
 
 ```sh
-$ mkdir $appname
-$ cf push -c null --no-route --no-start -k 64M -m 32M $appname $appname
+$ cf push --no-route --no-start -k 64M -m 32M mytempapp
 ```
 
-At this point you can remove the temporary app directory:
-
-```sh
-$ rmdir $appname
-```
 Next, bind the service instances to the app:
 
 ```sh
-$ cf bind-service $appname emdev
-$ cf bind-service $appname destination-lite
-$ cf bind-service $appname xsuaa-application
+$ cf bind-service mytempapp emdev
+$ cf bind-service mytempapp destination-lite
+$ cf bind-service mytempapp xsuaa-application
 ```
 
 > This assumes that you not only already have an instance of the SAP Enterprise Messaging service, with the name `emdev`, but you also have instances of the Destination and XSUAA services too, with specific plans `lite` and `application` respectively. If not, create them with `cf create-service destination lite destination-lite` and `cf create-service xsuaa application xsuaa-application`. Note that the naming convention used here for the instances is `<servicename>-<planname>`.
@@ -75,13 +64,13 @@ $ cf bind-service $appname xsuaa-application
 Finally, request the environment information:
 
 ```sh
-$ cf env $appname > default-env.txt
+$ cf env mytempapp > default-env.txt
 ```
 
 The output of `cf env` contains what we need, but also some extraneous information. So open the `default-env.txt` file up and edit it to leave just the JSON section containing the `VCAP_SERVICES` section, as shown here, i.e. remove everything except what's shown between the START and END cut lines.
 
 ```
-Getting env variables for app temp in org 4dc50e9btrial / space dev as sapdeveloper@example.com...
+Getting env variables for app mytempapp in org 4dc50e9btrial / space dev as sapdeveloper@example.com...
 OK
 
 System-Provided:
@@ -117,7 +106,7 @@ System-Provided:
 {
  "VCAP_APPLICATION": {
   "application_id": "d279e412-be5d-48fc-bf40-8d887c77f263",
-  "application_name": "temp",
+  "application_name": "mytempapp",
   ...
  }
 }
@@ -164,16 +153,16 @@ Waiting for API to complete processing files...
 
 name:              temp1
 requested state:   stopped
-routes:            
-last uploaded:     
-stack:             
-buildpacks:        
+routes:
+last uploaded:
+stack:
+buildpacks:
 
 type:           web
 instances:      0/1
 memory usage:   32M
      state   since                  cpu    memory   disk     details
-#0   down    2021-01-05T13:54:53Z   0.0%   0 of 0   0 of 0   
+#0   down    2021-01-05T13:54:53Z   0.0%   0 of 0   0 of 0
 
 Binding service emdev to app temp1 in org 14ee89fftrial / space dev as sapdeveloper@example.com...
 OK

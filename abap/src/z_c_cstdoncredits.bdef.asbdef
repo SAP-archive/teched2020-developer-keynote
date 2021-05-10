@@ -1,8 +1,0 @@
-projection;
-
-define behavior for z_c_cstdoncredits alias credits
-{
-//  use create;
-//  use update;
-//  use delete;
-}

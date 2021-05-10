@@ -49,7 +49,7 @@ We recommend you take the components one at a time. Specific instructions are gi
 
 - [EMITTER](s4hana/event/) - the script that generates and emits (publishes) a "salesorder/created" event message to the message bus (Bash shell script invoking Messaging API calls to the SAP Enterprise Messaging service instance)
 
-- [CONVERTER](kyma/) - the converter service that translates net amounts into charity credit amounts (Go language service listening for incoming HTTP requests)
+- [CONVERTER](converter/) - the converter service that translates net amounts into charity credit amounts (Go language service listening for incoming HTTP requests)
 
 - [BRAIN](cap/brain/) - the service that coordinates the event messages, subscribes to the "salesorder/created" topic, and publishes event messages to the "Internal/Charityfund/Increased" topic (a Node.js CAP based service connected to various endpoints)
 

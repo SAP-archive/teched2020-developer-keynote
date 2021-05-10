@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Generate payload for Internal/Charityfund/Increased topic - genpay
+
+payload() {
+
+  yq e -j <<EOF
+data:
+  specversion: "1.0"
+  type: z.internal.charityfund.increased.v1
+  datacontenttype: application/json
+  id: $(uuidgen)
+  time: $(date '+%FT%TZ')
+  source: /default/cap.brain/$(hostname)
+  data:
+    salesorder: 1
+    custid: 10000001
+    creationdate: $(date '+%F')
+    credits: 500
+    salesorg: 1000
+EOF
+}
+
+payload

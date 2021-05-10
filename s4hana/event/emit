@@ -17,7 +17,7 @@ source ./localutils.sh # getservicekey getval gettoken
 
 _build_payload_sales_order_created() {
   local salesorder=$1
-  yq r -j - << EO_SALES_ORDER_CREATED
+  yq e -j - << EO_SALES_ORDER_CREATED
 type: sap.s4.beh.salesorder.v1.SalesOrder.Created.v1
 specversion: "1.0"
 source: /default/sap.s4.beh/DEVCLNT001
