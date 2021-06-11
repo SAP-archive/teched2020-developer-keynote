@@ -13,7 +13,6 @@
 
 readonly instance_enterprise_messaging=emdev
 readonly targetfilename=default-env.json
-readonly sedcommandfile=default-env-gen.sed
 
 # shellcheck disable=SC2034
 readonly instance_destination=destination-lite
@@ -23,9 +22,10 @@ readonly instance_xsuaa=xsuaa-application
 main() {
   local appname=$1
   local instance=${2:-$instance_enterprise_messaging}
+  local appguid
 
   # Remove any existing app
-  cf d -f "$appname" 2>/dev/null
+  cf d -f "$appname" 2> /dev/null
 
   # Deploy empty app
   cf push "$appname" -k 64M -m 32M --no-route --no-start
@@ -41,7 +41,8 @@ main() {
   done
 
   # Request environment info
-  cf env "$appname" | sed -n -f "$sedcommandfile" > "$targetfilename"
+  appguid="$(cf app "$appname" --guid)"
+  cf curl "/v3/apps/$appguid/env" | jq -r .system_env_json > "$targetfilename"
 
 }
 
