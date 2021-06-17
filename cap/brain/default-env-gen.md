@@ -1,12 +1,5 @@
 # Generating a default-env.json file
 
-**Contents**
-- [Scenario](#scenario)
-- [Approach](#approach)
-- [Following the approach](#following-the-approach)
-  - [Step by step](#step-by-step)
-  - [Using a script](#using-a-script)
-
 Sometimes you want to run a CAP application locally for testing purposes. If that application requires a connection to a remote service on the Cloud Foundry (CF) runtime of SAP Cloud Platform, you can do this by making service binding details available locally to that application. This is done using values in a specially named file `default-env.json`.
 
 There are various ways to generate the contents needed for such a file, here's one.
@@ -33,7 +26,7 @@ So the approach is to
 
 ## Following the approach
 
-There are two ways to follow this approach available here - you can do it manually, [step by step](#step-by-step), to understand what's happening. But there's also a small experimental [script](#using-a-script) that will perform all the steps for you, even the editing of the output from `cf env`, thanks to the venerable stream editor [`sed`](https://www.gnu.org/software/sed/manual/sed.html).
+There are two ways to follow this approach available here - you can do it manually, [step by step](#step-by-step), to understand what's happening. But there's also a small experimental [script](#using-a-script) that will perform all the steps for you.
 
 ### Step by step
 
@@ -124,7 +117,7 @@ Finally, now you have pure JSON in the file, rename it to `default-env.json` and
 
 ### Using a script
 
-We've written a small script that will perform the steps above. The script is [`default-env-gen`](default-env-gen) and there's also the stream edit commands in [`default-env-gen.sed`](default-env-gen.sed).
+We've written a small script that will perform the steps above. The script is [`default-env-gen`](default-env-gen).
 
 The script expects a single mandatory argument - your choice of a name for the temporary app. It will then proceed to run through the above steps, and produce a `default-env.json` file. It will expect an existing instance of the SAP Enterprise Messaging service called `emdev` (but you can specify a different instance name as a second argument if you need to); it will also look for and bind existing Destination and XSUAA service instances with the specific names `destination-lite` and `xsuaa-application` respectively.
 
